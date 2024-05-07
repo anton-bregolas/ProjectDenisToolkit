@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="#ProjectDenis Toolkit is a set of tools for building and updating the database for a project in tribute to the Sliabh Luachra fiddle music legend Denis Murphy.">
+    <title>#ProjectDenis Toolkit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container"> 
+            <button class="logo-btn github-logo" title="#ProjectDenis Toolkit on GitHub" tabindex="-1">
+                <a class="logo-link" href="https://github.com/anton-bregolas/ProjectDenisToolkit/" target="_blank" aria-label="Link to Project Denis Toolkit on GitHub">
+                    <svg class="logo-icon github-icon-dark" aria-hidden="true"><use href="assets/icons/icons.svg#github-icon"></use></svg>
+                </a>
+            </button>
+            <button class="logo-btn table-btn" title="Tunetable" tabindex="-1">
+                <a class="logo-link" href="https://anton-bregolas.github.io/Tunetable" target="_blank" aria-label="Link to Tunetable app">
+                    <svg class="logo-icon" aria-hidden="true"><use href="assets/icons/icons.svg#t-gen-btn-icon"></use></svg>
+                </a>
+            </button>
+            <button class="logo-btn tso-btn" title="#ProjectDenis transcriptions on The Session" tabindex="-1">
+                <a class="logo-link" href="https://thesession.org/members/26966/tags/ProjectDenis" target="_blank" aria-label="Link to Project Denis transcriptions on The Session">
+                    <svg class="logo-icon" aria-hidden="true"><use href="assets/icons/icons.svg#n-abc-icon"></use></svg>
+                </a>
+            </button>
+            <button class="logo-btn n-theme-btn" title="Toggle between dark and light themes" aria-label="Dark theme is on">
+                <svg class="logo-icon n-theme-icon-sun" aria-hidden="true"><use href="assets/icons/icons.svg#n-theme-icon-sun"></use></svg>
+                <svg class="logo-icon n-theme-icon-moon" aria-hidden="true"><use href="assets/icons/icons.svg#n-theme-icon-moon"></use></svg>
+            </button>
+        </div>
+    </header>
+    <main>
+        <div class="main-container">
+            <h1>#ProjectDenis Toolkit</h1>
+            <h2>TSV to JSON Parser</h2>
+            <br>
+            <form id="inputForm" class="form-container" onsubmit="return false;">
+                <div class="input-container">
+                    <input type="text" id="inputString" class="input-field" placeholder="Input tab-separated string from #ProjectDenis table">
+                </div>
+                <div class="button-container">
+                    <button id="parseSingleString" class="btn"><span class="btn-text">Parse Single String</span></button>
+                    <button id="parseFromFile" class="btn"><span class="btn-text">Parse From File</span></button>
+                    <button id="saveOutputFile" class="btn"><span class="btn-text">Save Output</span></button>
+                    <button id="clearOutput" class="btn"><span class="btn-text">Clear Output</span></button>
+                </div>
+            </form>
+            <div id="output" class="text-output"></div>
+        </div>
+    </main>
+    <footer></footer>
+    <script src="app.js"></script>
+</body>
+</html>
