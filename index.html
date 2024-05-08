@@ -38,7 +38,7 @@
             <br>
             <form id="inputForm" class="form-container" onsubmit="return false;">
                 <div class="input-container">
-                    <input type="text" id="inputString" class="input-field" placeholder="Input tab-separated string from #ProjectDenis table">
+                    <input type="text" id="inputString" class="input-field" placeholder="Input tab-separated string from #ProjectDenis table" autocomplete="off" autofocus>
                 </div>
                 <div class="button-container">
                     <button id="parseSingleString" class="btn"><span class="btn-text">Parse Single String</span></button>
@@ -47,7 +47,20 @@
                     <button id="clearOutput" class="btn"><span class="btn-text">Clear Output</span></button>
                 </div>
             </form>
-            <div id="output" class="text-output"></div>
+            <div id="output" class="text-output">Mixed output JSON will appear here.</div>
+            <h2>JSON Splitter</h2>
+            <br>
+            <div class="button-container">
+                <button id="splitMixedJson" class="btn"><span class="btn-text">Split Mixed JSON</span></button>
+                <button id="getCollections" class="btn"><span class="btn-text">Save Cols JSON</span></button>
+                <button id="getTracks" class="btn"><span class="btn-text">Save Tracks JSON</span></button>
+                <button id="getTunes" class="btn"><span class="btn-text">Save Tunes JSON</span></button>
+            </div>
+            <div class="splitter-container">
+                <div id="cols-output" class="text-output splitter-output">Collections JSON will appear here.</div>
+                <div id="tracks-output" class="text-output splitter-output">Tracks JSON will appear here.</div>
+                <div id="tunes-output" class="text-output splitter-output">Tunes JSON will appear here.</div>
+            </div>
         </div>
     </main>
     <footer></footer>

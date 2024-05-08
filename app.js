@@ -1,13 +1,17 @@
 ///////////////////////////////////////////////////////////////////////
 // #ProjectDenis Toolkit
 //
-// #ProjectDenis TSV to JSON Parser v.1.0
+// TSV to JSON Parser v.1.1
+// JSON Splitter v.1.0
 ///////////////////////////////////////////////////////////////////////
 
 const colHeaderKeys = ["colrefno", "trackstotal", "colname", "pubcode", "source", "refcode", "coltype", "recyear", "pubyear", "recyearfrom", "recyearto", "performers", "colnotes", "colnotes2", "colnotes3", "srclink", "dgslink", "tsolink", "itilink", "rmtlink", "strlink"];
-const trackKeys = ["refno", "trackno", "tunename", "tunetype", "altnames", "colref", "category", "recyear", "pubyear", "recyearfrom", "recyearto", "performers", "transcriptlink", "refsettinglink", "tracknotes"];
+const trackKeys = ["refno", "trackno", "tunename", "tunetype", "altnames", "tuneref", "category", "recyear", "pubyear", "recyearfrom", "recyearto", "performers", "transcriptlink", "refsettinglink", "tracknotes"];
 const inputDiv = document.getElementById("inputString");
 const outputDiv = document.getElementById('output');
+const colsDiv = document.getElementById('cols-output');
+const tracksDiv = document.getElementById('tracks-output');
+const tunesDiv = document.getElementById('tunes-output');
 
 function checkStringType(line) {
 
@@ -29,16 +33,42 @@ function checkStringType(line) {
     return null;
 }
 
-function displayWarning() {
+function checkObjectType(obj, key) {
+
+    if (obj[key]) {
+
+        const refNo = parseInt(obj[key]);
+
+        if (!isNaN(refNo) && refNo > 999) {
+
+            if (key === "colrefno" && refNo % 1000 === 0) {
+
+                return true;
+
+            } else if (key === "refno" && refNo % 1 === 0) {
+                
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+function displayWarning(message) {
+
+    if (message) {
+
+        outputDiv.innerText = `Error! ${message}`;
+        return;
+    }
 
     outputDiv.innerText = "Invalid input!\n\n- Collection header strings should begin with reference numbers divisible by 1000\n\n- Track strings should begin with individual track reference numbers and must not contain decimal points";
 }
 
-
 function parseSingleString() {
 
     const inputString = document.getElementById("inputString").value;
-    outputDiv.textContent = "";
 
     if (inputString.trim() !== '') {
 
@@ -50,67 +80,135 @@ function parseSingleString() {
             return;
         }
 
+        clearOutput();
         const result = parseTabSeparatedString(inputString, keysToUse);
         outputDiv.innerText = JSON.stringify(result, null, 2);
     }
 }
 
-function parseFromFile() {
+async function readFileContent(file) {
+
+    return new Promise((resolve, reject) => {
+
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+
+            resolve(event.target.result);
+        };
+
+        reader.onerror = (error) => {
+
+            reject(error);
+        };
+
+        reader.readAsText(file);
+    });
+}
+
+async function parseFromFile() {
 
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = '.txt, .tsv';
 
-    fileInput.onchange = function() {
+    try {
 
-        const file = this.files[0];
-        const reader = new FileReader();
+        fileInput.onchange = async function() {
 
-        reader.onload = function() {
+            const file = this.files[0];
 
-            const lines = this.result.split('\n').filter(line => line.trim() !== '');
-            outputDiv.textContent = '';
+            try {
 
-            const resultArray = [];
+                const fileContent = await readFileContent(file);
+    
+                const lines = fileContent.split('\n').filter(line => line.trim() !== '');
 
-            lines.forEach(line => {
+                outputDiv.textContent = '';
+    
+                const resultArray = [];
+    
+                lines.forEach(line => {
+    
+                    const keysToUse = checkStringType(line);
+    
+                    if (!keysToUse) {
 
-                const keysToUse = checkStringType(line);
-
-                if (!keysToUse) {
-
+                        return;
+                    }
+    
+                    resultArray.push(parseTabSeparatedString(line, keysToUse));
+                });
+    
+                if (resultArray.length > 0) {
+    
+                    let mixedJsonOutput = JSON.stringify(resultArray, null, 2);
+                    outputDiv.innerText = mixedJsonOutput;
+                    filterOutput(JSON.parse(mixedJsonOutput));
+    
+                } else {
+    
+                    displayWarning();
                     return;
                 }
 
-                resultArray.push(parseTabSeparatedString(line, keysToUse));
-            });
+            } catch (error) {
+                console.error('Error reading file content:', error);
+                displayWarning(error.message);
+            }}
+        
+        fileInput.click();
 
-            if (resultArray.length > 0) {
+    } catch (error) {
 
-                outputDiv.innerText = JSON.stringify(resultArray, null, 2);
+        console.error("parseFromFile sequence failed!");
+        displayWarning(error.message);
+    }
+}
+
+async function splitMixedJson() {
+
+    try {
+
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.json';
+
+        fileInput.addEventListener('change', async (event) => {
+
+            const jsonImport = event.target.files[0];
+
+            if (jsonImport) {
+
+                const fileContent = await readFileContent(jsonImport);
+                const jsonData = JSON.parse(fileContent);
+                filterOutput(jsonData);
 
             } else {
 
-                displayWarning();
-                return;
+                console.error("Error! No JSON file selected.");
+                displayWarning(error.message);
             }
-        };
+        });
 
-        reader.readAsText(file);
-    };
+        fileInput.click();
 
-    fileInput.click();
+    } catch (error) {
+
+        console.error("Error! splitMixedJson sequense failed.");
+        displayWarning(error.message);
+    }
 }
 
-function saveOutputFile() {
+function saveOutputFile(outputname, filename) {
 
-    const outputContent = document.getElementById("output").textContent;
+    const outputContent = document.getElementById(outputname).textContent;
     const blob = new Blob([outputContent], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
 
     a.href = url;
-    a.download = 'output.json';
+    a.download = `${filename}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -119,8 +217,11 @@ function saveOutputFile() {
 
 function clearOutput() {
 
-    document.getElementById("output").textContent = "";
-    document.getElementById("inputString").value = "";
+    inputDiv.value = "";
+    outputDiv.textContent = "";
+    colsDiv.textContent = "";
+    tracksDiv.textContent = "";
+    tunesDiv.textContent = "";
 }
 
 function parseTabSeparatedString(line, keys) {
@@ -136,12 +237,84 @@ function parseTabSeparatedString(line, keys) {
     return obj;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+function filterOutput(mixedJson) {
+
+    if (Array.isArray(mixedJson) || mixedJson.length > 0) {
+
+        let collectionsArr = [];
+        let tracksArr = [];
+        let tunesArr = [];
+
+        collectionsArr = mixedJson.filter(obj => checkObjectType(obj, "colrefno"));
+        tracksArr = mixedJson.filter(obj => checkObjectType(obj, "refno"));
+        
+        if (tracksArr.length > 0) {
+        
+            createTuneList(tracksArr).then(result => {
+                tunesArr.push(...result);
+                colsDiv.innerText = JSON.stringify(collectionsArr, null, 2);
+                tracksDiv.innerText = JSON.stringify(tracksArr, null, 2);
+                tunesDiv.innerText = JSON.stringify(tunesArr, null, 2);
+                return;
+            });
+
+        } else if (collectionsArr.length > 0) {
+
+            colsDiv.innerText = JSON.stringify(collectionsArr, null, 2);
+            tracksDiv.innerText = "No tracks data found in JSON.";
+            tunesDiv.innerText = "No tune data found in JSON.";
+            return;
+        }
+    }
+
+    colsDiv.innerText = "No collections data found in JSON.";
+    tracksDiv.innerText = "No tracks data found in JSON.";
+    tunesDiv.innerText = "No tune data found in JSON.";
+}
+
+async function createTuneList(tracks) {
+
+    try {
+
+        let tunesMap = new Map();
+
+        tracks.forEach(track => {
+
+            const { tuneref, tunename, tunetype, altnames, refno } = track;
+
+            if (!tunesMap.has(tuneref)) {
+
+                tunesMap.set(tuneref, { tuneref, tunename, tunetype, altnames, refno });
+
+            } else {
+
+                const existingTune = tunesMap.get(tuneref);
+                existingTune.refno += `, ${refno}`;
+                tunesMap.set(tuneref, existingTune);
+            }
+        });
+
+        const tunesArray = Array.from(tunesMap.values());
+        return tunesArray.sort((a, b) => a.tunename.localeCompare(b.tunename));
+
+    } catch (error) {
+
+        console.error("Error! createTuneList sequence failed.");
+        displayWarning(error.message);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
 
     const parseSingleStringBtn = document.getElementById("parseSingleString");
     const parseFromFileBtn = document.getElementById("parseFromFile");
     const saveOutputFileBtn = document.getElementById("saveOutputFile");
     const clearOutputBtn = document.getElementById("clearOutput");
+
+    const splitMixedJsonBtn = document.getElementById("splitMixedJson");
+    const getCollectionsBtn = document.getElementById("getCollections");
+    const getTracksBtn = document.getElementById("getTracks");
+    const getTunesBtn = document.getElementById("getTunes");
 
     const allBtn = document.querySelectorAll(".btn");
     const themeBtn = document.querySelector('.n-theme-btn');
@@ -150,8 +323,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     parseSingleStringBtn.addEventListener("click", parseSingleString);
     parseFromFileBtn.addEventListener("click", parseFromFile);
-    saveOutputFileBtn.addEventListener("click", saveOutputFile);
+    saveOutputFileBtn.addEventListener("click", () => saveOutputFile("output", "output"));
     clearOutputBtn.addEventListener("click", clearOutput);
+
+    splitMixedJsonBtn.addEventListener("click", splitMixedJson);
+    getCollectionsBtn.addEventListener("click", () => saveOutputFile("cols-output", "collections"));
+    getTracksBtn.addEventListener("click", () => saveOutputFile("tracks-output", "tracks"));
+    getTunesBtn.addEventListener("click", () => saveOutputFile("tunes-output", "tunes"));
 
     // Button animations
 
@@ -190,6 +368,5 @@ document.addEventListener("DOMContentLoaded", function() {
         sunIcon.classList.toggle("hidden");
         moonIcon.classList.toggle("displayed");
     });
-
-    inputString.focus();
 });
+

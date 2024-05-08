@@ -272,6 +272,26 @@ h3 {
 .text-output {
   font-size: var(--font-mid);
   color: var(--text-color);
+  border: 0.3125rem solid var(--menu-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  min-height: 16rem;
+  max-height: 630px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+  scrollbar-color: var(--text-color) var(--bg-color);
+  margin-bottom: 2rem;
+}
+
+.splitter-container {
+  display: flex;
+  flex-flow: row;
+  gap: 0 0.5rem;
+}
+
+.splitter-output {
+  min-width: calc(100%/3 - 1rem/3);
 }
 
 /* Various toggle states */
