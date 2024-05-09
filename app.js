@@ -280,16 +280,29 @@ async function createTuneList(tracks) {
 
         tracks.forEach(track => {
 
-            const { tuneref, tunename, tunetype, altnames, refno } = track;
+            const { tuneref, tunename, tunetype, altnames, refno, transcriptlink, refsettinglink } = track;
 
             if (!tunesMap.has(tuneref)) {
 
-                tunesMap.set(tuneref, { tuneref, tunename, tunetype, altnames, refno });
+                tunesMap.set(tuneref, { tuneref, tunename, tunetype, altnames, refno, transcriptlink, refsettinglink });
 
             } else {
 
                 const existingTune = tunesMap.get(tuneref);
                 existingTune.refno += `, ${refno}`;
+                
+                if (transcriptlink) {
+
+                    if (existingTune.transcriptlink) {
+
+                        existingTune.transcriptlink += `, ${transcriptlink}`;
+
+                    } else {
+                        
+                        existingTune.transcriptlink = transcriptlink;
+                    }
+                }
+
                 tunesMap.set(tuneref, existingTune);
             }
         });
