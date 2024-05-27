@@ -1,17 +1,24 @@
 ///////////////////////////////////////////////////////////////////////
 // #ProjectDenis Toolkit
 //
-// TSV to JSON Parser v.1.1
-// JSON Splitter v.1.0
+// TSV to JSON Parser v.1.2
+// JSON Splitter v.1.2
 ///////////////////////////////////////////////////////////////////////
+
+// Define keys in track and collection header objects
 
 const colHeaderKeys = ["colrefno", "trackstotal", "colname", "pubcode", "source", "refcode", "coltype", "recyear", "pubyear", "recyearfrom", "recyearto", "performers", "colnotes", "colnotes2", "colnotes3", "srclink", "dgslink", "tsolink", "itilink", "rmtlink", "strlink"];
 const trackKeys = ["refno", "trackno", "tunename", "tunetype", "altnames", "tuneref", "category", "recyear", "pubyear", "recyearfrom", "recyearto", "performers", "transcriptlink", "refsettinglink", "tracknotes"];
+
+// Define input and output fields
+
 const inputDiv = document.getElementById("inputString");
 const outputDiv = document.getElementById('output');
 const colsDiv = document.getElementById('cols-output');
 const tracksDiv = document.getElementById('tracks-output');
 const tunesDiv = document.getElementById('tunes-output');
+
+// Check if a line in a raw tsv file is a track or a collection header (= 1000s)
 
 function checkStringType(line) {
 
@@ -32,6 +39,8 @@ function checkStringType(line) {
 
     return null;
 }
+
+// Check if an object is a valid track/collection object and contains a reference number
 
 function checkObjectType(obj, key) {
 
@@ -55,6 +64,8 @@ function checkObjectType(obj, key) {
     return false;
 }
 
+// Display console warning if no usable lines are found
+
 function displayWarning(message) {
 
     if (message) {
@@ -65,6 +76,8 @@ function displayWarning(message) {
 
     outputDiv.innerText = "Invalid input!\n\n- Collection header strings should begin with reference numbers divisible by 1000\n\n- Track strings should begin with individual track reference numbers and must not contain decimal points";
 }
+
+// Convert a single tsv line into a track/collection object via parseTabSeparatedString, print the result to output
 
 function parseSingleString() {
 
@@ -86,6 +99,8 @@ function parseSingleString() {
     }
 }
 
+// Read an imported file as text file
+
 async function readFileContent(file) {
 
     return new Promise((resolve, reject) => {
@@ -105,6 +120,8 @@ async function readFileContent(file) {
         reader.readAsText(file);
     });
 }
+
+// Convert an imported tsv file into a JSON array of track/collection objects, print the result to output
 
 async function parseFromFile() {
 
@@ -166,6 +183,8 @@ async function parseFromFile() {
     }
 }
 
+// Split an imported JSON file into collections, tracks and tunes JSONs via filterOutput
+
 async function splitMixedJson() {
 
     try {
@@ -200,6 +219,8 @@ async function splitMixedJson() {
     }
 }
 
+// Save output content as a JSON file
+
 function saveOutputFile(outputname, filename) {
 
     const outputContent = document.getElementById(outputname).textContent;
@@ -215,6 +236,8 @@ function saveOutputFile(outputname, filename) {
     URL.revokeObjectURL(url);
 }
 
+// Clear all output and input fields as well as counters
+
 function clearOutput() {
 
     inputDiv.value = "";
@@ -222,7 +245,12 @@ function clearOutput() {
     colsDiv.textContent = "";
     tracksDiv.textContent = "";
     tunesDiv.textContent = "";
+    colsDiv.previousElementSibling.textContent = `Collections: 0`;
+    tracksDiv.previousElementSibling.textContent = `Tracks: 0`;
+    tunesDiv.previousElementSibling.textContent = `Tunes: 0`;
 }
+
+// Convert a tsv line into an object of specified type
 
 function parseTabSeparatedString(line, keys) {
 
@@ -236,6 +264,8 @@ function parseTabSeparatedString(line, keys) {
 
     return obj;
 }
+
+// Convert the contents of the main output into collections, tracks and tunes JSONs, print the results to respective outputs
 
 function filterOutput(mixedJson) {
 
@@ -253,24 +283,35 @@ function filterOutput(mixedJson) {
             createTuneList(tracksArr).then(result => {
                 tunesArr.push(...result);
                 colsDiv.innerText = JSON.stringify(collectionsArr, null, 2);
+                colsDiv.previousElementSibling.textContent = `Collections: ${collectionsArr.length}`;
                 tracksDiv.innerText = JSON.stringify(tracksArr, null, 2);
+                tracksDiv.previousElementSibling.textContent = `Tracks: ${tracksArr.length}`;
                 tunesDiv.innerText = JSON.stringify(tunesArr, null, 2);
+                tunesDiv.previousElementSibling.textContent = `Tunes: ${tunesArr.length}`;
                 return;
             });
 
         } else if (collectionsArr.length > 0) {
 
             colsDiv.innerText = JSON.stringify(collectionsArr, null, 2);
+            colsDiv.previousElementSibling.textContent = `Collections: ${collectionsArr.length}`;
             tracksDiv.innerText = "No tracks data found in JSON.";
+            tracksDiv.previousElementSibling.textContent = `Tracks: 0`;
             tunesDiv.innerText = "No tune data found in JSON.";
+            tunesDiv.previousElementSibling.textContent = `Tunes: 0`;
             return;
         }
     }
 
     colsDiv.innerText = "No collections data found in JSON.";
+    colsDiv.previousElementSibling.textContent = `Collections: 0`;
     tracksDiv.innerText = "No tracks data found in JSON.";
+    tracksDiv.previousElementSibling.textContent = `Tracks: 0`;
     tunesDiv.innerText = "No tune data found in JSON.";
+    tunesDiv.previousElementSibling.textContent = `Tunes: 0`;
 }
+
+// Create a filtered down JSON of unique tunes from the tracks JSON
 
 async function createTuneList(tracks) {
 
@@ -280,7 +321,22 @@ async function createTuneList(tracks) {
 
         tracks.forEach(track => {
 
-            const { tuneref, tunename, tunetype, altnames, refno, transcriptlink, refsettinglink } = track;
+            let { tuneref, tunename, tunetype, altnames, refno, transcriptlink, refsettinglink } = track;
+
+            if (tuneref == "???" || tuneref == "") {
+
+                tuneref = `TMP # ${refno}`;
+            }
+
+            if (tunetype == "") {
+
+                tunetype = `Other`;
+            }
+
+            if (tunename == "") {
+
+                tunename = `Untitled ${tunetype}`;
+            }
 
             if (!tunesMap.has(tuneref)) {
 
@@ -290,7 +346,7 @@ async function createTuneList(tracks) {
 
                 const existingTune = tunesMap.get(tuneref);
                 existingTune.refno += `, ${refno}`;
-                
+
                 if (transcriptlink) {
 
                     if (existingTune.transcriptlink) {
@@ -298,7 +354,7 @@ async function createTuneList(tracks) {
                         existingTune.transcriptlink += `, ${transcriptlink}`;
 
                     } else {
-                        
+
                         existingTune.transcriptlink = transcriptlink;
                     }
                 }
@@ -316,6 +372,8 @@ async function createTuneList(tracks) {
         displayWarning(error.message);
     }
 }
+
+// Set event listeners
 
 document.addEventListener("DOMContentLoaded", () => {
 

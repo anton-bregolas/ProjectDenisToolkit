@@ -57,9 +57,18 @@
                 <button id="getTunes" class="btn"><span class="btn-text">Save Tunes JSON</span></button>
             </div>
             <div class="splitter-container">
-                <div id="cols-output" class="text-output splitter-output">Collections JSON will appear here.</div>
-                <div id="tracks-output" class="text-output splitter-output">Tracks JSON will appear here.</div>
-                <div id="tunes-output" class="text-output splitter-output">Tunes JSON will appear here.</div>
+                <div class="splitter-group">
+                    <div id="cols-counter" class="text-counter">Collections: 0</div>
+                    <div id="cols-output" class="text-output">Collections JSON will appear here.</div>
+                </div>
+                <div class="splitter-group">
+                    <div id="tracks-counter" class="text-counter">Tracks: 0</div>
+                    <div id="tracks-output" class="text-output">Tracks JSON will appear here.</div>
+                </div>
+                <div class="splitter-group">
+                    <div id="tunes-counter" class="text-counter">Tunes: 0</div>
+                    <div id="tunes-output" class="text-output">Tunes JSON will appear here.</div>
+                </div>                
             </div>
         </div>
     </main>
