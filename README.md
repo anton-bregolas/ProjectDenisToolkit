@@ -4,6 +4,8 @@
 
 ## List Generator v.1.1
 
+This tool generates interactive lists of tunes, tracks and collections using the JSON Splitter data output.
+
 [v.1.1]
 
 + Tunelist Generator now dynamically creates tunelists using data from Tunes Output.
