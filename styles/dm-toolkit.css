@@ -63,10 +63,22 @@ body {
   scrollbar-color: var(--text-color) var(--bg-color);
 }
 
+.text-output:is(:focus, :focus-visible) {
+  outline: 0.2rem solid var(--focus-color);
+  outline-offset: 0.07rem;
+  border-radius: 0.4rem;
+}
+
 .text-counter {
   font-size: var(--font-mid);
   color: var(--text-color);
   padding: 0 0.8125rem 0.5rem ;
+}
+
+.text-counter:focus-visible {
+  outline: 0.3125rem solid var(--alt-dark-theme-focus-color);
+  outline-offset: -0.1rem;
+  border-radius: 0.4rem;
 }
 
 .splitter-container {

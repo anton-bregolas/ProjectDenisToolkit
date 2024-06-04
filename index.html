@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="#ProjectDenis Toolkit is a set of tools for building and updating the database for a project in tribute to the Sliabh Luachra fiddle music legend Denis Murphy.">
     <title>#ProjectDenis Toolkit</title>
-    <link rel="icon" href="assets/icons/favicon.ico" sizes="48x48">
-    <link rel="icon" href="assets/icons/favicon.svg" sizes="any" type="image/svg+xml">
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
     <link rel="stylesheet" href="styles/tools-common-styles.css">
     <link rel="stylesheet" href="styles/dm-toolkit.css">
     <link rel="stylesheet" href="components/dm-modals/dm-modals.css">
@@ -54,7 +54,7 @@
                         <button id="clearOutput" class="btn"><span class="btn-text">Clear Output</span></button>
                     </div>
                 </form>
-                <div id="output" class="text-output">Mixed output JSON will appear here.</div>
+                <div id="output" class="text-output" tabindex="0" aria-label="Mixed Data Output">Mixed output JSON will appear here.</div>
             </section>
             <section class="dm-splitter">
                 <h2>JSON Splitter</h2>
@@ -67,16 +67,16 @@
                 </div>
                 <div class="splitter-container">
                     <div class="splitter-group">
-                        <div id="cols-counter" class="text-counter">Collections: 0</div>
-                        <div id="cols-output" class="text-output">Collections JSON will appear here.</div>
+                        <div id="cols-counter" class="text-counter" tabindex="0" aria-label="Collections Counter">Collections: 0</div>
+                        <div id="cols-output" class="text-output" tabindex="0" aria-label="Collections Output">Collections JSON will appear here.</div>
                     </div>
                     <div class="splitter-group">
-                        <div id="tracks-counter" class="text-counter">Tracks: 0</div>
-                        <div id="tracks-output" class="text-output">Tracks JSON will appear here.</div>
+                        <div id="tracks-counter" class="text-counter" tabindex="0" aria-label="Tracks Counter">Tracks: 0</div>
+                        <div id="tracks-output" class="text-output" tabindex="0" aria-label="Tracks Output">Tracks JSON will appear here.</div>
                     </div>
                     <div class="splitter-group">
-                        <div id="tunes-counter" class="text-counter">Tunes: 0</div>
-                        <div id="tunes-output" class="text-output">Tunes JSON will appear here.</div>
+                        <div id="tunes-counter" class="text-counter" tabindex="0" aria-label="Tunes Counter">Tunes: 0</div>
+                        <div id="tunes-output" class="text-output" tabindex="0" aria-label="Tunes Output">Tunes JSON will appear here.</div>
                     </div>
                 </div>
             </section>
@@ -89,52 +89,15 @@
                     <button id="dm-btn-generate-tracklist" class="btn" disabled><span class="btn-text">Generate Tracklist</span></button>
                 </div>
             </section>
-            <section class="dm-dialogs">
-                <dialog id="dm-modal-list-tunes" class="dm-modal-list">
+            <section id="dm-dialogs" class="hidden">
+                <dialog id="dm-modal-list-tunes" class="dm-modal-list" aria-hidden="true" aria-label="Denis Murphy Tunelist Dialog Window">
                     <header class="dm-modal-list-header">
                         <div id="dm-modal-list-header-container" class="dm-modal-list-header-container">
                             <h2 class="nowrap">#ProjectDenis: Tunelist</h2>
                             <button id="dm-btn-modal-close" class="btn"><span class="btn-text">Close Tunelist</span></button>
                         </div>
                     </header>
-                    <div class="dm-tunelist-container">
-                        <div class="dm-tunelist-item-wrapper">
-                            <button class="dm-tunelist-item">
-                                <span class="dm-tunelist-item-title">A Trip to the Quarry</span>
-                                <span class="dm-tunelist-item-alttitle">(Jig)</span>
-                            </button>
-                        </div>
-                        <div class="dm-tunelist-item-wrapper">
-                            <button class="dm-tunelist-item">
-                                <span class="dm-tunelist-item-title">An Trí is a Rian</span>
-                                <span class="dm-tunelist-item-alttitle">(John Quinn's No. 2 – Hornpipe)</span>
-                            </button>
-                        </div>
-                        <div class="dm-tunelist-item-wrapper">
-                            <button class="dm-tunelist-item">
-                                <span class="dm-tunelist-item-title">Anything for John-Joe</span>
-                                <span class="dm-tunelist-item-alttitle">(Did the Rum Do, Da – Reel)</span>
-                            </button>
-                        </div>
-                        <div class="dm-tunelist-item-wrapper">
-                            <button class="dm-tunelist-item">
-                                <span class="dm-tunelist-item-title">Apples in Winter</span>
-                                <span class="dm-tunelist-item-alttitle">(Unfortunate Rake – Jig)</span>
-                            </button>
-                        </div>
-                        <div class="dm-tunelist-item-wrapper">
-                            <button class="dm-tunelist-item">
-                                <span class="dm-tunelist-item-title">Apples in Winter</span>
-                                <span class="dm-tunelist-item-alttitle">(Mug of Brown Ale – Jig)</span>
-                            </button>
-                        </div>
-                        <div class="dm-tunelist-item-wrapper">
-                            <button class="dm-tunelist-item">
-                                <span class="dm-tunelist-item-title">Art O'Keeffe's</span>
-                                <span class="dm-tunelist-item-alttitle">(Echoes of Killarney – Slide)</span>
-                            </button>
-                        </div>
-                    </div>
+                    <div id="dm-tunelist" class="dm-tunelist-container" aria-hidden="true" aria-label="Tunelist grid, select a tune"></div>
                 </dialog>
             </section>
         </div>

@@ -73,6 +73,12 @@ html:has(dialog[open]) {
   overscroll-behavior-y: contain;
   scrollbar-gutter: stable both-edges;
   padding: 1em;
+  min-height: 5rem;
+}
+
+.dm-tunelist-container:focus-visible {
+  outline: 0.2rem solid var(--focus-color);
+  outline-offset: 0.35rem;
 }
 
 .dm-tunelist-item-wrapper, .dm-tunelist-item {
@@ -96,8 +102,11 @@ html:has(dialog[open]) {
   padding: 0.25em;
 }
 
-.dm-tunelist-item:hover {
+.dm-tunelist-item:hover, .dm-tunelist-item:focus-visible {
   background-color: var(--tunelist-item-hover-color);
+  outline-color: var(--focus-color);
+  outline-offset: 0.2rem;
+  border-radius: 0.25rem;
 }
 
 .dm-tunelist-item-title, .dm-tunelist-item-alttitle {

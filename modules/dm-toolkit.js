@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit
+// #ProjectDenis Toolkit v.1.4
 //
 // TSV to JSON Parser v.1.3
 // JSON Splitter v.1.3
-// List Generator v.1.0
+// List Generator v.1.1
 ///////////////////////////////////////////////////////////////////////
 
-import { initModals } from '../components/dm-modals/dm-modals.js';
+import { initModals, tunelistDiv } from '../components/dm-modals/dm-modals.js';
 
 // Define keys in track and collection header objects
 
@@ -17,9 +17,9 @@ const trackKeys = ["refno", "trackno", "tunename", "tunetype", "altnames", "tune
 
 const inputDiv = document.getElementById("inputString");
 const outputDiv = document.getElementById('output');
-const colsDiv = document.getElementById('cols-output');
-const tracksDiv = document.getElementById('tracks-output');
-const tunesDiv = document.getElementById('tunes-output');
+export const colsDiv = document.getElementById('cols-output');
+export const tracksDiv = document.getElementById('tracks-output');
+export const tunesDiv = document.getElementById('tunes-output');
 
 // Check if a line in a raw tsv file is a track or a collection header (= 1000s)
 
@@ -98,7 +98,11 @@ function parseSingleString() {
 
         clearOutput();
         const result = parseTabSeparatedString(inputString, keysToUse);
-        outputDiv.innerText = JSON.stringify(result, null, 2);
+        const resultOutput = JSON.stringify(result, null, 2);
+        outputDiv.innerText = resultOutput;
+
+        const resultArray = `[${resultOutput}]`;
+        filterOutput(JSON.parse(resultArray));
     }
 }
 
@@ -135,6 +139,8 @@ async function parseFromFile() {
     try {
 
         fileInput.onchange = async function() {
+
+            console.log("Parsing TSV file...");
 
             const file = this.files[0];
 
@@ -282,8 +288,12 @@ function filterOutput(mixedJson) {
         tracksArr = mixedJson.filter(obj => checkObjectType(obj, "refno"));
         
         if (tracksArr.length > 0) {
-        
+
             createTuneList(tracksArr).then(result => {
+
+                tunelistDiv.textContent = "";
+                console.log("Tunes JSON cleared...");
+
                 tunesArr.push(...result);
                 colsDiv.innerText = JSON.stringify(collectionsArr, null, 2);
                 colsDiv.previousElementSibling.textContent = `Collections: ${collectionsArr.length}`;
@@ -291,6 +301,7 @@ function filterOutput(mixedJson) {
                 tracksDiv.previousElementSibling.textContent = `Tracks: ${tracksArr.length}`;
                 tunesDiv.innerText = JSON.stringify(tunesArr, null, 2);
                 tunesDiv.previousElementSibling.textContent = `Tunes: ${tunesArr.length}`;
+                console.log("Tunes JSON created!");
                 return;
             });
 
@@ -321,6 +332,8 @@ async function createTuneList(tracks) {
     try {
 
         let tunesMap = new Map();
+
+        console.log("Creating Tunes JSON...");
 
         tracks.forEach(track => {
 
@@ -376,11 +389,9 @@ async function createTuneList(tracks) {
     }
 }
 
-// Set event listeners
+// Add event listeners to Toolkit buttons
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    initModals();
+function initButtons() {
 
     const parseSingleStringBtn = document.getElementById("parseSingleString");
     const parseFromFileBtn = document.getElementById("parseFromFile");
@@ -436,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Light / dark theme toggle button
 
     themeBtn.addEventListener('click', () => {
-    
+
         let ariaLabel = document.body.classList.contains("light")? "Dark theme is on" : "Light theme is on";
 
         themeBtn.setAttribute("aria-label", ariaLabel);
@@ -444,5 +455,13 @@ document.addEventListener("DOMContentLoaded", () => {
         sunIcon.classList.toggle("hidden");
         moonIcon.classList.toggle("displayed");
     });
+}
+
+// Set all Toolkit event listeners on page load
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    initButtons();
+    initModals();
 });
 

@@ -28,6 +28,9 @@ body {
   --alt-border-color: #ffdc1851;
   --header-cell-color: transparent;
   --alt-cell-color: #ffe5531b;
+  --focus-color: yellowgreen;
+  --alt-light-theme-focus-color: yellowgreen;
+  --alt-dark-theme-focus-color: #ffdc18;
 
   --font-large: 2rem;
   --font-subhead: 1.65rem;
@@ -53,6 +56,9 @@ body.light {
   --alt-border-color: #ffdc18de;
   --header-cell-color: #551a8b;
   --alt-cell-color: #ffe44b85;
+  --focus-color: #551a8b;
+  --alt-light-theme-focus-color: #ffdc18;
+  --alt-dark-theme-focus-color: #551a8b;
 }
 
 body * {
@@ -102,7 +108,7 @@ button:focus:not(:focus-visible) {
 }
 
 button:focus-visible {
-  outline: 0.2rem solid var(--header-color);
+  outline: 0.2rem solid var(--focus-color);
   outline-offset: 0.5rem;
   border-radius: 0.4rem;
 }
@@ -128,7 +134,7 @@ h3 {
 }
 
 dialog:focus-visible {
-  outline: 0.16rem solid var(--header-color);
+  outline: 0.16rem solid var(--focus-color);
   outline-offset: 0.07rem;
 }
 
@@ -197,7 +203,7 @@ dialog:focus-visible {
 .n-theme-btn:focus-visible {
   outline-offset: 0.25rem;
   border-radius: 0.8rem;
-  outline: 0.2rem solid var(--header-color);
+  outline: 0.2rem solid var(--focus-color);
 }
 
 .logo-link {
@@ -242,7 +248,7 @@ dialog:focus-visible {
 }
 
 .input-field:focus-visible {
-  outline: 0.16rem solid var(--header-color);
+  outline: 0.16rem solid var(--focus-color);
   outline-offset: 0.07rem;
   border-radius: 0.5rem;
   box-shadow: 0px 0px 0px 0.1875rem black;
