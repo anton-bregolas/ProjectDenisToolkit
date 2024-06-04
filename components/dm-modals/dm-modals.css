@@ -1,0 +1,131 @@
+/* #ProjectDenis: Modal Dialogs Styles */
+
+body {
+  --tunelist-item-width: 18rem;
+  --tunelist-item-color: #a300ff1a;
+  --tunelist-item-hover-color: #a300ff4f;
+  }
+
+body.light {
+  --tunelist-item-color: #fff3ae;
+  --tunelist-item-hover-color: var(--accent-color);
+}
+
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* Modal List Template */
+
+.dm-modal-list {
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  background-color: var(--bg-color);
+  border: 0.3125rem solid var(--accent-color);
+  border-radius: 0.5rem;
+  inset: unset;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  min-width: clamp(20rem, calc(100vw - 2.4em), 120rem);
+}
+
+.dm-modal-list::backdrop {
+  background-color: rgba(0, 78, 0, 0.25);
+  backdrop-filter: blur(1.5rem);
+}
+
+.dm-modal-list:not([open]) {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.dm-modal-list-header {
+  border-bottom: 0.3125rem solid var(--accent-color);
+}
+
+.dm-modal-list-header-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between; 
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 1em;
+}
+
+.dm-modal-list-header-container > .btn {
+  width: calc(var(--tunelist-item-width));
+  padding: 0.75rem;
+  flex-grow: unset;
+}
+
+/* Tunelist */
+
+.dm-tunelist-container {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, var(--tunelist-item-width));
+  gap: 0.75rem;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable both-edges;
+  padding: 1em;
+}
+
+.dm-tunelist-item-wrapper, .dm-tunelist-item {
+  display: flex;
+  flex: 1;
+  border: 1px dashed var(--header-color);
+}
+
+.dm-tunelist-item-wrapper {
+  border-radius: 0.5rem;
+  padding: 0.25em;
+  width: calc(var(--tunelist-item-width));
+}
+
+.dm-tunelist-item {
+  flex-flow: column;
+  width: var(--tunelist-item-width);
+  background-color: var(--tunelist-item-color);
+  overflow: hidden;
+  border-radius: 0.25rem;
+  padding: 0.25em;
+}
+
+.dm-tunelist-item:hover {
+  background-color: var(--tunelist-item-hover-color);
+}
+
+.dm-tunelist-item-title, .dm-tunelist-item-alttitle {
+  color: var(--text-color);
+  text-wrap: nowrap;  
+  text-align: center;
+}
+
+.dm-tunelist-item-title {
+  font-size: var(--font-mid);
+}
+
+.dm-tunelist-item-alttitle {
+  font-size: var(--font-base);
+  color: var(--alt-text-color);
+}
+
+@media screen and (max-width: 968px) {
+
+  .dm-modal-list-header-container {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 668px) {
+
+  .dm-modal-list-header-container {
+    flex-flow: column;
+    align-items: center;
+  }
+}

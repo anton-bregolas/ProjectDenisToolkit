@@ -1,9 +1,12 @@
 ///////////////////////////////////////////////////////////////////////
 // #ProjectDenis Toolkit
 //
-// TSV to JSON Parser v.1.2
-// JSON Splitter v.1.2
+// TSV to JSON Parser v.1.3
+// JSON Splitter v.1.3
+// List Generator v.1.0
 ///////////////////////////////////////////////////////////////////////
+
+import { initModals } from '../components/dm-modals/dm-modals.js';
 
 // Define keys in track and collection header objects
 
@@ -376,6 +379,8 @@ async function createTuneList(tracks) {
 // Set event listeners
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    initModals();
 
     const parseSingleStringBtn = document.getElementById("parseSingleString");
     const parseFromFileBtn = document.getElementById("parseFromFile");

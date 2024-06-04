@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="#ProjectDenis Toolkit is a set of tools for building and updating the database for a project in tribute to the Sliabh Luachra fiddle music legend Denis Murphy.">
     <title>#ProjectDenis Toolkit</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" href="assets/icons/favicon.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="styles/tools-common-styles.css">
+    <link rel="stylesheet" href="styles/dm-toolkit.css">
+    <link rel="stylesheet" href="components/dm-modals/dm-modals.css">
+    <link rel="stylesheet" href="components/dm-popovers/dm-popovers.css">
+    <script type="module" src="modules/dm-toolkit.js"></script>
 </head>
 <body>
     <header>
@@ -33,46 +39,106 @@
     </header>
     <main>
         <div class="main-container">
-            <h1>#ProjectDenis Toolkit</h1>
-            <h2>TSV to JSON Parser</h2>
-            <br>
-            <form id="inputForm" class="form-container" onsubmit="return false;">
-                <div class="input-container">
-                    <input type="text" id="inputString" class="input-field" placeholder="Input tab-separated string from #ProjectDenis table" autocomplete="off" autofocus>
-                </div>
+            <section class="dm-parser">
+                <h1>#ProjectDenis Toolkit</h1>
+                <h2>TSV to JSON Parser</h2>
+                <br>
+                <form id="inputForm" class="form-container" onsubmit="return false;">
+                    <div class="input-container">
+                        <input type="text" id="inputString" class="input-field" placeholder="Input tab-separated string from #ProjectDenis table" autocomplete="off" autofocus>
+                    </div>
+                    <div class="button-container">
+                        <button id="parseSingleString" class="btn"><span class="btn-text">Parse Single String</span></button>
+                        <button id="parseFromFile" class="btn"><span class="btn-text">Parse From File</span></button>
+                        <button id="saveOutputFile" class="btn"><span class="btn-text">Save Output</span></button>
+                        <button id="clearOutput" class="btn"><span class="btn-text">Clear Output</span></button>
+                    </div>
+                </form>
+                <div id="output" class="text-output">Mixed output JSON will appear here.</div>
+            </section>
+            <section class="dm-splitter">
+                <h2>JSON Splitter</h2>
+                <br>
                 <div class="button-container">
-                    <button id="parseSingleString" class="btn"><span class="btn-text">Parse Single String</span></button>
-                    <button id="parseFromFile" class="btn"><span class="btn-text">Parse From File</span></button>
-                    <button id="saveOutputFile" class="btn"><span class="btn-text">Save Output</span></button>
-                    <button id="clearOutput" class="btn"><span class="btn-text">Clear Output</span></button>
+                    <button id="splitMixedJson" class="btn"><span class="btn-text">Split Mixed JSON</span></button>
+                    <button id="getCollections" class="btn"><span class="btn-text">Save Cols JSON</span></button>
+                    <button id="getTracks" class="btn"><span class="btn-text">Save Tracks JSON</span></button>
+                    <button id="getTunes" class="btn"><span class="btn-text">Save Tunes JSON</span></button>
                 </div>
-            </form>
-            <div id="output" class="text-output">Mixed output JSON will appear here.</div>
-            <h2>JSON Splitter</h2>
-            <br>
-            <div class="button-container">
-                <button id="splitMixedJson" class="btn"><span class="btn-text">Split Mixed JSON</span></button>
-                <button id="getCollections" class="btn"><span class="btn-text">Save Cols JSON</span></button>
-                <button id="getTracks" class="btn"><span class="btn-text">Save Tracks JSON</span></button>
-                <button id="getTunes" class="btn"><span class="btn-text">Save Tunes JSON</span></button>
-            </div>
-            <div class="splitter-container">
-                <div class="splitter-group">
-                    <div id="cols-counter" class="text-counter">Collections: 0</div>
-                    <div id="cols-output" class="text-output">Collections JSON will appear here.</div>
+                <div class="splitter-container">
+                    <div class="splitter-group">
+                        <div id="cols-counter" class="text-counter">Collections: 0</div>
+                        <div id="cols-output" class="text-output">Collections JSON will appear here.</div>
+                    </div>
+                    <div class="splitter-group">
+                        <div id="tracks-counter" class="text-counter">Tracks: 0</div>
+                        <div id="tracks-output" class="text-output">Tracks JSON will appear here.</div>
+                    </div>
+                    <div class="splitter-group">
+                        <div id="tunes-counter" class="text-counter">Tunes: 0</div>
+                        <div id="tunes-output" class="text-output">Tunes JSON will appear here.</div>
+                    </div>
                 </div>
-                <div class="splitter-group">
-                    <div id="tracks-counter" class="text-counter">Tracks: 0</div>
-                    <div id="tracks-output" class="text-output">Tracks JSON will appear here.</div>
+            </section>
+            <section class="dm-generator">
+                <h2>List Generator</h2>
+                <br>
+                <div class="generator-container">
+                    <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text">Generate Tunelist</span></button>
+                    <button id="dm-btn-generate-collections" class="btn" disabled><span class="btn-text">Generate Collection List</span></button>
+                    <button id="dm-btn-generate-tracklist" class="btn" disabled><span class="btn-text">Generate Tracklist</span></button>
                 </div>
-                <div class="splitter-group">
-                    <div id="tunes-counter" class="text-counter">Tunes: 0</div>
-                    <div id="tunes-output" class="text-output">Tunes JSON will appear here.</div>
-                </div>                
-            </div>
+            </section>
+            <section class="dm-dialogs">
+                <dialog id="dm-modal-list-tunes" class="dm-modal-list">
+                    <header class="dm-modal-list-header">
+                        <div id="dm-modal-list-header-container" class="dm-modal-list-header-container">
+                            <h2 class="nowrap">#ProjectDenis: Tunelist</h2>
+                            <button id="dm-btn-modal-close" class="btn"><span class="btn-text">Close Tunelist</span></button>
+                        </div>
+                    </header>
+                    <div class="dm-tunelist-container">
+                        <div class="dm-tunelist-item-wrapper">
+                            <button class="dm-tunelist-item">
+                                <span class="dm-tunelist-item-title">A Trip to the Quarry</span>
+                                <span class="dm-tunelist-item-alttitle">(Jig)</span>
+                            </button>
+                        </div>
+                        <div class="dm-tunelist-item-wrapper">
+                            <button class="dm-tunelist-item">
+                                <span class="dm-tunelist-item-title">An Trí is a Rian</span>
+                                <span class="dm-tunelist-item-alttitle">(John Quinn's No. 2 – Hornpipe)</span>
+                            </button>
+                        </div>
+                        <div class="dm-tunelist-item-wrapper">
+                            <button class="dm-tunelist-item">
+                                <span class="dm-tunelist-item-title">Anything for John-Joe</span>
+                                <span class="dm-tunelist-item-alttitle">(Did the Rum Do, Da – Reel)</span>
+                            </button>
+                        </div>
+                        <div class="dm-tunelist-item-wrapper">
+                            <button class="dm-tunelist-item">
+                                <span class="dm-tunelist-item-title">Apples in Winter</span>
+                                <span class="dm-tunelist-item-alttitle">(Unfortunate Rake – Jig)</span>
+                            </button>
+                        </div>
+                        <div class="dm-tunelist-item-wrapper">
+                            <button class="dm-tunelist-item">
+                                <span class="dm-tunelist-item-title">Apples in Winter</span>
+                                <span class="dm-tunelist-item-alttitle">(Mug of Brown Ale – Jig)</span>
+                            </button>
+                        </div>
+                        <div class="dm-tunelist-item-wrapper">
+                            <button class="dm-tunelist-item">
+                                <span class="dm-tunelist-item-title">Art O'Keeffe's</span>
+                                <span class="dm-tunelist-item-alttitle">(Echoes of Killarney – Slide)</span>
+                            </button>
+                        </div>
+                    </div>
+                </dialog>
+            </section>
         </div>
     </main>
     <footer></footer>
-    <script src="app.js"></script>
 </body>
 </html>
