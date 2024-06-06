@@ -49,11 +49,11 @@ body {
 }
 
 .text-output {
-  font-size: var(--font-mid);
+  font-size: var(--font-button);
   color: var(--text-color);
   border: 0.3125rem solid var(--menu-color);
   border-radius: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.5em;
   min-height: 16rem;
   height: 100%;
   max-height: 630px;
@@ -72,7 +72,7 @@ body {
 .text-counter {
   font-size: var(--font-mid);
   color: var(--text-color);
-  padding: 0 0.8125rem 0.5rem ;
+  padding: 0.5em 0.8125em 0.5em ;
 }
 
 .text-counter:focus-visible {
@@ -101,7 +101,16 @@ body {
 
 /* Media queries */
 
-@media screen and (max-width: 960px) {
+/* @media screen and (max-width: 1200px) { */
+@media screen and (max-width: 75em) {
+
+  .btn {
+    padding: 0.75em;
+  }
+}
+
+/* @media screen and (max-width: 960px) { */
+@media screen and (max-width: 60em) {
   
   .splitter-container {
     display: flex;
@@ -111,34 +120,59 @@ body {
   .generator-container > .btn {
     width: 100%;
   }
-
 }
 
-@media screen and (max-width: 360px) {
+/* @media screen and (max-width: 360px) { */
+@media screen and (max-width: 22.5em) {
 
   html {
     font-size: 90%;
   }
+}
+
+/* @media screen and (max-width: 320px) { */
+@media screen and (max-width: 20em) {
+  
+  .main-container, .header-container {
+    container-type: inline-size;
+  }
+
+  body {
+    --font-large: 10cqi;
+    --font-subhead: 8cqi;
+    --font-mid: 6cqi;
+    --font-button: 6cqi;
+    --font-base: 4cqi;
+  }
 
   h1 {
-    font-size: 8cqi;
-  }
-
-  h2 {
-    font-size: 6.5cqi;
-  }
-
-  .logo-btn {
-    width: 10cqi; 
-    height: 10cqi;
+    margin: 1.5rem 0.75rem;
   }
 
   .btn {
-    padding: 0.75em;
+    padding: 0.5em;
   }
-
+     
   .button-container {
     display: flex;
     flex-flow: column;
+  }
+
+  .logo-btn {
+    width: 11cqi; 
+    height: 11cqi;
+  }
+
+  .input-field {
+    min-height: 0;
+    padding: 1em 0.5em;
+  }
+
+  .input-field, .button-container {
+    margin-bottom: 1rem;
+  }
+  
+  .dm-parser, .dm-splitter, .dm-generator {
+    margin-bottom: 1.5rem;
   }
 }

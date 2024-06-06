@@ -1,6 +1,7 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
 import { colsDiv, tracksDiv, tunesDiv } from '../../modules/dm-toolkit.js';
+import { showTunePopover } from '../dm-popovers/dm-popovers.js'
 import { toggleAriaHidden } from '../../modules/aria-tools.js'
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
@@ -40,7 +41,7 @@ async function generateTunelist(tunesJson) {
     const tuneRef = tune.tuneref;
     const tuneName = tune.tunename;
     const tuneType = tune.tunetype;
-    const tuneAltName = tune.altnames.split("/")[0];
+    const tuneAltName = tune.altnames.split(" / ")[0];
 
     const tuneAltNameSpan = document.createElement("span");
     const tuneNameSpan = document.createElement("span");
@@ -63,6 +64,8 @@ async function generateTunelist(tunesJson) {
     tuneItem.appendChild(tuneNameSpan);
     tuneItem.appendChild(tuneAltNameSpan);
     tuneItem.setAttribute("data-tuneref", tuneRef);
+    // tuneItem.setAttribute("popovertarget", "dm-popover-card-tune");
+    tuneItem.addEventListener('click', showTunePopover);
     tuneItemWrapper.appendChild(tuneItem);
     tunelistDiv.appendChild(tuneItemWrapper);
   });
@@ -72,7 +75,6 @@ async function generateTunelist(tunesJson) {
 
 export function initModals() {
 
-  const modalListTunes = document.querySelector('#dm-modal-list-tunes');
   const generateTunelistBtn = document.querySelector('#dm-btn-generate-tunelist');
   const closeTunelistBtn = document.querySelector('#dm-btn-modal-close');
 
@@ -98,7 +100,7 @@ export function initModals() {
 
       dialogsDiv.classList.toggle("hidden");
       toggleAriaHidden(tunelistDialog);
-      modalListTunes.showModal();
+      tunelistDialog.showModal();
       return;
 
     } else {
@@ -110,7 +112,7 @@ export function initModals() {
 
   closeTunelistBtn.addEventListener('click', () => {
 
-    modalListTunes.close();
+    tunelistDialog.close();
     dialogsDiv.classList.toggle("hidden");
     toggleAriaHidden(tunelistDialog);
   });

@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="#ProjectDenis Toolkit is a set of tools for building and updating the database for a project in tribute to the Sliabh Luachra fiddle music legend Denis Murphy.">
-    <title>#ProjectDenis Toolkit</title>
+    <title>Project Denis Toolkit</title>
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="components/dm-popovers/dm-popovers.css">
     <link rel="stylesheet" href="styles/tools-common-styles.css">
     <link rel="stylesheet" href="styles/dm-toolkit.css">
     <link rel="stylesheet" href="components/dm-modals/dm-modals.css">
-    <link rel="stylesheet" href="components/dm-popovers/dm-popovers.css">
+
     <script type="module" src="modules/dm-toolkit.js"></script>
 </head>
 <body>
@@ -45,7 +46,7 @@
                 <br>
                 <form id="inputForm" class="form-container" onsubmit="return false;">
                     <div class="input-container">
-                        <input type="text" id="inputString" class="input-field" placeholder="Input tab-separated string from #ProjectDenis table" autocomplete="off" autofocus>
+                        <input type="text" id="inputString" class="input-field" placeholder="Input tab-separated string from #ProjectDenis table" aria-label="Input tab-separated string from Project Denis table" autocomplete="off" autofocus>
                     </div>
                     <div class="button-container">
                         <button id="parseSingleString" class="btn"><span class="btn-text">Parse Single String</span></button>
@@ -97,7 +98,25 @@
                             <button id="dm-btn-modal-close" class="btn"><span class="btn-text">Close Tunelist</span></button>
                         </div>
                     </header>
-                    <div id="dm-tunelist" class="dm-tunelist-container" aria-hidden="true" aria-label="Tunelist grid, select a tune"></div>
+                    <div id="dm-tunelist" class="dm-tunelist-container" aria-label="Tunelist grid, select a tune"></div>
+                    <div id="dm-popover-card-tune" popover="manual" class="dm-tune-card hidden" aria-hidden="true" aria-label="Denis Murphy Tune Details">
+                        <header class="dm-tune-grid-header">
+                            <div class="dm-tune-header-container">
+                                <h2>JOLSL # 320</h2>
+                                <h2>The Green Cottage (Slide)</h2>
+                            </div>
+                        </header>
+                        <div class="dm-tune-grid-item"><b>Tune Title:</b> Green Cottage, The</div>
+                        <div class="dm-tune-grid-item"><b>Tune Alt. Titles:</b> Glen Cottage No. 2 / Barrack Hill / Cat Jumped into the Mouse's Hole and Didn't Come Out till the Morning</div>
+                        <div class="dm-tune-grid-item"><b>Tune Type:</b> Slide</div>
+                        <div class="dm-tune-grid-item"><b>Track Ref. No.:</b> <button class="dm-btn-open-track">1102</button>, <button class="dm-btn-open-track">21011</button></div>
+                        <div class="dm-tune-grid-item"><b>Tune Transcription (exact):</b> Link 1 (The Session)</div>
+                        <div class="dm-tune-grid-item"><b>Reference Setting (similar):</b> <a href="https://tunearch.org/wiki/Barrack_Hill_(1)" target="_blank">Link 1 (Tunearch)</a></div>
+                        <div class="dm-tune-grid-item"><b>Printed Collection Reference:</b> Johnny O'Leary of Sliabh Luachra (1994), No. 320</div>
+                        <footer class="dm-tune-grid-footer">
+                            <button id="dm-btn-popover-close" class="dm-btn-popover" popovertarget="dm-popover-card-tune" autofocus><span class="btn-text">Close Tune Card</span></button>
+                        </footer>
+                    </div>
                 </dialog>
             </section>
         </div>

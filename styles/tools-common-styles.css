@@ -35,7 +35,9 @@ body {
   --font-large: 2rem;
   --font-subhead: 1.65rem;
   --font-mid: 1.4rem;
+  --font-button: 1.3rem;
   --font-base: 1.2rem;
+  --font-small: 1rem;
 
   background-color: var(--bg-color);
   margin: 0 auto;
@@ -165,7 +167,7 @@ dialog:focus-visible {
 .btn {
   display: flex;
   border: none;
-  font-size: var(--font-mid);
+  font-size: var(--font-button);
   padding: 1em;
   border-radius: 0.5rem;
   line-height: 2rem;

@@ -4,7 +4,7 @@ body {
   --tunelist-item-width: 18rem;
   --tunelist-item-color: #a300ff1a;
   --tunelist-item-hover-color: #a300ff4f;
-  }
+}
 
 body.light {
   --tunelist-item-color: #fff3ae;
@@ -18,7 +18,6 @@ html:has(dialog[open]) {
 /* Modal List Template */
 
 .dm-modal-list {
-
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -30,7 +29,8 @@ html:has(dialog[open]) {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 0;
-  min-width: clamp(20rem, calc(100vw - 2.4em), 120rem);
+  min-width: clamp(320px, calc(100svw - 2.4em), 120rem);
+  max-height: min(calc(100svh - 2.4em), 66.5rem);
 }
 
 .dm-modal-list::backdrop {
@@ -84,7 +84,7 @@ html:has(dialog[open]) {
 .dm-tunelist-item-wrapper, .dm-tunelist-item {
   display: flex;
   flex: 1;
-  border: 1px dashed var(--header-color);
+  border: 1px dashed var(--focus-color);
 }
 
 .dm-tunelist-item-wrapper {
@@ -110,31 +110,76 @@ html:has(dialog[open]) {
 }
 
 .dm-tunelist-item-title, .dm-tunelist-item-alttitle {
+  width: 100%;
   color: var(--text-color);
-  text-wrap: nowrap;  
+  text-wrap: nowrap;
+  overflow: clip;
   text-align: center;
+  text-align-last: center;
+  text-overflow: ellipsis;
+  margin-bottom: 0.14rem;
 }
 
 .dm-tunelist-item-title {
-  font-size: var(--font-mid);
+  font-size: var(--font-button);
 }
 
 .dm-tunelist-item-alttitle {
-  font-size: var(--font-base);
+  font-size: var(--font-small);
   color: var(--alt-text-color);
 }
 
-@media screen and (max-width: 968px) {
+/* Media queries for dialogs */
+
+/* @media screen and (max-width: 968px) { */
+@media screen and (max-width: 60.5em) {
 
   .dm-modal-list-header-container {
     justify-content: center;
   }
 }
 
-@media screen and (max-width: 668px) {
+/* @media screen and (max-width: 668px) { */
+  @media screen and (max-width: 41.75em) {
 
   .dm-modal-list-header-container {
     flex-flow: column;
     align-items: center;
+  }
+}
+
+/* @media screen and (max-width: 320px) { */
+@media screen and (max-width: 20em) {
+
+  body {
+    --tunelist-item-width: 100%;
+  }
+
+  .dm-modal-list {
+    min-height: 100svh;
+    min-width: 100svw;
+  }
+
+  .dm-tunelist-container {
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    justify-content: flex-start;
+  }
+
+  .dm-modal-list-header-container > .btn {
+    padding: 0.35rem;
+  }
+
+  .dm-tunelist-item {
+    container-type: inline-size;
+  }
+
+  .dm-tunelist-item-title {
+    font-size: 7.5cqi;
+  }
+
+  .dm-tunelist-item-alttitle {
+    font-size: 6.5cqi;
   }
 }

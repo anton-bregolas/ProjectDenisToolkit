@@ -1,12 +1,13 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.1.4
+// #ProjectDenis Toolkit v.1.5
 //
-// TSV to JSON Parser v.1.3
-// JSON Splitter v.1.3
-// List Generator v.1.1
+// TSV to JSON Parser v.1.5
+// JSON Splitter v.1.5
+// List Generator v.1.2
 ///////////////////////////////////////////////////////////////////////
 
 import { initModals, tunelistDiv } from '../components/dm-modals/dm-modals.js';
+import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
 
 // Define keys in track and collection header objects
 
@@ -463,5 +464,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initButtons();
     initModals();
+    initPopovers();
 });
 
