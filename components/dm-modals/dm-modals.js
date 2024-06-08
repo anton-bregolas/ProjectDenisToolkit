@@ -1,8 +1,8 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
 import { colsDiv, tracksDiv, tunesDiv } from '../../modules/dm-toolkit.js';
-import { showTunePopover } from '../dm-popovers/dm-popovers.js'
-import { toggleAriaHidden } from '../../modules/aria-tools.js'
+import { showTunePopover } from '../dm-popovers/dm-popovers.js';
+import { toggleAriaHidden } from '../../modules/aria-tools.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 const dialogsDiv = document.querySelector('#dm-dialogs');
@@ -10,7 +10,7 @@ const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
 
 // Check if text output can be safely parsed as JSON, return empty array if false
 
-async function validateJson(jsonInput) {
+export async function validateJson(jsonInput) {
 
   let jsonOutput;
 
@@ -72,6 +72,8 @@ async function generateTunelist(tunesJson) {
 
   console.log(`Tunelist generated, tunes total: ${tunesJson.length}`);
 }
+
+// Add event listeners to Tunelist buttons
 
 export function initModals() {
 

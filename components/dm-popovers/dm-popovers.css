@@ -15,7 +15,7 @@ body.light {
 /* Tune Popover Card */
 
 .dm-tune-card {
-  display: grid;
+  position: relative;
   background-color: var(--tune-card-color);
   outline: 2px dashed var(--menu-color);
   border-radius: 0.5rem;
@@ -23,24 +23,47 @@ body.light {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 1em;
-  gap: 0.75rem;
+  padding: 0.75em 0 1em;
   width: min(calc(100svw - 3.7rem), 40rem);
-  height: min(calc(100svh - 3.7rem), 30rem);
+  max-height: calc(100svh - 3.7rem);
+}
+
+.dm-tune-card * {
+  line-height: 1.5;
 }
 
 .dm-tune-grid-header {
-  display: flex;
-  justify-content: center;
+  display: grid;
   color: black;
+  border-bottom: 2px dashed black;
+  padding: 0 1em 0.75em;
 }
 
-.dm-tune-header-container h2 {
+.dm-tune-grid-header h2,
+.dm-tune-grid-header h3 {
   color: black;
+  margin: 0;
 }
 
-.dm-tune-header-container {
+.dm-tune-grid-body {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "alttitle-header alttitle-header"
+    "alttitle-content alttitle-content"
+    "refno-header transcr-header"
+    "refno-content transcr-content"
+    "tunereffull-header refsetting-header"
+    "tunereffull-content refsetting-content";
+  gap: 0.5rem;
+  padding: 1em;
+}
 
+.dm-tune-grid-item {
+  padding-bottom: 0.5rem;
+  text-align: center;
+  text-align-last: center;
 }
 
 .dm-tune-grid-item, .dm-tune-grid-item b {
@@ -52,14 +75,99 @@ body.light {
   font-weight: bold;
 }
 
+.dm-tune-grid-item a {
+  color: var(--link-color);
+}
+
+.dm-tune-grid-item a:is(:hover, :focus) {
+  color: var(--alt-link-active-color);
+}
+
 .dm-tune-grid-footer {
+  grid-area: footer;
   display: flex;
   justify-content: center;
+  padding: 0 1em;
+}
+
+.tune-grid-title-head {
+  grid-area: title-header;
+}
+
+.tune-grid-type-head {
+  grid-area: type-header;
+}
+
+.tune-grid-title-cont {
+  grid-area: title-content;
+}
+ 
+.tune-grid-type-cont {
+  grid-area: type-content;
+}
+
+.tune-grid-alttitle-head {
+  grid-area: alttitle-header;
+}
+
+.tune-grid-alttitle-cont {
+  grid-area: alttitle-content;
+}
+
+.tune-grid-refno-head {
+  grid-area: refno-header;
+}
+
+.tune-grid-refno-cont {
+  grid-area: refno-content;
+}
+
+.tune-grid-transcr-head {
+  grid-area: transcr-header;
+}
+
+.tune-grid-transcr-cont {
+  grid-area: transcr-content;
+}
+ 
+.tune-grid-refsetting-head {
+  grid-area: refsetting-header;
+}
+ 
+.tune-grid-refsetting-cont {
+  grid-area: refsetting-content;
+}
+
+.tune-grid-tunereffull-head {
+  grid-area: tunereffull-header;
+}
+
+.tune-grid-tunereffull-cont {
+  grid-area: tunereffull-content;
 }
 
 /* Tune Popover Buttons */
 
-.dm-btn-popover {
+.dm-btn-popover-close-x {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  aspect-ratio: 1/1;
+  margin: 2px;
+  padding: 0.5rem;
+}
+
+.dm-btn-popover-close-x:after {
+  content: "\00d7";
+  font-size: var(--font-xlarge);
+  color: rgba(0, 0, 0, 0.68);
+  padding-bottom: 0.35rem;
+}
+
+.dm-btn-popover-close-l {
   display: flex;
   align-items: center;
   font-size: var(--font-button);
@@ -70,12 +178,26 @@ body.light {
   border-radius: 0.33rem;
 }
 
-.dm-btn-open-track {
-  color: var(--link-color);
+.dm-tune-card button:is(:focus-visible),
+.dm-tune-grid-item a:is(:focus, :focus-visible),
+.dm-tune-grid-header h2:is(:focus-visible),
+.dm-btn-popover-close:hover {
+  outline: 2px solid red;
+  outline-offset: unset;
+  border-radius: 0.33rem;
 }
 
-.dm-btn-open-track:is(:active, :hover) {
-  color: var(--link-active-color);
+.dm-tune-grid-item a:is(:focus, :focus-visible) {
+  outline-offset: 0.25rem;
+}
+
+.dm-btn-open-track {
+  color: var(--link-color);
+  transition: color 0.5s ease-in-out;
+}
+
+.dm-btn-open-track:is(:active, :hover, :focus, :focus-visible) {
+  color: var(--alt-link-active-color);
 }
 
 /* Media queries for popovers */
@@ -83,19 +205,13 @@ body.light {
 @media screen and (max-width: 41.75em) {
 
   .dm-tune-card {
-    height: calc(80% - 1rem);
     bottom: -43%;
   }
 }
 
 @media screen and (max-width: 20em) {
 
-  .dm-tune-card {
-    width: calc(100% - 1rem);
-    gap: 0.5rem;
-  }
-
-  .dm-tune-grid-item, .dm-tune-grid-item b, .dm-btn-popover {
+  .dm-tune-grid-item, .dm-tune-grid-item b, .dm-btn-popover-close-l {
     font-size: var(--font-button);
   }
 

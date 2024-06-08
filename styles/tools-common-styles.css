@@ -8,6 +8,10 @@
   /* outline: 0.1rem solid red; */
 }
 
+* {
+  line-height: calc(1em + 0.5rem);
+}
+
 html {
   font-size: 100%;
 }
@@ -22,8 +26,11 @@ body {
   --accent-color: #ffdc18;
   --alt-accent-color: #ffdc18;
   --highlight-color: coral;
+  --alt-highlight-color: crimson;
   --link-color: #9f69d1;
+  --alt-link-color: #a300ff4f;
   --link-active-color: coral;
+  --alt-link-active-color: firebrick;
   --border-color: #ffdc1823;
   --alt-border-color: #ffdc1851;
   --header-cell-color: transparent;
@@ -32,6 +39,7 @@ body {
   --alt-light-theme-focus-color: yellowgreen;
   --alt-dark-theme-focus-color: #ffdc18;
 
+  --font-xlarge: 3rem;
   --font-large: 2rem;
   --font-subhead: 1.65rem;
   --font-mid: 1.4rem;
@@ -103,10 +111,6 @@ button:hover {
 
 button:disabled {
   cursor: not-allowed;
-}
-
-button:focus:not(:focus-visible) {
-  outline: none;
 }
 
 button:focus-visible {
@@ -185,6 +189,10 @@ dialog:focus-visible {
 .btn:focus-visible {
   outline-offset: 0.05rem;
   border-radius: 0.5rem;
+}
+
+.btn:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .btn-text {

@@ -99,22 +99,26 @@
                         </div>
                     </header>
                     <div id="dm-tunelist" class="dm-tunelist-container" aria-label="Tunelist grid, select a tune"></div>
-                    <div id="dm-popover-card-tune" popover="manual" class="dm-tune-card hidden" aria-hidden="true" aria-label="Denis Murphy Tune Details">
+                    <div id="dm-popover-card-tune" popover class="dm-tune-card" aria-hidden="true" aria-label="Denis Murphy Tune Details">
                         <header class="dm-tune-grid-header">
-                            <div class="dm-tune-header-container">
-                                <h2>JOLSL # 320</h2>
-                                <h2>The Green Cottage (Slide)</h2>
-                            </div>
+                            <button class="dm-btn-popover-close dm-btn-popover-close-x" autofocus aria-label="Close Tune Card"></button>
+                            <h3 class="tune-grid-htuneref"></h3>
+                            <h2 class="tune-grid-htitle"></h2>
                         </header>
-                        <div class="dm-tune-grid-item"><b>Tune Title:</b> Green Cottage, The</div>
-                        <div class="dm-tune-grid-item"><b>Tune Alt. Titles:</b> Glen Cottage No. 2 / Barrack Hill / Cat Jumped into the Mouse's Hole and Didn't Come Out till the Morning</div>
-                        <div class="dm-tune-grid-item"><b>Tune Type:</b> Slide</div>
-                        <div class="dm-tune-grid-item"><b>Track Ref. No.:</b> <button class="dm-btn-open-track">1102</button>, <button class="dm-btn-open-track">21011</button></div>
-                        <div class="dm-tune-grid-item"><b>Tune Transcription (exact):</b> Link 1 (The Session)</div>
-                        <div class="dm-tune-grid-item"><b>Reference Setting (similar):</b> <a href="https://tunearch.org/wiki/Barrack_Hill_(1)" target="_blank">Link 1 (Tunearch)</a></div>
-                        <div class="dm-tune-grid-item"><b>Printed Collection Reference:</b> Johnny O'Leary of Sliabh Luachra (1994), No. 320</div>
+                        <div class="dm-tune-grid-body">
+                            <div class="dm-tune-grid-item tune-grid-alttitle-head"><b>Tune Alt. Titles:</b></div>
+                            <div class="dm-tune-grid-item tune-grid-alttitle-cont"></div>
+                            <div class="dm-tune-grid-item tune-grid-refno-head"><b>Track Reference No.:</b></div>
+                            <div class="dm-tune-grid-item tune-grid-refno-cont"></div>
+                            <div class="dm-tune-grid-item tune-grid-transcr-head"><b>Tune Transcription:</b></div>
+                            <div class="dm-tune-grid-item tune-grid-transcr-cont"></div>
+                            <div class="dm-tune-grid-item tune-grid-refsetting-head"><b>Quick Reference:</b></div>
+                            <div class="dm-tune-grid-item tune-grid-refsetting-cont"></div>
+                            <div class="dm-tune-grid-item tune-grid-tunereffull-head"><b>Printed Collection Reference:</b></div>
+                            <div class="dm-tune-grid-item tune-grid-tunereffull-cont"></div>
+                        </div>
                         <footer class="dm-tune-grid-footer">
-                            <button id="dm-btn-popover-close" class="dm-btn-popover" popovertarget="dm-popover-card-tune" autofocus><span class="btn-text">Close Tune Card</span></button>
+                            <button class="dm-btn-popover-close dm-btn-popover-close-l"><span class="btn-text">Close Tune Card</span></button>
                         </footer>
                     </div>
                 </dialog>

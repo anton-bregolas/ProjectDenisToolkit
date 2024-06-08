@@ -2,6 +2,18 @@ body {
   width: min(calc(100% - 2.4em), 120rem);
 }
 
+a {
+  color: var(--alt-link-color);
+}
+
+a:active, a:hover {
+  color: var(--alt-link-active-color);
+}
+
+b {
+  color: var(--alt-highlight-color);
+}
+
 /* Header styles */
 
 .header-link {
@@ -138,6 +150,7 @@ body {
   }
 
   body {
+    --font-xlarge: 12cqi;
     --font-large: 10cqi;
     --font-subhead: 8cqi;
     --font-mid: 6cqi;

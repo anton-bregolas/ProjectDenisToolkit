@@ -2,9 +2,16 @@
 ========================================================================================
 #ProjectDenis Toolkit is a set of simple tools for building and updating the database for the project in tribute to the Sliabh Luachra music legend, fiddle player Denis Murphy (1910–1974).
 
-## List Generator v.1.2
+## List Generator v.1.3
 
 This tool generates interactive lists of tunes, tracks and collections using the JSON Splitter data output.
+
+[v.1.3]
+
++ Tunelist Generator now dynamically creates Tune Cards using dataset properties of Tunelist items and Tunes Output data.
++ Tune Cards redesigned using CSS Grid and Popover API.
++ Functions added: showTunePopover, createTuneCard, generateTuneName, generateTuneFullRef, generateLinkSourceName.
++ Style and media query fixes for better responsiveness.
 
 [v.1.2]
 

@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.1.5
+// #ProjectDenis Toolkit v.1.6
 //
+// List Generator v.1.3
 // TSV to JSON Parser v.1.5
 // JSON Splitter v.1.5
-// List Generator v.1.2
 ///////////////////////////////////////////////////////////////////////
 
 import { initModals, tunelistDiv } from '../components/dm-modals/dm-modals.js';

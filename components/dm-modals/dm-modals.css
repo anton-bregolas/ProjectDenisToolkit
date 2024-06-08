@@ -118,6 +118,7 @@ html:has(dialog[open]) {
   text-align-last: center;
   text-overflow: ellipsis;
   margin-bottom: 0.14rem;
+  line-height: 1.5rem;
 }
 
 .dm-tunelist-item-title {
