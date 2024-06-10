@@ -1,15 +1,11 @@
-/* #ProjectDenis Popovers */
+/* #ProjectDenis: Popover Styles */
 
 body {
-  /* --tune-card-color: rgba(240, 130, 52); */
-  /* --tune-card-color: rgba(246, 137, 59, 0.951); */
-  --tune-card-color: rgba(246, 137, 59);
-  --tune-card-item-hover-color: #a300ff4f;
+  --tune-card-color: var(--secondary-color-b);
 }
 
-body.light {
-  --tune-card-color: rgba(255, 175, 117, 0.951);
-  --tune-card-item-hover-color: #a300ff4f;
+body.dark {
+  --tune-card-color: rgba(246, 137, 59);
 }
 
 /* Tune Popover Card */
@@ -17,7 +13,7 @@ body.light {
 .dm-tune-card {
   position: relative;
   background-color: var(--tune-card-color);
-  outline: 2px dashed var(--menu-color);
+  outline: 2px dashed var(--secondary-color-c);
   border-radius: 0.5rem;
   inset: unset;
   top: 50%;
@@ -76,11 +72,11 @@ body.light {
 }
 
 .dm-tune-grid-item a {
-  color: var(--link-color);
+  color: var(--accent-color-b);
 }
 
 .dm-tune-grid-item a:is(:hover, :focus) {
-  color: var(--alt-link-active-color);
+  color: var(--accent-color-c);
 }
 
 .dm-tune-grid-footer {
@@ -88,6 +84,7 @@ body.light {
   display: flex;
   justify-content: center;
   padding: 0 1em;
+  gap: 0.75rem;
 }
 
 .tune-grid-title-head {
@@ -167,24 +164,47 @@ body.light {
   padding-bottom: 0.35rem;
 }
 
-.dm-btn-popover-close-l {
-  display: flex;
-  align-items: center;
+.dm-btn-popover-close-l, .dm-btn-popover-nav {
+  text-align: center;
   font-size: var(--font-button);
   width: 100%;
   padding: 0.25rem;
   background-color: transparent;
-  outline: 2px dotted black;
   border-radius: 0.33rem;
 }
 
-.dm-tune-card button:is(:focus-visible),
-.dm-tune-grid-item a:is(:focus, :focus-visible),
+.dm-btn-popover-close-l {
+  outline: 1px dashed black;
+}
+
+.dm-btn-popover-nav {
+  outline: 1px dotted black;
+}
+
+.dm-btn-prev-tune:before {
+  content: "Prev Tune";
+}
+
+.dm-btn-popover-close-l:before {
+  content: "Close Tune";
+}
+
+.dm-btn-next-tune:before {
+  content: "Next Tune";
+}
+
+.dm-btn-open-track:is(:focus-visible),
+.dm-tune-grid-item a:is(:focus-visible),
 .dm-tune-grid-header h2:is(:focus-visible),
-.dm-btn-popover-close:hover {
-  outline: 2px solid red;
+.dm-btn-popover-nav:is(:hover, :focus-visible),
+.dm-btn-popover-close:is(:hover, :focus-visible) {
   outline-offset: unset;
   border-radius: 0.33rem;
+  outline: 2px solid green;
+}
+
+.dm-btn-popover-close:is(:hover, :focus-visible) {
+  outline: 2px solid red;
 }
 
 .dm-tune-grid-item a:is(:focus, :focus-visible) {
@@ -192,12 +212,31 @@ body.light {
 }
 
 .dm-btn-open-track {
-  color: var(--link-color);
+  color: var(--accent-color-b);
   transition: color 0.5s ease-in-out;
 }
 
 .dm-btn-open-track:is(:active, :hover, :focus, :focus-visible) {
-  color: var(--alt-link-active-color);
+  color: var(--accent-color-c);
+}
+
+/* Color Theme Popover Card */
+
+#theme-picker-popover:popover-open {
+  display: flex;
+}
+
+#theme-picker-popover {
+  flex-flow: row-reverse;
+  justify-content: space-between;
+  width: calc(100% - 1.8rem);
+  gap: 1rem;
+  padding: 0.5em 1em;
+  background-color: var(--primary-color);
+  border: 2px solid var(--focus-color-inverted);
+  border-radius: 0.75rem;
+  inset: unset;
+  transform: translate(0, calc(-0.5em));
 }
 
 /* Media queries for popovers */
@@ -206,6 +245,18 @@ body.light {
 
   .dm-tune-card {
     bottom: -43%;
+  }
+  
+  .dm-btn-prev-tune:before {
+    content: "Prev";
+  }
+
+  .dm-btn-popover-close-l:before {
+    content: "Close";
+  }
+
+  .dm-btn-next-tune:before {
+    content: "Next";
   }
 }
 

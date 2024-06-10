@@ -1,17 +1,7 @@
+/* #ProjectDenis: Toolkit Styles */
+
 body {
   width: min(calc(100% - 2.4em), 120rem);
-}
-
-a {
-  color: var(--alt-link-color);
-}
-
-a:active, a:hover {
-  color: var(--alt-link-active-color);
-}
-
-b {
-  color: var(--alt-highlight-color);
 }
 
 /* Header styles */
@@ -31,8 +21,8 @@ b {
   width: 100%;
 }
 
-.generator-container > .btn {
-  min-width: calc(100% / 3);
+.theme-toggle-btn {
+  position: relative;
 }
 
 /* Container styles */
@@ -50,7 +40,7 @@ b {
   margin-bottom: 1.5rem;
 }
 
-.button-container {
+.button-container, .generator-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 }
@@ -62,8 +52,8 @@ b {
 
 .text-output {
   font-size: var(--font-button);
-  color: var(--text-color);
-  border: 0.3125rem solid var(--menu-color);
+  color: var(--neutral-color);
+  border: 0.3125rem solid var(--secondary-color-c);
   border-radius: 0.5rem;
   padding: 0.5em;
   min-height: 16rem;
@@ -72,7 +62,7 @@ b {
   overflow-y: scroll;
   overflow-x: hidden;
   overflow-wrap: break-word;
-  scrollbar-color: var(--text-color) var(--bg-color);
+  scrollbar-color: var(--neutral-color) var(--primary-color);
 }
 
 .text-output:is(:focus, :focus-visible) {
@@ -83,12 +73,16 @@ b {
 
 .text-counter {
   font-size: var(--font-mid);
-  color: var(--text-color);
+  color: var(--neutral-color);
   padding: 0.5em 0.8125em 0.5em ;
 }
 
+.text-counter:hover {
+  cursor: pointer;
+}
+
 .text-counter:focus-visible {
-  outline: 0.3125rem solid var(--alt-dark-theme-focus-color);
+  outline: 0.3125rem solid var(--focus-color-inverted);
   outline-offset: -0.1rem;
   border-radius: 0.4rem;
 }
@@ -106,7 +100,7 @@ b {
 
 .generator-container {
   display: flex;
-  flex-flow: column;
+  flex-flow: row wrap;
   gap: 0.75rem;
   align-items: center;
 }

@@ -40,3 +40,10 @@ export function toggleTabIndex(element) {
     });
   });
 }
+
+// Set ARIA-label of the element to a specific value
+
+export function setAriaLabel(element, value) {
+
+  element.setAttribute("aria-label", value);
+}

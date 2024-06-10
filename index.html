@@ -11,10 +11,9 @@
     <link rel="stylesheet" href="styles/tools-common-styles.css">
     <link rel="stylesheet" href="styles/dm-toolkit.css">
     <link rel="stylesheet" href="components/dm-modals/dm-modals.css">
-
     <script type="module" src="modules/dm-toolkit.js"></script>
 </head>
-<body>
+<body class="dark">
     <header>
         <div class="header-container"> 
             <button class="logo-btn github-logo" title="#ProjectDenis Toolkit on GitHub" tabindex="-1">
@@ -32,16 +31,41 @@
                     <svg class="logo-icon" aria-hidden="true"><use href="assets/icons/icons.svg#n-abc-icon"></use></svg>
                 </a>
             </button>
-            <button class="logo-btn n-theme-btn" title="Toggle between dark and light themes" aria-label="Dark theme is on">
-                <svg class="logo-icon n-theme-icon-sun" aria-hidden="true"><use href="assets/icons/icons.svg#n-theme-icon-sun"></use></svg>
-                <svg class="logo-icon n-theme-icon-moon" aria-hidden="true"><use href="assets/icons/icons.svg#n-theme-icon-moon"></use></svg>
+            <button id="theme-toggle-btn" class="logo-btn n-theme-btn" title="Toggle between color themes" aria-label="Select color theme. Dark theme is on" popovertarget="theme-picker-popover">
+                <svg class="logo-icon theme-icon-star-mixed" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-star-mixed"></use></svg>
             </button>
+            <div id="theme-picker-popover" popover>
+                <button id="dm-btn-theme-dark" class="logo-btn n-theme-btn dm-btn-theme hidden" data-theme="dark" title="Dark theme">
+                    <svg class="logo-icon n-theme-icon-moon" aria-hidden="true"><use href="assets/icons/icons.svg#n-theme-icon-moon"></use></svg>
+                </button>
+                <button id="dm-btn-theme-light" class="logo-btn n-theme-btn dm-btn-theme" data-theme="light" title="Light theme">
+                    <svg class="logo-icon n-theme-icon-sun" aria-hidden="true"><use href="assets/icons/icons.svg#n-theme-icon-sun"></use></svg>
+                </button>
+                <button id="dm-btn-theme-rain" class="logo-btn n-theme-btn dm-btn-theme" data-theme="rainy" title="Rainy theme">
+                    <svg class="logo-icon theme-icon-rainy" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-rain"></use></svg>
+                </button>
+                <button id="dm-btn-theme-rainbow" class="logo-btn n-theme-btn dm-btn-theme" data-theme="rainbow" title="Rainbow theme">
+                    <svg class="logo-icon theme-icon-rainbow" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-rainbow"></use></svg>
+                </button>
+                <button id="dm-btn-theme-star" class="logo-btn n-theme-btn dm-btn-theme" data-theme="star" title="The Star above the Garter theme">
+                    <svg class="logo-icon theme-icon-star" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-star"></use></svg>
+                </button>
+            </div>
         </div>
     </header>
     <main>
         <div class="main-container">
+            <h1>#ProjectDenis Toolkit</h1>
+            <section class="dm-generator">
+                <h2>List Generator</h2>
+                <br>
+                <div class="generator-container">
+                    <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text">Generate Tunelist</span></button>
+                    <button id="dm-btn-generate-collections" class="btn" disabled><span class="btn-text">Generate Collection List</span></button>
+                    <button id="dm-btn-generate-tracklist" class="btn" disabled><span class="btn-text">Generate Tracklist</span></button>
+                </div>
+            </section>
             <section class="dm-parser">
-                <h1>#ProjectDenis Toolkit</h1>
                 <h2>TSV to JSON Parser</h2>
                 <br>
                 <form id="inputForm" class="form-container" onsubmit="return false;">
@@ -81,15 +105,6 @@
                     </div>
                 </div>
             </section>
-            <section class="dm-generator">
-                <h2>List Generator</h2>
-                <br>
-                <div class="generator-container">
-                    <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text">Generate Tunelist</span></button>
-                    <button id="dm-btn-generate-collections" class="btn" disabled><span class="btn-text">Generate Collection List</span></button>
-                    <button id="dm-btn-generate-tracklist" class="btn" disabled><span class="btn-text">Generate Tracklist</span></button>
-                </div>
-            </section>
             <section id="dm-dialogs" class="hidden">
                 <dialog id="dm-modal-list-tunes" class="dm-modal-list" aria-hidden="true" aria-label="Denis Murphy Tunelist Dialog Window">
                     <header class="dm-modal-list-header">
@@ -99,7 +114,7 @@
                         </div>
                     </header>
                     <div id="dm-tunelist" class="dm-tunelist-container" aria-label="Tunelist grid, select a tune"></div>
-                    <div id="dm-popover-card-tune" popover class="dm-tune-card" aria-hidden="true" aria-label="Denis Murphy Tune Details">
+                    <div id="dm-popover-card-tune" popover class="dm-tune-card" aria-label="Denis Murphy Tune Details">
                         <header class="dm-tune-grid-header">
                             <button class="dm-btn-popover-close dm-btn-popover-close-x" autofocus aria-label="Close Tune Card"></button>
                             <h3 class="tune-grid-htuneref"></h3>
@@ -117,9 +132,11 @@
                             <div class="dm-tune-grid-item tune-grid-tunereffull-head"><b>Printed Collection Reference:</b></div>
                             <div class="dm-tune-grid-item tune-grid-tunereffull-cont"></div>
                         </div>
-                        <footer class="dm-tune-grid-footer">
-                            <button class="dm-btn-popover-close dm-btn-popover-close-l"><span class="btn-text">Close Tune Card</span></button>
-                        </footer>
+                        <nav class="dm-tune-grid-footer">
+                            <button class="dm-btn-popover-nav dm-btn-prev-tune"></button>
+                            <button class="dm-btn-popover-close dm-btn-popover-close-l"></button>
+                            <button class="dm-btn-popover-nav dm-btn-next-tune"></button>
+                        </nav>
                     </div>
                 </dialog>
             </section>

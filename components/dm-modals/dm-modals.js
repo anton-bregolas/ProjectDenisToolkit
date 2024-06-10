@@ -1,36 +1,14 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
-import { colsDiv, tracksDiv, tunesDiv } from '../../modules/dm-toolkit.js';
+import { colsDiv, tracksDiv, tunesDiv, validateJson } from '../../modules/dm-toolkit.js';
 import { showTunePopover } from '../dm-popovers/dm-popovers.js';
-import { toggleAriaHidden } from '../../modules/aria-tools.js';
+import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 const dialogsDiv = document.querySelector('#dm-dialogs');
 const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
 
-// Check if text output can be safely parsed as JSON, return empty array if false
-
-export async function validateJson(jsonInput) {
-
-  let jsonOutput;
-
-    try {
-
-        jsonOutput = JSON.parse(jsonInput);
-
-        if (jsonOutput && typeof jsonOutput === "object") {
-
-            return jsonOutput;
-        }
-    }
-
-    catch (error) { 
-
-      // console.warn(`JSON validator: "${error.message}"`);
-    }
-
-    return "[]";
-}
+// Create Tunelist modal dialog populated with Tune items
 
 async function generateTunelist(tunesJson) {
 
@@ -64,7 +42,6 @@ async function generateTunelist(tunesJson) {
     tuneItem.appendChild(tuneNameSpan);
     tuneItem.appendChild(tuneAltNameSpan);
     tuneItem.setAttribute("data-tuneref", tuneRef);
-    // tuneItem.setAttribute("popovertarget", "dm-popover-card-tune");
     tuneItem.addEventListener('click', showTunePopover);
     tuneItemWrapper.appendChild(tuneItem);
     tunelistDiv.appendChild(tuneItemWrapper);
@@ -82,11 +59,11 @@ export function initModals() {
 
   generateTunelistBtn.addEventListener('click', async () => {
 
-    const tunesOutput = tunesDiv.textContent;
     const tunesCounter = tunesDiv.previousElementSibling;
-    
-    let tunesJson = await validateJson(tunesOutput);
 
+    const tunesOutput = tunesDiv.textContent;
+    let tunesJson = await validateJson(tunesOutput);
+    
     if (Array.isArray(tunesJson) && tunesJson.length > 0) {
 
       if (!tunelistDiv.children.length > 0) {

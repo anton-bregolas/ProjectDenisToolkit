@@ -1,13 +1,14 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.1.6
+// #ProjectDenis Toolkit v.1.7
 //
-// List Generator v.1.3
-// TSV to JSON Parser v.1.5
-// JSON Splitter v.1.5
+// List Generator v.1.4
+// TSV to JSON Parser v.1.6
+// JSON Splitter v.1.6
 ///////////////////////////////////////////////////////////////////////
 
 import { initModals, tunelistDiv } from '../components/dm-modals/dm-modals.js';
-import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
+import { initPopovers, themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
+import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 
 // Define keys in track and collection header objects
 
@@ -390,6 +391,30 @@ async function createTuneList(tracks) {
     }
 }
 
+// Check if text output can be safely parsed as JSON, return empty array if false
+
+export async function validateJson(jsonInput) {
+
+    let jsonOutput;
+  
+      try {
+  
+          jsonOutput = JSON.parse(jsonInput);
+  
+          if (jsonOutput && typeof jsonOutput === "object") {
+  
+              return jsonOutput;
+          }
+      }
+  
+      catch (error) { 
+  
+        // console.warn(`JSON validator: "${error.message}"`);
+      }
+  
+      return "[]";
+}
+
 // Add event listeners to Toolkit buttons
 
 function initButtons() {
@@ -403,11 +428,13 @@ function initButtons() {
     const getCollectionsBtn = document.getElementById("getCollections");
     const getTracksBtn = document.getElementById("getTracks");
     const getTunesBtn = document.getElementById("getTunes");
+    const colsCounter = colsDiv.previousElementSibling;
+    const tracksCounter = tracksDiv.previousElementSibling;
+    const tunesCounter = tunesDiv.previousElementSibling;
 
     const allBtn = document.querySelectorAll(".btn");
-    const themeBtn = document.querySelector('.n-theme-btn');
-    const sunIcon = themeBtn.querySelector('.n-theme-icon-sun');
-    const moonIcon = themeBtn.querySelector('.n-theme-icon-moon');
+    const allThemeBtn = document.querySelectorAll(".dm-btn-theme");
+    const themeBtn = document.getElementById('theme-toggle-btn');
 
     parseSingleStringBtn.addEventListener("click", parseSingleString);
     parseFromFileBtn.addEventListener("click", parseFromFile);
@@ -445,17 +472,35 @@ function initButtons() {
         });
     });
 
-    // Light / dark theme toggle button
+    // Color theme toggle buttons
 
-    themeBtn.addEventListener('click', () => {
+    allThemeBtn.forEach(btn => {
 
-        let ariaLabel = document.body.classList.contains("light")? "Dark theme is on" : "Light theme is on";
+        btn.addEventListener('click', () => {
 
-        themeBtn.setAttribute("aria-label", ariaLabel);
-        document.body.classList.toggle("light");
-        sunIcon.classList.toggle("hidden");
-        moonIcon.classList.toggle("displayed");
-    });
+            themePickerPopover.hidePopover();
+            document.body.classList.value = btn.dataset.theme;
+
+            allThemeBtn.forEach(btn => { 
+                if (btn.classList.contains("hidden")) {
+                    btn.classList.remove("hidden");
+                }
+            });
+
+            btn.classList.add("hidden");
+
+            setAriaLabel(themeBtn, `Select color theme. ${btn.title} is on`);
+
+            themeBtn.focus();
+        });
+     });
+
+     [colsCounter, tracksCounter, tunesCounter].forEach(counter => {
+
+        counter.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+         })
+     });
 }
 
 // Set all Toolkit event listeners on page load

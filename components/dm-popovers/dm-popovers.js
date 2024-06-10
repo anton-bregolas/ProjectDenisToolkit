@@ -1,32 +1,26 @@
 /* #ProjectDenis Popovers Scripts*/
 
-import { colsDiv, tracksDiv, tunesDiv } from '../../modules/dm-toolkit.js';
-import { validateJson } from '../dm-modals/dm-modals.js';
-import { toggleAriaHidden } from '../../modules/aria-tools.js';
+import { colsDiv, tracksDiv, tunesDiv, validateJson } from '../../modules/dm-toolkit.js';
+import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
+export const themePickerPopover = document.querySelector('#theme-picker-popover');
 
 // Display the Tune Card popover
 
 export async function showTunePopover() {
-  
+
   const tunesOutput = tunesDiv.textContent;
-  let tunesJson = await validateJson(tunesOutput);
+  const tunesJson = await validateJson(tunesOutput);
   
   if (Array.isArray(tunesJson) && tunesJson.length > 0) {
 
       const tuneRef = this.dataset.tuneref;
-
-      console.log(`Creating tune card...\n\n Tune ref.:\n\n ${tuneRef}`);
-
       const tuneObject = tunesJson.find(tune => tune.tuneref === tuneRef);
-
-      console.log(tuneObject);
 
       await createTuneCard(tuneObject);
 
       tuneCardPopover.showPopover();
-      toggleAriaHidden(tuneCardPopover);
 
       console.log("Tune card created.");
 
@@ -53,8 +47,11 @@ async function createTuneCard(tuneObject) {
   const tuneType = tuneObject.tunetype;
   const tuneAltNames = tuneObject.altnames;
   const tuneTrackRefs = tuneObject.refno;
-  const tuneTranscriptUrl = tuneObject.transcriptlink.split(", ")[0];
-  const tuneQuickRefUrl = tuneObject.refsettinglink.split(", ")[0];
+  const tuneTranscriptUrl = tuneObject.transcriptlink?.split(", ")[0];
+  const tuneQuickRefUrl = tuneObject.refsettinglink?.split(", ")[0];
+  
+  console.log(`Creating tune card...\n\n Tune ref.:\n\n ${tuneRef}`);
+  console.log(tuneObject);
 
   tuneRefDiv.textContent = tuneRef;
   tuneTitleDiv.textContent = `${generateTuneName(tuneName)} (${tuneType})`;
@@ -152,7 +149,7 @@ function generateTuneFullRef(tuneRef) {
       fullColRef = "Ceol Rince na hÉireann 5 (1999)";
       break;
     case "JOLSL":
-      fullColRef = "Johnny O'Leary of Sliabh Luachra (1994 / 2014)";
+      fullColRef = "Johnny O'Leary of Sliabh Luachra (1994, 2014)";
       break;
     case "SLOP":
       fullColRef = "Sliabh Luachra on Parade (1987)";
@@ -251,6 +248,8 @@ function generateLinkSourceName(tuneTranscriptUrl) {
 export function initPopovers() {
 
   const closeTuneCardBtn = document.querySelectorAll('.dm-btn-popover-close');
+  const prevTuneCardBtn = document.querySelector('.dm-btn-prev-tune');
+  const nextTuneCardBtn = document.querySelector('.dm-btn-next-tune');
 
   closeTuneCardBtn.forEach(btn => {
       
@@ -259,5 +258,39 @@ export function initPopovers() {
       tuneCardPopover.hidePopover();
       toggleAriaHidden(tuneCardPopover);
     });
-  })
+  });
+
+  prevTuneCardBtn.addEventListener('click', async () => {
+
+    const tunesOutput = tunesDiv.textContent;
+    const tunesJson = await validateJson(tunesOutput);
+    const cardTuneRef = document.querySelector('.tune-grid-htuneref').textContent;
+    const currentTuneObject = tunesJson.find(tune => tune.tuneref === cardTuneRef);
+    const currentTuneObjectIndex = tunesJson.indexOf(currentTuneObject);
+
+    let prevTuneObject;
+
+    prevTuneObject = currentTuneObjectIndex > 0? tunesJson[currentTuneObjectIndex - 1] : tunesJson[tunesJson.length - 1];
+    
+    createTuneCard(prevTuneObject);
+
+    console.log("Previous tune card rendered.");
+  });
+
+  nextTuneCardBtn.addEventListener('click', async () => {
+
+    const tunesOutput = tunesDiv.textContent;
+    const tunesJson = await validateJson(tunesOutput);
+    const cardTuneRef = document.querySelector('.tune-grid-htuneref').textContent;
+    const currentTuneObject = tunesJson.find(tune => tune.tuneref === cardTuneRef);
+    const currentTuneObjectIndex = tunesJson.indexOf(currentTuneObject);
+
+    let nextTuneObject;
+
+    nextTuneObject = currentTuneObject === tunesJson[tunesJson.length - 1]? tunesJson[0] : tunesJson[currentTuneObjectIndex + 1];
+    
+    createTuneCard(nextTuneObject);
+
+    console.log("Next tune card rendered.");
+  });
 }
