@@ -63,7 +63,7 @@ html:has(dialog[open]) {
 
 /* Tunelist */
 
-.dm-tunelist-container {
+.dm-tunelist-container, .dm-collist-container {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, var(--tunelist-item-width));
@@ -75,7 +75,8 @@ html:has(dialog[open]) {
   min-height: 5rem;
 }
 
-.dm-tunelist-container:focus-visible {
+.dm-tunelist-container:focus-visible,
+.dm-collist-container:focus-visible {
   outline: 0.2rem solid var(--focus-color);
   outline-offset: 0.35rem;
 }
@@ -128,6 +129,12 @@ html:has(dialog[open]) {
   font-size: var(--font-small);
   color: var(--neutral-color-alt);
 }
+
+/* Collection List */
+
+/* .dm-collist-container {
+
+} */
 
 /* Media queries for dialogs */
 

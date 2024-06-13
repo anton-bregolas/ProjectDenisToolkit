@@ -2,15 +2,21 @@
 
 body {
   --tune-card-color: var(--secondary-color-b);
+  --col-card-color: var(--secondary-color-c);
 }
 
 body.dark {
   --tune-card-color: rgba(246, 137, 59);
+  --col-card-color: #3399cc;
+}
+
+body.dark .dm-col-card {
+  background-color: color-mix(in srgb, var(--col-card-color) 75%, white);
 }
 
 /* Tune Popover Card */
 
-.dm-tune-card {
+.dm-tune-card, .dm-col-card {
   position: relative;
   background-color: var(--tune-card-color);
   outline: 2px dashed var(--secondary-color-c);
@@ -24,26 +30,31 @@ body.dark {
   max-height: calc(100svh - 3.7rem);
 }
 
-.dm-tune-card * {
+.dm-tune-card *, .dm-col-card * {
   line-height: 1.5;
 }
 
-.dm-tune-grid-header {
+.dm-tune-grid-header, .dm-col-grid-header {
   display: grid;
   color: black;
   border-bottom: 2px dashed black;
   padding: 0 1em 0.75em;
 }
 
-.dm-tune-grid-header h2,
-.dm-tune-grid-header h3 {
+.dm-tune-grid-header h2, .dm-tune-grid-header h3,
+.dm-col-grid-header h2, .dm-col-grid-header h3  {
   color: black;
   margin: 0;
 }
 
-.dm-tune-grid-body {
+.dm-tune-grid-body, .dm-col-grid-body {
   display: grid;
-  grid-template-columns: 50% 50%;
+  gap: 0.5rem;
+  padding: 1em;
+}
+
+.dm-tune-grid-body {
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
     "alttitle-header alttitle-header"
@@ -52,14 +63,16 @@ body.dark {
     "refno-content transcr-content"
     "tunereffull-header refsetting-header"
     "tunereffull-content refsetting-content";
-  gap: 0.5rem;
-  padding: 1em;
 }
 
-.dm-tune-grid-item {
-  padding-bottom: 0.5rem;
+.dm-tune-grid-item, .dm-col-grid-item {
   text-align: center;
   text-align-last: center;
+}
+
+.dm-tune-grid-item, 
+.dm-col-grid-item:not(:last-child):not(.col-grid-reflink) {
+  padding-bottom: 0.5rem;
 }
 
 .dm-tune-grid-item, .dm-tune-grid-item b {
@@ -67,40 +80,16 @@ body.dark {
   color: black;
 }
 
-.dm-tune-grid-item b {
+.dm-tune-grid-item b, .dm-col-grid-item b {
   font-weight: bold;
 }
 
-.dm-tune-grid-item a {
-  color: var(--accent-color-b);
-}
-
-.dm-tune-grid-item a:is(:hover, :focus) {
-  color: var(--accent-color-c);
-}
-
-.dm-tune-grid-footer {
+.dm-tune-grid-footer, .dm-col-grid-footer {
   grid-area: footer;
   display: flex;
   justify-content: center;
   padding: 0 1em;
   gap: 0.75rem;
-}
-
-.tune-grid-title-head {
-  grid-area: title-header;
-}
-
-.tune-grid-type-head {
-  grid-area: type-header;
-}
-
-.tune-grid-title-cont {
-  grid-area: title-content;
-}
- 
-.tune-grid-type-cont {
-  grid-area: type-content;
 }
 
 .tune-grid-alttitle-head {
@@ -164,7 +153,8 @@ body.dark {
   padding-bottom: 0.35rem;
 }
 
-.dm-btn-popover-close-l, .dm-btn-popover-nav {
+.dm-btn-popover-close-l, .dm-btn-popover-nav,
+.dm-btn-popover-close-col-l {
   text-align: center;
   font-size: var(--font-button);
   width: 100%;
@@ -173,7 +163,7 @@ body.dark {
   border-radius: 0.33rem;
 }
 
-.dm-btn-popover-close-l {
+.dm-btn-popover-close-l, .dm-btn-popover-close-col-l {
   outline: 1px dashed black;
 }
 
@@ -216,8 +206,162 @@ body.dark {
   transition: color 0.5s ease-in-out;
 }
 
+.dm-tune-grid-item a:is(:active, :hover, :focus, :focus-visible),
 .dm-btn-open-track:is(:active, :hover, :focus, :focus-visible) {
   color: var(--accent-color-c);
+}
+
+/* Collection Popover Card */
+
+.dm-col-grid-body {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "performers performers performers"
+    "source-content source-content source-content"
+    "reflink reflink reflink"
+    "coltype-header yearrec-header yearpub-header"
+    "coltype-content yearrec-content yearpub-content"
+    "col-links col-links col-links"
+    "comments-header comments-header comments-header"
+    "comments-content comments-content comments-content";
+}
+
+.dm-col-card {
+  background-color: color-mix(in srgb, var(--col-card-color) 65%, white);
+  outline: 2px dashed var(--secondary-color-b);
+}
+
+.dm-col-grid-item a,
+.col-grid-reflink button {
+  color: var(--secondary-color-b);
+}
+
+.dm-col-grid-item a:is(:hover, :focus),
+.col-grid-reflink button:is(:hover, :focus) {
+  color: var(--accent-color-b);
+}
+
+.dm-col-grid-item, .dm-col-grid-item b {
+  font-size: var(--font-base);
+  color: black;
+}
+
+.dm-col-grid-item-inactive {
+  color: var(--neutral-color-alt);
+  opacity: 0.6;
+}
+
+.col-grid-performers {
+  grid-area: performers;
+}
+
+.col-grid-source-head {
+  grid-area: source-header;
+}
+
+.col-grid-source-cont {
+  grid-area: source-content;
+}
+
+.col-grid-yearrec-head {
+  grid-area: yearrec-header;
+}
+
+.col-grid-yearrec-cont {
+  grid-area: yearrec-content;
+}
+
+.col-grid-yearpub-head {
+  grid-area: yearpub-header;
+}
+
+.col-grid-yearpub-cont {
+  grid-area: yearpub-content;
+}
+
+.col-grid-coltype-head {
+  grid-area: coltype-header;
+}
+
+.col-grid-coltype-cont {
+  grid-area: coltype-content;
+}
+
+.col-grid-reflink {
+  grid-area: reflink;
+}
+
+.col-grid-srclink {
+  grid-area: srclink;
+}
+
+.col-grid-dsglink {
+  grid-area: dgslink;
+}
+
+.col-grid-tsolink {
+  grid-area: tsolink;
+}
+
+.col-grid-itilink {
+  grid-area: itilink;
+}
+
+.col-grid-rmtlink {
+  grid-area: rmtlink;
+}
+
+.col-grid-strlink {
+  grid-area: strlink;
+}
+
+.dm-col-grid-links {
+  grid-area: col-links;
+}
+
+.col-grid-comments-head {
+  grid-area: comments-header;
+}
+
+.dm-col-grid-links, .col-grid-reflink {
+  border: 2px dashed black;
+  border-radius: 0.5rem;
+  padding-bottom: 0;
+  padding: 1em;
+  gap: 1rem;
+  margin: 0.5rem 0 0.75rem;
+  background-color: color-mix(in srgb, var(--col-card-color) 65%, black);
+}
+
+.dm-col-grid-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "srclink dgslink tsolink"
+    "itilink rmtlink strlink";
+}
+
+.col-grid-comments-cont {
+  display: grid;
+  gap: 0.75rem;
+  grid-area: comments-content;
+}
+
+.dm-col-grid-notes {
+  text-align: justify;
+  text-align-last: left;
+  margin: 0;
+}
+
+/* Collections Popover Buttons */
+
+.dm-col-grid-item a:is(:focus, :focus-visible),
+.col-grid-reflink button:is(:focus, :focus-visible){
+  outline-offset: 0.25rem;
+  border-radius: 0.33rem;
+  outline: 2px solid yellow;
 }
 
 /* Color Theme Popover Card */
@@ -243,7 +387,7 @@ body.dark {
 
 @media screen and (max-width: 41.75em) {
 
-  .dm-tune-card {
+  .dm-tune-card, .dm-col-card {
     bottom: -43%;
   }
   
@@ -260,13 +404,23 @@ body.dark {
   }
 }
 
+@media screen and (max-width: 34em) {
+
+  .dm-col-grid-body, .dm-col-grid-links {
+    display: flex;
+    flex-flow: column;
+  }
+}
+
 @media screen and (max-width: 20em) {
 
-  .dm-tune-grid-item, .dm-tune-grid-item b, .dm-btn-popover-close-l {
+  .dm-tune-grid-item, .dm-tune-grid-item b, 
+  .dm-col-grid-item, .dm-col-grid-item b, 
+  .dm-btn-popover-close-l, .dm-btn-popover-close-col-l {
     font-size: var(--font-button);
   }
 
-  .dm-tune-grid-header h2 {
+  .dm-tune-grid-header h2, .dm-col-grid-header h2 {
     font-size: 7cqi;
   }
 }

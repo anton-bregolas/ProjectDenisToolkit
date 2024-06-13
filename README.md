@@ -2,6 +2,10 @@
 ========================================================================================
 #ProjectDenis Toolkit is a set of simple tools for building and updating the database for the project in tribute to the Sliabh Luachra music legend, fiddle player Denis Murphy (1910–1974).
 
+[v.1.8]
+
++ Fully functional tunelists and experimental version of collection lists.
+
 [v.1.7]
 
 + CSS custom properties redesigned to declutter stylesheets.
@@ -9,9 +13,15 @@
 + Three experimental color themes added: Rainy theme, Rainbow theme and The Star above the Garter theme.
 + Color theme toggle button now triggers a popover offering a selection of themes.
 
-## List Generator v.1.4
+## List Generator v.1.5
 
 This tool generates interactive lists of tunes, tracks and collections using the JSON Splitter data output.
+
+[v.1.5]
+
++ Tunelist Generator now dynamically creates collection lists using data from Tunes Output.
++ Dynamically created Collection Cards designed using CSS Grid and Popover API.
++ Functions added: generateColsList, showColPopover, createColCard.
 
 [v.1.4]
 

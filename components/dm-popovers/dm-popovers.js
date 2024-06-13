@@ -4,6 +4,7 @@ import { colsDiv, tracksDiv, tunesDiv, validateJson } from '../../modules/dm-too
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
+export const colCardPopover = document.querySelector('#dm-popover-card-col');
 export const themePickerPopover = document.querySelector('#theme-picker-popover');
 
 // Display the Tune Card popover
@@ -50,7 +51,7 @@ async function createTuneCard(tuneObject) {
   const tuneTranscriptUrl = tuneObject.transcriptlink?.split(", ")[0];
   const tuneQuickRefUrl = tuneObject.refsettinglink?.split(", ")[0];
   
-  console.log(`Creating tune card...\n\n Tune ref.:\n\n ${tuneRef}`);
+  console.log(`Creating tune card...\n\nTune ref.:\n\n ${tuneRef}`);
   console.log(tuneObject);
 
   tuneRefDiv.textContent = tuneRef;
@@ -243,20 +244,167 @@ function generateLinkSourceName(tuneTranscriptUrl) {
   }
 }
 
-// Add event listeners to Tune Card buttons
+// Display the Collection Card popover
+
+export async function showColPopover() {
+
+  const colsOutput = colsDiv.textContent;
+  const colsJson = await validateJson(colsOutput);
+  
+  if (Array.isArray(colsJson) && colsJson.length > 0) {
+
+      const colRefCode = this.dataset.colref;
+      const colObject = colsJson.find(col => col.refcode === colRefCode);
+
+      await createColCard(colObject);
+
+      colCardPopover.showPopover();
+
+      console.log("Collection card created.");
+
+  } else {
+
+    console.warn("No collections found!")
+  }
+}
+
+// Generate Collection Card details using data from colObject
+
+async function createColCard(colObject) {
+
+  const colRefNoDiv = document.querySelector(".col-grid-hrefno");
+  const colRefCodeDiv = document.querySelector(".col-grid-hrefcode");
+  const colTitleDiv = document.querySelector(".col-grid-htitle");
+  const colPubCodeDiv = document.querySelector(".col-grid-hpubcode");
+  const colPerformersDiv = document.querySelector(".col-grid-performers");
+  const colSourceDiv = document.querySelector(".col-grid-source-cont");
+  const colRefLinkDiv = document.querySelector(".col-grid-reflink");
+  const colYearRecDiv = document.querySelector(".col-grid-yearrec-cont");
+  const colYearPubDiv = document.querySelector(".col-grid-yearpub-cont");
+  const colTypeDiv = document.querySelector(".col-grid-coltype-cont");
+  const colCommentsDiv = document.querySelector(".col-grid-comments-cont");
+
+  const colRefNo = colObject.colrefno;
+  const colRefCode = colObject.refcode;
+  const colName = colObject.colname;
+  const colPubCode = colObject.pubcode;
+  const colPerformers = colObject.performers;
+  const colSource = colObject.source;
+  const colYearRec = colObject.recyear;
+  const colYearPub = colObject.pubyear;
+  const colType = colObject.coltype;
+
+  console.log(`Creating collection card...\n\nCol. ref.: ${colRefNo} | ${colRefCode}`);
+  console.log(colObject);
+
+  colRefNoDiv.textContent = colRefNo;
+  colRefCodeDiv.textContent = colRefCode;
+  colTitleDiv.textContent = "";
+  colPubCodeDiv.textContent = colPubCode;
+  colPerformersDiv.textContent = "";
+  colSourceDiv.textContent = colSource;
+  colRefLinkDiv.textContent = "";
+  colYearRecDiv.textContent = colYearRec;
+  colYearPubDiv.textContent = colYearPub;
+  colTypeDiv.textContent = colType;
+  colCommentsDiv.textContent = "";
+
+  const colNameArr = colName.split(/[:,]/);
+
+  if (colNameArr.length > 1) {
+
+    colNameArr.forEach(nameLine => {
+
+      const colNameSpan = document.createElement("span");
+      colNameSpan.textContent = nameLine;
+
+      if (colNameArr.indexOf(nameLine) < colNameArr.length - 1) {
+
+        const lineBreak = document.createElement("br");
+        colNameSpan.appendChild(lineBreak);
+      }
+    
+      colTitleDiv.appendChild(colNameSpan);
+    });
+
+  } else {
+    
+    colTitleDiv.textContent = colName;
+  }
+
+  const boldText = document.createElement("b");
+  boldText.textContent = colPerformers;
+  colPerformersDiv.appendChild(boldText);
+
+  const colRefLinksArr = ["reflink", "srclink", "dgslink", "tsolink", "itilink", "rmtlink", "strlink"];
+
+  colRefLinksArr.forEach(refLink => {
+
+    const colLinkDiv = document.querySelector(`.col-grid-${refLink}`);
+    const colLinkUrl = colObject[refLink];
+
+    if (colLinkUrl) {
+
+      const colHyperlink = document.createElement("a");
+      const boldLink = document.createElement("b");
+      colHyperlink.setAttribute("href", colLinkUrl);
+      colHyperlink.setAttribute("target", "_blank");
+      colHyperlink.textContent = colLinkDiv.textContent;
+      colLinkDiv.textContent = "";
+      boldLink.appendChild(colHyperlink)
+      colLinkDiv.appendChild(boldLink);
+
+    } else if (refLink !== "reflink") {
+
+      const boldText = document.createElement("b");
+      boldText.textContent = colLinkDiv.textContent;
+      boldText.classList.add("dm-col-grid-item-inactive");
+      colLinkDiv.textContent = "";
+      colLinkDiv.appendChild(boldText);
+    } 
+    
+    if (refLink === "reflink") {
+
+      const trackRefBtn = document.createElement("button");
+      trackRefBtn.classList.add("dm-btn-open-track");
+      trackRefBtn.textContent = `Detailed Tracklist`
+      trackRefBtn.dataset.refno = colRefNo;
+      colLinkDiv.appendChild(trackRefBtn);
+    }
+  });
+
+  const colsCommentsArr = ["colnotes", "colnotes2", "colnotes3"]
+
+  colsCommentsArr.forEach(colNotes => {
+
+    if (colObject[colNotes]) {
+
+      const notesPar = document.createElement("p");
+      notesPar.classList.add("dm-col-grid-notes");
+      notesPar.textContent = colObject[colNotes];
+      colCommentsDiv.appendChild(notesPar);
+    }
+  });
+}
+
+// Add event listeners to Popover card buttons
 
 export function initPopovers() {
 
   const closeTuneCardBtn = document.querySelectorAll('.dm-btn-popover-close');
   const prevTuneCardBtn = document.querySelector('.dm-btn-prev-tune');
   const nextTuneCardBtn = document.querySelector('.dm-btn-next-tune');
+  const prevColCardBtn = document.querySelector('.dm-btn-prev-col');
+  const nextColCardBtn = document.querySelector('.dm-btn-next-col');
 
   closeTuneCardBtn.forEach(btn => {
       
       btn.addEventListener('click', () => {
 
-      tuneCardPopover.hidePopover();
-      toggleAriaHidden(tuneCardPopover);
+        btn.parentElement.classList.contains("dm-col-grid-header") || btn.parentElement.classList.contains("dm-col-grid-footer") ? 
+        colCardPopover.hidePopover() :
+        tuneCardPopover.hidePopover();
+        // toggleAriaHidden(tuneCardPopover);
     });
   });
 
@@ -292,5 +440,39 @@ export function initPopovers() {
     createTuneCard(nextTuneObject);
 
     console.log("Next tune card rendered.");
+  });
+
+  prevColCardBtn.addEventListener('click', async () => {
+
+    const colsOutput = colsDiv.textContent;
+    const colsJson = await validateJson(colsOutput);
+    const cardColRef = document.querySelector('.col-grid-hrefcode').textContent;
+    const currentColObject = colsJson.find(col => col.refcode === cardColRef);
+    const currentColObjectIndex = colsJson.indexOf(currentColObject);
+
+    let prevColObject;
+
+    prevColObject = currentColObjectIndex > 0? colsJson[currentColObjectIndex - 1] : colsJson[colsJson.length - 1];
+    
+    createColCard(prevColObject);
+
+    console.log("Previous collection card rendered.");
+  });
+
+  nextColCardBtn.addEventListener('click', async () => {
+
+    const colsOutput = colsDiv.textContent;
+    const colsJson = await validateJson(colsOutput);
+    const cardColRef = document.querySelector('.col-grid-hrefcode').textContent;
+    const currentColObject = colsJson.find(col => col.refcode === cardColRef);
+    const currentColObjectIndex = colsJson.indexOf(currentColObject);
+
+    let nextColObject;
+
+    nextColObject = currentColObject === colsJson[colsJson.length - 1]? colsJson[0] : colsJson[currentColObjectIndex + 1];
+    
+    createColCard(nextColObject);
+    
+    console.log("Next collection card rendered.");
   });
 }

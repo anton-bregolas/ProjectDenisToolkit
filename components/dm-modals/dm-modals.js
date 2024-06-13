@@ -1,12 +1,14 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
 import { colsDiv, tracksDiv, tunesDiv, validateJson } from '../../modules/dm-toolkit.js';
-import { showTunePopover } from '../dm-popovers/dm-popovers.js';
+import { showTunePopover, showColPopover } from '../dm-popovers/dm-popovers.js';
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
+export const colsListDiv = document.querySelector('#dm-collist');
 const dialogsDiv = document.querySelector('#dm-dialogs');
 const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
+const colsListDialog = document.querySelector('#dm-modal-list-cols');
 
 // Create Tunelist modal dialog populated with Tune items
 
@@ -50,12 +52,49 @@ async function generateTunelist(tunesJson) {
   console.log(`Tunelist generated, tunes total: ${tunesJson.length}`);
 }
 
+// Create Collection List modal dialog populated with Collection items
+
+async function generateColsList(colsJson) {
+
+  colsListDiv.textContent = "";
+
+  colsJson.forEach(colObject  => {
+
+    const colRefNo = colObject.colrefno;
+    const colRefCode = colObject.refcode;
+
+    const colAltNameSpan = document.createElement("span");
+    const colNameSpan = document.createElement("span");
+    const colItem = document.createElement("button");
+    const colItemWrapper = document.createElement("div");
+
+    colAltNameSpan.classList.add("dm-tunelist-item-alttitle");
+    colNameSpan.classList.add("dm-tunelist-item-title");
+    colItem.classList.add("dm-tunelist-item");
+    colItemWrapper.classList.add("dm-tunelist-item-wrapper");
+
+    colAltNameSpan.textContent = colRefNo;
+    colNameSpan.textContent = colRefCode;
+
+    colItem.appendChild(colNameSpan);
+    colItem.appendChild(colAltNameSpan);
+    colItem.setAttribute("data-colref", colRefCode);
+    colItem.addEventListener('click', showColPopover);
+    colItemWrapper.appendChild(colItem);
+    colsListDiv.appendChild(colItemWrapper);
+  });
+
+  console.log(`Collections list generated, collections total: ${colsJson.length}`);
+}
+
 // Add event listeners to Tunelist buttons
 
 export function initModals() {
 
   const generateTunelistBtn = document.querySelector('#dm-btn-generate-tunelist');
-  const closeTunelistBtn = document.querySelector('#dm-btn-modal-close');
+  const generateColsListBtn = document.querySelector('#dm-btn-generate-collections');
+  const closeTunelistBtn = document.querySelector('#dm-btn-tunelist-close');
+  const closeColsListBtn = document.querySelector('#dm-btn-colslist-close');
 
   generateTunelistBtn.addEventListener('click', async () => {
 
@@ -89,10 +128,49 @@ export function initModals() {
     }
   });
 
+  generateColsListBtn.addEventListener('click', async () => {
+
+    const colsCounter = colsDiv.previousElementSibling;
+
+    const colsOutput = colsDiv.textContent;
+    let colsJson = await validateJson(colsOutput);
+    
+    if (Array.isArray(colsJson) && colsJson.length > 0) {
+
+      if (!colsListDiv.children.length > 0) {
+
+        console.log("Generating list of collections...");
+
+        await generateColsList(colsJson);
+  
+      } else {
+
+        console.log(`Collections list found, collections total: ${colsJson.length}`);
+      }
+
+      dialogsDiv.classList.toggle("hidden");
+      toggleAriaHidden(colsListDialog);
+      colsListDialog.showModal();
+      return;
+
+    } else {
+
+      console.warn("No collections found!")
+      colsCounter.focus({ focusVisible: true });
+    }
+  });
+
   closeTunelistBtn.addEventListener('click', () => {
 
     tunelistDialog.close();
     dialogsDiv.classList.toggle("hidden");
     toggleAriaHidden(tunelistDialog);
+  });
+
+  closeColsListBtn.addEventListener('click', () => {
+
+    colsListDialog.close();
+    dialogsDiv.classList.toggle("hidden");
+    toggleAriaHidden(colsListDialog);
   });
 }

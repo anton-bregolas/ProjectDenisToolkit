@@ -61,7 +61,7 @@
                 <br>
                 <div class="generator-container">
                     <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text">Generate Tunelist</span></button>
-                    <button id="dm-btn-generate-collections" class="btn" disabled><span class="btn-text">Generate Collection List</span></button>
+                    <button id="dm-btn-generate-collections" class="btn"><span class="btn-text">Generate Collection List</span></button>
                     <button id="dm-btn-generate-tracklist" class="btn" disabled><span class="btn-text">Generate Tracklist</span></button>
                 </div>
             </section>
@@ -109,8 +109,8 @@
                 <dialog id="dm-modal-list-tunes" class="dm-modal-list" aria-hidden="true" aria-label="Denis Murphy Tunelist Dialog Window">
                     <header class="dm-modal-list-header">
                         <div id="dm-modal-list-header-container" class="dm-modal-list-header-container">
-                            <h2 class="nowrap">#ProjectDenis: Tunelist</h2>
-                            <button id="dm-btn-modal-close" class="btn"><span class="btn-text">Close Tunelist</span></button>
+                            <h2 class="dm-modal-list-title nowrap">#ProjectDenis: Tunelist</h2>
+                            <button id="dm-btn-tunelist-close" class="btn dm-btn-modal"><span class="btn-text">Close Tunelist</span></button>
                         </div>
                     </header>
                     <div id="dm-tunelist" class="dm-tunelist-container" aria-label="Tunelist grid, select a tune"></div>
@@ -136,6 +136,49 @@
                             <button class="dm-btn-popover-nav dm-btn-prev-tune"></button>
                             <button class="dm-btn-popover-close dm-btn-popover-close-l"></button>
                             <button class="dm-btn-popover-nav dm-btn-next-tune"></button>
+                        </nav>
+                    </div>
+                </dialog>
+                <dialog id="dm-modal-list-cols" class="dm-modal-list" aria-hidden="true" aria-label="Denis Murphy Collections Dialog Window">
+                    <header class="dm-modal-list-header">
+                        <div id="dm-modal-list-header-container" class="dm-modal-list-header-container">
+                            <h2 class="dm-modal-list-title nowrap">#ProjectDenis: Collections</h2>
+                            <button id="dm-btn-colslist-close" class="btn dm-btn-modal"><span class="btn-text">Close Collections</span></button>
+                        </div>
+                    </header>
+                    <div id="dm-collist" class="dm-collist-container" aria-label="Collections grid, select a collection"></div>
+                    <div id="dm-popover-card-col" popover class="dm-col-card" aria-label="Denis Murphy Collection Details">
+                        <header class="dm-col-grid-header">
+                            <button class="dm-btn-popover-close dm-btn-popover-close-x" autofocus aria-label="Close Collection Card"></button>
+                            <h3><span class="col-grid-hrefno"></span> | <span class="col-grid-hrefcode"></span></h3>
+                            <h2 class="col-grid-htitle"></h2>
+                            <h3 class="col-grid-hpubcode"></h3>
+                        </header>
+                        <div class="dm-col-grid-body">
+                            <div class="dm-col-grid-item col-grid-performers"></div>
+                            <div class="dm-col-grid-item col-grid-source-cont"></div>
+                            <div class="dm-col-grid-item col-grid-reflink"></div>
+                            <div class="dm-col-grid-item col-grid-coltype-head"><b>Recording Type:</b></div>
+                            <div class="dm-col-grid-item col-grid-coltype-cont"></div>
+                            <div class="dm-col-grid-item col-grid-yearrec-head"><b>Year Recorded:</b></div>
+                            <div class="dm-col-grid-item col-grid-yearrec-cont"></div>
+                            <div class="dm-col-grid-item col-grid-yearpub-head"><b>Year Released:</b></div>
+                            <div class="dm-col-grid-item col-grid-yearpub-cont"></div>
+                            <div class="dm-col-grid-links">
+                                <div class="dm-col-grid-item col-grid-srclink"><b>Source</b></div>
+                                <div class="dm-col-grid-item col-grid-dgslink"><b>Discogs</b></div>
+                                <div class="dm-col-grid-item col-grid-tsolink"><b>The Session</b></div>
+                                <div class="dm-col-grid-item col-grid-itilink"><b>Irishtune.info</b></div>
+                                <div class="dm-col-grid-item col-grid-rmtlink"><b>The Rushy Mountain</b></div>
+                                <div class="dm-col-grid-item col-grid-strlink"><b>Streaming</b></div>
+                            </div>
+                            <div class="dm-col-grid-item col-grid-comments-head"><b>Comments:</b></div>
+                            <div class="dm-col-grid-item col-grid-comments-cont"></div>
+                        </div>
+                        <nav class="dm-col-grid-footer">
+                            <button class="dm-btn-popover-nav dm-btn-prev-col">Prev</button>
+                            <button class="dm-btn-popover-close dm-btn-popover-close-col-l">Close</button>
+                            <button class="dm-btn-popover-nav dm-btn-next-col">Next</button>
                         </nav>
                     </div>
                 </dialog>
