@@ -62,26 +62,41 @@ async function generateColsList(colsJson) {
 
     const colRefNo = colObject.colrefno;
     const colRefCode = colObject.refcode;
+    const colName = colObject.colname;
+    const colSource = colObject.source;
+    const colPubCode = colObject.pubcode;
+    const colPubYear = colObject.pubyear;
+    const colRecYear = colObject.recyear;
 
-    const colAltNameSpan = document.createElement("span");
-    const colNameSpan = document.createElement("span");
-    const colItem = document.createElement("button");
-    const colItemWrapper = document.createElement("div");
+    let colYear = colPubYear? colPubYear : colRecYear? `Recorded in ${colRecYear}` : "Recording date unknown";
+    let colSourceRef = colPubCode? ` / ${colPubCode}` : "";
+    let colRefText = `${colRefNo} / ${colRefCode}`;
+    let colSourceText = `${colSource}${colSourceRef} / ${colYear}`;
 
-    colAltNameSpan.classList.add("dm-tunelist-item-alttitle");
-    colNameSpan.classList.add("dm-tunelist-item-title");
-    colItem.classList.add("dm-tunelist-item");
-    colItemWrapper.classList.add("dm-tunelist-item-wrapper");
+    const colRow = document.createElement("div");
+    colRow.classList.add("dm-collist-row");
 
-    colAltNameSpan.textContent = colRefNo;
-    colNameSpan.textContent = colRefCode;
+    for (let i = 0; i < 3; i++) {
 
-    colItem.appendChild(colNameSpan);
-    colItem.appendChild(colAltNameSpan);
-    colItem.setAttribute("data-colref", colRefCode);
-    colItem.addEventListener('click', showColPopover);
-    colItemWrapper.appendChild(colItem);
-    colsListDiv.appendChild(colItemWrapper);
+      const colItem = document.createElement("div");
+      colItem.classList.add("dm-collist-item");
+
+      const colRowCont = i === 0? document.createElement("button") : document.createElement("p");
+      const colRowContClass = i === 0? "dm-btn-col-open" : "dm-collist-text";
+
+      if (i === 0) {
+
+        colRowCont.addEventListener('click', showColPopover);
+      }
+
+      colRowCont.classList.add(colRowContClass);
+      colRowCont.textContent = i === 0? colRefText : i === 1? colName : colSourceText;
+      
+      colItem.appendChild(colRowCont);
+      colRow.appendChild(colItem);
+    }
+
+    colsListDiv.appendChild(colRow);
   });
 
   console.log(`Collections list generated, collections total: ${colsJson.length}`);

@@ -253,7 +253,9 @@ export async function showColPopover() {
   
   if (Array.isArray(colsJson) && colsJson.length > 0) {
 
-      const colRefCode = this.dataset.colref;
+      this.textContent
+
+      const colRefCode = this.textContent.split(" / ")[1];
       const colObject = colsJson.find(col => col.refcode === colRefCode);
 
       await createColCard(colObject);

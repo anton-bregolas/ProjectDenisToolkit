@@ -7,11 +7,20 @@ body {
 
 body.dark {
   --tune-card-color: rgba(246, 137, 59);
-  --col-card-color: #3399cc;
 }
 
 body.dark .dm-col-card {
-  background-color: color-mix(in srgb, var(--col-card-color) 75%, white);
+  --col-card-color: color-mix(in srgb, #3399cc 90%, white);
+}
+
+body.rainbow .dm-col-card {
+  --col-card-color: color-mix(in srgb, var(--secondary-color-c) 95%, white);
+}
+
+body.rainy .dm-col-card,
+body.light .dm-col-card,
+body.star .dm-col-card {
+  --col-card-color: color-mix(in srgb, var(--secondary-color-c) 85%, white);
 }
 
 /* Tune Popover Card */
@@ -380,7 +389,9 @@ body.dark .dm-col-card {
   border: 2px solid var(--focus-color-inverted);
   border-radius: 0.75rem;
   inset: unset;
-  transform: translate(0, calc(-0.5em));
+  position: absolute;
+  top: 0;
+  right: 0.9em;
 }
 
 /* Media queries for popovers */
