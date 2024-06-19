@@ -60,11 +60,49 @@
                 <h2>List Generator</h2>
                 <br>
                 <div class="generator-container">
-                    <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text">Generate Tunelist</span></button>
-                    <button id="dm-btn-generate-collections" class="btn"><span class="btn-text">Generate Collection List</span></button>
-                    <button id="dm-btn-generate-tracklist" class="btn" disabled><span class="btn-text">Generate Tracklist</span></button>
+                    <button id="dm-btn-generate-tracklist" class="btn" disabled><span class="btn-text">Show Tracklist</span></button>
+                    <button id="dm-btn-generate-tunelist" class="btn" disabled><span class="btn-text">Show Tunelist</span></button>
+                    <button id="dm-btn-generate-collections" class="btn" disabled><span class="btn-text">Show Collections</span></button>
                 </div>
-            </section>
+                <div id="dm-tracklist-output" class="hidden" aria-hidden="true" aria-label="Denis Murphy Tracklist Output">
+                    <div id="dm-tracklist" class="dm-tracklist-container" aria-label="Tracklist grid, select a track"></div>
+                    <div id="dm-popover-card-track" popover class="dm-track-card" aria-label="Denis Murphy Track Details">
+                        <header class="dm-track-grid-header">
+                            <button class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" autofocus aria-label="Close Track Card"></button>
+                            <h3 class="track-grid-hrefno"></h3>
+                            <h2 class="track-grid-htitle"></h2>
+                            <h3 class="track-grid-hrefcode"></h3>
+                        </header>
+                        <div class="dm-track-grid-body">
+                            <div class="dm-track-grid-item track-grid-performers"></div>                            
+                            <div class="dm-track-grid-item track-grid-alttitle-head"><b>Tune Alt. Titles:</b></div>
+                            <div class="dm-track-grid-item track-grid-alttitle-cont"></div>
+                            <nav class="dm-track-grid-nav">
+                                <button class="dm-track-grid-item dm-btn-prev-track dm-btn-card-nav" title="Show previous track"></button>
+                                <div class="dm-track-grid-item track-grid-reflink"></div>
+                                <button class="dm-track-grid-item dm-btn-next-track dm-btn-card-nav" title="Show next track"></button>
+                            </nav>
+                            <div class="dm-track-grid-item track-grid-colno-head"><b>Source Collection:</b></div>
+                            <div class="dm-track-grid-item track-grid-colno-cont"></div>
+                            <div class="dm-track-grid-item track-grid-coltrackno-head"><b>Source Track No.:</b></div>
+                            <div class="dm-track-grid-item track-grid-coltrackno-cont"></div>
+                            <div class="dm-track-grid-item track-grid-transcr-head"><b>Transcription:</b></div>
+                            <div class="dm-track-grid-item track-grid-transcr-cont"></div>                            
+                            <div class="dm-track-grid-item track-grid-category-head"><b>Track Category:</b></div>
+                            <div class="dm-track-grid-item track-grid-category-cont"></div>
+                            <div class="dm-track-grid-item track-grid-yearrec-head"><b>Year Recorded:</b></div>
+                            <div class="dm-track-grid-item track-grid-yearrec-cont"></div>
+                            <div class="dm-track-grid-item track-grid-yearpub-head"><b>Year Released:</b></div>
+                            <div class="dm-track-grid-item track-grid-yearpub-cont"></div>
+                            <div class="dm-track-grid-item track-grid-notes-head"><b>Track Notes:</b></div>
+                            <div class="dm-track-grid-item track-grid-notes-cont"></div>
+                        </div>
+                        <nav class="dm-track-grid-footer">
+                            <button class="dm-btn-popover-close dm-btn-card-footer-close dm-btn-card-nav">Close</button>
+                        </nav>
+                    </div>
+                </div>
+            </section>            
             <section class="dm-parser">
                 <h2>TSV to JSON Parser</h2>
                 <br>
@@ -116,7 +154,7 @@
                     <div id="dm-tunelist" class="dm-tunelist-container" aria-label="Tunelist grid, select a tune"></div>
                     <div id="dm-popover-card-tune" popover class="dm-tune-card" aria-label="Denis Murphy Tune Details">
                         <header class="dm-tune-grid-header">
-                            <button class="dm-btn-popover-close dm-btn-popover-close-x" autofocus aria-label="Close Tune Card"></button>
+                            <button class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" autofocus aria-label="Close Tune Card"></button>
                             <h3 class="tune-grid-htuneref"></h3>
                             <h2 class="tune-grid-htitle"></h2>
                         </header>
@@ -133,9 +171,9 @@
                             <div class="dm-tune-grid-item tune-grid-tunereffull-cont"></div>
                         </div>
                         <nav class="dm-tune-grid-footer">
-                            <button class="dm-btn-popover-nav dm-btn-prev-tune"></button>
-                            <button class="dm-btn-popover-close dm-btn-popover-close-l"></button>
-                            <button class="dm-btn-popover-nav dm-btn-next-tune"></button>
+                            <button class="dm-btn-card-footer-nav dm-btn-prev-tune dm-btn-card-nav" title="Show previous tune"></button>
+                            <button class="dm-btn-popover-close dm-btn-card-footer-close dm-btn-card-nav" title="Close Tune Card"></button>
+                            <button class="dm-btn-card-footer-nav dm-btn-next-tune dm-btn-card-nav" title="Show next tune"></button>
                         </nav>
                     </div>
                 </dialog>
@@ -149,7 +187,7 @@
                     <div id="dm-collist" class="dm-collist-container" aria-label="Collections grid, select a collection"></div>
                     <div id="dm-popover-card-col" popover class="dm-col-card" aria-label="Denis Murphy Collection Details">
                         <header class="dm-col-grid-header">
-                            <button class="dm-btn-popover-close dm-btn-popover-close-x" autofocus aria-label="Close Collection Card"></button>
+                            <button class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" autofocus aria-label="Close Collection Card"></button>
                             <h3><span class="col-grid-hrefno"></span> | <span class="col-grid-hrefcode"></span></h3>
                             <h2 class="col-grid-htitle"></h2>
                             <h3 class="col-grid-hpubcode"></h3>
@@ -157,7 +195,11 @@
                         <div class="dm-col-grid-body">
                             <div class="dm-col-grid-item col-grid-performers"></div>
                             <div class="dm-col-grid-item col-grid-source-cont"></div>
-                            <div class="dm-col-grid-item col-grid-reflink"></div>
+                            <nav class="dm-col-grid-nav">
+                                <button class="dm-col-grid-item dm-btn-prev-col dm-btn-card-nav" title="Show previous Collection"></button>
+                                <div class="dm-col-grid-item col-grid-reflink"></div>
+                                <button class="dm-col-grid-item dm-btn-next-col dm-btn-card-nav" title="Show next Collection"></button>
+                            </nav>
                             <div class="dm-col-grid-item col-grid-coltype-head"><b>Recording Type:</b></div>
                             <div class="dm-col-grid-item col-grid-coltype-cont"></div>
                             <div class="dm-col-grid-item col-grid-yearrec-head"><b>Year Recorded:</b></div>
@@ -175,10 +217,8 @@
                             <div class="dm-col-grid-item col-grid-comments-head"><b>Comments:</b></div>
                             <div class="dm-col-grid-item col-grid-comments-cont"></div>
                         </div>
-                        <nav class="dm-col-grid-footer">
-                            <button class="dm-btn-popover-nav dm-btn-prev-col">Prev</button>
-                            <button class="dm-btn-popover-close dm-btn-popover-close-col-l">Close</button>
-                            <button class="dm-btn-popover-nav dm-btn-next-col">Next</button>
+                        <nav class="dm-col-grid-footer">                            
+                            <button class="dm-btn-popover-close dm-btn-card-footer-close dm-btn-card-nav" title="Close Collection Card">Close</button>
                         </nav>
                     </div>
                 </dialog>

@@ -1,10 +1,16 @@
 /* #ProjectDenis Popovers Scripts*/
 
-import { colsDiv, tracksDiv, tunesDiv, validateJson } from '../../modules/dm-toolkit.js';
+import { colsDiv, tracksDiv, tunesDiv, validateJson, clearOutput,
+         generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { tunelistDialog, colsListDialog, tracklistDiv, dialogsDiv, colsListDiv,
+         focusOnTrack, generateTunelist, generateColsList, generateTracklist,
+         tunelistDiv,
+         tracklistOutput} from '../dm-modals/dm-modals.js';
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
+export const trackCardPopover = document.querySelector('#dm-popover-card-track');
 export const themePickerPopover = document.querySelector('#theme-picker-popover');
 
 // Display the Tune Card popover
@@ -16,14 +22,28 @@ export async function showTunePopover() {
   
   if (Array.isArray(tunesJson) && tunesJson.length > 0) {
 
+    if (!tunelistDiv.children.length > 0) {
+
+      console.log(`Generating list of tunes...`);
+      await generateTunelist(tunesJson);
+    }
+
       const tuneRef = this.dataset.tuneref;
       const tuneObject = tunesJson.find(tune => tune.tuneref === tuneRef);
 
       await createTuneCard(tuneObject);
 
+      if (!this.classList.contains("dm-tunelist-item")) {
+
+        dialogsDiv.classList.toggle("hidden");
+        toggleAriaHidden(dialogsDiv);
+        await tunelistDialog.showModal();
+        toggleAriaHidden(tunelistDialog);
+      }
+
       tuneCardPopover.showPopover();
 
-      console.log("Tune card created.");
+      console.log("Tune Card created.");
 
   } else {
 
@@ -51,8 +71,8 @@ async function createTuneCard(tuneObject) {
   const tuneTranscriptUrl = tuneObject.transcriptlink?.split(", ")[0];
   const tuneQuickRefUrl = tuneObject.refsettinglink?.split(", ")[0];
   
-  console.log(`Creating tune card...\n\nTune ref.:\n\n ${tuneRef}`);
-  console.log(tuneObject);
+  console.log(`Creating Tune Card...\n\nTune Ref.:\n\n${tuneRef}`);
+  // console.log(tuneObject);
 
   tuneRefDiv.textContent = tuneRef;
   tuneTitleDiv.textContent = `${generateTuneName(tuneName)} (${tuneType})`;
@@ -69,6 +89,9 @@ async function createTuneCard(tuneObject) {
     const trackRefBtn = document.createElement("button");
     trackRefBtn.classList.add("dm-btn-open-track");
     trackRefBtn.textContent = refNo;
+    trackRefBtn.setAttribute("title", "View Tune Setting in Tracklist");
+    trackRefBtn.setAttribute("data-refno", refNo);
+    trackRefBtn.addEventListener('click', focusOnTrack);
 
     if (tuneTrackRefsArr.indexOf(refNo) < (tuneTrackRefsArr.length - 1)) {
     
@@ -248,26 +271,63 @@ function generateLinkSourceName(tuneTranscriptUrl) {
 
 export async function showColPopover() {
 
-  const colsOutput = colsDiv.textContent;
-  const colsJson = await validateJson(colsOutput);
-  
-  if (Array.isArray(colsJson) && colsJson.length > 0) {
+  // Prevent click if text selection is being made
 
-      this.textContent
+  if (window.getSelection().toString().length === 0) { 
 
-      const colRefCode = this.textContent.split(" / ")[1];
-      const colObject = colsJson.find(col => col.refcode === colRefCode);
+    let colRefNo;
+    const parentDiv = this.parentElement;
+    const parentDialog = parentDiv.parentElement;
+    const parentDialogId = parentDialog.id;
+
+    if (parentDialog === tracklistOutput || parentDialog === colsListDialog) {
+
+      colRefNo = parentDialog === tracklistOutput ? this.firstChild.firstChild.textContent :
+                parentDialog === colsListDialog ? this.firstChild.firstChild.dataset.refno : "1000";
+
+    } else {
+
+      colRefNo = this.dataset.refno;
+
+      if (parentDiv.classList.contains("track-grid-colno-cont")) {
+
+        trackCardPopover.hidePopover();
+      }
+    }
+
+    const colsOutput = colsDiv.textContent;
+    const colsJson = await validateJson(colsOutput);
+    
+    if (Array.isArray(colsJson) && colsJson.length > 0) {
+
+      if (!colsListDiv.children.length > 0) {
+
+        console.log(`Generating list of collections...`);
+        generateColsList(colsJson);
+      }
+
+      const colObject = colsJson.find(col => col.colrefno === colRefNo);
 
       await createColCard(colObject);
+      
+      if (parentDialog === tracklistOutput || parentDiv.classList.contains("track-grid-colno-cont")) {
+
+        dialogsDiv.classList.toggle("hidden");
+        toggleAriaHidden(dialogsDiv);
+        await colsListDialog.showModal();
+        toggleAriaHidden(colsListDialog);
+      }
 
       colCardPopover.showPopover();
 
-      console.log("Collection card created.");
+      console.log("Collection Card created.");
 
-  } else {
 
-    console.warn("No collections found!")
-  }
+    } else {
+
+      console.warn("No collections found!")
+    }
+  } 
 }
 
 // Generate Collection Card details using data from colObject
@@ -293,20 +353,22 @@ async function createColCard(colObject) {
   const colPerformers = colObject.performers;
   const colSource = colObject.source;
   const colYearRec = colObject.recyear;
+  const colYearRecEarliest = colObject.recyearfrom;
+  const colYearRecLatest = colObject.recyearto;
   const colYearPub = colObject.pubyear;
   const colType = colObject.coltype;
 
-  console.log(`Creating collection card...\n\nCol. ref.: ${colRefNo} | ${colRefCode}`);
-  console.log(colObject);
+  console.log(`Creating Collection Card...\n\nCol. Ref.:\n\n${colRefNo} | ${colRefCode}`);
+  // console.log(colObject);
 
   colRefNoDiv.textContent = colRefNo;
   colRefCodeDiv.textContent = colRefCode;
   colTitleDiv.textContent = "";
   colPubCodeDiv.textContent = colPubCode;
-  colPerformersDiv.textContent = "";
+  colPerformersDiv.textContent = colPerformers;
   colSourceDiv.textContent = colSource;
   colRefLinkDiv.textContent = "";
-  colYearRecDiv.textContent = colYearRec;
+  colYearRecDiv.textContent = colYearRec? colYearRec : colYearRecEarliest? `~${colYearRecEarliest}–${colYearRecLatest}` : "Undated";
   colYearPubDiv.textContent = colYearPub;
   colTypeDiv.textContent = colType;
   colCommentsDiv.textContent = "";
@@ -333,10 +395,6 @@ async function createColCard(colObject) {
     
     colTitleDiv.textContent = colName;
   }
-
-  const boldText = document.createElement("b");
-  boldText.textContent = colPerformers;
-  colPerformersDiv.appendChild(boldText);
 
   const colRefLinksArr = ["reflink", "srclink", "dgslink", "tsolink", "itilink", "rmtlink", "strlink"];
 
@@ -369,8 +427,9 @@ async function createColCard(colObject) {
 
       const trackRefBtn = document.createElement("button");
       trackRefBtn.classList.add("dm-btn-open-track");
-      trackRefBtn.textContent = `Detailed Tracklist`
-      trackRefBtn.dataset.refno = colRefNo;
+      trackRefBtn.setAttribute("title", "View Collection in Tracklist");
+      trackRefBtn.setAttribute("data-refno", colRefNo);
+      trackRefBtn.addEventListener('click', focusOnTrack);
       colLinkDiv.appendChild(trackRefBtn);
     }
   });
@@ -389,92 +448,233 @@ async function createColCard(colObject) {
   });
 }
 
-// Add event listeners to Popover card buttons
+// Display the Track Card popover
+
+export async function showTrackPopover() {
+
+  // Prevent click if text selection is being made
+  
+  if (window.getSelection().toString().length === 0) { 
+
+    let trackRefNo;
+
+    trackRefNo = this.children[0].firstChild.id;
+
+    const tracksOutput = tracksDiv.textContent;
+    const tracksJson = await validateJson(tracksOutput);
+    
+    if (Array.isArray(tracksJson) && tracksJson.length > 0) {
+
+        const trackObject = tracksJson.find(track => track.refno === trackRefNo);
+
+        await createTrackCard(trackObject);
+
+        trackCardPopover.showPopover();
+
+        console.log("Track Card created.");
+
+    } else {
+
+      console.warn("No tracks found!")
+    }
+  }
+}
+
+// Generate Track Card details using data from trackObject
+
+async function createTrackCard(trackObject) {
+
+  const trackRefNoDiv = document.querySelector(".track-grid-hrefno");
+  const trackTitleDiv = document.querySelector(".track-grid-htitle");
+  const trackTuneRefCodeDiv = document.querySelector(".track-grid-hrefcode");
+  const trackPerformersDiv = document.querySelector(".track-grid-performers");
+  const trackAltTitleDiv = document.querySelector(".track-grid-alttitle-cont");
+  const trackRefLinkDiv = document.querySelector(".track-grid-reflink");
+  const trackSourceColNoDiv = document.querySelector(".track-grid-colno-cont");
+  const trackSourceTrackNoDiv = document.querySelector(".track-grid-coltrackno-cont");
+  const trackTranscrDiv = document.querySelector(".track-grid-transcr-cont");
+  const trackCategoryDiv = document.querySelector(".track-grid-category-cont");
+  const trackYearRecDiv = document.querySelector(".track-grid-yearrec-cont");
+  const trackYearPubDiv = document.querySelector(".track-grid-yearpub-cont");
+  const trackNotesDiv = document.querySelector(".track-grid-notes-cont");
+
+  const trackRefNo = trackObject.refno;
+  const trackSourceNo = trackObject.trackno;
+  const trackTuneName = trackObject.tunename;
+  const trackTuneType = trackObject.tunetype;
+  const trackTuneRefCode = trackObject.tuneref;
+  const trackPerformers = trackObject.performers;
+  const trackTuneAltNames = trackObject.altnames;
+  const trackSourceColNo = Math.floor(trackRefNo / 1000) * 1000;
+  const trackTranscriptUrl = trackObject.transcriptlink;
+  const trackCategory = trackObject.category;
+  const trackYearRec = trackObject.recyear;
+  const trackYearRecEarliest = trackObject.recyearfrom;
+  const trackYearRecLatest = trackObject.recyearto;
+  const trackYearPub = trackObject.pubyear;
+  const trackNotes = trackObject.tracknotes;
+
+  console.log(`Creating Track Card...\n\nTrack. Ref. No:\n\n${trackRefNo}`);
+  // console.log(trackObject);
+
+  trackRefNoDiv.textContent = trackRefNo;
+  trackTitleDiv.textContent = `${trackSourceNo} — ${generateTuneName(trackTuneName)} (${trackTuneType})`;
+  trackTuneRefCodeDiv.textContent = trackTuneRefCode;
+
+  trackPerformersDiv.textContent = trackPerformers? `Denis Murphy, ${trackPerformers.split("w. ")[1]}` : `Denis Murphy`;
+  trackAltTitleDiv.textContent = trackTuneAltNames;
+
+  trackRefLinkDiv.textContent = "";
+
+  trackSourceColNoDiv.textContent = "";
+  trackSourceTrackNoDiv.textContent = trackSourceNo.split(".")[1]? 
+                                      `Track # ${trackSourceNo.split(".")[0]} / Tune # ${trackSourceNo.split(".")[1]}` :
+                                      `Track # ${trackSourceNo}`;
+  trackTranscrDiv.textContent = "";
+  trackCategoryDiv.textContent = trackCategory;
+  trackYearRecDiv.textContent = trackYearRec? trackYearRec : trackYearRecEarliest? `~${trackYearRecEarliest}–${trackYearRecLatest}` : "Undated";
+  trackYearPubDiv.textContent = trackYearPub;
+  trackNotesDiv.textContent = "";
+  
+  const trackRefBtn = document.createElement("button");
+  trackRefBtn.classList.add("dm-btn-open-track");
+  trackRefBtn.setAttribute("title", "View Detailed Tune Card");
+  trackRefBtn.setAttribute("data-tuneref", trackTuneRefCode);
+  trackRefBtn.addEventListener('click', showTunePopover);
+  trackRefLinkDiv.appendChild(trackRefBtn);
+
+  const trackSourceColNoBtn = document.createElement("button");
+  trackSourceColNoBtn.textContent = trackSourceColNo;
+  trackSourceColNoBtn.classList.add("dm-btn-open-track");
+  trackSourceColNoBtn.setAttribute("title", "View Collection Card");
+  trackSourceColNoBtn.setAttribute("data-refno", trackSourceColNo);
+  trackSourceColNoBtn.addEventListener('click', showColPopover);
+  trackSourceColNoDiv.appendChild(trackSourceColNoBtn);
+
+  if (trackTranscriptUrl) {
+
+    const trackTranscriptSource = generateLinkSourceName(trackTranscriptUrl);
+    const trackTranscriptHyperlink = document.createElement("a");
+    const boldTranscriptLink = document.createElement("b");
+    trackTranscriptHyperlink.setAttribute("href", trackTranscriptUrl);
+    trackTranscriptHyperlink.setAttribute("target", "_blank");
+    trackTranscriptHyperlink.textContent = trackTranscriptSource;
+    boldTranscriptLink.appendChild(trackTranscriptHyperlink)
+    trackTranscrDiv.appendChild(boldTranscriptLink);
+  }
+
+  if (trackNotes) {
+
+    const trackNotesPar = document.createElement("p");
+    trackNotesPar.classList.add("dm-track-grid-notes");
+    trackNotesPar.textContent = trackNotes;
+    trackNotesDiv.appendChild(trackNotesPar);
+  }
+}
+
+// Navigate between cards using navigation buttons (prev, close, next)
+
+async function navigateTuneCard() {
+
+  const navBtnClass = this.classList;
+  const navBtnParent = this.parentElement.classList;
+
+  if (navBtnClass.contains("dm-btn-popover-close")) {
+
+    navBtnParent.contains("dm-col-grid-header") || 
+    navBtnParent.contains("dm-col-grid-footer") ? 
+
+    colCardPopover.hidePopover() :
+  
+    navBtnParent.contains("dm-track-grid-header") || 
+    navBtnParent.contains("dm-track-grid-footer") ? 
+    
+    trackCardPopover.hidePopover() :
+  
+    tuneCardPopover.hidePopover();
+  }
+
+  if (navBtnClass.contains("dm-btn-prev-tune") ||
+      navBtnClass.contains("dm-btn-prev-col") ||
+      navBtnClass.contains("dm-btn-prev-track")) {
+
+        navBtnParent[0].startsWith("dm-track") ? switchTuneCard("prev", "track") :
+        navBtnParent[0].startsWith("dm-tune") ? switchTuneCard("prev", "tune") :
+        navBtnParent[0].startsWith("dm-col") ? switchTuneCard("prev", "col") :
+        console.warn("Unknown card type!");
+      }
+
+  if (navBtnClass.contains("dm-btn-next-tune") ||
+      navBtnClass.contains("dm-btn-next-col") ||
+      navBtnClass.contains("dm-btn-next-track")) {
+
+        navBtnParent[0].startsWith("dm-track") ? switchTuneCard("next", "track") :
+        navBtnParent[0].startsWith("dm-tune") ? switchTuneCard("next", "tune") :
+        navBtnParent[0].startsWith("dm-col") ? switchTuneCard("next", "col") :
+        console.warn("Unknown card type!");
+      } 
+}
+
+async function switchTuneCard(switchDirection, cardType) {
+
+  if (!switchDirection || !cardType) {
+    console.warn("Card switch direction or type not specified!");
+    return;
+  }
+
+  const outputDiv = cardType === "track"? tracksDiv : cardType === "tune"? tunesDiv : colsDiv;
+  const outputData = outputDiv.textContent;
+  const parentJson = await validateJson(outputData);
+
+  let cardRef;
+  let currentCardObject;
+  let targetTuneObject;
+  let targetLabel;
+
+  if (cardType === "track") {
+    cardRef = document.querySelector('.track-grid-hrefno').textContent;
+    currentCardObject = parentJson.find(track => track.refno === cardRef);
+  }
+
+  if (cardType === "tune") {      
+    cardRef = document.querySelector('.tune-grid-htuneref').textContent;
+    currentCardObject = parentJson.find(tune => tune.tuneref === cardRef);
+  }
+
+  if (cardType === "col") {
+    cardRef = document.querySelector('.col-grid-hrefcode').textContent;
+    currentCardObject = parentJson.find(col => col.refcode === cardRef);
+  }
+
+  const currentCardObjectIndex = parentJson.indexOf(currentCardObject);
+
+  if (switchDirection === "prev") {
+
+    targetLabel = "Previous";
+    targetTuneObject = currentCardObjectIndex > 0? parentJson[currentCardObjectIndex - 1] : parentJson[parentJson.length - 1];
+  }
+
+  if (switchDirection === "next") {
+
+    targetLabel = "Next";
+    targetTuneObject = currentCardObject === parentJson[parentJson.length - 1]? parentJson[0] : parentJson[currentCardObjectIndex + 1];
+  }
+  
+  cardType === "track"? createTrackCard(targetTuneObject) : 
+  cardType === "tune"? createTuneCard(targetTuneObject) :
+  createColCard(targetTuneObject);
+
+  console.log(`${targetLabel} card rendered.`);
+}
+
+// Add event listeners to Popover Card navigation buttons
 
 export function initPopovers() {
 
-  const closeTuneCardBtn = document.querySelectorAll('.dm-btn-popover-close');
-  const prevTuneCardBtn = document.querySelector('.dm-btn-prev-tune');
-  const nextTuneCardBtn = document.querySelector('.dm-btn-next-tune');
-  const prevColCardBtn = document.querySelector('.dm-btn-prev-col');
-  const nextColCardBtn = document.querySelector('.dm-btn-next-col');
+  const cardNavBtn = document.querySelectorAll('.dm-btn-card-nav');
 
-  closeTuneCardBtn.forEach(btn => {
-      
-      btn.addEventListener('click', () => {
+  cardNavBtn.forEach(navBtn => {
 
-        btn.parentElement.classList.contains("dm-col-grid-header") || btn.parentElement.classList.contains("dm-col-grid-footer") ? 
-        colCardPopover.hidePopover() :
-        tuneCardPopover.hidePopover();
-        // toggleAriaHidden(tuneCardPopover);
-    });
-  });
-
-  prevTuneCardBtn.addEventListener('click', async () => {
-
-    const tunesOutput = tunesDiv.textContent;
-    const tunesJson = await validateJson(tunesOutput);
-    const cardTuneRef = document.querySelector('.tune-grid-htuneref').textContent;
-    const currentTuneObject = tunesJson.find(tune => tune.tuneref === cardTuneRef);
-    const currentTuneObjectIndex = tunesJson.indexOf(currentTuneObject);
-
-    let prevTuneObject;
-
-    prevTuneObject = currentTuneObjectIndex > 0? tunesJson[currentTuneObjectIndex - 1] : tunesJson[tunesJson.length - 1];
-    
-    createTuneCard(prevTuneObject);
-
-    console.log("Previous tune card rendered.");
-  });
-
-  nextTuneCardBtn.addEventListener('click', async () => {
-
-    const tunesOutput = tunesDiv.textContent;
-    const tunesJson = await validateJson(tunesOutput);
-    const cardTuneRef = document.querySelector('.tune-grid-htuneref').textContent;
-    const currentTuneObject = tunesJson.find(tune => tune.tuneref === cardTuneRef);
-    const currentTuneObjectIndex = tunesJson.indexOf(currentTuneObject);
-
-    let nextTuneObject;
-
-    nextTuneObject = currentTuneObject === tunesJson[tunesJson.length - 1]? tunesJson[0] : tunesJson[currentTuneObjectIndex + 1];
-    
-    createTuneCard(nextTuneObject);
-
-    console.log("Next tune card rendered.");
-  });
-
-  prevColCardBtn.addEventListener('click', async () => {
-
-    const colsOutput = colsDiv.textContent;
-    const colsJson = await validateJson(colsOutput);
-    const cardColRef = document.querySelector('.col-grid-hrefcode').textContent;
-    const currentColObject = colsJson.find(col => col.refcode === cardColRef);
-    const currentColObjectIndex = colsJson.indexOf(currentColObject);
-
-    let prevColObject;
-
-    prevColObject = currentColObjectIndex > 0? colsJson[currentColObjectIndex - 1] : colsJson[colsJson.length - 1];
-    
-    createColCard(prevColObject);
-
-    console.log("Previous collection card rendered.");
-  });
-
-  nextColCardBtn.addEventListener('click', async () => {
-
-    const colsOutput = colsDiv.textContent;
-    const colsJson = await validateJson(colsOutput);
-    const cardColRef = document.querySelector('.col-grid-hrefcode').textContent;
-    const currentColObject = colsJson.find(col => col.refcode === cardColRef);
-    const currentColObjectIndex = colsJson.indexOf(currentColObject);
-
-    let nextColObject;
-
-    nextColObject = currentColObject === colsJson[colsJson.length - 1]? colsJson[0] : colsJson[currentColObjectIndex + 1];
-    
-    createColCard(nextColObject);
-    
-    console.log("Next collection card rendered.");
+    navBtn.addEventListener('click', navigateTuneCard);
   });
 }

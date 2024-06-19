@@ -1,18 +1,112 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
-import { colsDiv, tracksDiv, tunesDiv, validateJson } from '../../modules/dm-toolkit.js';
-import { showTunePopover, showColPopover } from '../dm-popovers/dm-popovers.js';
+import { colsDiv, tracksDiv, tunesDiv, validateJson, clearOutput,
+         generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { showTunePopover, showColPopover, showTrackPopover, 
+         tuneCardPopover, colCardPopover, trackCardPopover } from '../dm-popovers/dm-popovers.js';
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 export const colsListDiv = document.querySelector('#dm-collist');
-const dialogsDiv = document.querySelector('#dm-dialogs');
-const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
-const colsListDialog = document.querySelector('#dm-modal-list-cols');
+export const tracklistDiv = document.querySelector('#dm-tracklist');
+export const dialogsDiv = document.querySelector('#dm-dialogs');
+export const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
+export const colsListDialog = document.querySelector('#dm-modal-list-cols');
+export const tracklistOutput = document.querySelector('#dm-tracklist-output');
+const closeTunelistBtn = document.querySelector('#dm-btn-tunelist-close');
+const closeColsListBtn = document.querySelector('#dm-btn-colslist-close');
+
+// Launch List Generator function depending on the button pressed
+
+export async function generateHandler() {
+
+  const genBtn = this;
+
+  let parentDialog;
+  let parentDialogDiv;
+  let parentDiv;
+  let listName;
+  let itemName;
+
+  if (genBtn === generateTunelistBtn) {
+
+    parentDialog = tunelistDialog;
+    parentDialogDiv = tunelistDiv;
+    parentDiv = tunesDiv;
+    listName = "Tune";
+    itemName = "tunes";
+  }
+
+  if (genBtn === generateColsListBtn) {
+
+    parentDialog = colsListDialog;
+    parentDialogDiv = colsListDiv;
+    parentDiv = colsDiv;
+    listName = "Collections ";
+    itemName = "collections";
+  }
+
+  if (genBtn === generateTracklistBtn) {
+
+    parentDialogDiv = tracklistDiv;
+    parentDiv = tracksDiv;
+    listName = "Track";
+    itemName = "tracks";
+  }
+
+  const counterDiv = parentDiv.previousElementSibling;
+  const jsonData = parentDiv.textContent;
+  let parentJson = await validateJson(jsonData);
+
+  if (Array.isArray(parentJson) && parentJson.length > 0) {
+
+      if (!parentDialogDiv.children.length > 0) {
+
+        console.log(`Generating list of ${itemName}...`);
+
+        if (genBtn === generateTunelistBtn) {
+
+          generateTunelist(parentJson);
+        }
+  
+        if (genBtn === generateColsListBtn) {
+  
+          generateColsList(parentJson);
+        }
+  
+        if (genBtn === generateTracklistBtn) {
+  
+          generateTracklist(parentJson);
+        }
+
+      } else {
+
+        console.log(`${listName}list found, ${itemName} total: ${parentJson.length}`);
+      }
+
+      if (genBtn === generateTracklistBtn) {
+
+        tracklistOutput.classList.toggle("hidden");
+        toggleAriaHidden(tracklistOutput);
+        return;
+          
+      } else {
+
+        dialogsDiv.classList.toggle("hidden");
+        toggleAriaHidden(dialogsDiv);
+        toggleAriaHidden(parentDialog);
+        parentDialog.showModal();
+        return;
+      }  
+  }  
+
+    console.warn(`No ${itemName} found!`)
+    counterDiv.focus({ focusVisible: true });
+}
 
 // Create Tunelist modal dialog populated with Tune items
 
-async function generateTunelist(tunesJson) {
+export async function generateTunelist(tunesJson) {
 
   tunelistDiv.textContent = "";
 
@@ -54,7 +148,7 @@ async function generateTunelist(tunesJson) {
 
 // Create Collection List modal dialog populated with Collection items
 
-async function generateColsList(colsJson) {
+export async function generateColsList(colsJson) {
 
   colsListDiv.textContent = "";
 
@@ -85,8 +179,8 @@ async function generateColsList(colsJson) {
       const colRowContClass = i === 0? "dm-btn-col-open" : "dm-collist-text";
 
       if (i === 0) {
-
-        colRowCont.addEventListener('click', showColPopover);
+        colRowCont.setAttribute("title", "Show Collection Card");
+        colRowCont.setAttribute("data-refno", colRefNo);
       }
 
       colRowCont.classList.add(colRowContClass);
@@ -94,6 +188,7 @@ async function generateColsList(colsJson) {
       
       colItem.appendChild(colRowCont);
       colRow.appendChild(colItem);
+      colRow.addEventListener('click', showColPopover);
     }
 
     colsListDiv.appendChild(colRow);
@@ -102,90 +197,208 @@ async function generateColsList(colsJson) {
   console.log(`Collections list generated, collections total: ${colsJson.length}`);
 }
 
+// Create TrackList populated with Tracklist items
+
+export async function generateTracklist(tracksJson) {
+
+  tracklistDiv.textContent = "";
+
+  const colsJson = await validateJson(colsDiv.textContent);
+
+  const headerRow = document.createElement("div");
+  headerRow.classList.add("dm-tracklist-row", "dm-tracklist-header-row");
+
+  const headerTextArr = ["Ref. No.", "Track No.", "Tune Title", "Tune Type", "Col. Ref.", "Year Rec.", "Year Pub.", "Performers"];
+
+  headerTextArr.forEach(headertext => {
+
+    const headerItem = document.createElement("div");
+    headerItem.setAttribute("tabindex", 0);
+    headerItem.classList.add("dm-tracklist-item", "dm-tracklist-header-item");
+
+    const headerItemCont = document.createElement("p");
+    headerItemCont.textContent = headertext;
+    headerItemCont.classList.add("dm-tracklist-text", "dm-tracklist-header-text");
+
+    headerItem.appendChild(headerItemCont);
+    headerRow.appendChild(headerItem);
+    // headerRow.addEventListener('click', sortTracklistBy(headertext));
+  });
+
+  tracklistDiv.appendChild(headerRow);
+
+  let firstTrackNo = tracksJson[0].refno;
+  let colNo = Math.floor(firstTrackNo / 1000) * 1000;
+
+  tracksJson.forEach(trackObject  => {
+
+    const trackRefNo = trackObject.refno;
+    const trackNo = trackObject.trackno;
+    const trackTuneRef = trackObject.tuneref;
+    const trackTuneName = trackObject.tunename;
+    const trackTuneType = trackObject.tunetype;
+    const trackPubYear = trackObject.pubyear;
+    const trackRecYear = trackObject.recyear;
+    const trackPerformers = trackObject.performers;
+
+    // Create collection header row
+
+    if (trackRefNo === tracksJson[0].refno || trackRefNo > colNo + 1000) {
+
+      firstTrackNo = trackRefNo;
+
+      if (trackRefNo === firstTrackNo) {
+
+        colNo = Math.floor(trackRefNo / 1000) * 1000;
+
+        const colObject = colsJson.find(col => col.colrefno == colNo);
+
+        const colRefNo = colObject.colrefno;
+        const colTracksNo = colObject.trackstotal;
+        const colName = colObject.colname;
+        const colRefCode = colObject.refcode;
+        const colPubCode = colObject.pubcode;
+        const colPubYear = colObject.pubyear;
+        const colRecYear = colObject.recyear;
+        const colPerformers = colObject.performers;
+
+        const colHeadRow = document.createElement("div");
+        colHeadRow.classList.add("dm-tracklist-row", "dm-tracklist-col-header-row");
+
+        const colHeadTextArr = [colRefNo, colTracksNo, colName, colPubCode, colRefCode, colRecYear, colPubYear, colPerformers]; 
+    
+        colHeadTextArr.forEach(text => {
+
+          const colHeadItem = document.createElement("div");
+          colHeadItem.classList.add("dm-tracklist-item", "dm-tracklist-col-header-item");
+
+          if (text === colRefNo) {
+
+            colHeadItem.id = colRefNo;
+            colHeadItem.setAttribute("tabindex", 0);
+          }
+
+          if (text === colRecYear) {
+
+            text = text.split("-").join("- ");
+          }
+
+          const colHeadItemCont = document.createElement("p");
+          colHeadItemCont.textContent = text;
+          colHeadItemCont.classList.add("dm-tracklist-text");
+          colHeadItem.appendChild(colHeadItemCont);
+          colHeadRow.appendChild(colHeadItem);
+          colHeadRow.addEventListener('click', showColPopover);
+        });
+  
+        tracklistDiv.appendChild(colHeadRow);
+      }
+    }
+
+    // Create track row
+
+    const trackRow = document.createElement("div");
+    trackRow.classList.add("dm-tracklist-row");
+
+    const trackTextArr = [trackRefNo, trackNo, trackTuneName, trackTuneType, trackTuneRef, trackRecYear, trackPubYear, trackPerformers];
+
+    trackTextArr.forEach(tracktext => {
+
+      const trackItem = document.createElement("div");
+      trackItem.classList.add("dm-tracklist-item");
+
+      const trackItemCont = tracktext === trackRefNo? document.createElement("button") : document.createElement("p");
+
+      if (tracktext === trackRefNo) {
+
+        trackItemCont.id = trackRefNo;
+        trackItemCont.classList.add("dm-btn-track-open");
+
+      } else {
+
+        trackItemCont.classList.add("dm-tracklist-text");
+      }
+
+      trackItemCont.textContent = tracktext;
+      
+      trackItem.appendChild(trackItemCont);
+      trackRow.appendChild(trackItem);
+
+      trackRow.addEventListener('click', showTrackPopover);
+    });
+
+    tracklistDiv.appendChild(trackRow);
+  });
+
+  generateTunelistBtn.removeAttribute("disabled");
+  generateColsListBtn.removeAttribute("disabled");
+
+  console.log(`Tracklist generated, tracks total: ${tracksJson.length}`);
+}
+
+// Focus on a specific Tracklist row
+
+export async function focusOnTrack() {
+
+  if (tracklistDiv.children.length === 0) {
+
+    const tracksOutput = tracksDiv.textContent;
+    const tracksJson = await validateJson(tracksOutput);
+    console.log(`Generating Tracklist...`);
+    await generateTracklist(tracksJson);
+  }
+  
+  let trackRefNo = this.dataset.refno;
+  const parentDiv = this.parentElement;
+  let parentDialog;
+
+  if (parentDiv.classList.contains("track-grid-reflink")) {
+    
+    trackCardPopover.hidePopover();
+    
+  } else {
+
+    parentDialog = parentDiv.classList.contains("tune-grid-refno-cont")? tunelistDialog :
+                   parentDiv.classList.contains("col-grid-reflink")? colsListDialog : "";
+
+    await parentDialog.close();
+    toggleAriaHidden(parentDialog);
+    dialogsDiv.classList.toggle("hidden");
+    toggleAriaHidden(dialogsDiv);
+  }
+
+  if (tracklistOutput.classList.contains("hidden")) {
+
+    tracklistOutput.classList.toggle("hidden");
+    toggleAriaHidden(tracklistOutput);
+  }
+
+  document.getElementById(trackRefNo).focus();
+}
+
+// Close dialog window depending on the button pressed
+
+function closeDialogHandler() {
+
+  let parentDialog = this === closeTunelistBtn? tunelistDialog : colsListDialog;
+
+  parentDialog.close();
+  toggleAriaHidden(parentDialog);
+  dialogsDiv.classList.toggle("hidden");
+  toggleAriaHidden(dialogsDiv);
+}
+
 // Add event listeners to Tunelist buttons
 
 export function initModals() {
 
-  const generateTunelistBtn = document.querySelector('#dm-btn-generate-tunelist');
-  const generateColsListBtn = document.querySelector('#dm-btn-generate-collections');
-  const closeTunelistBtn = document.querySelector('#dm-btn-tunelist-close');
-  const closeColsListBtn = document.querySelector('#dm-btn-colslist-close');
+  [generateTunelistBtn, generateColsListBtn, generateTracklistBtn].forEach(genBtn => {
 
-  generateTunelistBtn.addEventListener('click', async () => {
-
-    const tunesCounter = tunesDiv.previousElementSibling;
-
-    const tunesOutput = tunesDiv.textContent;
-    let tunesJson = await validateJson(tunesOutput);
-    
-    if (Array.isArray(tunesJson) && tunesJson.length > 0) {
-
-      if (!tunelistDiv.children.length > 0) {
-
-        console.log("Generating list of tunes...");
-
-        await generateTunelist(tunesJson);
+    genBtn.addEventListener('click', generateHandler);
+  });
   
-      } else {
+  [closeTunelistBtn, closeColsListBtn].forEach(btn => {
 
-        console.log(`Tunelist found, tunes total: ${tunesJson.length}`);
-      }
-
-      dialogsDiv.classList.toggle("hidden");
-      toggleAriaHidden(tunelistDialog);
-      tunelistDialog.showModal();
-      return;
-
-    } else {
-
-      console.warn("No tunes found!")
-      tunesCounter.focus({ focusVisible: true });
-    }
-  });
-
-  generateColsListBtn.addEventListener('click', async () => {
-
-    const colsCounter = colsDiv.previousElementSibling;
-
-    const colsOutput = colsDiv.textContent;
-    let colsJson = await validateJson(colsOutput);
-    
-    if (Array.isArray(colsJson) && colsJson.length > 0) {
-
-      if (!colsListDiv.children.length > 0) {
-
-        console.log("Generating list of collections...");
-
-        await generateColsList(colsJson);
-  
-      } else {
-
-        console.log(`Collections list found, collections total: ${colsJson.length}`);
-      }
-
-      dialogsDiv.classList.toggle("hidden");
-      toggleAriaHidden(colsListDialog);
-      colsListDialog.showModal();
-      return;
-
-    } else {
-
-      console.warn("No collections found!")
-      colsCounter.focus({ focusVisible: true });
-    }
-  });
-
-  closeTunelistBtn.addEventListener('click', () => {
-
-    tunelistDialog.close();
-    dialogsDiv.classList.toggle("hidden");
-    toggleAriaHidden(tunelistDialog);
-  });
-
-  closeColsListBtn.addEventListener('click', () => {
-
-    colsListDialog.close();
-    dialogsDiv.classList.toggle("hidden");
-    toggleAriaHidden(colsListDialog);
+    btn.addEventListener('click', closeDialogHandler);
   });
 }

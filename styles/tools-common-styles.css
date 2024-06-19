@@ -217,6 +217,10 @@ dialog:focus-visible {
   box-shadow: 0px 0px 0px 0.1875rem transparent;
 }
 
+.btn:disabled {
+  background: color-mix(in srgb, var(--secondary-color-b) 60%, white);
+}
+
 .btn:focus-visible {
   outline-offset: 0.05rem;
   border-radius: 0.5rem;

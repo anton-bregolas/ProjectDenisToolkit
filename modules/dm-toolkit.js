@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.1.9
+// #ProjectDenis Toolkit v.2.0
 //
-// List Generator v.1.6
-// TSV to JSON Parser v.1.6
-// JSON Splitter v.1.6
+// List Generator v.1.8
+// TSV to JSON Parser v.1.7
+// JSON Splitter v.1.7
 ///////////////////////////////////////////////////////////////////////
 
-import { initModals, tunelistDiv } from '../components/dm-modals/dm-modals.js';
+import { initModals, tunelistDiv, colsListDiv, tracklistDiv, tracklistOutput } from '../components/dm-modals/dm-modals.js';
 import { initPopovers, themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 
@@ -22,6 +22,12 @@ const outputDiv = document.getElementById('output');
 export const colsDiv = document.getElementById('cols-output');
 export const tracksDiv = document.getElementById('tracks-output');
 export const tunesDiv = document.getElementById('tunes-output');
+
+// Define Generator buttons
+
+export const generateTunelistBtn = document.querySelector('#dm-btn-generate-tunelist');
+export const generateColsListBtn = document.querySelector('#dm-btn-generate-collections');
+export const generateTracklistBtn = document.querySelector('#dm-btn-generate-tracklist');
 
 // Check if a line in a raw tsv file is a track or a collection header (= 1000s)
 
@@ -152,7 +158,7 @@ async function parseFromFile() {
     
                 const lines = fileContent.split('\n').filter(line => line.trim() !== '');
 
-                outputDiv.textContent = '';
+                clearOutput();
     
                 const resultArray = [];
     
@@ -249,7 +255,7 @@ function saveOutputFile(outputname, filename) {
 
 // Clear all output and input fields as well as counters
 
-function clearOutput() {
+export function clearOutput() {
 
     inputDiv.value = "";
     outputDiv.textContent = "";
@@ -259,6 +265,19 @@ function clearOutput() {
     colsDiv.previousElementSibling.textContent = `Collections: 0`;
     tracksDiv.previousElementSibling.textContent = `Tracks: 0`;
     tunesDiv.previousElementSibling.textContent = `Tunes: 0`;
+    tunelistDiv.textContent = ""; 
+    colsListDiv.textContent = ""; 
+    tracklistDiv.textContent = "";
+
+    if (!tracklistOutput.classList.contains("hidden")) {
+
+        tracklistOutput.classList.toggle("hidden");
+        toggleAriaHidden(tracklistOutput);
+    }
+
+    generateTracklistBtn.setAttribute("disabled", "");
+    generateTunelistBtn.setAttribute("disabled", "");
+    generateColsListBtn.setAttribute("disabled", "");
 }
 
 // Convert a tsv line into an object of specified type
@@ -304,6 +323,8 @@ function filterOutput(mixedJson) {
                 tunesDiv.innerText = JSON.stringify(tunesArr, null, 2);
                 tunesDiv.previousElementSibling.textContent = `Tunes: ${tunesArr.length}`;
                 console.log("Tunes JSON created!");
+                generateTracklistBtn.removeAttribute("disabled");
+                generateTracklistBtn.focus();
                 return;
             });
 
@@ -315,6 +336,8 @@ function filterOutput(mixedJson) {
             tracksDiv.previousElementSibling.textContent = `Tracks: 0`;
             tunesDiv.innerText = "No tune data found in JSON.";
             tunesDiv.previousElementSibling.textContent = `Tunes: 0`;
+            generateTracklistBtn.removeAttribute("disabled");
+            generateTracklistBtn.focus();
             return;
         }
     }
@@ -450,12 +473,14 @@ function initButtons() {
 
     ['mouseover', 'focusin'].forEach(event => {
         allBtn.forEach(btn => {
-            btn.addEventListener(event, () => {
-                btn.classList.add('hovered');
-                let btnText = btn.querySelector('.btn-text');
-                let btnIcon = btn.querySelector('.btn-icon');
-                btnText?.classList.add('enlarged');
-                btnIcon?.classList.add('enlarged');
+            btn.addEventListener(event, () => {                
+                if (!btn.disabled) {
+                    btn.classList.add('hovered');
+                    let btnText = btn.querySelector('.btn-text');
+                    let btnIcon = btn.querySelector('.btn-icon');
+                    btnText?.classList.add('enlarged');
+                    btnIcon?.classList.add('enlarged');
+                }
             });
         });
     });
@@ -463,11 +488,13 @@ function initButtons() {
     ['mouseout', 'focusout'].forEach(event => {
         allBtn.forEach(btn => {
             btn.addEventListener(event, () => {
-                btn.classList.remove('hovered');
-                let btnText = btn.querySelector('.btn-text');
-                let btnIcon = btn.querySelector('.btn-icon');
-                btnText?.classList.remove('enlarged');
-                btnIcon?.classList.remove('enlarged');
+                if (!btn.disabled) {
+                    btn.classList.remove('hovered');
+                    let btnText = btn.querySelector('.btn-text');
+                    let btnIcon = btn.querySelector('.btn-icon');
+                    btnText?.classList.remove('enlarged');
+                    btnIcon?.classList.remove('enlarged');
+                }
             });
         });
     });

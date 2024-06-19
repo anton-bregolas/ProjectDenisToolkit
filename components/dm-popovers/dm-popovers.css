@@ -3,6 +3,7 @@
 body {
   --tune-card-color: var(--secondary-color-b);
   --col-card-color: var(--secondary-color-c);
+  --track-card-color: var(--secondary-color-a);
 }
 
 body.dark {
@@ -13,37 +14,34 @@ body.dark .dm-col-card {
   --col-card-color: color-mix(in srgb, #3399cc 90%, white);
 }
 
-body.rainbow .dm-col-card {
-  --col-card-color: color-mix(in srgb, var(--secondary-color-c) 95%, white);
-}
-
 body.rainy .dm-col-card,
 body.light .dm-col-card,
 body.star .dm-col-card {
   --col-card-color: color-mix(in srgb, var(--secondary-color-c) 85%, white);
 }
 
-/* Tune Popover Card */
+/* Popover Common Styles */
 
-.dm-tune-card, .dm-col-card {
-  position: relative;
-  background-color: var(--tune-card-color);
-  outline: 2px dashed var(--secondary-color-c);
+.dm-tune-card, .dm-col-card, .dm-track-card {
   border-radius: 0.5rem;
-  inset: unset;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   padding: 0.75em 0 1em;
   width: min(calc(100svw - 3.7rem), 40rem);
   max-height: calc(100svh - 3.7rem);
 }
 
-.dm-tune-card *, .dm-col-card * {
+.dm-tune-card, .dm-col-card {
+  inset: unset;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dm-tune-card *, .dm-col-card *, .dm-track-card * {
   line-height: 1.5;
 }
 
-.dm-tune-grid-header, .dm-col-grid-header {
+.dm-tune-grid-header, .dm-col-grid-header, .dm-track-grid-header {
   display: grid;
   color: black;
   border-bottom: 2px dashed black;
@@ -51,15 +49,226 @@ body.star .dm-col-card {
 }
 
 .dm-tune-grid-header h2, .dm-tune-grid-header h3,
-.dm-col-grid-header h2, .dm-col-grid-header h3  {
+.dm-col-grid-header h2, .dm-col-grid-header h3,
+.dm-track-grid-header h2, .dm-track-grid-header h3  {
   color: black;
   margin: 0;
 }
 
-.dm-tune-grid-body, .dm-col-grid-body {
+.dm-tune-grid-body, .dm-col-grid-body, .dm-track-grid-body {
   display: grid;
   gap: 0.5rem;
   padding: 1em;
+}
+
+.dm-tune-grid-item, .dm-col-grid-item, .dm-track-grid-item {
+  text-align: center;
+  text-align-last: center;
+}
+
+.dm-tune-grid-item, 
+.dm-col-grid-item:not(:last-child):not(>.dm-col-grid-nav),
+.dm-track-grid-item {
+  padding-bottom: 0.5rem;
+}
+
+.dm-tune-grid-item, .dm-tune-grid-item b,
+.dm-col-grid-item, .dm-col-grid-item b,
+.dm-track-grid-item, .dm-track-grid-item b {
+  font-size: var(--font-base);
+  color: black;
+}
+
+.dm-col-grid-nav,
+.dm-track-grid-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.col-grid-comments-cont,
+.track-grid-notes-cont {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.dm-col-grid-notes, 
+.dm-track-grid-notes {
+  text-align: justify;
+  text-align-last: left;
+  margin: 0;
+}
+
+.dm-tune-grid-footer, 
+.dm-col-grid-footer,
+.dm-track-grid-footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: center;
+  padding: 0 1em;
+  gap: 0.75rem;
+}
+
+/* Popover Buttons Common Styles */
+
+.dm-btn-open-track,
+.dm-tune-grid-item a,
+.dm-col-grid-item a
+.dm-col-grid-nav .dm-btn-card-nav,
+.dm-track-grid-nav .dm-btn-card-nav {
+  font-weight: bold;
+}
+
+.dm-btn-popover-close-x {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  aspect-ratio: 1/1;
+  margin: 0.24rem;
+  padding: 0.5rem;
+  line-height: 0;
+}
+
+.dm-btn-popover-close-x:after {
+  content: "\00d7";
+  font-size: var(--font-xlarge);
+  padding-bottom: 0.35rem;
+}
+
+.dm-btn-popover-close,
+.dm-btn-card-footer-close, 
+.dm-btn-card-footer-nav {
+  opacity: 0.75;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.dm-btn-card-footer-close, 
+.dm-btn-card-footer-nav {
+  text-align: center;
+  font-size: var(--font-button);
+  width: 100%;
+  padding: 0.25rem;
+  background-color: transparent;
+}
+
+.dm-btn-card-footer-close {
+  outline: 1px dashed black;
+}
+
+.dm-btn-card-footer-nav {
+  outline: 1px dotted black;
+}
+
+.dm-btn-card-footer-nav:is(:hover, :focus-visible),
+.dm-btn-popover-close:is(:hover, :focus-visible),
+.dm-tune-grid-item a:is(:focus-visible),
+.dm-tune-grid-header h2:is(:focus-visible),
+.dm-tune-card .dm-btn-open-track:is(:focus, :focus-visible) {
+  outline-offset: unset;
+  outline: 2px solid green;
+  opacity: 1;
+}
+
+.dm-btn-popover-close:is(:hover, :focus-visible) {
+  outline: 2px solid red;
+}
+
+.dm-btn-open-track {
+  color: var(--accent-color-b);
+  transition: color 0.5s ease-in-out;
+}
+
+.dm-col-grid-item a, 
+.dm-track-grid-item a,
+.dm-col-grid-nav button,
+.dm-track-grid-nav button,
+.track-grid-colno-cont .dm-btn-open-track {
+  color: var(--secondary-color-b);
+  font-weight: bold;
+  transition: color 0.5s ease-in-out;
+  text-shadow: 1px 1px 1px #111111;
+}
+
+.dm-col-grid-links,
+.dm-col-grid-nav button,
+.dm-track-grid-nav button {
+  border: 2px dashed black;
+  border-radius: 0.5rem;
+  padding-bottom: 0;
+  padding: 1em;
+  gap: 1rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.dm-col-grid-nav button,
+.dm-track-grid-nav button {
+  flex-grow: 1;
+}
+
+.dm-col-grid-item a:is(:focus, :focus-visible),
+.dm-track-grid-item a:is(:focus, :focus-visible),
+.dm-col-grid-nav button:is(:hover, :focus-visible),
+.dm-track-grid-nav button:is(:hover, :focus-visible) {
+  color: var(--accent-color-a);
+}
+
+.dm-col-grid-nav button:is(:hover, :focus-visible),
+.dm-track-grid-nav button:is(:hover, :focus-visible) {
+  outline: 0.25rem solid yellow;
+}
+
+.dm-col-grid-item a:is(:focus, :focus-visible),
+.dm-track-grid-item a:is(:focus, :focus-visible),
+.track-grid-colno-cont .dm-btn-open-track:is(:focus, :focus-visible) {
+  outline: 0.2rem solid yellow;
+}
+
+.dm-col-grid-nav button:is(:hover, :focus-visible),
+.dm-track-grid-nav button:is(:hover, :focus-visible) {
+  outline-offset: 0.05rem;
+}
+
+.dm-tune-grid-item a,
+.dm-track-grid-item a,
+.dm-col-grid-item a,
+.dm-track-grid-item a,
+.track-grid-colno-cont .dm-btn-open-track {
+  outline-offset: 0.25rem;
+}
+
+.dm-tune-grid-item a,
+.dm-tune-grid-header h2,
+.dm-btn-popover-close,
+.dm-btn-card-footer-nav,
+.dm-btn-card-footer-close, 
+.dm-tune-card .dm-btn-open-track,
+.dm-col-grid-item a,
+.dm-track-grid-item a,
+.dm-col-grid-nav button,
+.dm-track-grid-nav button,
+.track-grid-colno-cont .dm-btn-open-track {
+  border-radius: 0.33rem;
+}
+
+.dm-btn-prev-col:before,
+.dm-btn-prev-tune:before,
+.dm-btn-prev-track:before {
+  content: "◀";
+}
+
+.dm-btn-next-tune:before,
+.dm-btn-next-col:before,
+.dm-btn-next-track:before {
+  content: "▶";
+}
+
+/* Tune Popover Card */
+
+.dm-tune-card {
+  background-color: var(--tune-card-color);
+  outline: 2px dashed var(--secondary-color-c);
 }
 
 .dm-tune-grid-body {
@@ -72,33 +281,6 @@ body.star .dm-col-card {
     "refno-content transcr-content"
     "tunereffull-header refsetting-header"
     "tunereffull-content refsetting-content";
-}
-
-.dm-tune-grid-item, .dm-col-grid-item {
-  text-align: center;
-  text-align-last: center;
-}
-
-.dm-tune-grid-item, 
-.dm-col-grid-item:not(:last-child):not(.col-grid-reflink) {
-  padding-bottom: 0.5rem;
-}
-
-.dm-tune-grid-item, .dm-tune-grid-item b {
-  font-size: var(--font-base);
-  color: black;
-}
-
-.dm-tune-grid-item b, .dm-col-grid-item b {
-  font-weight: bold;
-}
-
-.dm-tune-grid-footer, .dm-col-grid-footer {
-  grid-area: footer;
-  display: flex;
-  justify-content: center;
-  padding: 0 1em;
-  gap: 0.75rem;
 }
 
 .tune-grid-alttitle-head {
@@ -143,84 +325,23 @@ body.star .dm-col-card {
 
 /* Tune Popover Buttons */
 
-.dm-btn-popover-close-x {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  right: 0;
-  aspect-ratio: 1/1;
-  margin: 2px;
-  padding: 0.5rem;
+.dm-tune-card .dm-btn-open-track:is(:active, :hover, :focus, :focus-visible),
+.dm-tune-card .dm-tune-grid-item a:is(:active, :hover, :focus, :focus-visible) {
+  color: var(--accent-color-c);
+  text-shadow: 0px 1px 2px #d2d2d2;
 }
 
-.dm-btn-popover-close-x:after {
-  content: "\00d7";
-  font-size: var(--font-xlarge);
-  color: rgba(0, 0, 0, 0.68);
-  padding-bottom: 0.35rem;
-}
-
-.dm-btn-popover-close-l, .dm-btn-popover-nav,
-.dm-btn-popover-close-col-l {
-  text-align: center;
-  font-size: var(--font-button);
-  width: 100%;
-  padding: 0.25rem;
-  background-color: transparent;
-  border-radius: 0.33rem;
-}
-
-.dm-btn-popover-close-l, .dm-btn-popover-close-col-l {
-  outline: 1px dashed black;
-}
-
-.dm-btn-popover-nav {
-  outline: 1px dotted black;
-}
-
-.dm-btn-prev-tune:before {
-  content: "Prev Tune";
-}
-
-.dm-btn-popover-close-l:before {
+.dm-tune-grid-footer .dm-btn-card-footer-close:before {
   content: "Close Tune";
 }
 
-.dm-btn-next-tune:before {
-  content: "Next Tune";
-}
-
-.dm-btn-open-track:is(:focus-visible),
-.dm-tune-grid-item a:is(:focus-visible),
-.dm-tune-grid-header h2:is(:focus-visible),
-.dm-btn-popover-nav:is(:hover, :focus-visible),
-.dm-btn-popover-close:is(:hover, :focus-visible) {
-  outline-offset: unset;
-  border-radius: 0.33rem;
-  outline: 2px solid green;
-}
-
-.dm-btn-popover-close:is(:hover, :focus-visible) {
-  outline: 2px solid red;
-}
-
-.dm-tune-grid-item a:is(:focus, :focus-visible) {
-  outline-offset: 0.25rem;
-}
-
-.dm-btn-open-track {
-  color: var(--accent-color-b);
-  transition: color 0.5s ease-in-out;
-}
-
-.dm-tune-grid-item a:is(:active, :hover, :focus, :focus-visible),
-.dm-btn-open-track:is(:active, :hover, :focus, :focus-visible) {
-  color: var(--accent-color-c);
-}
 
 /* Collection Popover Card */
+
+.dm-col-card {
+  background-color: color-mix(in srgb, var(--col-card-color) 65%, white);
+  outline: 2px dashed var(--secondary-color-b);
+}
 
 .dm-col-grid-body {
   grid-template-columns: 1fr 1fr 1fr;
@@ -228,32 +349,12 @@ body.star .dm-col-card {
   grid-template-areas:
     "performers performers performers"
     "source-content source-content source-content"
-    "reflink reflink reflink"
+    "col-nav col-nav col-nav"
     "coltype-header yearrec-header yearpub-header"
     "coltype-content yearrec-content yearpub-content"
     "col-links col-links col-links"
     "comments-header comments-header comments-header"
     "comments-content comments-content comments-content";
-}
-
-.dm-col-card {
-  background-color: color-mix(in srgb, var(--col-card-color) 65%, white);
-  outline: 2px dashed var(--secondary-color-b);
-}
-
-.dm-col-grid-item a,
-.col-grid-reflink button {
-  color: var(--secondary-color-b);
-}
-
-.dm-col-grid-item a:is(:hover, :focus),
-.col-grid-reflink button:is(:hover, :focus) {
-  color: var(--accent-color-b);
-}
-
-.dm-col-grid-item, .dm-col-grid-item b {
-  font-size: var(--font-base);
-  color: black;
 }
 
 .dm-col-grid-item-inactive {
@@ -263,6 +364,7 @@ body.star .dm-col-card {
 
 .col-grid-performers {
   grid-area: performers;
+  font-weight: bold;
 }
 
 .col-grid-source-head {
@@ -297,8 +399,12 @@ body.star .dm-col-card {
   grid-area: coltype-content;
 }
 
+.dm-col-grid-nav {
+  grid-area: col-nav;
+}
+
 .col-grid-reflink {
-  grid-area: reflink;
+  display: flex;
 }
 
 .col-grid-srclink {
@@ -333,16 +439,6 @@ body.star .dm-col-card {
   grid-area: comments-header;
 }
 
-.dm-col-grid-links, .col-grid-reflink {
-  border: 2px dashed black;
-  border-radius: 0.5rem;
-  padding-bottom: 0;
-  padding: 1em;
-  gap: 1rem;
-  margin: 0.5rem 0 0.75rem;
-  background-color: color-mix(in srgb, var(--col-card-color) 65%, black);
-}
-
 .dm-col-grid-links {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -353,24 +449,147 @@ body.star .dm-col-card {
 }
 
 .col-grid-comments-cont {
-  display: grid;
-  gap: 0.75rem;
   grid-area: comments-content;
-}
-
-.dm-col-grid-notes {
-  text-align: justify;
-  text-align-last: left;
-  margin: 0;
 }
 
 /* Collections Popover Buttons */
 
-.dm-col-grid-item a:is(:focus, :focus-visible),
-.col-grid-reflink button:is(:focus, :focus-visible){
-  outline-offset: 0.25rem;
-  border-radius: 0.33rem;
-  outline: 2px solid yellow;
+.dm-col-grid-links,
+.dm-col-grid-nav .dm-btn-card-nav,
+.dm-col-grid-nav .dm-btn-open-track {
+  background-color: color-mix(in srgb, var(--col-card-color) 65%, black);
+}
+
+.col-grid-reflink {
+  min-width: 56%;
+}
+
+.dm-col-grid-nav .dm-btn-open-track:before {
+  content: "View in Tracklist";
+}
+
+/* Track Popover */
+
+.dm-track-card {
+  background-color: color-mix(in srgb, var(--track-card-color) 33%, white);
+  outline: 2px dashed var(--secondary-color-a);
+}
+
+.dm-track-grid-body {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "t-performers t-performers t-performers"
+    "t-alttitle-header t-alttitle-header t-alttitle-header"
+    "t-alttitle-content t-alttitle-content t-alttitle-content"
+    "track-nav track-nav track-nav"
+    "t-colno-header t-coltrack-header t-transcription-header"
+    "t-colno-content t-coltrack-content t-transcription-content"
+    "t-category-header t-yearrec-header t-yearpub-header"
+    "t-category-content t-yearrec-content t-yearpub-content"
+    "t-notes-header t-notes-header t-notes-header"
+    "t-notes-content t-notes-content t-notes-content"
+}
+
+.track-grid-performers {
+  grid-area: t-performers;
+  font-weight: bold;
+}
+
+.track-grid-alttitle-head {
+  grid-area: t-alttitle-header;
+}
+
+.track-grid-alttitle-cont {
+  grid-area: t-alttitle-content;
+}
+
+.dm-track-grid-nav {
+  grid-area: track-nav;
+}
+
+.dm-track-grid-nav button {
+  background-color: color-mix(in srgb, var(--track-card-color) 65%, black);
+}
+
+.track-grid-reflink {
+  display: flex;
+}
+
+.track-grid-colno-head {
+  grid-area: t-colno-header;
+}
+
+.track-grid-colno-cont {
+  grid-area: t-colno-content;
+}
+
+.track-grid-coltrackno-head {
+  grid-area: t-coltrack-header;
+}
+
+.track-grid-coltrackno-cont {
+  grid-area: t-coltrack-content;
+}
+
+.track-grid-transcr-head {
+  grid-area: t-transcription-header;
+}
+
+.track-grid-transcr-cont {
+  grid-area: t-transcription-content;
+}
+
+.track-grid-category-head {
+  grid-area: t-category-header;
+}
+
+.track-grid-category-cont {
+  grid-area: t-category-content;
+}
+
+.track-grid-yearrec-head {
+  grid-area: t-yearrec-header;
+}
+
+.track-grid-yearrec-cont {
+  grid-area: t-yearrec-content;
+}
+
+.track-grid-yearpub-head {
+  grid-area: t-yearpub-header;
+}
+
+.track-grid-yearpub-cont {
+  grid-area: t-yearpub-content;
+}
+
+.track-grid-notes-head {
+  grid-area: t-notes-header;
+  margin-top: 0.33rem;
+}
+
+.track-grid-notes-cont {
+  grid-area: t-notes-content;
+}
+
+/* Track Popover Buttons */
+
+.dm-track-grid-nav button {
+  background-color: color-mix(in srgb, var(--track-card-color) 65%, black);
+}
+
+.track-grid-reflink {
+  min-width: 56%;
+}
+
+.dm-track-grid-item a,
+.track-grid-colno-cont .dm-btn-open-track {
+  text-shadow: 1px 1px 2px #111111;
+}
+
+.dm-track-grid-nav .dm-btn-open-track:before {
+  content: "View Tune Card";
 }
 
 /* Color Theme Popover Card */
@@ -401,25 +620,27 @@ body.star .dm-col-card {
   .dm-tune-card, .dm-col-card {
     bottom: -43%;
   }
-  
-  .dm-btn-prev-tune:before {
-    content: "Prev";
-  }
 
-  .dm-btn-popover-close-l:before {
+  .dm-tune-grid-footer .dm-btn-card-footer-close:before {
     content: "Close";
-  }
-
-  .dm-btn-next-tune:before {
-    content: "Next";
   }
 }
 
 @media screen and (max-width: 34em) {
 
-  .dm-col-grid-body, .dm-col-grid-links {
+  .dm-col-grid-links,
+  .dm-col-grid-body, .dm-track-grid-body {
     display: flex;
     flex-flow: column;
+  }
+
+  .dm-col-grid-nav button,
+  .dm-track-grid-nav button {
+    margin: 0.25rem 0;
+  }
+
+  .col-grid-reflink, .track-grid-reflink {
+    min-width: 0;
   }
 }
 
@@ -427,11 +648,20 @@ body.star .dm-col-card {
 
   .dm-tune-grid-item, .dm-tune-grid-item b, 
   .dm-col-grid-item, .dm-col-grid-item b, 
-  .dm-btn-popover-close-l, .dm-btn-popover-close-col-l {
+  .dm-track-grid-item, .dm-track-grid-item b, 
+  .dm-btn-card-footer-close {
     font-size: var(--font-button);
   }
 
-  .dm-tune-grid-header h2, .dm-col-grid-header h2 {
+  .dm-col-grid-nav, .dm-track-grid-nav {
+    display: flex;
+    flex-flow: column;
+    gap: 0;
+  }
+
+  .dm-tune-grid-header h2, 
+  .dm-col-grid-header h2,
+  .dm-track-grid-header h2 {
     font-size: 7cqi;
   }
 }

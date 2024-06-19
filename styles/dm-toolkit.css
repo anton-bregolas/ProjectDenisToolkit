@@ -81,7 +81,7 @@ body {
   cursor: pointer;
 }
 
-.text-counter:focus-visible {
+.text-counter:is(:focus, :focus-visible) {
   outline: 0.3125rem solid var(--focus-color-inverted);
   outline-offset: -0.1rem;
   border-radius: 0.4rem;
