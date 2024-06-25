@@ -44,6 +44,8 @@ body.dark {
   --accent-color-c: firebrick;
   --neutral-color: yellowgreen;
   --neutral-color-alt: #afafaf;
+  --neutral-color-inactive:#bababa;
+  --neutral-color-inverted: #111111;
 }
 
 body.light {
@@ -58,6 +60,8 @@ body.light {
   --accent-color-c: #ff5518;
   --neutral-color: black;
   --neutral-color-alt: #474747;
+  --neutral-color-inactive:#818181;
+  --neutral-color-inverted: #d8d8d8;
 }
 
 body.star {
@@ -72,6 +76,8 @@ body.star {
   --accent-color-c: #3399cc;
   --neutral-color: #fffffff4;
   --neutral-color-alt: #cccccc;
+  --neutral-color-inactive:#8e8e8e;
+  --neutral-color-inverted: #d8d8d8;
 }
 
 body.rainy {
@@ -85,7 +91,9 @@ body.rainy {
   --accent-color-b: #81c0ff;
   --accent-color-c: #9f69d1;
   --neutral-color: #00122e;
-  --neutral-color-alt: #474747;
+  --neutral-color-alt: #434343;
+  --neutral-color-inactive:#a3a3a3;
+  --neutral-color-inverted: #d8d8d8;
 }
 
 body.rainbow {
@@ -99,7 +107,9 @@ body.rainbow {
   --accent-color-b: #0392cf;
   --accent-color-c: #551a8b;
   --neutral-color: black;
-  --neutral-color-alt: #474747;
+  --neutral-color-alt: #454545;
+  --neutral-color-inactive:#9f9f9f;
+  --neutral-color-inverted: #d8d8d8;
 }
 
 body * {
@@ -167,6 +177,17 @@ h2 {
 
 h3 {
   font-size: var(--font-mid);
+  margin: 0;
+}
+
+h4 {
+  font-size: var(--font-base);
+  font-weight: bold;
+  color: black;
+  margin: 0;
+}
+
+p {
   margin: 0;
 }
 

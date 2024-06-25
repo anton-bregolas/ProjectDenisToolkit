@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.2.0
+// #ProjectDenis Toolkit v.2.1
 //
 // List Generator v.1.8
-// TSV to JSON Parser v.1.7
-// JSON Splitter v.1.7
+// TSV to JSON Parser v.1.8
+// JSON Splitter v.1.8
 ///////////////////////////////////////////////////////////////////////
 
 import { initModals, tunelistDiv, colsListDiv, tracklistDiv, tracklistOutput } from '../components/dm-modals/dm-modals.js';
@@ -350,6 +350,29 @@ function filterOutput(mixedJson) {
     tunesDiv.previousElementSibling.textContent = `Tunes: 0`;
 }
 
+// Filter down items to a unique comma-separated string of links removing duplicates
+
+function filterMergeLinks(existingLinks, newLinks) {
+
+    if (newLinks) {
+
+        const newLinksArray = newLinks.split(/[\s,]+/).map(link => link.trim()).filter(link => link);
+
+        if (existingLinks) {
+
+            const linksSet = new Set(existingLinks.split(/[\s,]+/).map(link => link.trim()).filter(link => link));
+            newLinksArray.forEach(link => linksSet.add(link));
+            return Array.from(linksSet).join(", ");
+
+        } else {
+
+            return newLinksArray.join(", ");
+        }
+    }
+
+    return existingLinks;
+}
+
 // Create a filtered down JSON of unique tunes from the tracks JSON
 
 async function createTuneList(tracks) {
@@ -388,17 +411,8 @@ async function createTuneList(tracks) {
                 const existingTune = tunesMap.get(tuneref);
                 existingTune.refno += `, ${refno}`;
 
-                if (transcriptlink) {
-
-                    if (existingTune.transcriptlink) {
-
-                        existingTune.transcriptlink += `, ${transcriptlink}`;
-
-                    } else {
-
-                        existingTune.transcriptlink = transcriptlink;
-                    }
-                }
+                existingTune.transcriptlink = filterMergeLinks(existingTune.transcriptlink, transcriptlink);
+                existingTune.refsettinglink = filterMergeLinks(existingTune.refsettinglink, refsettinglink);
 
                 tunesMap.set(tuneref, existingTune);
             }
@@ -508,6 +522,8 @@ function initButtons() {
             themePickerPopover.hidePopover();
             document.body.classList.value = btn.dataset.theme;
 
+            setAriaLabel(themeBtn, `${btn.title} is on. Select color theme.`);
+
             allThemeBtn.forEach(btn => { 
                 if (btn.classList.contains("hidden")) {
                     btn.classList.remove("hidden");
@@ -515,8 +531,6 @@ function initButtons() {
             });
 
             btn.classList.add("hidden");
-
-            setAriaLabel(themeBtn, `Select color theme. ${btn.title} is on`);
 
             themeBtn.focus();
         });

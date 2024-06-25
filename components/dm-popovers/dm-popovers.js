@@ -12,6 +12,7 @@ export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
 export const trackCardPopover = document.querySelector('#dm-popover-card-track');
 export const themePickerPopover = document.querySelector('#theme-picker-popover');
+export const popoverCard = document.querySelectorAll('.dm-popover-card');
 
 // Display the Tune Card popover
 
@@ -43,6 +44,9 @@ export async function showTunePopover() {
 
       tuneCardPopover.showPopover();
 
+      // document.querySelector(".tune-grid-htitle").focus();
+      document.querySelector("#dm-btn-tune-card-close").focus();
+
       console.log("Tune Card created.");
 
   } else {
@@ -68,8 +72,8 @@ async function createTuneCard(tuneObject) {
   const tuneType = tuneObject.tunetype;
   const tuneAltNames = tuneObject.altnames;
   const tuneTrackRefs = tuneObject.refno;
-  const tuneTranscriptUrl = tuneObject.transcriptlink?.split(", ")[0];
-  const tuneQuickRefUrl = tuneObject.refsettinglink?.split(", ")[0];
+  const tuneTranscriptUrls = tuneObject.transcriptlink;
+  const tuneQuickRefUrls = tuneObject.refsettinglink;
   
   console.log(`Creating Tune Card...\n\nTune Ref.:\n\n${tuneRef}`);
   // console.log(tuneObject);
@@ -96,39 +100,67 @@ async function createTuneCard(tuneObject) {
     if (tuneTrackRefsArr.indexOf(refNo) < (tuneTrackRefsArr.length - 1)) {
     
       tuneTrackRefDiv.append(trackRefBtn);
-      const refSeparator = document.createTextNode(", ")
+      const refSeparator = document.createTextNode("/")
       tuneTrackRefDiv.append(refSeparator);
 
     } else {
       
       tuneTrackRefDiv.append(trackRefBtn);
     }
-  })
+  });
 
-  if (tuneTranscriptUrl) {
+  const tuneTranscriptUrlArr = tuneTranscriptUrls === "" ? [] : tuneTranscriptUrls.split(", ");
 
-    const tuneTranscriptSource = generateLinkSourceName(tuneTranscriptUrl);
+  if (tuneTranscriptUrlArr.length > 0) {
+    
+    tuneTranscriptUrlArr.forEach(transcrLink => {
 
-    const tuneTranscriptHyperlink = document.createElement("a");
-    const boldTranscriptLink = document.createElement("b");
-    tuneTranscriptHyperlink.setAttribute("href", tuneTranscriptUrl);
-    tuneTranscriptHyperlink.setAttribute("target", "_blank");
-    tuneTranscriptHyperlink.textContent = tuneTranscriptSource;
-    boldTranscriptLink.appendChild(tuneTranscriptHyperlink)
-    tuneTranscrDiv.appendChild(boldTranscriptLink);
+      const tuneTranscriptSource = generateLinkSourceName(transcrLink);
+
+      const tuneTranscriptHyperlink = document.createElement("a");
+      tuneTranscriptHyperlink.setAttribute("href", transcrLink);
+      tuneTranscriptHyperlink.setAttribute("target", "_blank");
+      tuneTranscriptHyperlink.setAttribute("title", "View Transcription Sheet Music");
+      tuneTranscriptHyperlink.textContent = tuneTranscriptSource;
+  
+      if (tuneTranscriptUrlArr.indexOf(transcrLink) < (tuneTranscriptUrlArr.length - 1)) {
+      
+        tuneTranscrDiv.append(tuneTranscriptHyperlink);
+        const refSeparator = document.createTextNode("/")
+        tuneTranscrDiv.append(refSeparator);
+  
+      } else {
+        
+        tuneTranscrDiv.append(tuneTranscriptHyperlink);
+      }
+    });
   }
+  
+  const tuneQuickRefUrlArr = tuneQuickRefUrls === "" ? [] : tuneQuickRefUrls.split(", ");
 
-  if (tuneQuickRefUrl) {
+  if (tuneQuickRefUrlArr.length > 0) {
 
-    const tuneQuickRefSource = generateLinkSourceName(tuneQuickRefUrl);
+    tuneQuickRefUrlArr.forEach(quickRefLink => {
 
-    const tuneQuickRefHyperlink = document.createElement("a");
-    const boldQuickReftLink = document.createElement("b");
-    tuneQuickRefHyperlink.setAttribute("href", tuneQuickRefUrl);
-    tuneQuickRefHyperlink.setAttribute("target", "_blank");
-    tuneQuickRefHyperlink.textContent = tuneQuickRefSource;
-    boldQuickReftLink.appendChild(tuneQuickRefHyperlink);
-    tuneQuickRefDiv.appendChild(boldQuickReftLink);
+      const tuneQuickRefSource = generateLinkSourceName(quickRefLink);
+
+      const tuneQuickRefHyperlink = document.createElement("a");
+      tuneQuickRefHyperlink.setAttribute("href", quickRefLink);
+      tuneQuickRefHyperlink.setAttribute("target", "_blank");
+      tuneQuickRefHyperlink.setAttribute("title", "View Reference Sheet Music");
+      tuneQuickRefHyperlink.textContent = tuneQuickRefSource;
+  
+      if (tuneQuickRefUrlArr.indexOf(quickRefLink) < (tuneQuickRefUrlArr.length - 1)) {
+      
+        tuneQuickRefDiv.append(tuneQuickRefHyperlink);
+        const refSeparator = document.createTextNode("/")
+        tuneQuickRefDiv.append(refSeparator);
+  
+      } else {
+        
+        tuneQuickRefDiv.append(tuneQuickRefHyperlink);
+      }
+    });
   }
 }
 
@@ -248,6 +280,19 @@ function generateTuneFullRef(tuneRef) {
   return `${fullColRef}, ${page}No. ${refNo}`;
 }
 
+// Get collection reference code from Collections JSON
+
+async function getColRefCode(colRefNo) {
+
+  const colsOutput = colsDiv.textContent;
+  const colsJson = await validateJson(colsOutput);
+  const colObject = colsJson.find(col => col.colrefno == colRefNo);
+
+  let colRefCode = colObject.refcode;
+
+  return colRefCode;
+}
+
 // Generate source name based on source link hostname
 
 function generateLinkSourceName(tuneTranscriptUrl) {
@@ -257,7 +302,7 @@ function generateLinkSourceName(tuneTranscriptUrl) {
 
   switch (sourceLinkHost) {
     case "thesession.org":
-      return "The Session";
+      return "The\u00A0Session";
     case "tunearch.org":
       return "Tunearch";
     case "tunepal.org":
@@ -278,7 +323,6 @@ export async function showColPopover() {
     let colRefNo;
     const parentDiv = this.parentElement;
     const parentDialog = parentDiv.parentElement;
-    const parentDialogId = parentDialog.id;
 
     if (parentDialog === tracklistOutput || parentDialog === colsListDialog) {
 
@@ -320,6 +364,9 @@ export async function showColPopover() {
 
       colCardPopover.showPopover();
 
+      // document.querySelector(".col-grid-htitle").focus();
+      document.querySelector("#dm-btn-col-card-close").focus();
+
       console.log("Collection Card created.");
 
 
@@ -337,8 +384,7 @@ async function createColCard(colObject) {
   const colRefNoDiv = document.querySelector(".col-grid-hrefno");
   const colRefCodeDiv = document.querySelector(".col-grid-hrefcode");
   const colTitleDiv = document.querySelector(".col-grid-htitle");
-  const colPubCodeDiv = document.querySelector(".col-grid-hpubcode");
-  const colPerformersDiv = document.querySelector(".col-grid-performers");
+  const colPerformersDiv = document.querySelector(".col-grid-performers-cont");
   const colSourceDiv = document.querySelector(".col-grid-source-cont");
   const colRefLinkDiv = document.querySelector(".col-grid-reflink");
   const colYearRecDiv = document.querySelector(".col-grid-yearrec-cont");
@@ -364,9 +410,8 @@ async function createColCard(colObject) {
   colRefNoDiv.textContent = colRefNo;
   colRefCodeDiv.textContent = colRefCode;
   colTitleDiv.textContent = "";
-  colPubCodeDiv.textContent = colPubCode;
   colPerformersDiv.textContent = colPerformers;
-  colSourceDiv.textContent = colSource;
+  colSourceDiv.textContent = colPubCode? `${colSource}, ${colPubCode}` : colSource;
   colRefLinkDiv.textContent = "";
   colYearRecDiv.textContent = colYearRec? colYearRec : colYearRecEarliest? `~${colYearRecEarliest}–${colYearRecLatest}` : "Undated";
   colYearPubDiv.textContent = colYearPub;
@@ -406,21 +451,19 @@ async function createColCard(colObject) {
     if (colLinkUrl) {
 
       const colHyperlink = document.createElement("a");
-      const boldLink = document.createElement("b");
       colHyperlink.setAttribute("href", colLinkUrl);
       colHyperlink.setAttribute("target", "_blank");
       colHyperlink.textContent = colLinkDiv.textContent;
       colLinkDiv.textContent = "";
-      boldLink.appendChild(colHyperlink)
-      colLinkDiv.appendChild(boldLink);
+      colLinkDiv.appendChild(colHyperlink);
 
     } else if (refLink !== "reflink") {
 
-      const boldText = document.createElement("b");
-      boldText.textContent = colLinkDiv.textContent;
-      boldText.classList.add("dm-col-grid-item-inactive");
+      const inactiveText = document.createElement("span");
+      inactiveText.textContent = colLinkDiv.textContent;
+      inactiveText.classList.add("dm-col-grid-item-inactive");
       colLinkDiv.textContent = "";
-      colLinkDiv.appendChild(boldText);
+      colLinkDiv.appendChild(inactiveText);
     } 
     
     if (refLink === "reflink") {
@@ -471,6 +514,9 @@ export async function showTrackPopover() {
 
         trackCardPopover.showPopover();
 
+        // document.querySelector(".track-grid-htitle").focus();
+        document.querySelector("#dm-btn-track-card-close").focus();
+
         console.log("Track Card created.");
 
     } else {
@@ -486,8 +532,7 @@ async function createTrackCard(trackObject) {
 
   const trackRefNoDiv = document.querySelector(".track-grid-hrefno");
   const trackTitleDiv = document.querySelector(".track-grid-htitle");
-  const trackTuneRefCodeDiv = document.querySelector(".track-grid-hrefcode");
-  const trackPerformersDiv = document.querySelector(".track-grid-performers");
+  const trackPerformersDiv = document.querySelector(".track-grid-performers-cont");
   const trackAltTitleDiv = document.querySelector(".track-grid-alttitle-cont");
   const trackRefLinkDiv = document.querySelector(".track-grid-reflink");
   const trackSourceColNoDiv = document.querySelector(".track-grid-colno-cont");
@@ -507,6 +552,7 @@ async function createTrackCard(trackObject) {
   const trackTuneAltNames = trackObject.altnames;
   const trackSourceColNo = Math.floor(trackRefNo / 1000) * 1000;
   const trackTranscriptUrl = trackObject.transcriptlink;
+  const trackRefSettingUrl = trackObject.refsettinglink;
   const trackCategory = trackObject.category;
   const trackYearRec = trackObject.recyear;
   const trackYearRecEarliest = trackObject.recyearfrom;
@@ -517,23 +563,17 @@ async function createTrackCard(trackObject) {
   console.log(`Creating Track Card...\n\nTrack. Ref. No:\n\n${trackRefNo}`);
   // console.log(trackObject);
 
-  trackRefNoDiv.textContent = trackRefNo;
+  trackRefNoDiv.textContent = `No. ${trackRefNo}`;
   trackTitleDiv.textContent = `${trackSourceNo} — ${generateTuneName(trackTuneName)} (${trackTuneType})`;
-  trackTuneRefCodeDiv.textContent = trackTuneRefCode;
-
   trackPerformersDiv.textContent = trackPerformers? `Denis Murphy, ${trackPerformers.split("w. ")[1]}` : `Denis Murphy`;
-  trackAltTitleDiv.textContent = trackTuneAltNames;
-
   trackRefLinkDiv.textContent = "";
-
   trackSourceColNoDiv.textContent = "";
-  trackSourceTrackNoDiv.textContent = trackSourceNo.split(".")[1]? 
-                                      `Track # ${trackSourceNo.split(".")[0]} / Tune # ${trackSourceNo.split(".")[1]}` :
-                                      `Track # ${trackSourceNo}`;
+  trackSourceTrackNoDiv.textContent = "";
   trackTranscrDiv.textContent = "";
   trackCategoryDiv.textContent = trackCategory;
   trackYearRecDiv.textContent = trackYearRec? trackYearRec : trackYearRecEarliest? `~${trackYearRecEarliest}–${trackYearRecLatest}` : "Undated";
   trackYearPubDiv.textContent = trackYearPub;
+  trackAltTitleDiv.textContent = trackTuneAltNames;
   trackNotesDiv.textContent = "";
   
   const trackRefBtn = document.createElement("button");
@@ -551,17 +591,42 @@ async function createTrackCard(trackObject) {
   trackSourceColNoBtn.addEventListener('click', showColPopover);
   trackSourceColNoDiv.appendChild(trackSourceColNoBtn);
 
-  if (trackTranscriptUrl) {
+  const trackColRefCode = document.createElement("p");
+  trackColRefCode.classList.add("track-grid-colrefcode");
+  trackColRefCode.textContent = await getColRefCode(trackSourceColNo);
+  trackSourceColNoDiv.appendChild(trackColRefCode);
 
-    const trackTranscriptSource = generateLinkSourceName(trackTranscriptUrl);
+  const trackSourceTrackNoArr = trackSourceNo.split(".");
+  const trackSourceTrackNoLine1 = document.createElement("p");
+  const trackSourceTrackNoLine2 = document.createElement("p");
+
+  trackSourceTrackNoLine1.textContent = `Track # ${trackSourceTrackNoArr[0]}`;
+  trackSourceTrackNoLine2.textContent = trackSourceTrackNoArr[1]? 
+  `Tune # ${trackSourceTrackNoArr[1]}` :
+  `Tune # 1`;
+  trackSourceTrackNoDiv.appendChild(trackSourceTrackNoLine1);
+  trackSourceTrackNoDiv.appendChild(trackSourceTrackNoLine2);
+
+  if (trackTranscriptUrl || trackRefSettingUrl) {
+
+    let trackTuneRefLink = trackTranscriptUrl? 
+      trackTranscriptUrl.split(/[\s,]+/)[0] : 
+      trackRefSettingUrl.split(/[\s,]+/)[0];
+
+    const trackTranscriptSource = generateLinkSourceName(trackTuneRefLink);
+
     const trackTranscriptHyperlink = document.createElement("a");
-    const boldTranscriptLink = document.createElement("b");
-    trackTranscriptHyperlink.setAttribute("href", trackTranscriptUrl);
+    trackTranscriptHyperlink.setAttribute("href", trackTuneRefLink);
     trackTranscriptHyperlink.setAttribute("target", "_blank");
     trackTranscriptHyperlink.textContent = trackTranscriptSource;
-    boldTranscriptLink.appendChild(trackTranscriptHyperlink)
-    trackTranscrDiv.appendChild(boldTranscriptLink);
+
+    trackTranscrDiv.appendChild(trackTranscriptHyperlink);
   }
+ 
+  const trackTuneRefCodeNo = document.createElement("p");
+  trackTuneRefCodeNo.classList.add("track-grid-tuneref");
+  trackTuneRefCodeNo.textContent = trackTuneRefCode;
+  trackTranscrDiv.appendChild(trackTuneRefCodeNo);
 
   if (trackNotes) {
 
@@ -632,7 +697,7 @@ async function switchTuneCard(switchDirection, cardType) {
   let targetLabel;
 
   if (cardType === "track") {
-    cardRef = document.querySelector('.track-grid-hrefno').textContent;
+    cardRef = document.querySelector('.track-grid-hrefno').textContent.split(' ')[1];
     currentCardObject = parentJson.find(track => track.refno === cardRef);
   }
 

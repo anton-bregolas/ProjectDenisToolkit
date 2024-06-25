@@ -312,7 +312,7 @@ export async function generateTracklist(tracksJson) {
       if (tracktext === trackRefNo) {
 
         trackItemCont.id = trackRefNo;
-        trackItemCont.classList.add("dm-btn-track-open");
+        trackItemCont.classList.add("dm-btn-tracklist-open");
 
       } else {
 

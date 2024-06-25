@@ -9,10 +9,23 @@ body {
   --collist-item-border-color: #afafaf;
   --tracklist-header-color: #073763;
   --tracklist-row-color: #313131;
+  --tracklist-text-color: white;
+  --tracklist-text-shadow: 0 1px 1px black;
+}
+
+body.light, body.rainy {
+  --tracklist-row-color: #d8d8d8;
+  --tracklist-text-color: black;
+  --tracklist-text-shadow: 0px 1px 1px white;
 }
 
 body.light {
   --tunelist-item-hover-color: var(--secondary-color-b);
+}
+
+body.star {
+  --tracklist-row-color: color-mix(in srgb, var(--primary-color) 75%, black);
+  --tracklist-header-color: color-mix(in srgb, var(--secondary-color-c) 50%, black);
 }
 
 html:has(dialog[open]) {
@@ -229,7 +242,6 @@ html:has(dialog[open]) {
   grid-template-columns: 8% 7% 26% 12% 12% 6.5% 6.5% 22%;
   background-color: var(--tracklist-row-color);
   /* min-height: 4rem; */
-  /* min-height: 0; */
   outline: 2px solid var(--collist-item-border-color);
   overflow: clip;
   text-overflow: ellipsis;
@@ -241,6 +253,7 @@ html:has(dialog[open]) {
 
 .dm-tracklist-header-item p, .dm-tracklist-col-header-item p {
   font-weight: bold;
+  text-shadow: 0px 1px 1px black;
   color: color-mix(in srgb, var(--secondary-color-b) 95%, white);
 }
 
@@ -272,20 +285,25 @@ html:has(dialog[open]) {
   margin: 0;
   overflow: clip;
   text-overflow: ellipsis;
-  color: white;
+  color: var(--tracklist-text-color);
+  text-shadow: var(--tracklist-text-shadow);
 }
 
-.dm-tracklist-item p, .dm-btn-track-open {
-  font-size: var(--font-small);
-  text-shadow: 0 1px 1px black;
+.dm-tracklist-item p {
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
 }
 
-.dm-btn-track-open {
+.dm-tracklist-text,
+.dm-btn-tracklist-open {
+  font-size: var(--font-small);
+}
+
+.dm-btn-tracklist-open {
   color: white;
+  text-shadow: 0px 1px 1px black;
   background-color: var(--secondary-color-a);
   background-color: color-mix(in srgb, var(--secondary-color-a) 95%, white);
   padding: 0.25em;
@@ -294,7 +312,7 @@ html:has(dialog[open]) {
   height: fit-content;
 }
 
-.dm-btn-track-open:is(:hover, :focus, :focus-visible) {
+.dm-btn-tracklist-open:is(:hover, :focus, :focus-visible) {
   outline-offset: 0.1rem; 
   outline: 0.2rem solid var(--focus-color-inverted);
 }
