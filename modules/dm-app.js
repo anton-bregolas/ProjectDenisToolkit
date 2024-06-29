@@ -13,9 +13,9 @@ import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
 
 // Tune Database links
 
-export const tunesJsonLink ="https://raw.githubusercontent.com/anton-bregolas/ProjectDenis/main/data/tunes.json?token=GHSAT0AAAAAACR6KCASY5PLJ7LNBAM74VDGZUADR7A";
-export const tracksJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenis/main/data/tracks.json?token=GHSAT0AAAAAACR6KCASPY2SIR7A3SEIZ5CEZUAEJ5Q"
-export const colsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenis/main/data/collections.json?token=GHSAT0AAAAAACR6KCAS27Q6O4ENX5QDR5VQZUACLCA"
+export const tunesJsonLink ="https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tunes.json";
+export const tracksJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tracks.json"
+export const colsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/collections.json"
 
 // Make a Tune data fetch request then return JSON or text or handle errors
 
