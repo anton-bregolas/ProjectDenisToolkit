@@ -550,16 +550,16 @@ export async function initToolkitButtons() {
          })
      });
 
-     const tunesOutput = tunelistDiv.textContent;
-     const tunesJson = await validateJson(tunesOutput);
+    //  const tunesOutput = tunelistDiv.textContent;
+    //  const tunesJson = await validateJson(tunesOutput);
 
-     if (tunesJson.length === 0) {
+    //  if (tunesJson.length === 0) {
 
-        disableGenButtons();
+    //     disableGenButtons();
         
         // const testFetch = await fetchData(colsJsonLink, "json");
         // console.log(testFetch);
-     }
+    //  }
 }
 
 // Set all Toolkit event listeners on page load

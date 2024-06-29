@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="#ProjectDenis Toolkit is a set of tools for building and updating the database for a project in tribute to the Sliabh Luachra fiddle music legend Denis Murphy.">
-    <title>Project Denis Toolkit</title>
+    <title>Project Denis Demo</title>
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
     <link rel="stylesheet" href="components/dm-popovers/dm-popovers.css">
@@ -55,14 +55,14 @@
     </header>
     <main>
         <div class="main-container">
-            <h1>#ProjectDenis Toolkit</h1>
+            <h1>#ProjectDenis Prototype</h1>
             <section class="dm-generator">
-                <h2>List Generator</h2>
+                <h2>Select Denis Murphy Database</h2>
                 <br>
                 <section class="generator-container">
                     <button id="dm-btn-generate-tracklist" class="btn"><span class="btn-text">Show Tracklist</span></button>
-                    <button id="dm-btn-generate-tunelist" class="btn" disabled><span class="btn-text">Show Tunelist</span></button>
-                    <button id="dm-btn-generate-collections" class="btn" disabled><span class="btn-text">Show Collections</span></button>
+                    <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text">Show Tunelist</span></button>
+                    <button id="dm-btn-generate-collections" class="btn"><span class="btn-text">Show Collections</span></button>
                 </section>
                 <section id="dm-tracklist-output" class="hidden" aria-hidden="true" aria-label="Denis Murphy Tracklist">
                     <article id="dm-tracklist" class="dm-tracklist-container" tabindex="0" aria-label="Tracklist Table, select a track" role="table"></article>
@@ -106,7 +106,7 @@
                     </article>
                 </section>
             </section>            
-            <section class="dm-parser">
+            <section class="dm-parser" hidden>
                 <h2>TSV to JSON Parser</h2>
                 <br>
                 <form id="inputForm" class="form-container" onsubmit="return false;">
@@ -122,7 +122,7 @@
                 </form>
                 <div id="output" class="text-output" tabindex="0" aria-label="Mixed Data Output">Mixed output JSON will appear here.</div>
             </section>
-            <section class="dm-splitter">
+            <section class="dm-splitter" hidden>
                 <h2>JSON Splitter</h2>
                 <br>
                 <section class="button-container">
