@@ -9,6 +9,7 @@
 import { initModals, tunelistDiv, colsListDiv, tracklistDiv, tracklistOutput } from '../components/dm-modals/dm-modals.js';
 import { initPopovers, themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
+import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from './dm-app.js';
 
 // Define keys in track and collection header objects
 
@@ -17,8 +18,8 @@ const trackKeys = ["refno", "trackno", "tunename", "tunetype", "altnames", "tune
 
 // Define input and output fields
 
-const inputDiv = document.getElementById("inputString");
-const outputDiv = document.getElementById('output');
+export const inputDiv = document.getElementById("inputString");
+export const outputDiv = document.getElementById('output');
 export const colsDiv = document.getElementById('cols-output');
 export const tracksDiv = document.getElementById('tracks-output');
 export const tunesDiv = document.getElementById('tunes-output');
@@ -253,6 +254,14 @@ function saveOutputFile(outputname, filename) {
     URL.revokeObjectURL(url);
 }
 
+// Disable Generate Tunelist and Collections buttons
+
+export function disableGenButtons() {
+
+    generateTunelistBtn.setAttribute("disabled", "");
+    generateColsListBtn.setAttribute("disabled", "");
+}
+
 // Clear all output and input fields as well as counters
 
 export function clearOutput() {
@@ -275,9 +284,7 @@ export function clearOutput() {
         toggleAriaHidden(tracklistOutput);
     }
 
-    generateTracklistBtn.setAttribute("disabled", "");
-    generateTunelistBtn.setAttribute("disabled", "");
-    generateColsListBtn.setAttribute("disabled", "");
+    disableGenButtons();
 }
 
 // Convert a tsv line into an object of specified type
@@ -439,7 +446,7 @@ export async function validateJson(jsonInput) {
           jsonOutput = JSON.parse(jsonInput);
   
           if (jsonOutput && typeof jsonOutput === "object") {
-  
+
               return jsonOutput;
           }
       }
@@ -448,13 +455,13 @@ export async function validateJson(jsonInput) {
   
         // console.warn(`JSON validator: "${error.message}"`);
       }
-  
-      return "[]";
+
+      return [];
 }
 
 // Add event listeners to Toolkit buttons
 
-function initButtons() {
+export async function initToolkitButtons() {
 
     const parseSingleStringBtn = document.getElementById("parseSingleString");
     const parseFromFileBtn = document.getElementById("parseFromFile");
@@ -542,14 +549,25 @@ function initButtons() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
          })
      });
+
+     const tunesOutput = tunelistDiv.textContent;
+     const tunesJson = await validateJson(tunesOutput);
+
+     if (tunesJson.length === 0) {
+
+        disableGenButtons();
+        
+        // const testFetch = await fetchData(colsJsonLink, "json");
+        // console.log(testFetch);
+     }
 }
 
 // Set all Toolkit event listeners on page load
 
-document.addEventListener("DOMContentLoaded", () => {
+// document.addEventListener("DOMContentLoaded", () => {
 
-    initButtons();
-    initModals();
-    initPopovers();
-});
+//     initToolkitButtons();
+//     initModals();
+//     initPopovers();
+// });
 

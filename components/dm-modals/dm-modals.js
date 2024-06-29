@@ -5,6 +5,7 @@ import { colsDiv, tracksDiv, tunesDiv, validateJson, clearOutput,
 import { showTunePopover, showColPopover, showTrackPopover, 
          tuneCardPopover, colCardPopover, trackCardPopover } from '../dm-popovers/dm-popovers.js';
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
+import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from '../../modules/dm-app.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 export const colsListDiv = document.querySelector('#dm-collist');
@@ -57,6 +58,15 @@ export async function generateHandler() {
   const counterDiv = parentDiv.previousElementSibling;
   const jsonData = parentDiv.textContent;
   let parentJson = await validateJson(jsonData);
+
+  if (parentJson.length === 0) {
+
+    parentJson = parentDiv === tunesDiv? await fetchData(tunesJsonLink, "json") :
+
+                 parentDiv === colsDiv? await fetchData(colsJsonLink, "json") :
+
+                 await fetchData(tracksJsonLink, "json");
+  }
 
   if (Array.isArray(parentJson) && parentJson.length > 0) {
 
@@ -203,7 +213,12 @@ export async function generateTracklist(tracksJson) {
 
   tracklistDiv.textContent = "";
 
-  const colsJson = await validateJson(colsDiv.textContent);
+  let colsJson = await validateJson(colsDiv.textContent);
+
+  if (colsJson.length === 0) {
+
+    colsJson = await fetchData(colsJsonLink, "json");
+  }
 
   const headerRow = document.createElement("div");
   headerRow.classList.add("dm-tracklist-row", "dm-tracklist-header-row");
@@ -343,7 +358,14 @@ export async function focusOnTrack() {
   if (tracklistDiv.children.length === 0) {
 
     const tracksOutput = tracksDiv.textContent;
-    const tracksJson = await validateJson(tracksOutput);
+
+    let tracksJson = await validateJson(tracksOutput);
+
+    if (tracksJson.length === 0) {
+
+      tracksJson = await fetchData(tracksJsonLink, "json");
+    }
+
     console.log(`Generating Tracklist...`);
     await generateTracklist(tracksJson);
   }

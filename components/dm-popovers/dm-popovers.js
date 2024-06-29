@@ -7,6 +7,7 @@ import { tunelistDialog, colsListDialog, tracklistDiv, dialogsDiv, colsListDiv,
          tunelistDiv,
          tracklistOutput} from '../dm-modals/dm-modals.js';
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
+import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from '../../modules/dm-app.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
@@ -19,7 +20,13 @@ export const popoverCard = document.querySelectorAll('.dm-popover-card');
 export async function showTunePopover() {
 
   const tunesOutput = tunesDiv.textContent;
-  const tunesJson = await validateJson(tunesOutput);
+
+  let tunesJson = await validateJson(tunesOutput);
+
+  if (tunesJson.length === 0) {
+
+    tunesJson = await fetchData(tunesJsonLink, "json");
+  }
   
   if (Array.isArray(tunesJson) && tunesJson.length > 0) {
 
@@ -285,7 +292,14 @@ function generateTuneFullRef(tuneRef) {
 async function getColRefCode(colRefNo) {
 
   const colsOutput = colsDiv.textContent;
-  const colsJson = await validateJson(colsOutput);
+
+  let colsJson = await validateJson(colsOutput);
+
+  if (colsJson.length === 0) {
+
+    colsJson = await fetchData(colsJsonLink, "json");
+  }
+
   const colObject = colsJson.find(col => col.colrefno == colRefNo);
 
   let colRefCode = colObject.refcode;
@@ -307,6 +321,10 @@ function generateLinkSourceName(tuneTranscriptUrl) {
       return "Tunearch";
     case "tunepal.org":
       return "Tunepal";
+    case "www.capeirish.com":
+      return "Bill Black";
+    case "www.itma.ie" :
+      return "ITMA";
     default:
       return "Source";
   }
@@ -340,7 +358,13 @@ export async function showColPopover() {
     }
 
     const colsOutput = colsDiv.textContent;
-    const colsJson = await validateJson(colsOutput);
+
+    let colsJson = await validateJson(colsOutput);
+
+    if (colsJson.length === 0) {
+
+      colsJson = await fetchData(colsJsonLink, "json");
+    }
     
     if (Array.isArray(colsJson) && colsJson.length > 0) {
 
@@ -504,7 +528,13 @@ export async function showTrackPopover() {
     trackRefNo = this.children[0].firstChild.id;
 
     const tracksOutput = tracksDiv.textContent;
-    const tracksJson = await validateJson(tracksOutput);
+
+    let tracksJson = await validateJson(tracksOutput);
+
+    if (tracksJson.length === 0) {
+
+      tracksJson = await fetchData(tracksJsonLink, "json");
+    }
     
     if (Array.isArray(tracksJson) && tracksJson.length > 0) {
 
@@ -630,10 +660,24 @@ async function createTrackCard(trackObject) {
 
   if (trackNotes) {
 
-    const trackNotesPar = document.createElement("p");
-    trackNotesPar.classList.add("dm-track-grid-notes");
-    trackNotesPar.textContent = trackNotes;
-    trackNotesDiv.appendChild(trackNotesPar);
+    const trackNoteLines = trackNotes.split(". ");
+
+    trackNoteLines.forEach(line => {
+
+      const trackNotesPar = document.createElement("p");
+      trackNotesPar.classList.add("dm-track-grid-notes");
+
+      if ((trackNoteLines.indexOf(line) < trackNoteLines.length - 1) && !line.endsWith("]")) {
+
+        trackNotesPar.textContent = `${line}.`;
+
+      } else {
+
+        trackNotesPar.textContent = line;
+      }
+
+      trackNotesDiv.appendChild(trackNotesPar);
+    });
   }
 }
 
@@ -688,8 +732,18 @@ async function switchTuneCard(switchDirection, cardType) {
   }
 
   const outputDiv = cardType === "track"? tracksDiv : cardType === "tune"? tunesDiv : colsDiv;
-  const outputData = outputDiv.textContent;
-  const parentJson = await validateJson(outputData);
+  const outputData = outputDiv.textContent; 
+
+  let parentJson = await validateJson(outputData);
+
+  if (parentJson.length === 0) {
+
+      parentJson = cardType === "tune"? await fetchData(tunesJsonLink, "json") :
+
+                   cardType === "track"? await fetchData(tracksJsonLink, "json") :
+                  
+                   await fetchData(colsJsonLink, "json");
+  }
 
   let cardRef;
   let currentCardObject;

@@ -321,11 +321,21 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 }
 
 .dm-tune-grid-item a,
-.dm-track-grid-item a,
 .dm-col-grid-item a,
 .dm-track-grid-item a,
 .track-grid-colno-cont .dm-btn-open-track {
   outline-offset: 0.25rem;
+}
+
+.dm-tune-grid-item a:is(:active, :hover, :focus, :focus-visible),
+.dm-track-grid-item a:is(:active, :hover, :focus, :focus-visible),
+.dm-col-grid-item a:is(:active, :hover, :focus, :focus-visible),
+.dm-track-grid-item a:is(:active, :hover, :focus, :focus-visible),
+.dm-tune-grid-item .dm-btn-open-track:is(:active, :hover, :focus, :focus-visible),
+.track-grid-colno-cont .dm-btn-open-track:is(:active, :hover, :focus, :focus-visible) {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-skip-ink: all;
 }
 
 /* Tune Popover Card */
