@@ -8,7 +8,7 @@
 
 import { initModals, tunelistDiv, colsListDiv, tracklistDiv, tracklistOutput } from '../components/dm-modals/dm-modals.js';
 import { initPopovers, themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
-import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
+import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from './aria-tools.js';
 import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from './dm-app.js';
 
 // Define keys in track and collection header objects
