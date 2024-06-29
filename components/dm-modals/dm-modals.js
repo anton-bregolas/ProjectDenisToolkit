@@ -87,6 +87,7 @@ export async function generateHandler() {
         if (genBtn === generateTracklistBtn) {
   
           generateTracklist(parentJson);
+          // tracklistDiv.focus();
         }
 
       } else {
@@ -222,14 +223,27 @@ export async function generateTracklist(tracksJson) {
 
   const headerRow = document.createElement("div");
   headerRow.classList.add("dm-tracklist-row", "dm-tracklist-header-row");
+  headerRow.setAttribute("role", "row");
 
   const headerTextArr = ["Ref. No.", "Track No.", "Tune Title", "Tune Type", "Col. Ref.", "Year Rec.", "Year Pub.", "Performers"];
 
   headerTextArr.forEach(headertext => {
 
+    let accessibleName;
+
+    accessibleName = headertext === "Ref. No."? "Reference Number" :
+                     headertext === "Track No."? "Track Number" :
+                     headertext === "Tune Title"? "Tune Title" :
+                     headertext === "Tune Type"? "Tune Type" :
+                     headertext === "Col. Ref."? "Collection Reference" :
+                     headertext === "Year Rec."? "Year Recorded" :
+                     headertext === "Year Pub."? "Year Published" :
+                     "Performers";
+
     const headerItem = document.createElement("div");
     headerItem.setAttribute("tabindex", 0);
     headerItem.classList.add("dm-tracklist-item", "dm-tracklist-header-item");
+    headerItem.setAttribute("role", "columnheader");
 
     const headerItemCont = document.createElement("p");
     headerItemCont.textContent = headertext;
@@ -279,6 +293,7 @@ export async function generateTracklist(tracksJson) {
 
         const colHeadRow = document.createElement("div");
         colHeadRow.classList.add("dm-tracklist-row", "dm-tracklist-col-header-row");
+        colHeadRow.setAttribute("role", "row");
 
         const colHeadTextArr = [colRefNo, colTracksNo, colName, colPubCode, colRefCode, colRecYear, colPubYear, colPerformers]; 
     
@@ -286,6 +301,7 @@ export async function generateTracklist(tracksJson) {
 
           const colHeadItem = document.createElement("div");
           colHeadItem.classList.add("dm-tracklist-item", "dm-tracklist-col-header-item");
+          colHeadItem.setAttribute("role", "cell");
 
           if (text === colRefNo) {
 
@@ -314,13 +330,17 @@ export async function generateTracklist(tracksJson) {
 
     const trackRow = document.createElement("div");
     trackRow.classList.add("dm-tracklist-row");
+    trackRow.setAttribute("role", "row");
 
     const trackTextArr = [trackRefNo, trackNo, trackTuneName, trackTuneType, trackTuneRef, trackRecYear, trackPubYear, trackPerformers];
+
+    // const trackAccessibleName = `${trackRefNo} ${trackTuneName}`;
 
     trackTextArr.forEach(tracktext => {
 
       const trackItem = document.createElement("div");
       trackItem.classList.add("dm-tracklist-item");
+      trackItem.setAttribute("role", "cell");
 
       const trackItemCont = tracktext === trackRefNo? document.createElement("button") : document.createElement("p");
 
@@ -340,6 +360,7 @@ export async function generateTracklist(tracksJson) {
       trackRow.appendChild(trackItem);
 
       trackRow.addEventListener('click', showTrackPopover);
+      // trackRow.setAttribute("aria-label", trackAccessibleName);
     });
 
     tracklistDiv.appendChild(trackRow);
