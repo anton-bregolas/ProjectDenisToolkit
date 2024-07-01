@@ -1,19 +1,16 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
-import { colsDiv, tracksDiv, tunesDiv, validateJson, clearOutput,
-         generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
-import { showTunePopover, showColPopover, showTrackPopover, 
-         tuneCardPopover, colCardPopover, trackCardPopover } from '../dm-popovers/dm-popovers.js';
+import { colsDiv, tracksDiv, tunesDiv, validateJson, generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { showTunePopover, showColPopover } from '../dm-popovers/dm-popovers.js';
+import { tracklistDiv, tracklistOutput, generateTracklist, tracklistHeaders } from '../dm-tracklist/dm-tracklist.js';         
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from '../../modules/dm-app.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 export const colsListDiv = document.querySelector('#dm-collist');
-export const tracklistDiv = document.querySelector('#dm-tracklist');
 export const dialogsDiv = document.querySelector('#dm-dialogs');
 export const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
 export const colsListDialog = document.querySelector('#dm-modal-list-cols');
-export const tracklistOutput = document.querySelector('#dm-tracklist-output');
 const closeTunelistBtn = document.querySelector('#dm-btn-tunelist-close');
 const closeColsListBtn = document.querySelector('#dm-btn-colslist-close');
 
@@ -86,8 +83,11 @@ export async function generateHandler() {
   
         if (genBtn === generateTracklistBtn) {
   
-          generateTracklist(parentJson);
-          // tracklistDiv.focus();
+          tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
+          tracklistHeaders.forEach(header => header.removeAttribute("data-order"));
+          await generateTracklist(parentJson);
+          tracklistHeaders[0].setAttribute("data-order", "ascending");
+          tracklistDiv.setAttribute("aria-label", "Tracklist sorted by refno in ascending order");
         }
 
       } else {
@@ -173,10 +173,12 @@ export async function generateColsList(colsJson) {
     const colPubYear = colObject.pubyear;
     const colRecYear = colObject.recyear;
 
-    let colYear = colPubYear? colPubYear : colRecYear? `Recorded in ${colRecYear}` : "Recording date unknown";
-    let colSourceRef = colPubCode? ` / ${colPubCode}` : "";
+    let colYear = colPubYear && colRecYear? `${colPubYear}. Recorded in ${colRecYear}` : 
+                  colPubYear && !colRecYear? `${colPubYear}. Recording date unknown` : 
+                  colRecYear? `Recorded in ${colRecYear}` : "Recording date unknown";
+    let colSourceRef = colPubCode? `, ${colPubCode}` : "";
     let colRefText = `${colRefNo} / ${colRefCode}`;
-    let colSourceText = `${colSource}${colSourceRef} / ${colYear}`;
+    let colSourceText = colPubYear? `${colSource}${colSourceRef}, ${colYear}` : `${colSource}${colSourceRef}. ${colYear}`;
 
     const colRow = document.createElement("div");
     colRow.classList.add("dm-collist-row");
@@ -191,7 +193,6 @@ export async function generateColsList(colsJson) {
 
       if (i === 0) {
         colRowCont.setAttribute("title", "Show Collection Card");
-        colRowCont.setAttribute("data-refno", colRefNo);
       }
 
       colRowCont.classList.add(colRowContClass);
@@ -199,6 +200,7 @@ export async function generateColsList(colsJson) {
       
       colItem.appendChild(colRowCont);
       colRow.appendChild(colItem);
+      colRow.setAttribute("data-refno", colRefNo);
       colRow.addEventListener('click', showColPopover);
     }
 
@@ -206,217 +208,6 @@ export async function generateColsList(colsJson) {
   });
 
   console.log(`Collections list generated, collections total: ${colsJson.length}`);
-}
-
-// Create TrackList populated with Tracklist items
-
-export async function generateTracklist(tracksJson) {
-
-  tracklistDiv.textContent = "";
-
-  let colsJson = await validateJson(colsDiv.textContent);
-
-  if (colsJson.length === 0) {
-
-    colsJson = await fetchData(colsJsonLink, "json");
-  }
-
-  const headerRow = document.createElement("div");
-  headerRow.classList.add("dm-tracklist-row", "dm-tracklist-header-row");
-  headerRow.setAttribute("role", "row");
-
-  const headerTextArr = ["Ref. No.", "Track No.", "Tune Title", "Tune Type", "Col. Ref.", "Year Rec.", "Year Pub.", "Performers"];
-
-  headerTextArr.forEach(headertext => {
-
-    let accessibleName;
-
-    accessibleName = headertext === "Ref. No."? "Reference Number" :
-                     headertext === "Track No."? "Track Number" :
-                     headertext === "Tune Title"? "Tune Title" :
-                     headertext === "Tune Type"? "Tune Type" :
-                     headertext === "Col. Ref."? "Collection Reference" :
-                     headertext === "Year Rec."? "Year Recorded" :
-                     headertext === "Year Pub."? "Year Published" :
-                     "Performers";
-
-    const headerItem = document.createElement("div");
-    headerItem.setAttribute("tabindex", 0);
-    headerItem.classList.add("dm-tracklist-item", "dm-tracklist-header-item");
-    headerItem.setAttribute("role", "columnheader");
-
-    const headerItemCont = document.createElement("p");
-    headerItemCont.textContent = headertext;
-    headerItemCont.classList.add("dm-tracklist-text", "dm-tracklist-header-text");
-
-    headerItem.appendChild(headerItemCont);
-    headerRow.appendChild(headerItem);
-    // headerRow.addEventListener('click', sortTracklistBy(headertext));
-  });
-
-  tracklistDiv.appendChild(headerRow);
-
-  let firstTrackNo = tracksJson[0].refno;
-  let colNo = Math.floor(firstTrackNo / 1000) * 1000;
-
-  tracksJson.forEach(trackObject  => {
-
-    const trackRefNo = trackObject.refno;
-    const trackNo = trackObject.trackno;
-    const trackTuneRef = trackObject.tuneref;
-    const trackTuneName = trackObject.tunename;
-    const trackTuneType = trackObject.tunetype;
-    const trackPubYear = trackObject.pubyear;
-    const trackRecYear = trackObject.recyear;
-    const trackPerformers = trackObject.performers;
-
-    // Create collection header row
-
-    if (trackRefNo === tracksJson[0].refno || trackRefNo > colNo + 1000) {
-
-      firstTrackNo = trackRefNo;
-
-      if (trackRefNo === firstTrackNo) {
-
-        colNo = Math.floor(trackRefNo / 1000) * 1000;
-
-        const colObject = colsJson.find(col => col.colrefno == colNo);
-
-        const colRefNo = colObject.colrefno;
-        const colTracksNo = colObject.trackstotal;
-        const colName = colObject.colname;
-        const colRefCode = colObject.refcode;
-        const colPubCode = colObject.pubcode;
-        const colPubYear = colObject.pubyear;
-        const colRecYear = colObject.recyear;
-        const colPerformers = colObject.performers;
-
-        const colHeadRow = document.createElement("div");
-        colHeadRow.classList.add("dm-tracklist-row", "dm-tracklist-col-header-row");
-        colHeadRow.setAttribute("role", "row");
-
-        const colHeadTextArr = [colRefNo, colTracksNo, colName, colPubCode, colRefCode, colRecYear, colPubYear, colPerformers]; 
-    
-        colHeadTextArr.forEach(text => {
-
-          const colHeadItem = document.createElement("div");
-          colHeadItem.classList.add("dm-tracklist-item", "dm-tracklist-col-header-item");
-          colHeadItem.setAttribute("role", "cell");
-
-          if (text === colRefNo) {
-
-            colHeadItem.id = colRefNo;
-            colHeadItem.setAttribute("tabindex", 0);
-          }
-
-          if (text === colRecYear) {
-
-            text = text.split("-").join("- ");
-          }
-
-          const colHeadItemCont = document.createElement("p");
-          colHeadItemCont.textContent = text;
-          colHeadItemCont.classList.add("dm-tracklist-text");
-          colHeadItem.appendChild(colHeadItemCont);
-          colHeadRow.appendChild(colHeadItem);
-          colHeadRow.addEventListener('click', showColPopover);
-        });
-  
-        tracklistDiv.appendChild(colHeadRow);
-      }
-    }
-
-    // Create track row
-
-    const trackRow = document.createElement("div");
-    trackRow.classList.add("dm-tracklist-row");
-    trackRow.setAttribute("role", "row");
-
-    const trackTextArr = [trackRefNo, trackNo, trackTuneName, trackTuneType, trackTuneRef, trackRecYear, trackPubYear, trackPerformers];
-
-    // const trackAccessibleName = `${trackRefNo} ${trackTuneName}`;
-
-    trackTextArr.forEach(tracktext => {
-
-      const trackItem = document.createElement("div");
-      trackItem.classList.add("dm-tracklist-item");
-      trackItem.setAttribute("role", "cell");
-
-      const trackItemCont = tracktext === trackRefNo? document.createElement("button") : document.createElement("p");
-
-      if (tracktext === trackRefNo) {
-
-        trackItemCont.id = trackRefNo;
-        trackItemCont.classList.add("dm-btn-tracklist-open");
-
-      } else {
-
-        trackItemCont.classList.add("dm-tracklist-text");
-      }
-
-      trackItemCont.textContent = tracktext;
-      
-      trackItem.appendChild(trackItemCont);
-      trackRow.appendChild(trackItem);
-
-      trackRow.addEventListener('click', showTrackPopover);
-      // trackRow.setAttribute("aria-label", trackAccessibleName);
-    });
-
-    tracklistDiv.appendChild(trackRow);
-  });
-
-  generateTunelistBtn.removeAttribute("disabled");
-  generateColsListBtn.removeAttribute("disabled");
-
-  console.log(`Tracklist generated, tracks total: ${tracksJson.length}`);
-}
-
-// Focus on a specific Tracklist row
-
-export async function focusOnTrack() {
-
-  if (tracklistDiv.children.length === 0) {
-
-    const tracksOutput = tracksDiv.textContent;
-
-    let tracksJson = await validateJson(tracksOutput);
-
-    if (tracksJson.length === 0) {
-
-      tracksJson = await fetchData(tracksJsonLink, "json");
-    }
-
-    console.log(`Generating Tracklist...`);
-    await generateTracklist(tracksJson);
-  }
-  
-  let trackRefNo = this.dataset.refno;
-  const parentDiv = this.parentElement;
-  let parentDialog;
-
-  if (parentDiv.classList.contains("track-grid-reflink")) {
-    
-    trackCardPopover.hidePopover();
-    
-  } else {
-
-    parentDialog = parentDiv.classList.contains("tune-grid-refno-cont")? tunelistDialog :
-                   parentDiv.classList.contains("col-grid-reflink")? colsListDialog : "";
-
-    await parentDialog.close();
-    toggleAriaHidden(parentDialog);
-    dialogsDiv.classList.toggle("hidden");
-    toggleAriaHidden(dialogsDiv);
-  }
-
-  if (tracklistOutput.classList.contains("hidden")) {
-
-    tracklistOutput.classList.toggle("hidden");
-    toggleAriaHidden(tracklistOutput);
-  }
-
-  document.getElementById(trackRefNo).focus();
 }
 
 // Close dialog window depending on the button pressed

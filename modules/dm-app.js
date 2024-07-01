@@ -8,8 +8,8 @@ import { generateTunelistBtn,
          initToolkitButtons } from './dm-toolkit.js';
 
 import { initModals } from '../components/dm-modals/dm-modals.js';
-
 import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
+import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
 
 // Tune Database links
 
@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initToolkitButtons();
     initModals();
     initPopovers();
+    initTracklist();
 });
 
 //////////////////////////////////////////

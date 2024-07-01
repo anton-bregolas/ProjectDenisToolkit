@@ -1,13 +1,14 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.2.2
+// #ProjectDenis Toolkit v.2.3
 //
-// List Generator v.1.9
-// TSV to JSON Parser v.1.9
-// JSON Splitter v.1.9
+// List Generator v.2.0
+// TSV to JSON Parser v.2.0
+// JSON Splitter v.2.0
 ///////////////////////////////////////////////////////////////////////
 
-import { initModals, tunelistDiv, colsListDiv, tracklistDiv, tracklistOutput } from '../components/dm-modals/dm-modals.js';
+import { initModals, tunelistDiv, colsListDiv } from '../components/dm-modals/dm-modals.js';
 import { initPopovers, themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
+import { tracklistDiv, tracklistOutput } from '../components/dm-tracklist/dm-tracklist.js'
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from './aria-tools.js';
 import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from './dm-app.js';
 
@@ -556,18 +557,5 @@ export async function initToolkitButtons() {
      if (tunesJson.length === 0) {
 
         disableGenButtons();
-        
-        // const testFetch = await fetchData(colsJsonLink, "json");
-        // console.log(testFetch);
      }
 }
-
-// Set all Toolkit event listeners on page load
-
-// document.addEventListener("DOMContentLoaded", () => {
-
-//     initToolkitButtons();
-//     initModals();
-//     initPopovers();
-// });
-

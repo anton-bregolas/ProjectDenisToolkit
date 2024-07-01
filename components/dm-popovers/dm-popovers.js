@@ -1,11 +1,9 @@
 /* #ProjectDenis Popovers Scripts*/
 
-import { colsDiv, tracksDiv, tunesDiv, validateJson, clearOutput,
-         generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
-import { tunelistDialog, colsListDialog, tracklistDiv, dialogsDiv, colsListDiv,
-         focusOnTrack, generateTunelist, generateColsList, generateTracklist,
-         tunelistDiv,
-         tracklistOutput} from '../dm-modals/dm-modals.js';
+import { colsDiv, tracksDiv, tunesDiv, validateJson } from '../../modules/dm-toolkit.js';
+import { dialogsDiv, tunelistDialog, colsListDialog, colsListDiv,
+         generateTunelist, generateColsList, tunelistDiv } from '../dm-modals/dm-modals.js';
+import { tracklistOutput, focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
 import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from '../../modules/dm-app.js';
 
@@ -36,7 +34,10 @@ export async function showTunePopover() {
       await generateTunelist(tunesJson);
     }
 
-      const tuneRef = this.dataset.tuneref;
+      const tuneRef = this.dataset.tuneref === "???" || this.dataset.tuneref === ""? 
+        `TMP # ${trackCardPopover.dataset.refno}` :
+        this.dataset.tuneref;
+        
       const tuneObject = tunesJson.find(tune => tune.tuneref === tuneRef);
 
       await createTuneCard(tuneObject);
@@ -342,19 +343,11 @@ export async function showColPopover() {
     const parentDiv = this.parentElement;
     const parentDialog = parentDiv.parentElement;
 
-    if (parentDialog === tracklistOutput || parentDialog === colsListDialog) {
+    colRefNo = this.dataset.refno;
 
-      colRefNo = parentDialog === tracklistOutput ? this.firstChild.firstChild.textContent :
-                parentDialog === colsListDialog ? this.firstChild.firstChild.dataset.refno : "1000";
+    if (parentDiv.classList.contains("track-grid-colno-cont")) {
 
-    } else {
-
-      colRefNo = this.dataset.refno;
-
-      if (parentDiv.classList.contains("track-grid-colno-cont")) {
-
-        trackCardPopover.hidePopover();
-      }
+      trackCardPopover.hidePopover();
     }
 
     const colsOutput = colsDiv.textContent;
@@ -378,7 +371,7 @@ export async function showColPopover() {
 
       await createColCard(colObject);
       
-      if (parentDialog === tracklistOutput || parentDiv.classList.contains("track-grid-colno-cont")) {
+      if (parentDialog !== colsListDialog) {
 
         dialogsDiv.classList.toggle("hidden");
         toggleAriaHidden(dialogsDiv);
@@ -392,7 +385,6 @@ export async function showColPopover() {
       document.querySelector("#dm-btn-col-card-close").focus();
 
       console.log("Collection Card created.");
-
 
     } else {
 
@@ -605,6 +597,8 @@ async function createTrackCard(trackObject) {
   trackYearPubDiv.textContent = trackYearPub;
   trackAltTitleDiv.textContent = trackTuneAltNames;
   trackNotesDiv.textContent = "";
+
+  trackCardPopover.setAttribute("data-refno", trackRefNo);
   
   const trackRefBtn = document.createElement("button");
   trackRefBtn.classList.add("dm-btn-open-track");
