@@ -1,15 +1,15 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.2.3
+// #ProjectDenis Toolkit v.2.4
 //
 // List Generator v.2.0
 // TSV to JSON Parser v.2.0
 // JSON Splitter v.2.0
 ///////////////////////////////////////////////////////////////////////
 
-import { initModals, tunelistDiv, colsListDiv } from '../components/dm-modals/dm-modals.js';
-import { initPopovers, themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
 import { tracklistDiv, tracklistOutput } from '../components/dm-tracklist/dm-tracklist.js'
-import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from './aria-tools.js';
+import { tunelistDiv, colsListDiv } from '../components/dm-modals/dm-modals.js';
+import { themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
+import { toggleAriaExpanded, toggleAriaHidden, toggleTabIndex, setAriaLabel } from './aria-tools.js';
 import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from './dm-app.js';
 
 // Define keys in track and collection header objects
@@ -283,6 +283,7 @@ export function clearOutput() {
 
         tracklistOutput.classList.toggle("hidden");
         toggleAriaHidden(tracklistOutput);
+        toggleAriaExpanded(generateTracklistBtn);
     }
 
     disableGenButtons();

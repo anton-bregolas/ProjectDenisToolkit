@@ -1,19 +1,22 @@
-const CACHE_NAME = 'pd-cache-v.0.1.1';
+const CACHE_NAME = 'pd-cache-v.0.1.2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll([
-        // 'assets/icons/icons.svg',
-        // 'modules/abc-cleaner.js',
-        // 'modules/abc-fetcher.js',
-        // 'modules/aria-tools.js',
-        // 'modules/json-tools.js',
-        // 'modules/url-validator.js',
-        // 'app.js',
-        // 'index.html',
-        // 'offline.html',
-        // 'styles.css'
+        'assets/icons/icons.svg',
+        'components/dm-modals/dm-modals.css',
+        'components/dm-modals/dm-modals.js',
+        'components/dm-popovers/dm-popovers.css',
+        'components/dm-popovers/dm-popovers.js',
+        'components/dm-tracklist/dm-tracklist.css',
+        'components/dm-tracklist/dm-tracklist.js',
+        'modules/aria-tools.js',
+        'modules/dm-app.js',
+        'modules/dm-toolkit.js',
+        'styles/dm-toolkit.css',
+        'styles/tools-common-styles.css',
+        'index.html'
       ]);
     })
   );

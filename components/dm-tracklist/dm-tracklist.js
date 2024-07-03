@@ -1,11 +1,10 @@
 /* #ProjectDenis: Tracklist Scripts */
 
-import { colsDiv, tracksDiv, tunesDiv, validateJson, clearOutput,
-  generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
-import { showColPopover, showTrackPopover, trackCardPopover } from '../dm-popovers/dm-popovers.js';
+import { colsDiv, tracksDiv, validateJson, generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
 import { tunelistDiv, colsListDiv, dialogsDiv, tunelistDialog, colsListDialog } from '../dm-modals/dm-modals.js';
-import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
+import { toggleAriaExpanded, toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from '../../modules/dm-app.js';
+import { trackCardPopover, showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 
 export const tracklistDiv = document.querySelector('#dm-tracklist');
 export const tracklistOutput = document.querySelector('#dm-tracklist-output');
@@ -64,36 +63,39 @@ export async function generateTracklist(tracksJson, isCustomSorted) {
           const colRecYear = colObject.recyear;
           const colPerformers = colObject.performers;
 
-          const colHeadRow = document.createElement("div");
+          const colHeadRow = document.createElement("tr");
           colHeadRow.classList.add("dm-tracklist-row", "dm-tracklist-col-header-row");
           colHeadRow.setAttribute("data-refno", colRefNo);
-          colHeadRow.setAttribute("role", "row");
 
           const colHeadTextArr = [colRefNo, colTracksNo, colName, colPubCode, colRefCode, colRecYear, colPubYear, colPerformers]; 
       
           colHeadTextArr.forEach(text => {
 
-            const colHeadItem = document.createElement("div");
+            const colHeadItem = document.createElement("td");
             colHeadItem.classList.add("dm-tracklist-item", "dm-tracklist-col-header-item");
-            colHeadItem.setAttribute("role", "cell");
+            
+            let colHeadItemCont;
 
             if (text === colRefNo) {
 
-              colHeadItem.id = colRefNo;
-              colHeadItem.setAttribute("tabindex", 0);
+              colHeadItemCont = document.createElement("button");
+              colHeadItemCont.classList.add("dm-btn-tracklist-header", "dm-btn-tracklist-col-header");
+              colHeadItemCont.id = colRefNo;
+
+            } else {
+
+              colHeadItemCont = document.createElement("p");
+              colHeadItemCont.classList.add("dm-tracklist-text");
             }
 
             if (text === colRecYear) {
 
               text = text.split("-").join("- ");
             }
-
-            const colHeadItemCont = document.createElement("p");
+            
             colHeadItemCont.textContent = text;
-            colHeadItemCont.classList.add("dm-tracklist-text");
             colHeadItem.appendChild(colHeadItemCont);
             colHeadRow.appendChild(colHeadItem);
-            colHeadRow.addEventListener('click', showColPopover);
           });
     
           tracklistDiv.appendChild(colHeadRow);
@@ -103,21 +105,17 @@ export async function generateTracklist(tracksJson, isCustomSorted) {
 
     // Create track row
 
-    const trackRow = document.createElement("div");
+    const trackRow = document.createElement("tr");
     trackRow.classList.add("dm-tracklist-row");
-    trackRow.setAttribute("role", "row");
 
     const trackTextArr = [trackRefNo, trackNo, trackTuneName, trackTuneType, trackTuneRef, trackRecYear, trackPubYear, trackPerformers];
 
-    // const trackAccessibleName = `${trackRefNo} ${trackTuneName}`;
-
     trackTextArr.forEach(tracktext => {
 
-      const trackItem = document.createElement("div");
+      const trackItem = document.createElement("td");
       trackItem.classList.add("dm-tracklist-item");
-      trackItem.setAttribute("role", "cell");
 
-      const trackItemCont = tracktext === trackRefNo? document.createElement("button") : document.createElement("p");
+      let trackItemCont = tracktext === trackRefNo? document.createElement("button") : document.createElement("p");
 
       if (tracktext === trackRefNo) {
 
@@ -133,9 +131,7 @@ export async function generateTracklist(tracksJson, isCustomSorted) {
       
       trackItem.appendChild(trackItemCont);
       trackRow.appendChild(trackItem);
-
-      trackRow.addEventListener('click', showTrackPopover);
-      // trackRow.setAttribute("aria-label", trackAccessibleName);
+      trackRow.setAttribute("data-refno", trackRefNo);
     });
 
     tracklistDiv.appendChild(trackRow);
@@ -168,11 +164,11 @@ export async function focusOnTrack() {
     }
 
     console.log(`Generating Tracklist...`);
-    tracklistHeaders.forEach(header => header.removeAttribute("data-order"));
+    tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
     tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
-    tracklistDiv.setAttribute("aria-label", "Tracklist sorted by refno in ascending order");
+    tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
     await generateTracklist(tracksJson);
-    tracklistHeaders[0].setAttribute("data-order", "ascending");
+    tracklistHeaders[0].setAttribute("aria-sort", "ascending");
   }
 
   if (parentDiv.classList.contains("track-grid-reflink")) {
@@ -194,6 +190,7 @@ export async function focusOnTrack() {
 
     tracklistOutput.classList.toggle("hidden");
     toggleAriaHidden(tracklistOutput);
+    toggleAriaExpanded(generateTracklistBtn);
   }
 
   document.getElementById(trackRefNo).focus();
@@ -244,10 +241,10 @@ async function sortTracklistByThis() {
        sortedArray = tracksJson.sort((a, b) => a[sortValue].localeCompare(b[sortValue]));
     }
 
-    tracklistHeaders.forEach(header => header.removeAttribute("data-order"));
+    tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
     tracklistDiv.setAttribute("data-sortedby", `${sortValue}-ascending`);
-    tracklistDiv.setAttribute("aria-label", `Tracklist sorted by ${sortValue} in ascending order`);
-    this.setAttribute("data-order", "ascending");
+    tracklistDiv.setAttribute("aria-label", `Tracklist sorted by: ${generateHeaderName(sortValue)}; order: ascending`);
+    this.setAttribute("aria-sort", "ascending");
   } 
   
   if (tracklistIsSortedBy === `${sortValue}-ascending`) {
@@ -278,15 +275,59 @@ async function sortTracklistByThis() {
        sortedArray = tracksJson.sort((a, b) => b[sortValue].localeCompare(a[sortValue]));
     }
 
-    tracklistHeaders.forEach(header => header.removeAttribute("data-order"));
+    tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
     tracklistDiv.setAttribute("data-sortedby", `${sortValue}-descending`);
-    tracklistDiv.setAttribute("aria-label", `Tracklist sorted by ${sortValue} in descending order`);
-    this.setAttribute("data-order", "descending");
+    tracklistDiv.setAttribute("aria-label", `Tracklist sorted by: ${generateHeaderName(sortValue)}; order: descending`);
+    this.setAttribute("aria-sort", "descending");
   }
 
   // Re-generate Tracklist (with or without collection headers)
   
   return sortValue.startsWith("refno")? generateTracklist(sortedArray) : generateTracklist(sortedArray, 1);
+}
+
+// Generate accessible name for Tracklist headers using dataset values
+
+function generateHeaderName(headerDataValue) {
+
+  switch (headerDataValue) {
+    
+    case "refno": 
+      
+      return "Tracklist Reference Number";
+
+    case "trackno": 
+      
+      return "Album Track Number";
+    
+    case "tunename": 
+      
+      return "Tune Title";
+    
+    case "tunetype": 
+      
+      return "Tune Type";
+    
+    case "tuneref": 
+      
+      return "Printed Collection Reference";
+    
+    case "recyear": 
+      
+      return "Year Recorded";
+
+    case "pubyear": 
+      
+      return "Year Published";
+    
+    case "performers": 
+      
+      return "Performers";
+
+    default: 
+
+      return "Tracklist Reference Number"
+  }
 }
 
 // Add event listeners to Tracklist buttons
@@ -297,4 +338,6 @@ export function initTracklist() {
 
     headerBtn.addEventListener('click', sortTracklistByThis);
   });
+
+  tracklistDiv.addEventListener('click', showPopoverHandler);
 }

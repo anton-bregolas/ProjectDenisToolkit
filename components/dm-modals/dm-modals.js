@@ -1,10 +1,10 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
 import { colsDiv, tracksDiv, tunesDiv, validateJson, generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
-import { showTunePopover, showColPopover } from '../dm-popovers/dm-popovers.js';
 import { tracklistDiv, tracklistOutput, generateTracklist, tracklistHeaders } from '../dm-tracklist/dm-tracklist.js';         
-import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
+import { toggleAriaExpanded, toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from '../../modules/dm-app.js';
+import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 export const colsListDiv = document.querySelector('#dm-collist');
@@ -84,10 +84,10 @@ export async function generateHandler() {
         if (genBtn === generateTracklistBtn) {
   
           tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
-          tracklistHeaders.forEach(header => header.removeAttribute("data-order"));
+          tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
           await generateTracklist(parentJson);
-          tracklistHeaders[0].setAttribute("data-order", "ascending");
-          tracklistDiv.setAttribute("aria-label", "Tracklist sorted by refno in ascending order");
+          tracklistHeaders[0].setAttribute("aria-sort", "ascending");
+          tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
         }
 
       } else {
@@ -98,6 +98,7 @@ export async function generateHandler() {
       if (genBtn === generateTracklistBtn) {
 
         tracklistOutput.classList.toggle("hidden");
+        toggleAriaExpanded(generateTracklistBtn);
         toggleAriaHidden(tracklistOutput);
         return;
           
@@ -135,7 +136,7 @@ export async function generateTunelist(tunesJson) {
 
     tuneAltNameSpan.classList.add("dm-tunelist-item-alttitle");
     tuneNameSpan.classList.add("dm-tunelist-item-title");
-    tuneItem.classList.add("dm-tunelist-item");
+    tuneItem.classList.add("dm-tunelist-item", "dm-btn-open-track");
     tuneItemWrapper.classList.add("dm-tunelist-item-wrapper");
 
     tuneAltNameSpan.textContent = tuneAltName !== ""? `${tuneAltName} (${tuneType})` : 
@@ -149,7 +150,7 @@ export async function generateTunelist(tunesJson) {
     tuneItem.appendChild(tuneNameSpan);
     tuneItem.appendChild(tuneAltNameSpan);
     tuneItem.setAttribute("data-tuneref", tuneRef);
-    tuneItem.addEventListener('click', showTunePopover);
+    tuneItem.addEventListener('click', showPopoverHandler);
     tuneItemWrapper.appendChild(tuneItem);
     tunelistDiv.appendChild(tuneItemWrapper);
   });
@@ -180,12 +181,12 @@ export async function generateColsList(colsJson) {
     let colRefText = `${colRefNo} / ${colRefCode}`;
     let colSourceText = colPubYear? `${colSource}${colSourceRef}, ${colYear}` : `${colSource}${colSourceRef}. ${colYear}`;
 
-    const colRow = document.createElement("div");
+    const colRow = document.createElement("tr");
     colRow.classList.add("dm-collist-row");
 
     for (let i = 0; i < 3; i++) {
 
-      const colItem = document.createElement("div");
+      const colItem = document.createElement("td");
       colItem.classList.add("dm-collist-item");
 
       const colRowCont = i === 0? document.createElement("button") : document.createElement("p");
@@ -201,7 +202,6 @@ export async function generateColsList(colsJson) {
       colItem.appendChild(colRowCont);
       colRow.appendChild(colItem);
       colRow.setAttribute("data-refno", colRefNo);
-      colRow.addEventListener('click', showColPopover);
     }
 
     colsListDiv.appendChild(colRow);
@@ -235,4 +235,6 @@ export function initModals() {
 
     btn.addEventListener('click', closeDialogHandler);
   });
+
+  colsListDiv.addEventListener('click', showPopoverHandler);
 }

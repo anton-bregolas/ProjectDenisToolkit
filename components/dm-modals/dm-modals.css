@@ -13,6 +13,22 @@ body.light {
   --tunelist-item-hover-color: var(--secondary-color-b);
 }
 
+body.light #dm-collist-wrapper h2,
+body.light #dm-collist-wrapper h3,
+body.rainy #dm-collist-wrapper h2,
+body.rainy #dm-collist-wrapper h3 {
+  color: color-mix(in srgb, var(--secondary-color-a) 50%, white);
+}
+
+body.star .dm-collist-item::before,
+body.rainy .dm-collist-item::before {
+  color: color-mix(in srgb, var(--secondary-color-b) 75%, white);
+}
+
+body.rainbow .dm-collist-item::before {
+  color: color-mix(in srgb, var(--secondary-color-b) 60%, white);
+}
+
 html:has(dialog[open]) {
   overflow: hidden;
 }
@@ -139,31 +155,63 @@ html:has(dialog[open]) {
 
 /* Collection List */
 
-.dm-collist-container {
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  gap: 3px;
+
+#dm-collist-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: none;
 }
 
 .dm-collist-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, calc(100% / 3));
   background-color: var(--collist-item-color);
   height: fit-content;
-  outline: 3px solid var(--collist-item-border-color);
   overflow: clip;
   text-overflow: ellipsis;
 }
 
+.dm-table-caption-wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+#dm-collist-caption {
+  height: var(--collist-item-height);
+  border: 3px solid var(--collist-item-border-color);
+  border-bottom: none;
+}
+
+#dm-collist-caption h2 {
+  margin: 0;
+}
+
+#dm-collist-header .dm-collist-row,
+#dm-collist-caption {
+  background-color: color-mix(in srgb, var(--collist-item-color) 75%, black);
+}
+
+#dm-collist-header .dm-collist-item {
+  padding: 0.25em;
+  height: 6rem;
+}
+
 .dm-collist-item {
-  place-content: center;
   text-align: center;
-  max-height: max(var(--collist-item-height), fit-content);
   padding: 1em;
 }
 
-.dm-collist-item:not(:last-of-type) {
-  border-right: 3px solid var(--collist-item-border-color);
+.dm-collist-row,
+.dm-collist-item {
+  border: 3px solid var(--collist-item-border-color);
+}
+
+.dm-collist-item::before {
+  color: var(--secondary-color-b);
+  color: color-mix(in srgb, var(--secondary-color-b) 95%, white);
+  font-weight: bold;
 }
 
 .dm-collist-item, .dm-collist-item button {
@@ -195,12 +243,9 @@ html:has(dialog[open]) {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5; */
 }
 
-.dm-collist-row:nth-of-type(even) {
+.dm-collist-row:nth-of-type(odd) {
   background-color: color-mix(in srgb, var(--collist-item-color) 75%, white);
 }
 
@@ -217,23 +262,40 @@ html:has(dialog[open]) {
 /* @media screen and (max-width: 720x) { */
 @media screen and (max-width: 45em) {
 
-  .dm-collist-container {
-    gap: 3px;
-  }
-  
-  .dm-collist-row {
-    display: flex;
-    flex-flow: column wrap;
-    overflow: visible;
-    outline: 3px solid var(--collist-item-border-color);
+  .dm-collist-item {
+    display: block;
+    border: none;
   }
 
-  .dm-collist-item:nth-of-type(even) {
-    font-weight: bold;
+  #dm-collist-header {
+    display: none;
   }
 
-  .dm-collist-item:not(:last-of-type) {
-    border-right: none;
+  #dm-collist-caption h2 {
+    font-size: var(--font-mid);
+  }
+
+  .dm-collist-row:nth-of-type(even) {
+    background-color: color-mix(in srgb, var(--collist-item-color) 75%, white);
+  }
+
+  .dm-collist-row:nth-of-type(odd) {
+    background-color: var(--collist-item-color);
+  }
+
+  .dm-collist-item:nth-child(1)::before {
+    content: "Collection Ref.: \A\A";
+    white-space: pre;
+  }
+
+  .dm-collist-item:nth-child(2)::before {
+    content: "Collection Name:\A\A";
+    white-space: pre;
+  }
+
+  .dm-collist-item:nth-child(3)::before {
+    content: "Collection Details:\A\A";
+    white-space: pre;
   }
 }
 
