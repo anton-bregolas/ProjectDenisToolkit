@@ -7,10 +7,11 @@
     <title>Project Denis Demo</title>
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
-    <link rel="stylesheet" href="components/dm-popovers/dm-popovers.css">
     <link rel="stylesheet" href="styles/tools-common-styles.css">
     <link rel="stylesheet" href="styles/dm-toolkit.css">
+    <link rel="stylesheet" href="components/dm-popovers/dm-popovers.css">
     <link rel="stylesheet" href="components/dm-modals/dm-modals.css">
+    <link rel="stylesheet" href="components/dm-tracklist/dm-tracklist.css">
     <script type="module" src="modules/dm-app.js"></script>
 </head>
 <body class="dark">
@@ -60,12 +61,50 @@
                 <h2>Select Denis Murphy Database</h2>
                 <br>
                 <section class="generator-container">
-                    <button id="dm-btn-generate-tracklist" class="btn"><span class="btn-text">Show Tracklist</span></button>
+                    <button id="dm-btn-generate-tracklist" aria-expanded="false" aria-controls="dm-tracklist-output" class="btn"><span class="btn-text">Show Tracklist</span></button>
                     <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text">Show Tunelist</span></button>
                     <button id="dm-btn-generate-collections" class="btn"><span class="btn-text">Show Collections</span></button>
                 </section>
-                <section id="dm-tracklist-output" class="hidden" aria-hidden="true" aria-label="Denis Murphy Tracklist">
-                    <article id="dm-tracklist" class="dm-tracklist-container" tabindex="0" aria-label="Tracklist Table, select a track" role="table"></article>
+                <section id="dm-tracklist-output" class="dm-tracklist-container hidden" aria-hidden="true" aria-label="Denis Murphy Tracklist">
+                    <table id="dm-tracklist-table" aria-label="Tracklist Table: Click track row to view Track card, click header cell to sort">
+                        <thead id="dm-tracklist-header">
+                            <tr class="dm-tracklist-row dm-tracklist-header-row">
+                                <th class="dm-tracklist-item dm-tracklist-header-item" data-value="refno">
+                                    <div class="dm-tracklist-header-arrows" aria-hidden="true"></div>
+                                    <button class="dm-btn-tracklist-header" aria-label="Tracklist Reference Number" title="Tracklist Reference Number">Ref. No.</button>
+                                </th>
+                                <th class="dm-tracklist-item dm-tracklist-header-item" data-value="trackno">
+                                    <div class="dm-tracklist-header-arrows" aria-hidden="true"></div>
+                                    <button class="dm-btn-tracklist-header" aria-label="Album Track Number" title="Album Track Number">Track No.</button>
+                                </th>
+                                <th class="dm-tracklist-item dm-tracklist-header-item" data-value="tunename">
+                                    <div class="dm-tracklist-header-arrows" aria-hidden="true"></div>
+                                    <button class="dm-btn-tracklist-header" aria-label="Tune Title" title="Tune Title in Collection">Tune Title</button>
+                                </th>
+                                <th class="dm-tracklist-item dm-tracklist-header-item" data-value="tunetype">
+                                    <div class="dm-tracklist-header-arrows" aria-hidden="true"></div>
+                                    <button class="dm-btn-tracklist-header" aria-label="Tune Type" title="Tune Type">Tune Type</button>
+                                </th>
+                                <th class="dm-tracklist-item dm-tracklist-header-item" data-value="tuneref">
+                                    <div class="dm-tracklist-header-arrows" aria-hidden="true"></div>
+                                    <button class="dm-btn-tracklist-header" aria-label="Printed Collection Reference" title="Printed Collection Reference">Col. Ref.</button>
+                                </th>
+                                <th class="dm-tracklist-item dm-tracklist-header-item" data-value="recyear">
+                                    <div class="dm-tracklist-header-arrows" aria-hidden="true"></div>
+                                    <button class="dm-btn-tracklist-header" aria-label="Year Recorded" title="Year Recorded">Year Rec.</button>
+                                </th>
+                                <th class="dm-tracklist-item dm-tracklist-header-item" data-value="pubyear">
+                                    <div class="dm-tracklist-header-arrows" aria-hidden="true"></div>
+                                    <button class="dm-btn-tracklist-header" aria-label="Year Published" title="Year Published">Year Pub.</button>
+                                </th>
+                                <th class="dm-tracklist-item dm-tracklist-header-item" data-value="performers">
+                                    <div class="dm-tracklist-header-arrows" aria-hidden="true"></div>
+                                    <button class="dm-btn-tracklist-header" aria-label="Performers" title="Performers">Performers</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="dm-tracklist" aria-live="polite" aria-label="Tracklist sorted by: refno; order: ascending"></tbody>
+                    </table>
                     <article id="dm-popover-card-track" popover class="dm-track-card dm-popover-card" aria-label="Track Card">
                         <header class="dm-track-grid-header dm-popover-card-header">
                             <button id="dm-btn-track-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Track Card"></button>
@@ -160,6 +199,11 @@
                             <button id="dm-btn-tune-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Tune Card"></button>
                             <h3 class="tune-grid-htuneref"></h3>
                             <h2 class="tune-grid-htitle" aria-live="polite"></h2>
+                            <nav class="dm-tune-nav-mobile dm-tune-grid-footer">
+                                <button class="dm-btn-tune-card-nav dm-btn-prev-tune dm-btn-card-nav" title="Show previous tune" aria-label="Show previous tune"></button>
+                                <button class="dm-btn-popover-close dm-btn-card-footer-close dm-btn-card-nav" aria-label="Close Tune Card"></button>
+                                <button class="dm-btn-tune-card-nav dm-btn-next-tune dm-btn-card-nav" title="Show next tune" aria-label="Show next tune"></button>
+                            </nav>
                         </header>
                         <div class="dm-tune-grid-body">
                             <h4 class="dm-tune-grid-item tune-grid-alttitle-head">Tune Alt. Titles:</h4>
@@ -187,7 +231,29 @@
                             <button id="dm-btn-colslist-close" class="btn dm-btn-modal"><span class="btn-text">Close Collections</span></button>
                         </div>
                     </header>
-                    <section id="dm-collist" class="dm-collist-container" aria-label="Collections grid, select a collection"></section>
+                    <section id="dm-collist-wrapper" class="dm-collist-container">
+                        <table id="dm-collist-table" aria-labelledby="dm-collist-caption">
+                            <caption id="dm-collist-caption">
+                                <div class="dm-table-caption-wrapper">
+                                    <h2>List of Catalogued Collections</h2>
+                                </div>
+                            </caption>
+                            <thead id="dm-collist-header">
+                                <tr class="dm-collist-row">
+                                    <th class="dm-collist-item">
+                                        <h3 class="dm-collist-text" aria-label="Collection Reference Number">1. Collection Ref.</h3>
+                                    </th>
+                                    <th class="dm-collist-item">
+                                        <h3 class="dm-collist-text" aria-label="Collection Name">2. Collection Name</h3>
+                                    </th>
+                                    <th class="dm-collist-item">
+                                        <h3 class="dm-collist-text" aria-label="Collection Details">3. Collection Details</h3>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="dm-collist"></tbody>
+                        </table>
+                    </section>    
                     <article id="dm-popover-card-col" popover class="dm-col-card dm-popover-card" aria-label="Collection Card">
                         <header class="dm-col-grid-header dm-popover-card-header">
                             <button id="dm-btn-col-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Collection Card"></button>

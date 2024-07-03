@@ -8,8 +8,8 @@ import { generateTunelistBtn,
          initToolkitButtons } from './dm-toolkit.js';
 
 import { initModals } from '../components/dm-modals/dm-modals.js';
-
 import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
+import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
 
 // Tune Database links
 
@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initToolkitButtons();
     initModals();
     initPopovers();
+    initTracklist();
 });
 
 //////////////////////////////////////////
@@ -95,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('../sw.js')
+      .register('./sw.js')
       .then((registration) => {
         console.log(`PD Service Worker:\n\n` + `Registered with scope:\n` + registration.scope);
       })

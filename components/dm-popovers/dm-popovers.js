@@ -1,12 +1,10 @@
 /* #ProjectDenis Popovers Scripts*/
 
-import { colsDiv, tracksDiv, tunesDiv, validateJson, clearOutput,
-         generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
-import { tunelistDialog, colsListDialog, tracklistDiv, dialogsDiv, colsListDiv,
-         focusOnTrack, generateTunelist, generateColsList, generateTracklist,
-         tunelistDiv,
-         tracklistOutput} from '../dm-modals/dm-modals.js';
-import { toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
+import { colsDiv, tracksDiv, tunesDiv, validateJson } from '../../modules/dm-toolkit.js';
+import { dialogsDiv, tunelistDialog, colsListDialog, colsListDiv,
+         generateTunelist, generateColsList, tunelistDiv } from '../dm-modals/dm-modals.js';
+import { tracklistOutput, focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
+import { toggleAriaExpanded, toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
 import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from '../../modules/dm-app.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
@@ -17,7 +15,7 @@ export const popoverCard = document.querySelectorAll('.dm-popover-card');
 
 // Display the Tune Card popover
 
-export async function showTunePopover() {
+export async function showTunePopover(trigger, tuneRefNo) {
 
   const tunesOutput = tunesDiv.textContent;
 
@@ -36,12 +34,15 @@ export async function showTunePopover() {
       await generateTunelist(tunesJson);
     }
 
-      const tuneRef = this.dataset.tuneref;
+      const tuneRef = tuneRefNo === "???" || tuneRefNo === "" ? 
+        `TMP # ${trackCardPopover.dataset.refno}` :
+        tuneRefNo;
+        
       const tuneObject = tunesJson.find(tune => tune.tuneref === tuneRef);
 
       await createTuneCard(tuneObject);
 
-      if (!this.classList.contains("dm-tunelist-item")) {
+      if (!trigger.classList.contains("dm-tunelist-item")) {
 
         dialogsDiv.classList.toggle("hidden");
         toggleAriaHidden(dialogsDiv);
@@ -51,7 +52,6 @@ export async function showTunePopover() {
 
       tuneCardPopover.showPopover();
 
-      // document.querySelector(".tune-grid-htitle").focus();
       document.querySelector("#dm-btn-tune-card-close").focus();
 
       console.log("Tune Card created.");
@@ -332,29 +332,17 @@ function generateLinkSourceName(tuneTranscriptUrl) {
 
 // Display the Collection Card popover
 
-export async function showColPopover() {
+export async function showColPopover(trigger, colRefNo) {
 
   // Prevent click if text selection is being made
 
   if (window.getSelection().toString().length === 0) { 
 
-    let colRefNo;
-    const parentDiv = this.parentElement;
-    const parentDialog = parentDiv.parentElement;
+    const parentDiv = trigger.parentElement;
 
-    if (parentDialog === tracklistOutput || parentDialog === colsListDialog) {
+    if (parentDiv.classList.contains("track-grid-colno-cont")) {
 
-      colRefNo = parentDialog === tracklistOutput ? this.firstChild.firstChild.textContent :
-                parentDialog === colsListDialog ? this.firstChild.firstChild.dataset.refno : "1000";
-
-    } else {
-
-      colRefNo = this.dataset.refno;
-
-      if (parentDiv.classList.contains("track-grid-colno-cont")) {
-
-        trackCardPopover.hidePopover();
-      }
+      trackCardPopover.hidePopover();
     }
 
     const colsOutput = colsDiv.textContent;
@@ -378,7 +366,7 @@ export async function showColPopover() {
 
       await createColCard(colObject);
       
-      if (parentDialog === tracklistOutput || parentDiv.classList.contains("track-grid-colno-cont")) {
+      if (!trigger.classList.contains("dm-collist-row")) {
 
         dialogsDiv.classList.toggle("hidden");
         toggleAriaHidden(dialogsDiv);
@@ -388,11 +376,9 @@ export async function showColPopover() {
 
       colCardPopover.showPopover();
 
-      // document.querySelector(".col-grid-htitle").focus();
       document.querySelector("#dm-btn-col-card-close").focus();
 
       console.log("Collection Card created.");
-
 
     } else {
 
@@ -517,15 +503,11 @@ async function createColCard(colObject) {
 
 // Display the Track Card popover
 
-export async function showTrackPopover() {
+export async function showTrackPopover(trigger, trackRefNo) {
 
   // Prevent click if text selection is being made
   
   if (window.getSelection().toString().length === 0) { 
-
-    let trackRefNo;
-
-    trackRefNo = this.children[0].firstChild.id;
 
     const tracksOutput = tracksDiv.textContent;
 
@@ -605,20 +587,22 @@ async function createTrackCard(trackObject) {
   trackYearPubDiv.textContent = trackYearPub;
   trackAltTitleDiv.textContent = trackTuneAltNames;
   trackNotesDiv.textContent = "";
+
+  trackCardPopover.setAttribute("data-refno", trackRefNo);
   
   const trackRefBtn = document.createElement("button");
   trackRefBtn.classList.add("dm-btn-open-track");
   trackRefBtn.setAttribute("title", "View Detailed Tune Card");
   trackRefBtn.setAttribute("data-tuneref", trackTuneRefCode);
-  trackRefBtn.addEventListener('click', showTunePopover);
+  trackRefBtn.addEventListener('click', showPopoverHandler);
   trackRefLinkDiv.appendChild(trackRefBtn);
 
   const trackSourceColNoBtn = document.createElement("button");
   trackSourceColNoBtn.textContent = trackSourceColNo;
   trackSourceColNoBtn.classList.add("dm-btn-open-track");
   trackSourceColNoBtn.setAttribute("title", "View Collection Card");
-  trackSourceColNoBtn.setAttribute("data-refno", trackSourceColNo);
-  trackSourceColNoBtn.addEventListener('click', showColPopover);
+  trackSourceColNoBtn.setAttribute("data-colrefno", trackSourceColNo);
+  trackSourceColNoBtn.addEventListener('click', showPopoverHandler);
   trackSourceColNoDiv.appendChild(trackSourceColNoBtn);
 
   const trackColRefCode = document.createElement("p");
@@ -784,6 +768,54 @@ async function switchTuneCard(switchDirection, cardType) {
   createColCard(targetTuneObject);
 
   console.log(`${targetLabel} card rendered.`);
+}
+
+// Call a Show Popover function depending on element clicked
+
+export function showPopoverHandler(event) {
+
+  const triggerElement = event.target;
+  const closestClickableRow = triggerElement.closest('tr[data-refno]');
+  const closestButton = triggerElement.closest(".dm-btn-open-track");
+
+  let rowRefNo;
+
+  if (closestClickableRow) {
+
+    rowRefNo = closestClickableRow.dataset.refno;
+    
+    if (closestClickableRow.classList.contains("dm-tracklist-col-header-row") || 
+        closestClickableRow.classList.contains("dm-collist-row")) {
+
+      showColPopover(closestClickableRow, rowRefNo);
+      return;
+    }
+
+    if (closestClickableRow.classList.contains("dm-tracklist-row")) {
+
+      showTrackPopover(closestClickableRow, rowRefNo);
+      return;
+    }
+  }
+
+  if (closestButton) {
+    
+    let refNo;
+    
+    if (closestButton.hasAttribute("data-colrefno")) {
+
+      refNo = closestButton.dataset.colrefno;
+      showColPopover(closestButton, refNo);
+      return;
+    }
+
+    if (closestButton.hasAttribute("data-tuneref")) {
+
+      refNo = closestButton.dataset.tuneref;
+      showTunePopover(closestButton, refNo);
+      return;
+    }
+  }
 }
 
 // Add event listeners to Popover Card navigation buttons

@@ -1,0 +1,311 @@
+/* #ProjectDenis: Tracklist Styles */
+
+body {
+  --tracklist-header-color: #073763;
+  --tracklist-row-color: #313131;
+  --tracklist-text-color: white;
+  --tracklist-text-shadow: 0 1px 1px black;
+}
+
+body.light, body.rainy {
+  --tracklist-row-color: #d8d8d8;
+  --tracklist-text-color: black;
+  --tracklist-text-shadow: 0px 1px 1px white;
+}
+
+body.star {
+  --tracklist-row-color: color-mix(in srgb, var(--primary-color) 75%, black);
+  --tracklist-header-color: color-mix(in srgb, var(--secondary-color-c) 50%, black);
+}
+
+#dm-tracklist-table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid var(--collist-item-border-color);
+}
+
+.dm-tracklist-container {
+  padding: 0.35em;
+  background-color: var(--primary-color);
+  border: 0.3125rem solid var(--secondary-color-b);
+  border-radius: 0.5rem;
+  min-height: 4rem;
+  margin: 2rem 0 1.5rem;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+}
+
+.dm-tracklist-row {
+  background-color: var(--tracklist-row-color);
+  overflow: clip;
+  text-overflow: ellipsis;
+}
+
+.dm-tracklist-header-item {
+  position: relative;
+  height: 4.5rem;
+}
+
+.dm-tracklist-header-arrows {
+  display: flex;
+  flex-flow: column;
+  position: absolute;
+  right: 0.12rem;
+  top: 0rem;
+  font-size: var(--font-small);
+}
+
+.dm-tracklist-header-item:is([aria-sort="ascending"]) .dm-tracklist-header-arrows::before {
+  content: "▲";
+}
+
+.dm-tracklist-header-item:is([aria-sort="descending"]) .dm-tracklist-header-arrows::after {
+  content: "▼";
+}
+
+.dm-tracklist-header-item p, 
+.dm-tracklist-col-header-item p, 
+.dm-btn-tracklist-header,
+.dm-tracklist-header-arrows {
+  font-weight: bold;
+  text-shadow: 0px 1px 1px black;
+  color: color-mix(in srgb, var(--secondary-color-b) 95%, white);
+}
+
+.dm-tracklist-item {
+  border: 2px solid var(--collist-item-border-color);
+}
+
+.dm-tracklist-item {
+  text-align: center;
+  text-align-last: center;
+  padding: 0.5em;
+}
+
+.dm-tracklist-item:nth-of-type(1) {
+  width: 8%;
+}
+
+.dm-tracklist-item:nth-of-type(2) {
+  width: 7%;
+}
+
+.dm-tracklist-item:nth-of-type(3) {
+  width: 26%;
+}
+
+.dm-tracklist-item:nth-of-type(4) {
+  width: 12%;
+}
+
+.dm-tracklist-item:nth-of-type(5) {
+  width: 12%;
+}
+
+.dm-tracklist-item:nth-of-type(6) {
+  width: 6.5%;
+}
+
+.dm-tracklist-item:nth-of-type(7) {
+  width: 6.5%;
+}
+
+.dm-tracklist-item:nth-of-type(8) {
+  width: 22%;
+}
+
+.dm-tracklist-col-header-item {
+  padding: 0.5em 0.15em;
+  text-overflow: clip;
+  text-overflow: ellipsis;
+}
+
+.dm-tracklist-col-header-item:first-of-type {
+  padding: 0.05em;
+}
+
+.dm-tracklist-col-header-item button {
+  height: 4rem;
+}
+
+.dm-tracklist-text,
+.dm-btn-tracklist-header {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: clip;
+  text-overflow: ellipsis;
+}
+
+.dm-tracklist-text {
+  color: var(--tracklist-text-color);
+  text-shadow: var(--tracklist-text-shadow);
+}
+
+.dm-tracklist-item p {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dm-tracklist-text,
+.dm-btn-tracklist-open,
+.dm-btn-tracklist-header {
+  font-size: var(--font-small);
+}
+
+.dm-btn-tracklist-open {
+  color: white;
+  text-shadow: 0px 1px 1px black;
+  background-color: var(--secondary-color-a);
+  background-color: color-mix(in srgb, var(--secondary-color-a) 95%, white);
+  padding: 0.25em;
+  border-radius: 0.5rem;
+  width: fit-content;
+  height: fit-content;
+}
+
+.dm-btn-tracklist-open:is(:hover, :focus, :focus-visible) {
+  outline-offset: 0.1rem; 
+  outline: 0.2rem solid var(--focus-color-inverted);
+}
+
+.dm-btn-tracklist-header:is(:hover, :focus, :focus-visible) {
+  border-radius: 0.05rem;
+  outline-offset: 0.25rem; 
+  outline: 0.2rem solid var(--focus-color-inverted);
+}
+
+.dm-tracklist-row:nth-of-type(odd) {
+  background-color: color-mix(in srgb, var(--tracklist-row-color) 75%, white);
+}
+
+.dm-tracklist-row:hover {
+  cursor: pointer;
+  background-color: color-mix(in srgb, var(--tracklist-row-color) 55%, white);
+}
+
+.dm-tracklist-header-row.dm-tracklist-header-row,
+.dm-tracklist-col-header-row.dm-tracklist-col-header-row {
+  background-color: color-mix(in srgb, var(--tracklist-header-color) 55%, black);
+}
+
+.dm-tracklist-header-item:is(:focus, :focus-visible),
+.dm-tracklist-col-header-item:is(:focus, :focus-visible),
+.dm-btn-tracklist-col-header:is(:hover, :focus, :focus-visible) {
+  outline-offset: -0.2rem;
+  outline: 0.2rem solid var(--focus-color-inverted);
+  border-radius: 0.4rem;
+}
+
+.dm-tracklist-header-item:hover,
+.dm-tracklist-col-header-row:hover {
+  background-color: color-mix(in srgb, var(--tracklist-header-color) 90%, black);
+}
+
+/* Media queries for Tracklist */
+
+/* @media screen and (max-width: 968px) { */
+@media screen and (max-width: 60.5em) {
+
+  .dm-tracklist-row .dm-tracklist-item:nth-of-type(6),  
+  .dm-tracklist-row .dm-tracklist-item:nth-of-type(7),
+  .dm-tracklist-row .dm-tracklist-item:nth-of-type(8) {
+    display: none;
+  }
+
+  .dm-tracklist-item:nth-of-type(1) {
+    width: 12.5%;
+  }
+  
+  .dm-tracklist-item:nth-of-type(2) {
+    width: 10.5%;
+  }
+
+  .dm-tracklist-item:nth-of-type(3) {
+    width: 45%;
+  }
+  
+  .dm-tracklist-item:nth-of-type(4) {
+    width: 13.5%;
+  }
+  
+  .dm-tracklist-item:nth-of-type(5) {
+    width: 18.5%;
+  }
+}
+
+/* @media screen and (max-width: 668px) { */
+  @media screen and (max-width: 41.75em) {
+
+  .dm-tracklist-row .dm-tracklist-item:nth-of-type(2),
+  .dm-tracklist-row .dm-tracklist-item:nth-of-type(5) {
+    display: none;
+  }
+
+  .dm-tracklist-item:nth-of-type(1) {
+    width: 25%;
+  }
+  
+  .dm-tracklist-item:nth-of-type(3) {
+    width: 50%;
+  }
+
+  .dm-tracklist-item:nth-of-type(4) {
+    width: 25%;
+  }
+}
+
+/* @media screen and (max-width: 400px) { */
+@media screen and (max-width: 25em) {
+
+  tbody .dm-tracklist-item {
+    padding: 0.5em 0.15em;
+  }
+}
+
+/* @media screen and (max-width: 316px) { */
+@media screen and (max-width: 19.75em) {
+
+  .dm-tracklist-row {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--collist-item-border-color);
+    height: unset;
+  }
+
+  .dm-tracklist-item {
+    width: 100%;
+    border: none;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 4rem;
+  }
+
+  tbody .dm-tracklist-item {
+    padding: 0.25em;
+  }
+
+  .dm-tracklist-header-item {
+    height: 4rem;
+  }
+
+  .dm-tracklist-item:nth-of-type(1) {
+    width: 100%;
+  }
+  
+  .dm-tracklist-item:nth-of-type(3) {
+    width: 100%;
+  }
+
+  .dm-tracklist-item:nth-of-type(4) {
+    width: 100%;
+  }
+}
