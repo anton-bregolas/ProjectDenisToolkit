@@ -2,6 +2,10 @@
 ========================================================================================
 #ProjectDenis Toolkit is a set of simple tools for building and updating the database for the project in tribute to the Sliabh Luachra music legend, fiddle player Denis Murphy (1910–1974).
 
+[v.2.5]
+
++
+
 [v.2.4]
 
 + Tracklist and Collection List refactored from CSS Grid to Table to improve performance.
@@ -46,6 +50,12 @@
 + Each color theme now has a color palette of 10 colors plus 2 variable focus colors.
 + Three experimental color themes added: Rainy theme, Rainbow theme and The Star above the Garter theme.
 + Color theme toggle button now triggers a popover offering a selection of themes.
+
+## Search Engine v.1.0
+
+[v.1.0]
+
++
 
 ## List Generator v.2.0
 
