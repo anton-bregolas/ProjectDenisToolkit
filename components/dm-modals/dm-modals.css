@@ -284,6 +284,7 @@ html:has(dialog[open]) {
 
   .dm-collist-item {
     display: block;
+    width: 100%;
     border: none;
   }
 
