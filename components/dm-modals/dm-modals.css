@@ -156,6 +156,7 @@ html:has(dialog[open]) {
 /* Collection List */
 
 .dm-collist-container {
+  grid-template-columns: 1fr;
   padding: 1em;
 }
 
