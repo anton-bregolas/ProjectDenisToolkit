@@ -66,7 +66,7 @@
 + Fetches Tracks, Collections and Tunes JSONs and assigns them to custom JSONs.
 + Reveals Search section with radio button group and search input / output.
 
-## Search Engine v.1.0
+## Search Engine v.1.1
 
 [v.1.1]
 
