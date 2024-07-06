@@ -12,6 +12,22 @@ body {
 
 /* Button styles */
 
+#dm-btn-start-exploring {
+  width: 21rem;
+  height: 5rem;
+  flex-grow: 0;
+  font-size: var(--font-mid);
+}
+
+#dm-btn-start-exploring .btn-text {
+  gap: 0.2em;
+}
+
+.action-icon-music {
+  width: var(--font-mid);
+  height: var(--font-mid);
+}
+
 .table-btn {
   width: 2.2rem; 
   height: 2.2rem;
@@ -27,8 +43,14 @@ body {
 
 /* Container styles */
 
-.dm-parser, .dm-splitter, .dm-generator {
+.dm-launch, .dm-parser, .dm-splitter, .dm-generator {
   margin-bottom: 2rem;
+}
+
+.dm-launch-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .input-container {
@@ -128,6 +150,12 @@ body {
   }
 }
 
+/* @media screen and (max-width: 668px) { */
+@media screen and (max-width: 41.75em) {
+
+
+}
+
 /* @media screen and (max-width: 360px) { */
 @media screen and (max-width: 22.5em) {
 
@@ -147,9 +175,10 @@ body {
     --font-xlarge: 12cqi;
     --font-large: 10cqi;
     --font-subhead: 8cqi;
-    --font-mid: 6cqi;
-    --font-button: 6cqi;
-    --font-base: 4cqi;
+    --font-mid: 7cqi;
+    --font-button: 6.5cqi;
+    --font-base: 6.5cqi;
+    --font-small: 6cqi;
   }
 
   h1 {
@@ -165,7 +194,8 @@ body {
     flex-flow: column;
   }
 
-  .logo-btn {
+  .link-btn,
+  .theme-btn {
     width: 11cqi; 
     height: 11cqi;
   }

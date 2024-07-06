@@ -156,8 +156,34 @@ button:disabled {
 
 button:focus-visible {
   outline: 0.2rem solid var(--focus-color);
-  outline-offset: 0.5rem;
-  border-radius: 0.4rem;
+}
+
+input[type="radio"] {
+  height: 1rem;
+  width: 1rem;
+  appearance: none;
+  border-radius: 50%;
+  border: 0.2rem solid var(--primary-color);
+  background-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--focus-color-inverted);
+}
+
+input[type="radio"]:checked {
+  box-shadow: 0 0 0 2px var(--focus-color);
+  background-color: var(--focus-color-inverted);
+  border: 0.2rem solid var(--primary-color);
+  border-width: 0.2rem;
+}
+
+input[type="radio"]:focus-visible {
+  outline: 0.135rem solid var(--focus-color);
+  outline-offset: 0.345rem;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 h1, h2, h3 {
@@ -198,30 +224,48 @@ dialog:focus-visible {
 
 /* Common icon styles */
 
-.logo-btn {
+.link-btn,
+.theme-btn {
   display: flex;
   width: 2.25rem; 
   height: 2.25rem;
   position: relative;
 }
 
-.logo-icon {
+.link-icon,
+.theme-icon,
+.action-icon {
   width: 100%;
   height: 100%;
+}
+
+.link-icon,
+.theme-icon {
   opacity: 0.75;
   transition: opacity 0.75s ease-in-out, color 0.5s ease-in-out;
   color: var(--accent-color-b);
   position: absolute;
 }
 
-/* .n-theme-icon-moon, .n-theme-icon-sun {
-  display: none;
-} */
+.link-icon-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.action-icon-container {
+  display: inline-flex;
+  width: var(--font-button);
+  height: var(--font-button);
+}
 
 /* Common button styles */
 
 .btn {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   border: none;
   font-size: var(--font-button);
   padding: 1em;
@@ -236,46 +280,48 @@ dialog:focus-visible {
   flex-grow: 1;
   opacity: 0.95;
   box-shadow: 0px 0px 0px 0.1875rem transparent;
+  outline-offset: 0.05rem;
+  border-radius: 0.5rem;
 }
 
 .btn:disabled {
   background: color-mix(in srgb, var(--secondary-color-b) 60%, white);
 }
 
-.btn:focus-visible {
-  outline-offset: 0.05rem;
-  border-radius: 0.5rem;
+.btn:is(:hover, :focus, :focus-visible) {
+  box-shadow: 0px 0px 0px 0.1875rem var(--neutral-color);
+  opacity: 1;
 }
 
-.btn:focus:not(:focus-visible) {
-  outline: none;
+.btn:is(:hover, :focus, :focus-visible) > .btn-text {
+  transform: scale(1.07);
 }
+
+/* .btn:focus:not(:focus-visible) {
+  outline: none;
+} */
 
 .btn-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: black;
   position: relative;
   transition: all 0.33s ease-in-out;
-  text-align: center;
   width: 100%;
 }
 
-.logo-btn a:is(:hover, :focus) > *,
-.n-theme-btn:is(:hover, :focus) > * {
+.link-btn a:is(:hover, :focus) > *,
+.theme-btn:is(:hover, :focus) > * {
   opacity: 1;
   color: var(--accent-color-a);
 }
 
-.logo-btn a:focus-visible,
-.n-theme-btn:focus-visible {
+.link-btn a:focus-visible,
+.theme-btn:focus-visible {
   outline-offset: 0.25rem;
   border-radius: 0.8rem;
   outline: 0.2rem solid var(--focus-color);
-}
-
-.logo-link {
-  position: absolute;
-  width: 100%;
-  height: 100%;
 }
 
 /* Common input form styles */
@@ -291,7 +337,6 @@ dialog:focus-visible {
   text-align: center;
   color: var(--neutral-color);
   caret-color: var(--neutral-color);
-  opacity: 0.75;
   transition: opacity 0.5s ease-in-out, 
   box-shadow 0.5s ease-in-out,
   background-color 0.3s linear;
@@ -304,21 +349,10 @@ dialog:focus-visible {
   opacity: 0.5;
 }
 
-.input-field:is(:hover, :focus){
-  box-shadow: 0px 0px 0px 0.1875rem black;
-  opacity: 1;
-}
-
-.input-field:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.input-field:focus-visible {
+.input-field:is(:hover, :focus, :focus-visible) {
   outline: 0.16rem solid var(--focus-color);
   outline-offset: 0.07rem;
-  border-radius: 0.5rem;
   box-shadow: 0px 0px 0px 0.1875rem black;
-  opacity: 1;
 }
 
 /* Common container styles */
@@ -358,11 +392,12 @@ dialog:focus-visible {
   opacity: 0;
 }
 
-.hovered {
-  box-shadow: 0px 0px 0px 0.1875rem var(--neutral-color);
-  opacity: 1;
+.outlined {
+  outline: 0.16rem solid var(--focus-color);
+  outline-offset: 0.07rem;
+  box-shadow: 0px 0px 0px 0.1875rem black;
 }
 
-.enlarged {
-  transform: scale(1.07);
+.scrollable {
+  overflow-y: auto !important;
 }

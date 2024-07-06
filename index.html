@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="#ProjectDenis Toolkit is a set of tools for building and updating the database for a project in tribute to the Sliabh Luachra fiddle music legend Denis Murphy.">
-    <title>Project Denis Demo</title>
+    <title>Project Denis Toolkit</title>
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
     <link rel="stylesheet" href="styles/tools-common-styles.css">
@@ -12,44 +12,45 @@
     <link rel="stylesheet" href="components/dm-popovers/dm-popovers.css">
     <link rel="stylesheet" href="components/dm-modals/dm-modals.css">
     <link rel="stylesheet" href="components/dm-tracklist/dm-tracklist.css">
+    <link rel="stylesheet" href="components/dm-search/dm-search.css">
     <script type="module" src="modules/dm-app.js"></script>
 </head>
 <body class="dark">
     <header>
         <nav class="header-container"> 
-            <button class="logo-btn github-logo" title="#ProjectDenis Toolkit on GitHub" tabindex="-1">
-                <a class="logo-link" href="https://github.com/anton-bregolas/ProjectDenisToolkit/" target="_blank" aria-label="Link to Project Denis Toolkit on GitHub">
-                    <svg class="logo-icon github-icon-dark" aria-hidden="true"><use href="assets/icons/icons.svg#github-icon"></use></svg>
+            <button class="link-btn github-logo" title="#ProjectDenis Toolkit on GitHub" tabindex="-1">
+                <a href="https://github.com/anton-bregolas/ProjectDenisToolkit/" target="_blank" class="link-icon-container" ria-label="Link to Project Denis Toolkit on GitHub">
+                    <svg class="link-icon github-icon-dark" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-github"></use></svg>
                 </a>
             </button>
-            <button class="logo-btn table-btn" title="Tunetable" tabindex="-1">
-                <a class="logo-link" href="https://anton-bregolas.github.io/Tunetable" target="_blank" aria-label="Link to Tunetable app">
-                    <svg class="logo-icon" aria-hidden="true"><use href="assets/icons/icons.svg#t-gen-btn-icon"></use></svg>
+            <button class="link-btn table-btn" title="Tunetable" tabindex="-1">
+                <a href="https://anton-bregolas.github.io/Tunetable" target="_blank" class="link-icon-container" aria-label="Link to Tunetable app">
+                    <svg class="link-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-tunelist"></use></svg>
                 </a>
             </button>
-            <button class="logo-btn tso-btn" title="#ProjectDenis transcriptions on The Session" tabindex="-1">
-                <a class="logo-link" href="https://thesession.org/members/26966/tags/ProjectDenis" target="_blank" aria-label="Link to Project Denis transcriptions on The Session">
-                    <svg class="logo-icon" aria-hidden="true"><use href="assets/icons/icons.svg#n-abc-icon"></use></svg>
+            <button class="link-btn tso-btn" title="#ProjectDenis transcriptions on The Session" tabindex="-1">
+                <a href="https://thesession.org/members/26966/tags/ProjectDenis" target="_blank" class="link-icon-container" aria-label="Link to Project Denis transcriptions on The Session">
+                    <svg class="link-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-abc"></use></svg>
                 </a>
             </button>
-            <button id="theme-toggle-btn" class="logo-btn n-theme-btn" title="Toggle between color themes" aria-label="Select color theme. Dark theme is on" popovertarget="theme-picker-popover">
-                <svg class="logo-icon theme-icon-star-mixed" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-star-mixed"></use></svg>
+            <button id="theme-toggle-btn" class="theme-btn" title="Toggle between color themes" aria-label="Select color theme. Dark theme is on" popovertarget="theme-picker-popover">
+                <svg class="theme-icon nav-icon-theme" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-theme"></use></svg>
             </button>
             <section id="theme-picker-popover" popover>
-                <button id="dm-btn-theme-dark" class="logo-btn n-theme-btn dm-btn-theme hidden" data-theme="dark" title="Dark theme">
-                    <svg class="logo-icon n-theme-icon-moon" aria-hidden="true"><use href="assets/icons/icons.svg#n-theme-icon-moon"></use></svg>
+                <button id="dm-btn-theme-dark" class="theme-btn hidden" data-theme="dark" title="Dark theme">
+                    <svg class="theme-icon theme-icon-moon" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-moon"></use></svg>
                 </button>
-                <button id="dm-btn-theme-light" class="logo-btn n-theme-btn dm-btn-theme" data-theme="light" title="Light theme">
-                    <svg class="logo-icon n-theme-icon-sun" aria-hidden="true"><use href="assets/icons/icons.svg#n-theme-icon-sun"></use></svg>
+                <button id="dm-btn-theme-light" class="theme-btn" data-theme="light" title="Light theme">
+                    <svg class="theme-icon theme-icon-sun" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-sun"></use></svg>
                 </button>
-                <button id="dm-btn-theme-rain" class="logo-btn n-theme-btn dm-btn-theme" data-theme="rainy" title="Rainy theme">
-                    <svg class="logo-icon theme-icon-rainy" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-rain"></use></svg>
+                <button id="dm-btn-theme-rain" class="theme-btn" data-theme="rainy" title="Rainy theme">
+                    <svg class="theme-icon theme-icon-rainy" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-rain"></use></svg>
                 </button>
-                <button id="dm-btn-theme-rainbow" class="logo-btn n-theme-btn dm-btn-theme" data-theme="rainbow" title="Rainbow theme">
-                    <svg class="logo-icon theme-icon-rainbow" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-rainbow"></use></svg>
+                <button id="dm-btn-theme-rainbow" class="theme-btn" data-theme="rainbow" title="Rainbow theme">
+                    <svg class="theme-icon theme-icon-rainbow" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-rainbow"></use></svg>
                 </button>
-                <button id="dm-btn-theme-star" class="logo-btn n-theme-btn dm-btn-theme" data-theme="star" title="The Star above the Garter theme">
-                    <svg class="logo-icon theme-icon-star" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-star"></use></svg>
+                <button id="dm-btn-theme-star" class="theme-btn" data-theme="star" title="The Star above the Garter theme">
+                    <svg class="theme-icon theme-icon-star" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-star"></use></svg>
                 </button>
             </section>
         </nav>
@@ -57,9 +58,63 @@
     <main>
         <div class="main-container">
             <h1>#ProjectDenis Prototype</h1>
-            <section class="dm-generator">
-                <h2>Select Denis Murphy Database</h2>
-                <br>
+            <section class="dm-launch">
+                <div class="dm-launch-container">
+                    <button id="dm-btn-start-exploring" class="btn" autofocus>
+                        <span class="btn-text">Start Exploring
+                            <span class="action-icon-container action-icon-launch">
+                                <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-launch"></use></svg>
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </section>
+            <section id="dm-search" hidden>
+                <div class="dm-search-container">
+                    <fieldset id="dm-search-data-select" class="dm-search-radio-container" role="radiogroup">
+                        <legend class="dm-search-radio-legend">
+                            <h2>Search Tunes, Tracks or Collections</h2>
+                        </legend>
+                        <label for="data-search-tracks" class="dm-label-radio">
+                            <h3>Tracks</h3>
+                            <input type="radio" id="data-search-tracks" class="dm-btn-radio" name="search-data-type" value="tracks" checked="checked">
+                        </label>
+                        <label for="data-search-cols" class="dm-label-radio">
+                            <h3>Collections</h3>
+                            <input type="radio" id="data-search-cols" class="dm-btn-radio" name="search-data-type" value="cols">
+                        </label>
+                        <label for="data-search-tunes" class="dm-label-radio">
+                            <h3>Tunes</h3>
+                            <input type="radio" id="data-search-tunes" class="dm-btn-radio" name="search-data-type" value="tunes">
+                        </label>
+                    </fieldset>
+                    <section class="dm-search-engine" aria-label="Denis Murphy Search Engine">
+                        <input id="dm-search-input" type="search" class="input-field" placeholder="Type keywords to filter through Tune Database" aria-label="Type keywords to filter through Tune Database" autocomplete="off">
+                        <section id="dm-search-results" aria-label="Search Results">
+                            <div class="dm-search-results-group" tabindex="-1">
+                                <div class="dm-search-results-container">
+                                    <template class="dm-template-search-item">
+                                        <button class="dm-btn-search-item dm-btn-open-track">
+                                            <span class="dm-search-item-type"></span>
+                                            <span class="dm-search-item-name"></span>
+                                            <span class="dm-search-item-refno"></span>
+                                        </button>
+                                    </template>
+                                </div>
+                                <button class="dm-btn-search-wrap" aria-expanded="false">
+                                    <span class="action-icon-container action-icon-wrap">
+                                        <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-wrap-down"></use></svg>
+                                    </span>
+                                    <span id="dm-search-results-found" class="dm-search-counter"></span>
+                                </button>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+            </section>
+            <section class="dm-generator" hidden>
+                <!-- <h2>List Generator</h2> -->
+                <!-- <br> -->
                 <section class="generator-container">
                     <button id="dm-btn-generate-tracklist" aria-expanded="false" aria-controls="dm-tracklist-output" class="btn"><span class="btn-text">Show Tracklist</span></button>
                     <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text">Show Tunelist</span></button>
@@ -154,7 +209,7 @@
                     </section>
                     <section class="button-container">
                         <button id="parseSingleString" class="btn"><span class="btn-text">Parse Single String</span></button>
-                        <button id="parseFromFile" class="btn" autofocus><span class="btn-text">Parse From File</span></button>
+                        <button id="parseFromFile" class="btn"><span class="btn-text">Parse From File</span></button>
                         <button id="saveOutputFile" class="btn"><span class="btn-text">Save Output</span></button>
                         <button id="clearOutput" class="btn"><span class="btn-text">Clear Output</span></button>
                     </section>
@@ -223,6 +278,7 @@
                             <button class="dm-btn-tune-card-nav dm-btn-next-tune dm-btn-card-nav" title="Show next tune" aria-label="Show next tune"></button>
                         </nav>
                     </article>
+                    <div class="dm-status-bar" aria-live="assertive"></div>
                 </dialog>
                 <dialog id="dm-modal-list-cols" class="dm-modal-list" aria-hidden="true" aria-label="Denis Murphy Collections">
                     <header class="dm-modal-list-header">
@@ -292,10 +348,13 @@
                             <button class="dm-btn-popover-close dm-btn-card-footer-close dm-btn-card-nav" aria-label="Close Collection Card"></button>
                         </section>
                     </article>
+                    <div class="dm-status-bar" aria-live="assertive"></div>
                 </dialog>
             </section>
         </div>
     </main>
-    <footer></footer>
+    <footer>
+        <div class="dm-status-bar" aria-live="assertive"></div>
+    </footer>
 </body>
 </html>

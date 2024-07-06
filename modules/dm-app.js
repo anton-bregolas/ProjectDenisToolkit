@@ -1,21 +1,65 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis App v.0.1
+// #ProjectDenis App v.0.4
 ///////////////////////////////////////////////////////////////////////
 
-import { generateTunelistBtn, 
-         generateColsListBtn, 
-         generateTracklistBtn,
-         initToolkitButtons } from './dm-toolkit.js';
-
+import { generatorSection, toolkitMode, clearOutput, initToolkitButtons } from './dm-toolkit.js';
+import { searchSection, initSearch } from '../components/dm-search/dm-search.js';
 import { initModals } from '../components/dm-modals/dm-modals.js';
 import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
 import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
 
+// Launch App section
+
+const appLauncherSection = document.querySelector(".dm-launch");
+
 // Tune Database links
 
-export const tunesJsonLink ="https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tunes.json";
-export const tracksJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tracks.json"
-export const colsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/collections.json"
+export const tunesJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tunes.json";
+export const tracksJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tracks.json";
+export const colsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/collections.json";
+
+// Custom Data JSONs
+
+export let colsJson = [];
+export let tunesJson = [];
+export let tracksJson = [];
+
+// Update Custom Data JSON
+
+export function updateData(newData, dataType) {
+
+  if (dataType == "cols") {
+
+    colsJson = newData;
+    console.log("PD App:\n\nCollections JSON updated.");
+    // console.log(colsJson);
+  }
+
+  if (dataType == "tunes") {
+
+    tunesJson = newData;
+    console.log("PD App:\n\nTunes JSON updated.");
+    // console.log(tunesJson);
+  }
+
+  if (dataType == "tracks") {
+
+    tracksJson = newData;
+    console.log("PD App:\n\nTracks JSON updated.");
+    // console.log(tracksJson);
+  }
+}
+
+// Clear Data JSONs
+
+export function clearData() {
+
+  colsJson = [];
+  tunesJson = [];
+  tracksJson = [];
+
+  console.log("PD App:\n\nTune Data cleared!")
+}
 
 // Make a Tune data fetch request then return JSON or text or handle errors
 
@@ -51,7 +95,7 @@ export async function fetchData(url, type) {
 
     if (type === "json") {
 
-      console.log("Fetching Tune data...");
+      console.log("PD App:\n\nFetching Tune data...");
 
       data = await response.json();
 
@@ -61,19 +105,65 @@ export async function fetchData(url, type) {
 
     } else {
 
-      console.error("Invalid data type passed to Fetch!");
-      throw error;
+      errorMessage = "Invalid data type passed to Fetch!";
+
+      throw new Error(errorMessage);
     }
 
     return data;
 
   } catch (error) {
 
-    let errorMessage = error.message === "Failed to fetch"? "Network error, check your connection!" :
+    let thrownErrorMessage = error.message === "Failed to fetch"? "Network error, check your connection!" :
     error.message || "Fetching data failed, try again!";
 
-    console.error(`Error fetching Tune data:\n\n` + errorMessage);
-    // throw error;
+    console.error(`PD App:\n\nError fetching Tune data:\n\n` + thrownErrorMessage);
+
+    throw new Error(error);
+  }
+}
+
+// Fetch all Data JSONs, assign them to Custom JSONs
+
+export async function fetchDataJsons() {
+
+  try {
+
+    const [colsJsonData, tunesJsonData, tracksJsonData] =     
+    await Promise.all([fetchData(colsJsonLink, "json"), fetchData(tunesJsonLink, "json"), fetchData(tracksJsonLink, "json")]);
+
+    colsJson = colsJsonData;
+    tunesJson = tunesJsonData;
+    tracksJson = tracksJsonData;
+
+  } catch (error) {
+
+    throw new Error(`Error fetching Data JSONs!\n\n${error.message}`);
+  }
+}
+
+// Launch app sequence: Fetch all Data JSONs, assign them to Custom JSONs, reveal app menu
+
+export async function launchAppSequence() {
+
+  if (toolkitMode > 0) {
+
+    clearOutput();
+  }
+
+  try {
+
+    await fetchDataJsons();
+
+    console.log("PD App:\n\nTune Data successfully fetched and assigned to Data JSONs");
+
+    searchSection.removeAttribute("hidden");
+    generatorSection.removeAttribute("hidden");
+    appLauncherSection.setAttribute("hidden", "");
+
+  } catch (error) {
+
+    console.warn(`PD App:\n\nLaunching app sequence failed. Details:\n\n${error.message}`);
   }
 }
 
@@ -84,6 +174,7 @@ export async function fetchData(url, type) {
 document.addEventListener("DOMContentLoaded", () => {
   
     initToolkitButtons();
+    initSearch();
     initModals();
     initPopovers();
     initTracklist();
