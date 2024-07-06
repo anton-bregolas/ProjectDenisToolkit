@@ -44,7 +44,8 @@ body.light input[type="radio"]:checked {
   top: calc(100% - 1.1rem);
   z-index: 1;
   display: grid;
-  grid-template-rows: 3.4rem;
+  /* grid-template-rows: 3.4rem; */
+  grid-template-rows: 0rem;
   transition: grid-template-rows 0.5s ease-in-out;
 }
 
@@ -126,10 +127,15 @@ body.light input[type="radio"]:checked {
 
 .dm-search-counter {
   position: absolute;
-  font-size: var(--font-small);
+  font-size: var(--font-base);
   color: var(--neutral-color);
   right: 1%;
   opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#dm-search-results.unwrapped .dm-search-counter {
+  opacity: 1;
 }
 
 /* Search Data Radio Button Styles */

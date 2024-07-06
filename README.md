@@ -2,6 +2,10 @@
 ========================================================================================
 #ProjectDenis Toolkit is a set of simple tools for building and updating the database for the project in tribute to the Sliabh Luachra music legend, fiddle player Denis Murphy (1910–1974).
 
+[v.2.6]
+
++ Multi-word Search Engine with stop list.
+
 [v.2.5]
 
 + Search Engine added to Toolkit.
@@ -63,6 +67,12 @@
 + Reveals Search section with radio button group and search input / output.
 
 ## Search Engine v.1.0
+
+[v.1.1]
+
++ Search Engine now searches for each individual word in search input.
++ Basic stop list of English prepositions added.
++ Keyword is omitted from a multi-word search if stop list contains it.
 
 [v.1.0]
 

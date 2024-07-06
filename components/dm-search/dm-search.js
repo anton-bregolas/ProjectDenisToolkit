@@ -24,8 +24,12 @@ const searchResultsCounter = document.querySelector('#dm-search-results-found');
 // Define variable affecting search input behavior
 
 const minSearchLength = 2;
-const searchTimeoutValue = 100;
+const searchTimeoutValue = 150;
 let searchTimeout;
+
+// Define stop words for multi-word search
+
+const stopWordsList = ["a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "from", "if", "in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there", "these", "they", "this", "to", "was", "will", "with"];
 
 // Process search input and pass on value to showSearchMatches
 
@@ -36,6 +40,8 @@ async function searchDatabaseHandler() {
   if (searchValue.length < minSearchLength) {
 
     searchResultsDiv.textContent = "";
+
+    searchResultsCounter.textContent = "";
 
     return;
   }
@@ -48,9 +54,40 @@ async function searchDatabaseHandler() {
    
     const searchKeyword = searchValue.toLowerCase();
 
-    showSearchMatches(searchKeyword);
+    doMultiWordSearch(searchKeyword);
+
+    searchResultsCounter.textContent = `Found ${searchResultsDiv.children.length} items`;
 
   }, searchTimeoutValue);
+}
+
+// Try searching for a phrase and then each keyword separately
+
+async function doMultiWordSearch(keyword) {
+
+  showSearchMatches(keyword);
+
+  console.log(`PD Search Engine:\n\nFound ${searchResultsDiv.children.length} result(s) by keyword search`);
+
+  let searchMultiWord = keyword.split(' ');
+
+  if (searchMultiWord.length > 1) {
+
+    for (let i = 0; i < searchMultiWord.length; i++) {
+
+      if (stopWordsList.includes(searchMultiWord[i])) {
+
+        console.log(`PD Search Engine:\n\n"${searchMultiWord[i]}" found in search stop list`);
+      }
+
+      // console.warn(`Doing search #${i + 1}`);
+
+      if (!stopWordsList.includes(searchMultiWord[i])) {
+
+        showSearchMatches(searchMultiWord[i]);
+      }
+    }
+  }
 }
 
 // Filter Tune Data and display items matching the search input
@@ -98,6 +135,8 @@ async function showSearchMatches(keyword) {
 
   let searchJson = dataTypeSelected === "cols" ? colsJson : 
     dataTypeSelected === "tunes"? tunesJson : tracksJson;
+
+  let filteredResults = 0;
 
   searchKeys.forEach(keyObj => {
 
@@ -151,10 +190,41 @@ async function showSearchMatches(keyword) {
           searchItem.setAttribute("data-refno", trackRefNo);
         }
 
-        searchResultsDiv.append(searchItem);
+        if (isDuplicateResult(searchResultsDiv, searchItem)) {
+
+          filteredResults++
+        }
+
+        if (!isDuplicateResult(searchResultsDiv, searchItem)) {
+
+          searchResultsDiv.append(searchItem);
+        }
       }
     }
   });
+
+  console.log(`PD Search Engine:\n\nFound ${searchResultsDiv.children.length} result(s) by split word search`);
+
+  if (filteredResults > 0) {
+    console.log(`PD Search Engine:\n\nFiltered out ${filteredResults} result(s)`);
+  }
+}
+
+// Check if the next search result is a duplicate of an already found item
+
+function isDuplicateResult(resultsDiv, newItem) {
+
+  const searchResults = resultsDiv.children;
+
+  for (let i = 0; i < searchResults.length; i++) {
+
+      if (searchResults[i].isEqualNode(newItem)) {
+
+          return true;
+      }
+  }
+
+  return false;
 }
 
 // Modify search results when search radio value changes
@@ -172,15 +242,14 @@ function searchRadioHandler() {
 
       searchResultsDiv.textContent = "";
 
-      showSearchMatches(searchValue.toLowerCase());
+      doMultiWordSearch(searchValue.toLowerCase());
+
+      searchResultsCounter.textContent = searchResultsDiv.children.length === 1? `Found 1 item` : 
+        `Found ${searchResultsDiv.children.length} items`;
 
       if (searchResultsDiv.lastElementChild) {
 
         autoExpandSearchResults();
-
-      } else {
-
-        autoCollapseSearchResults();
       }
   }
 }
@@ -283,7 +352,7 @@ function toggleExpandSearchResults(event) {
 
 export function searchInputSoftClose(event) {
 
-  console.warn(event.relatedTarget);
+  // console.warn(event.relatedTarget);
 
   if (searchSection.contains(event.relatedTarget)) {
 

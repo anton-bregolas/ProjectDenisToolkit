@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.2.5
+// #ProjectDenis Toolkit v.2.6
 //
 // App Launcher v.0.3
-// Search Engine v.1.0
+// Search Engine v.1.1
 // List Generator v.2.0
 // TSV to JSON Parser v.2.0
 // JSON Splitter v.2.0

@@ -28,21 +28,21 @@ export function updateData(newData, dataType) {
 
     colsJson = newData;
     console.log("PD App:\n\nCollections JSON updated.");
-    console.log(colsJson);
+    // console.log(colsJson);
   }
 
   if (dataType == "tunes") {
 
     tunesJson = newData;
     console.log("PD App:\n\nTunes JSON updated.");
-    console.log(tunesJson);
+    // console.log(tunesJson);
   }
 
   if (dataType == "tracks") {
 
     tracksJson = newData;
     console.log("PD App:\n\nTracks JSON updated.");
-    console.log(tracksJson);
+    // console.log(tracksJson);
   }
 }
 
