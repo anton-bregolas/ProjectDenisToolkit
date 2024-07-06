@@ -4,7 +4,11 @@
 
 [v.2.5]
 
-+
++ Search Engine added to Toolkit.
++ App launcher added to Toolkit.
++ Icons added and tidied up.
++ Button styles refactored.
++ Try-catch blocks added to scripts.
 
 [v.2.4]
 
@@ -51,11 +55,24 @@
 + Three experimental color themes added: Rainy theme, Rainbow theme and The Star above the Garter theme.
 + Color theme toggle button now triggers a popover offering a selection of themes.
 
+## App Launcher v.1.0
+
+[v.1.0]
+
++ Fetches Tracks, Collections and Tunes JSONs and assigns them to custom JSONs.
++ Reveals Search section with radio button group and search input / output.
+
 ## Search Engine v.1.0
 
 [v.1.0]
 
-+
++ Search split into three categories – Tracks, Collections and Tunes.
++ Radio button group checked value determines current search category.
++ Search filters through Tune Data JSON using the includes() method.
++ Search item cards are cloned and appended to Search Result section.
++ Each search item specifies search result type, name and ref. no.
++ Each search item is a button that triggers a Show Popover function.
++ Choice of functions is delegated to showPopoverHandler.
 
 ## List Generator v.2.0
 

@@ -196,7 +196,10 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 .dm-track-grid-item a,
 .dm-col-grid-nav button,
 .dm-track-grid-nav button,
-.dm-btn-open-track:not(.dm-tunelist-item) {
+.dm-col-grid-nav .dm-btn-open-track,
+.dm-track-grid-nav .dm-btn-open-track,
+.tune-grid-refno-cont .dm-btn-open-track,
+.dm-track-grid-source .dm-btn-open-track {
   font-weight: bold;
 }
 
@@ -234,15 +237,11 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   transition: color 0.5s ease-in-out;
 }
 
-.dm-btn-open-track {
-  color: var(--accent-color-b);
-}
-
 .dm-col-grid-item a, 
 .dm-track-grid-item a,
 .dm-col-grid-nav button,
 .dm-track-grid-nav button,
-.track-grid-colno-cont .dm-btn-open-track {
+.dm-track-grid-source button {
   color: var(--secondary-color-b);
   text-shadow: 1px 1px 1px #111111;
 }
@@ -302,7 +301,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 .dm-col-grid-nav button,
 .dm-track-grid-nav button,
 .dm-track-grid-source,
-.track-grid-colno-cont .dm-btn-open-track {
+.dm-track-grid-source .dm-btn-open-track  {
   border-radius: 0.33rem;
 }
 
@@ -322,7 +321,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 
 .dm-col-grid-item a:is(:focus, :focus-visible),
 .dm-track-grid-item a:is(:focus, :focus-visible),
-.track-grid-colno-cont .dm-btn-open-track:is(:focus, :focus-visible) {
+.dm-track-grid-source .dm-btn-open-track :is(:focus, :focus-visible) {
   outline: 0.2rem solid yellow;
 }
 
@@ -334,7 +333,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 .dm-tune-grid-item a,
 .dm-col-grid-item a,
 .dm-track-grid-item a,
-.track-grid-colno-cont .dm-btn-open-track {
+.dm-track-grid-source .dm-btn-open-track {
   outline-offset: 0.25rem;
 }
 
@@ -343,7 +342,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 .dm-col-grid-item a:is(:active, :hover, :focus, :focus-visible),
 .dm-track-grid-item a:is(:active, :hover, :focus, :focus-visible),
 .dm-tune-grid-item .dm-btn-open-track:is(:active, :hover, :focus, :focus-visible),
-.track-grid-colno-cont .dm-btn-open-track:is(:active, :hover, :focus, :focus-visible) {
+.dm-track-grid-source .dm-btn-open-track:is(:active, :hover, :focus, :focus-visible) {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-decoration-skip-ink: all;
@@ -712,7 +711,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 }
 
 .dm-track-grid-item a,
-.track-grid-colno-cont .dm-btn-open-track {
+.dm-track-grid-source .dm-btn-open-track {
   text-shadow: 1px 1px 2px #111111;
 }
 

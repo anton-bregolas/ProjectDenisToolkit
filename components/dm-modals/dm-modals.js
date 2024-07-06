@@ -1,14 +1,16 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
-import { colsDiv, tracksDiv, tunesDiv, validateJson, generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { toolkitMode, colsDiv, tracksDiv, tunesDiv, statusBars,
+         generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
 import { tracklistDiv, tracklistOutput, generateTracklist, tracklistHeaders } from '../dm-tracklist/dm-tracklist.js';         
-import { toggleAriaExpanded, toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
-import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from '../../modules/dm-app.js';
+import { toggleAriaExpanded, toggleAriaHidden, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
+import { fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
 import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 export const colsListDiv = document.querySelector('#dm-collist');
 export const dialogsDiv = document.querySelector('#dm-dialogs');
+export const allDialogLists = document.querySelectorAll('.dm-modal-list');
 export const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
 export const colsListDialog = document.querySelector('#dm-modal-list-cols');
 const closeTunelistBtn = document.querySelector('#dm-btn-tunelist-close');
@@ -20,6 +22,7 @@ export async function generateHandler() {
 
   const genBtn = this;
 
+  let parentJson;
   let parentDialog;
   let parentDialogDiv;
   let parentDiv;
@@ -28,6 +31,7 @@ export async function generateHandler() {
 
   if (genBtn === generateTunelistBtn) {
 
+    parentJson = tunesJson;
     parentDialog = tunelistDialog;
     parentDialogDiv = tunelistDiv;
     parentDiv = tunesDiv;
@@ -37,6 +41,7 @@ export async function generateHandler() {
 
   if (genBtn === generateColsListBtn) {
 
+    parentJson = colsJson;
     parentDialog = colsListDialog;
     parentDialogDiv = colsListDiv;
     parentDiv = colsDiv;
@@ -46,30 +51,30 @@ export async function generateHandler() {
 
   if (genBtn === generateTracklistBtn) {
 
+    parentJson = tracksJson;
     parentDialogDiv = tracklistDiv;
     parentDiv = tracksDiv;
     listName = "Track";
     itemName = "tracks";
   }
 
-  const counterDiv = parentDiv.previousElementSibling;
-  const jsonData = parentDiv.textContent;
-  let parentJson = await validateJson(jsonData);
-
   if (parentJson.length === 0) {
 
-    parentJson = parentDiv === tunesDiv? await fetchData(tunesJsonLink, "json") :
+    console.warn(`PD List Generator:\n\nNo ${itemName} found in ${itemName[0].toUpperCase() + itemName.slice(1)} JSON!`);
 
-                 parentDiv === colsDiv? await fetchData(colsJsonLink, "json") :
+    if (toolkitMode > 0) {
 
-                 await fetchData(tracksJsonLink, "json");
+      return;
+    }
+
+    await fetchDataJsons();
   }
 
   if (Array.isArray(parentJson) && parentJson.length > 0) {
 
       if (!parentDialogDiv.children.length > 0) {
 
-        console.log(`Generating list of ${itemName}...`);
+        console.log(`PD App:\n\nGenerating list of ${itemName}...`);
 
         if (genBtn === generateTunelistBtn) {
 
@@ -92,7 +97,7 @@ export async function generateHandler() {
 
       } else {
 
-        console.log(`${listName}list found, ${itemName} total: ${parentJson.length}`);
+        console.log(`PD App:\n\n${listName}list found, ${itemName} total: ${parentJson.length}`);
       }
 
       if (genBtn === generateTracklistBtn) {
@@ -104,16 +109,12 @@ export async function generateHandler() {
           
       } else {
 
-        dialogsDiv.classList.toggle("hidden");
-        toggleAriaHidden(dialogsDiv);
-        toggleAriaHidden(parentDialog);
+        showDialogsDiv();
+        removeAriaHidden(parentDialog);
         parentDialog.showModal();
         return;
       }  
   }  
-
-    console.warn(`No ${itemName} found!`)
-    counterDiv.focus({ focusVisible: true });
 }
 
 // Create Tunelist modal dialog populated with Tune items
@@ -155,7 +156,7 @@ export async function generateTunelist(tunesJson) {
     tunelistDiv.appendChild(tuneItemWrapper);
   });
 
-  console.log(`Tunelist generated, tunes total: ${tunesJson.length}`);
+  console.log(`PD App:\n\nTunelist generated, tunes total: ${tunesJson.length}`);
 }
 
 // Create Collection List modal dialog populated with Collection items
@@ -207,7 +208,7 @@ export async function generateColsList(colsJson) {
     colsListDiv.appendChild(colRow);
   });
 
-  console.log(`Collections list generated, collections total: ${colsJson.length}`);
+  console.log(`PD App:\n\nCollections list generated, collections total: ${colsJson.length}`);
 }
 
 // Close dialog window depending on the button pressed
@@ -217,12 +218,35 @@ function closeDialogHandler() {
   let parentDialog = this === closeTunelistBtn? tunelistDialog : colsListDialog;
 
   parentDialog.close();
-  toggleAriaHidden(parentDialog);
-  dialogsDiv.classList.toggle("hidden");
-  toggleAriaHidden(dialogsDiv);
+  addAriaHidden(parentDialog);
+  hideDialogsDiv();
+
+  statusBars.forEach(bar => {
+
+    bar.textContent = "Dialog window was closed";
+
+    setTimeout(() => {
+      bar.textContent = "";
+    }, 3000);
+  });
 }
 
-// Add event listeners to Tunelist buttons
+// Hide Dialogs sections
+
+export function hideDialogsDiv() {
+
+  dialogsDiv.classList.add("hidden");
+  addAriaHidden(dialogsDiv);
+}
+
+// Show Dialogs sections
+
+export function showDialogsDiv() {
+  dialogsDiv.classList.remove("hidden");
+  removeAriaHidden(dialogsDiv);
+}
+
+// Add event listeners to Tunelist buttons, listen to Dialog close & cancel events
 
 export function initModals() {
 
@@ -237,4 +261,9 @@ export function initModals() {
   });
 
   colsListDiv.addEventListener('click', showPopoverHandler);
+
+  allDialogLists.forEach(dialog => {
+
+    dialog.addEventListener('cancel', hideDialogsDiv);
+  });
 }

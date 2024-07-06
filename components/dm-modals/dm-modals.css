@@ -87,7 +87,6 @@ html:has(dialog[open]) {
   display: grid;
   overflow-y: auto;
   overscroll-behavior-y: contain;
-  padding: 1em;
   min-height: 5rem;
 }
 
@@ -96,6 +95,7 @@ html:has(dialog[open]) {
   scrollbar-gutter: stable both-edges;
   grid-template-columns: repeat(auto-fit, var(--tunelist-item-width));
   gap: 0.75rem;
+  padding: 1.5em;
 }
 
 .dm-tunelist-container:focus-visible,
@@ -155,6 +155,9 @@ html:has(dialog[open]) {
 
 /* Collection List */
 
+.dm-collist-container {
+  padding: 1em;
+}
 
 #dm-collist-table {
   width: 100%;
@@ -249,6 +252,21 @@ html:has(dialog[open]) {
   background-color: color-mix(in srgb, var(--collist-item-color) 75%, white);
 }
 
+/* Status Bar styles */
+
+.dm-status-bar {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  height: 1px; 
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Media queries for dialogs */
 
 /* @media screen and (max-width: 968px) { */
@@ -308,16 +326,33 @@ html:has(dialog[open]) {
   }
 }
 
-/* @media screen and (max-width: 320px) { */
-@media screen and (max-width: 20em) {
+/* @media screen and (max-width: 408px) { */
+@media screen and (max-width: 25.5em) {
 
   body {
     --tunelist-item-width: 100%;
   }
 
+  .dm-tunelist-container {
+    scrollbar-gutter: unset;
+  }
+}
+
+/* @media screen and (max-width: 320px) { */
+@media screen and (max-width: 20em) {
+
   .dm-modal-list {
     min-height: 100svh;
     min-width: 100svw;
+  }
+
+  .dm-tunelist-container,
+  .dm-collist-container {
+    padding: 0.5em;
+  }
+
+  .dm-modal-list-header-container {
+    padding: 0.75em;
   }
 
   .dm-tunelist-container {
@@ -325,6 +360,11 @@ html:has(dialog[open]) {
     flex-flow: column;
     align-content: center;
     justify-content: flex-start;
+    padding: 0.5em;
+  }
+
+  .dm-tunelist-item-wrapper {
+    padding: 0.09em;
   }
 
   .dm-modal-list-header-container > .btn {
@@ -333,13 +373,5 @@ html:has(dialog[open]) {
 
   .dm-tunelist-item {
     container-type: inline-size;
-  }
-
-  .dm-tunelist-item-title {
-    font-size: 7.5cqi;
-  }
-
-  .dm-tunelist-item-alttitle {
-    font-size: 6.5cqi;
   }
 }

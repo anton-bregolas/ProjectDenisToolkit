@@ -1,6 +1,8 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.2.4
+// #ProjectDenis Toolkit v.2.5
 //
+// App Launcher v.0.3
+// Search Engine v.1.0
 // List Generator v.2.0
 // TSV to JSON Parser v.2.0
 // JSON Splitter v.2.0
@@ -9,8 +11,8 @@
 import { tracklistDiv, tracklistOutput } from '../components/dm-tracklist/dm-tracklist.js'
 import { tunelistDiv, colsListDiv } from '../components/dm-modals/dm-modals.js';
 import { themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
-import { toggleAriaExpanded, toggleAriaHidden, toggleTabIndex, setAriaLabel } from './aria-tools.js';
-import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from './dm-app.js';
+import { toggleAriaExpanded, toggleTabIndex, setAriaLabel, addAriaHidden } from './aria-tools.js';
+import { updateData, clearData, launchAppSequence, tracksJson, colsJson, tunesJson } from './dm-app.js';
 
 // Define keys in track and collection header objects
 
@@ -27,9 +29,18 @@ export const tunesDiv = document.getElementById('tunes-output');
 
 // Define Generator buttons
 
+export const startExploringBtn = document.querySelector('#dm-btn-start-exploring');
 export const generateTunelistBtn = document.querySelector('#dm-btn-generate-tunelist');
 export const generateColsListBtn = document.querySelector('#dm-btn-generate-collections');
 export const generateTracklistBtn = document.querySelector('#dm-btn-generate-tracklist');
+
+// Define global variable that if > 0 turns off fetching to update empty Tune Data JSONs
+
+export let toolkitMode = 0;
+
+// Define status bars for screenreaders
+
+export const statusBars = document.querySelectorAll('.dm-status-bar');
 
 // Check if a line in a raw tsv file is a track or a collection header (= 1000s)
 
@@ -150,7 +161,7 @@ async function parseFromFile() {
 
         fileInput.onchange = async function() {
 
-            console.log("Parsing TSV file...");
+            console.log("JSON Parser:\n\nParsing TSV file...");
 
             const file = this.files[0];
 
@@ -189,7 +200,7 @@ async function parseFromFile() {
                 }
 
             } catch (error) {
-                console.error('Error reading file content:', error);
+                console.error('JSON Parser:\n\nError reading file content:', error);
                 displayWarning(error.message);
             }}
         
@@ -197,7 +208,7 @@ async function parseFromFile() {
 
     } catch (error) {
 
-        console.error("parseFromFile sequence failed!");
+        console.error("JSON Parser:\n\nparseFromFile sequence failed!");
         displayWarning(error.message);
     }
 }
@@ -224,7 +235,7 @@ async function splitMixedJson() {
 
             } else {
 
-                console.error("Error! No JSON file selected.");
+                console.error("JSON Splitter:\n\nError! No JSON file selected.");
                 displayWarning(error.message);
             }
         });
@@ -233,7 +244,7 @@ async function splitMixedJson() {
 
     } catch (error) {
 
-        console.error("Error! splitMixedJson sequense failed.");
+        console.error("JSON Splitter:\n\nError! splitMixedJson sequense failed.");
         displayWarning(error.message);
     }
 }
@@ -267,26 +278,26 @@ export function disableGenButtons() {
 
 export function clearOutput() {
 
+    toolkitMode = 0;
     inputDiv.value = "";
-    outputDiv.textContent = "";
-    colsDiv.textContent = "";
-    tracksDiv.textContent = "";
-    tunesDiv.textContent = "";
+    outputDiv.textContent = "Data cleared.";
+    colsDiv.textContent = "Data cleared.";
+    tracksDiv.textContent = "Data cleared.";
+    tunesDiv.textContent = "Data cleared.";
     colsDiv.previousElementSibling.textContent = `Collections: 0`;
     tracksDiv.previousElementSibling.textContent = `Tracks: 0`;
     tunesDiv.previousElementSibling.textContent = `Tunes: 0`;
     tunelistDiv.textContent = ""; 
     colsListDiv.textContent = ""; 
     tracklistDiv.textContent = "";
+    clearData();
 
     if (!tracklistOutput.classList.contains("hidden")) {
 
-        tracklistOutput.classList.toggle("hidden");
-        toggleAriaHidden(tracklistOutput);
+        addAriaHidden(tracklistOutput);
+        tracklistOutput.classList.add("hidden");
         toggleAriaExpanded(generateTracklistBtn);
     }
-
-    disableGenButtons();
 }
 
 // Convert a tsv line into an object of specified type
@@ -306,47 +317,52 @@ function parseTabSeparatedString(line, keys) {
 
 // Convert the contents of the main output into collections, tracks and tunes JSONs, print the results to respective outputs
 
-function filterOutput(mixedJson) {
+async function filterOutput(mixedJson) {
 
     if (Array.isArray(mixedJson) || mixedJson.length > 0) {
 
-        let collectionsArr = [];
-        let tracksArr = [];
-        let tunesArr = [];
 
-        collectionsArr = mixedJson.filter(obj => checkObjectType(obj, "colrefno"));
-        tracksArr = mixedJson.filter(obj => checkObjectType(obj, "refno"));
+        tunelistDiv.textContent = ""; 
+        colsListDiv.textContent = ""; 
+        tracklistDiv.textContent = "";
+        clearData();
+
+        let filteredColsJson = mixedJson.filter(obj => checkObjectType(obj, "colrefno"));
+        let filteredTracksJson = mixedJson.filter(obj => checkObjectType(obj, "refno"));
+
+        let updatedColsJson = await validateJson(filteredColsJson);
+        let updatedTracksJson = await validateJson(filteredTracksJson);
+
+        updateData(updatedColsJson, "cols");
+        updateData(updatedTracksJson, "tracks");
         
-        if (tracksArr.length > 0) {
+        if (tracksJson.length > 0) {
 
-            createTuneList(tracksArr).then(result => {
+            createTuneList(tracksJson).then(result => {
 
-                tunelistDiv.textContent = "";
-                console.log("Tunes JSON cleared...");
+                updateData(result, "tunes");
 
-                tunesArr.push(...result);
-                colsDiv.innerText = JSON.stringify(collectionsArr, null, 2);
-                colsDiv.previousElementSibling.textContent = `Collections: ${collectionsArr.length}`;
-                tracksDiv.innerText = JSON.stringify(tracksArr, null, 2);
-                tracksDiv.previousElementSibling.textContent = `Tracks: ${tracksArr.length}`;
-                tunesDiv.innerText = JSON.stringify(tunesArr, null, 2);
-                tunesDiv.previousElementSibling.textContent = `Tunes: ${tunesArr.length}`;
-                console.log("Tunes JSON created!");
-                generateTracklistBtn.removeAttribute("disabled");
-                generateTracklistBtn.focus();
+                colsDiv.innerText = JSON.stringify(colsJson, null, 2);
+                colsDiv.previousElementSibling.textContent = `Collections: ${colsJson.length}`;
+                tracksDiv.innerText = JSON.stringify(tracksJson, null, 2);
+                tracksDiv.previousElementSibling.textContent = `Tracks: ${tracksJson.length}`;
+                tunesDiv.innerText = JSON.stringify(tunesJson, null, 2);
+                tunesDiv.previousElementSibling.textContent = `Tunes: ${tunesJson.length}`;
+                generateTracklistBtn.focus();                
+                toolkitMode = 1;
                 return;
             });
 
-        } else if (collectionsArr.length > 0) {
+        } else if (colsJson.length > 0) {
 
-            colsDiv.innerText = JSON.stringify(collectionsArr, null, 2);
-            colsDiv.previousElementSibling.textContent = `Collections: ${collectionsArr.length}`;
+            colsDiv.innerText = JSON.stringify(colsJson, null, 2);
+            colsDiv.previousElementSibling.textContent = `Collections: ${colsJson.length}`;
             tracksDiv.innerText = "No tracks data found in JSON.";
             tracksDiv.previousElementSibling.textContent = `Tracks: 0`;
             tunesDiv.innerText = "No tune data found in JSON.";
             tunesDiv.previousElementSibling.textContent = `Tunes: 0`;
-            generateTracklistBtn.removeAttribute("disabled");
             generateTracklistBtn.focus();
+            toolkitMode = 1;
             return;
         }
     }
@@ -357,6 +373,7 @@ function filterOutput(mixedJson) {
     tracksDiv.previousElementSibling.textContent = `Tracks: 0`;
     tunesDiv.innerText = "No tune data found in JSON.";
     tunesDiv.previousElementSibling.textContent = `Tunes: 0`;
+    toolkitMode = 0;
 }
 
 // Filter down items to a unique comma-separated string of links removing duplicates
@@ -390,7 +407,7 @@ async function createTuneList(tracks) {
 
         let tunesMap = new Map();
 
-        console.log("Creating Tunes JSON...");
+        console.log("JSON Splitter:\n\nCreating Tunes JSON...");
 
         tracks.forEach(track => {
 
@@ -432,7 +449,7 @@ async function createTuneList(tracks) {
 
     } catch (error) {
 
-        console.error("Error! createTuneList sequence failed.");
+        console.error("JSON Splitter:\n\nError! createTuneList sequence failed.");
         displayWarning(error.message);
     }
 }
@@ -445,7 +462,7 @@ export async function validateJson(jsonInput) {
   
       try {
   
-          jsonOutput = JSON.parse(jsonInput);
+          jsonOutput = JSON.parse(JSON.stringify(jsonInput));
   
           if (jsonOutput && typeof jsonOutput === "object") {
 
@@ -454,11 +471,18 @@ export async function validateJson(jsonInput) {
       }
   
       catch (error) { 
-  
-        // console.warn(`JSON validator: "${error.message}"`);
+
+        console.warn(`JSON Validator:\n\n"${error.message}"\n\nReturning empty JSON.`);
       }
 
       return [];
+}
+
+// Add multiple event listeners to the element
+
+export function addMultiEventListeners(element, events, handler) {
+
+    events.forEach(event => element.addEventListener(event, handler));
 }
 
 // Add event listeners to Toolkit buttons
@@ -478,9 +502,10 @@ export async function initToolkitButtons() {
     const tracksCounter = tracksDiv.previousElementSibling;
     const tunesCounter = tunesDiv.previousElementSibling;
 
-    const allBtn = document.querySelectorAll(".btn");
-    const allThemeBtn = document.querySelectorAll(".dm-btn-theme");
-    const themeBtn = document.getElementById('theme-toggle-btn');
+    const allThemeBtn = document.querySelectorAll(".theme-btn");
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+    startExploringBtn.addEventListener("click", launchAppSequence);
 
     parseSingleStringBtn.addEventListener("click", parseSingleString);
     parseFromFileBtn.addEventListener("click", parseFromFile);
@@ -492,46 +517,21 @@ export async function initToolkitButtons() {
     getTracksBtn.addEventListener("click", () => saveOutputFile("tracks-output", "tracks"));
     getTunesBtn.addEventListener("click", () => saveOutputFile("tunes-output", "tunes"));
 
-    // Button animations
-
-    ['mouseover', 'focusin'].forEach(event => {
-        allBtn.forEach(btn => {
-            btn.addEventListener(event, () => {                
-                if (!btn.disabled) {
-                    btn.classList.add('hovered');
-                    let btnText = btn.querySelector('.btn-text');
-                    let btnIcon = btn.querySelector('.btn-icon');
-                    btnText?.classList.add('enlarged');
-                    btnIcon?.classList.add('enlarged');
-                }
-            });
-        });
-    });
-
-    ['mouseout', 'focusout'].forEach(event => {
-        allBtn.forEach(btn => {
-            btn.addEventListener(event, () => {
-                if (!btn.disabled) {
-                    btn.classList.remove('hovered');
-                    let btnText = btn.querySelector('.btn-text');
-                    let btnIcon = btn.querySelector('.btn-icon');
-                    btnText?.classList.remove('enlarged');
-                    btnIcon?.classList.remove('enlarged');
-                }
-            });
-        });
-    });
-
     // Color theme toggle buttons
 
     allThemeBtn.forEach(btn => {
 
         btn.addEventListener('click', () => {
 
+            if (btn === themeToggleBtn) {
+
+                return;
+            }
+
             themePickerPopover.hidePopover();
             document.body.classList.value = btn.dataset.theme;
 
-            setAriaLabel(themeBtn, `${btn.title} is on. Select color theme.`);
+            setAriaLabel(themeToggleBtn, `${btn.title} is on. Select color theme.`);
 
             allThemeBtn.forEach(btn => { 
                 if (btn.classList.contains("hidden")) {
@@ -541,7 +541,7 @@ export async function initToolkitButtons() {
 
             btn.classList.add("hidden");
 
-            themeBtn.focus();
+            themeToggleBtn.focus();
         });
      });
 
@@ -551,12 +551,4 @@ export async function initToolkitButtons() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
          })
      });
-
-     const tunesOutput = tunelistDiv.textContent;
-     const tunesJson = await validateJson(tunesOutput);
-
-     if (tunesJson.length === 0) {
-
-        disableGenButtons();
-     }
 }

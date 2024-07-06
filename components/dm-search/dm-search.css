@@ -1,0 +1,228 @@
+/* #ProjectDenis: Search Styles */
+
+body {
+  --search-item-width: 21rem;
+}
+
+body.light input[type="radio"] {
+  box-shadow: 0 0 0 2px black;
+}
+
+body.light input[type="radio"]:checked {
+  background-color: var(--focus-color);
+}
+
+/* Search Engine Styles */
+
+.dm-search-engine {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 5.5rem;
+}
+
+.dm-search-engine:focus-within #dm-search-input,
+.dm-search-engine:focus-within .dm-search-results-group {
+  outline: 0.16rem solid var(--focus-color);
+  outline-offset: 0.07rem;
+  box-shadow: 0px 0px 0px 0.1875rem black;
+}
+
+#dm-search-input {
+  position: relative;
+  margin-bottom: 0;
+  opacity: 0.95;
+  z-index: 2;
+}
+
+#dm-search-input:is(:hover, :focus, :focus-visible, :focus-within) {
+  opacity: 1;
+}
+
+#dm-search-results {
+  width: 100%;
+  position: absolute;
+  top: calc(100% - 1.1rem);
+  z-index: 1;
+  display: grid;
+  grid-template-rows: 3.4rem;
+  transition: grid-template-rows 0.5s ease-in-out;
+}
+
+#dm-search-results.unwrapped {
+  grid-template-rows: 1fr;
+}
+
+.dm-search-container {
+  width: 100%;
+  position: relative;
+}
+
+/* Search Results Group Styles */
+
+.dm-search-results-group {
+  width: 100%;
+  max-height: 75svh;
+  overflow-y: hidden;
+  position: relative;
+  left: 0;
+  background-color: var(--primary-color);
+  opacity: 0.95;
+  min-height: 0;
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border: 0.3125rem solid var(--secondary-color-b);
+  border-top: none;
+  /* z-index: 1; */
+}
+
+/* #dm-search-results.unwrapped .dm-search-results-group {
+  overflow-y: auto;
+} */
+
+.dm-search-results-container {
+  display: grid;
+  gap: 0.75rem;
+  padding: 2.16em 0.75em 0.75em;
+  grid-template-columns: repeat(auto-fill, minmax(var(--search-item-width), 1fr));
+}
+
+/* Search Results Wrapper Styles */
+
+.dm-btn-search-wrap {
+  position: sticky  ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+  width: 100%;
+  height: 2rem;
+  background-color: var(--primary-color);
+  z-index: 3;
+  outline-offset: -0.2rem;
+}
+
+.dm-btn-search-wrap:is(:hover, :focus, :focus-visible) {
+  outline-color: var(--accent-color-b);
+}
+
+.dm-btn-search-wrap .action-icon-container {
+  width: 2rem;
+  height: 2rem;
+  transition: transform 0.5s ease-in-out;
+}
+
+.dm-btn-search-wrap .action-icon-container > * {
+  color: var(--secondary-color-b);
+}
+
+#dm-search-results.unwrapped .dm-btn-search-wrap {
+  opacity: 0.95;
+}
+
+#dm-search-results.unwrapped .action-icon-container {
+  transform: rotateX(180deg);
+}
+
+.dm-search-counter {
+  position: absolute;
+  font-size: var(--font-small);
+  color: var(--neutral-color);
+  right: 1%;
+  opacity: 0;
+}
+
+/* Search Data Radio Button Styles */
+
+.dm-search-radio-container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2rem;
+  padding-bottom: 1em;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  /* text-align: center; */
+}
+
+.dm-search-radio-legend {
+  margin: 0 auto 2rem;
+}
+
+.dm-label-radio {
+  display: inline-flex;
+  gap: 3rem;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.dm-btn-radio, .dm-label-radio {
+  cursor: pointer;
+}
+
+/* Search Result Item Styles */
+
+.dm-btn-search-item {
+  padding: 0.25em;
+  flex-grow: 1;
+}
+
+.dm-btn-search-item {
+  display: flex;
+  flex-flow: column;
+  /* min-width: calc(var(--search-item-width)); */
+  background-color: var(--tunelist-item-color);
+  border: 1px dashed var(--accent-color-b);
+  overflow: hidden;
+  border-radius: 0.25rem;
+  padding: 0.5em;
+  outline-color: var(--focus-color);
+  outline-offset: 0rem;
+  gap: 0.15rem;
+}
+
+.dm-btn-search-item:hover, .dm-btn-search-item:is(:focus, :focus-visible) {
+  background-color: var(--tunelist-item-hover-color);
+}
+
+.dm-search-item-name,
+.dm-search-item-type,
+.dm-search-item-refno {
+  width: 100%;
+  text-wrap: nowrap;
+  overflow: clip;
+  text-align: center;
+  text-align-last: center;
+  text-overflow: ellipsis;
+}
+
+.dm-search-item-name {
+  color: var(--neutral-color);
+  font-size: var(--font-base);
+  padding: 0.15em 0;
+}
+
+.dm-search-item-type,
+.dm-search-item-refno {
+  color: var(--neutral-color-alt);
+  font-size: var(--font-small);
+}
+
+/* Media queries for search section */
+
+/* @media screen and (max-width: 668px) { */
+@media screen and (max-width: 41.75em) {
+
+  .dm-search-results-container {
+    grid-template-columns: 1fr;
+  }
+
+  .dm-search-radio-container {
+    flex-flow: column;
+  }
+
+  .dm-label-radio {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

@@ -1,10 +1,11 @@
 /* #ProjectDenis: Tracklist Scripts */
 
-import { colsDiv, tracksDiv, validateJson, generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
-import { tunelistDiv, colsListDiv, dialogsDiv, tunelistDialog, colsListDialog } from '../dm-modals/dm-modals.js';
-import { toggleAriaExpanded, toggleAriaHidden, toggleTabIndex, setAriaLabel } from '../../modules/aria-tools.js';
-import { tunesJsonLink, tracksJsonLink, colsJsonLink, fetchData } from '../../modules/dm-app.js';
-import { trackCardPopover, showPopoverHandler } from '../dm-popovers/dm-popovers.js';
+import { toolkitMode, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { tunelistDialog, colsListDialog, hideDialogsDiv } from '../dm-modals/dm-modals.js';
+import { toggleAriaExpanded, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
+import { fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
+import { autoCollapseSearchResults, searchResultsSection } from '../dm-search/dm-search.js';
+import { trackCardPopover, colCardPopover, tuneCardPopover, showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 
 export const tracklistDiv = document.querySelector('#dm-tracklist');
 export const tracklistOutput = document.querySelector('#dm-tracklist-output');
@@ -16,184 +17,216 @@ export async function generateTracklist(tracksJson, isCustomSorted) {
 
   tracklistDiv.textContent = "";
 
-  let colsJson = await validateJson(colsDiv.textContent);
-
   if (colsJson.length === 0) {
 
-    colsJson = await fetchData(colsJsonLink, "json");
+    console.warn("PD App:\n\nNo collections found in Collections JSON!");
+    
+    if (toolkitMode === 0) {
+
+      await fetchDataJsons();
+    }
   }
 
-  let firstTrackNo = tracksJson[0].refno;
-  let colNo = Math.floor(firstTrackNo / 1000) * 1000;
-  let sortOrder = tracklistDiv.dataset.sortedby.split("-")[1];
+  try {
 
-  tracksJson.forEach(trackObject  => {
+    let firstTrackNo = tracksJson[0].refno;
+    let colNo = Math.floor(firstTrackNo / 1000) * 1000;
+    let sortOrder = tracklistDiv.dataset.sortedby.split("-")[1];
 
-    const trackRefNo = trackObject.refno;
-    const trackNo = trackObject.trackno;
-    const trackTuneRef = trackObject.tuneref;
-    const trackTuneName = trackObject.tunename;
-    const trackTuneType = trackObject.tunetype;
-    const trackPubYear = trackObject.pubyear;
-    const trackRecYear = trackObject.recyear;
-    const trackPerformers = trackObject.performers;
+    tracksJson.forEach(trackObject  => {
 
-    if (isCustomSorted !== 1) {
+      const trackRefNo = trackObject.refno;
+      const trackNo = trackObject.trackno;
+      const trackTuneRef = trackObject.tuneref;
+      const trackTuneName = trackObject.tunename;
+      const trackTuneType = trackObject.tunetype;
+      const trackPubYear = trackObject.pubyear;
+      const trackRecYear = trackObject.recyear;
+      const trackPerformers = trackObject.performers;
 
-      // Create collection header row
+      if (isCustomSorted !== 1) {
 
-      if (trackRefNo === tracksJson[0].refno || 
-          (sortOrder === "ascending" && trackRefNo > colNo + 1000) || 
-          (sortOrder === "descending" && trackRefNo < colNo)) {
+        // Create collection header row
 
-        firstTrackNo = trackRefNo;
+        try {
 
-        if (trackRefNo === firstTrackNo) {
+          if (trackRefNo === tracksJson[0].refno || 
+              (sortOrder === "ascending" && trackRefNo > colNo + 1000) || 
+              (sortOrder === "descending" && trackRefNo < colNo)) {
 
-          colNo = Math.floor(trackRefNo / 1000) * 1000;
+            firstTrackNo = trackRefNo;
 
-          const colObject = colsJson.find(col => col.colrefno == colNo);
+            if (trackRefNo === firstTrackNo) {
 
-          const colRefNo = colObject.colrefno;
-          const colTracksNo = colObject.trackstotal;
-          const colName = colObject.colname;
-          const colRefCode = colObject.refcode;
-          const colPubCode = colObject.pubcode;
-          const colPubYear = colObject.pubyear;
-          const colRecYear = colObject.recyear;
-          const colPerformers = colObject.performers;
+              colNo = Math.floor(trackRefNo / 1000) * 1000;
 
-          const colHeadRow = document.createElement("tr");
-          colHeadRow.classList.add("dm-tracklist-row", "dm-tracklist-col-header-row");
-          colHeadRow.setAttribute("data-refno", colRefNo);
+              const colObject = colsJson.find(col => col.colrefno == colNo);
 
-          const colHeadTextArr = [colRefNo, colTracksNo, colName, colPubCode, colRefCode, colRecYear, colPubYear, colPerformers]; 
-      
-          colHeadTextArr.forEach(text => {
+              const colRefNo = colObject.colrefno;
+              const colTracksNo = colObject.trackstotal;
+              const colName = colObject.colname;
+              const colRefCode = colObject.refcode;
+              const colPubCode = colObject.pubcode;
+              const colPubYear = colObject.pubyear;
+              const colRecYear = colObject.recyear;
+              const colPerformers = colObject.performers;
 
-            const colHeadItem = document.createElement("td");
-            colHeadItem.classList.add("dm-tracklist-item", "dm-tracklist-col-header-item");
-            
-            let colHeadItemCont;
+              const colHeadRow = document.createElement("tr");
+              colHeadRow.classList.add("dm-tracklist-row", "dm-tracklist-col-header-row");
+              colHeadRow.setAttribute("data-refno", colRefNo);
 
-            if (text === colRefNo) {
+              const colHeadTextArr = [colRefNo, colTracksNo, colName, colPubCode, colRefCode, colRecYear, colPubYear, colPerformers]; 
+          
+              colHeadTextArr.forEach(text => {
 
-              colHeadItemCont = document.createElement("button");
-              colHeadItemCont.classList.add("dm-btn-tracklist-header", "dm-btn-tracklist-col-header");
-              colHeadItemCont.id = colRefNo;
+                const colHeadItem = document.createElement("td");
+                colHeadItem.classList.add("dm-tracklist-item", "dm-tracklist-col-header-item");
+                
+                let colHeadItemCont;
 
-            } else {
+                if (text === colRefNo) {
 
-              colHeadItemCont = document.createElement("p");
-              colHeadItemCont.classList.add("dm-tracklist-text");
+                  colHeadItemCont = document.createElement("button");
+                  colHeadItemCont.classList.add("dm-btn-tracklist-header", "dm-btn-tracklist-col-header");
+                  colHeadItemCont.id = colRefNo;
+
+                } else {
+
+                  colHeadItemCont = document.createElement("p");
+                  colHeadItemCont.classList.add("dm-tracklist-text");
+                }
+
+                if (text === colRecYear) {
+
+                  text = text.split("-").join("- ");
+                }
+                
+                colHeadItemCont.textContent = text;
+                colHeadItem.appendChild(colHeadItemCont);
+                colHeadRow.appendChild(colHeadItem);
+              });
+        
+              tracklistDiv.appendChild(colHeadRow);
             }
+          }
+        } catch (error) {
 
-            if (text === colRecYear) {
-
-              text = text.split("-").join("- ");
-            }
-            
-            colHeadItemCont.textContent = text;
-            colHeadItem.appendChild(colHeadItemCont);
-            colHeadRow.appendChild(colHeadItem);
-          });
-    
-          tracklistDiv.appendChild(colHeadRow);
+          console.warn(`PD App:\n\nCreating Tracklist collection row failed. Details:\n\n${error}`);
         }
       }
-    }
+      // Create track row
 
-    // Create track row
+      const trackRow = document.createElement("tr");
+      trackRow.classList.add("dm-tracklist-row");
 
-    const trackRow = document.createElement("tr");
-    trackRow.classList.add("dm-tracklist-row");
+      const trackTextArr = [trackRefNo, trackNo, trackTuneName, trackTuneType, trackTuneRef, trackRecYear, trackPubYear, trackPerformers];
 
-    const trackTextArr = [trackRefNo, trackNo, trackTuneName, trackTuneType, trackTuneRef, trackRecYear, trackPubYear, trackPerformers];
+      trackTextArr.forEach(tracktext => {
 
-    trackTextArr.forEach(tracktext => {
+        const trackItem = document.createElement("td");
+        trackItem.classList.add("dm-tracklist-item");
 
-      const trackItem = document.createElement("td");
-      trackItem.classList.add("dm-tracklist-item");
+        let trackItemCont = tracktext === trackRefNo? document.createElement("button") : document.createElement("p");
 
-      let trackItemCont = tracktext === trackRefNo? document.createElement("button") : document.createElement("p");
+        if (tracktext === trackRefNo) {
 
-      if (tracktext === trackRefNo) {
+          trackItemCont.id = trackRefNo;
+          trackItemCont.classList.add("dm-btn-tracklist-open");
 
-        trackItemCont.id = trackRefNo;
-        trackItemCont.classList.add("dm-btn-tracklist-open");
+        } else {
 
-      } else {
+          trackItemCont.classList.add("dm-tracklist-text");
+        }
 
-        trackItemCont.classList.add("dm-tracklist-text");
-      }
+        trackItemCont.textContent = tracktext;
+        
+        trackItem.appendChild(trackItemCont);
+        trackRow.appendChild(trackItem);
+        trackRow.setAttribute("data-refno", trackRefNo);
+      });
 
-      trackItemCont.textContent = tracktext;
-      
-      trackItem.appendChild(trackItemCont);
-      trackRow.appendChild(trackItem);
-      trackRow.setAttribute("data-refno", trackRefNo);
+      tracklistDiv.appendChild(trackRow);
     });
 
-    tracklistDiv.appendChild(trackRow);
-  });
+    console.log(`PD App:\n\nTracklist generated, tracks total: ${tracksJson.length}`);
+  
+  } catch (error) {
 
-  generateTunelistBtn.removeAttribute("disabled");
-  generateColsListBtn.removeAttribute("disabled");
-
-  console.log(`Tracklist generated, tracks total: ${tracksJson.length}`);
+    throw new Error(error.message);
+  }
 }
 
 // Focus on a specific Tracklist row
 
-export async function focusOnTrack() {
+export async function focusOnTrack(trigger, refNo) {
     
-  let trackRefNo = this.dataset.refno;
-  const parentDiv = this.parentElement;
+  let trackRefNo = refNo;
+  const parentDiv = trigger.parentElement;
   const trackIdItem = document.getElementById(trackRefNo);
-  let parentDialog;
 
-  if (tracklistDiv.children.length === 0 || !trackIdItem) {
+  try {
 
-    const tracksOutput = tracksDiv.textContent;
+    if (tracklistDiv.children.length === 0 || !trackIdItem) {
 
-    let tracksJson = await validateJson(tracksOutput);
+      if (tracksJson.length === 0) {
 
-    if (tracksJson.length === 0) {
+        console.warn(`PD App:\n\nNo Tracks found in Track JSON!`);
 
-      tracksJson = await fetchData(tracksJsonLink, "json");
+        if (toolkitMode > 0) {
+
+          return;
+        }
+
+        await fetchDataJsons();
+      }
+
+      console.log(`PD App:\n\nGenerating Tracklist...`);
+      tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
+      tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
+      tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
+      await generateTracklist(tracksJson);
+      tracklistHeaders[0].setAttribute("aria-sort", "ascending");
     }
 
-    console.log(`Generating Tracklist...`);
-    tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
-    tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
-    tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
-    await generateTracklist(tracksJson);
-    tracklistHeaders[0].setAttribute("aria-sort", "ascending");
+    if (searchResultsSection.classList.contains("unwrapped")) {
+
+      autoCollapseSearchResults();
+    }
+
+    if (parentDiv.classList.contains("track-grid-reflink") || parentDiv.classList.contains("track-grid-coltrackno-cont")) {
+      
+      trackCardPopover.hidePopover();
+    } 
+
+    if (parentDiv.classList.contains("tune-grid-refno-cont")) {
+      
+      tuneCardPopover.hidePopover();
+      await tunelistDialog.close();
+      addAriaHidden(tunelistDialog);
+      hideDialogsDiv();
+    } 
+
+    if (parentDiv.classList.contains("col-grid-reflink")) {
+      
+      colCardPopover.hidePopover();
+      await colsListDialog.close();
+      addAriaHidden(colsListDialog);
+      hideDialogsDiv();
+    } 
+
+    if (tracklistOutput.classList.contains("hidden")) {
+
+      tracklistOutput.classList.remove("hidden");
+      removeAriaHidden(tracklistOutput);
+      toggleAriaExpanded(generateTracklistBtn);
+    }
+
+    document.getElementById(trackRefNo).focus();
+  
+  } catch (error) {
+
+    console.warn(`PD App:\n\nFocusing on Track failed. Details:\n\n${error}`);
   }
-
-  if (parentDiv.classList.contains("track-grid-reflink")) {
-    
-    trackCardPopover.hidePopover();
-    
-  } else {
-
-    parentDialog = parentDiv.classList.contains("tune-grid-refno-cont")? tunelistDialog :
-                   parentDiv.classList.contains("col-grid-reflink")? colsListDialog : "";
-
-    await parentDialog.close();
-    toggleAriaHidden(parentDialog);
-    dialogsDiv.classList.toggle("hidden");
-    toggleAriaHidden(dialogsDiv);
-  }
-
-  if (tracklistOutput.classList.contains("hidden")) {
-
-    tracklistOutput.classList.toggle("hidden");
-    toggleAriaHidden(tracklistOutput);
-    toggleAriaExpanded(generateTracklistBtn);
-  }
-
-  document.getElementById(trackRefNo).focus();
 }
 
 // Sort Tracklist by the value of the Tracklist column clicked
@@ -204,11 +237,16 @@ async function sortTracklistByThis() {
   let tracklistIsSortedBy = tracklistDiv.dataset.sortedby;
   let sortedArray = [];
 
-  let tracksJson = await validateJson(tracksDiv.textContent);
-
   if (tracksJson.length === 0) {
 
-    tracksJson = await fetchData(tracksJsonLink, "json");
+    console.warn(`PD App:\n\nNo Tracks found in Tracks JSON!`);
+
+    if (toolkitMode > 0) {
+
+      return;
+    }
+
+    await fetchDataJsons();
   }
 
   // Sort Tracks Array depending on the sorting value and order
