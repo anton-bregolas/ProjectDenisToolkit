@@ -765,6 +765,10 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   .dm-track-grid-footer {
     padding-bottom: 1em;
   }
+}
+
+/* @media screen and (max-height: 668px) { */
+@media screen and (max-height: 41.75em) {
 
   .dm-tune-grid-footer {
     display: none;
