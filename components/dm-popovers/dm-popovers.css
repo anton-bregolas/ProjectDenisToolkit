@@ -742,7 +742,8 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 
 /* Media queries for popovers */
 
-@media screen and (max-width: 41.75em) {
+/* @media screen and (max-width: 668px), (max-height: 668px) { */
+@media screen and (max-width: 41.75em), (max-height: 41.75em) {
 
   .dm-popover-card {
     position: fixed;
@@ -750,8 +751,10 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    bottom: -43%;
+    bottom: -47%;
     padding-bottom: 0;
+    width: min(calc(100svw - 1.2rem));
+    max-height: calc(100svh - 1.4rem);
   }
 
   .dm-track-card {
@@ -760,12 +763,11 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 
   .dm-col-grid-footer, 
   .dm-track-grid-footer {
-    padding-bottom: 1.5rem;
+    padding-bottom: 1em;
   }
 
   .dm-tune-grid-footer {
     display: none;
-    /* padding-top: 0; */
   }
 
   .dm-tune-nav-mobile {
@@ -773,6 +775,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   }
 }
 
+/* @media screen and (max-width: 544px) { */
 @media screen and (max-width: 34em) {
 
   .dm-tune-grid-body,
@@ -812,6 +815,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   }
 }
 
+/* @media screen and (max-width: 320px) { */
 @media screen and (max-width: 20em) {
 
   .dm-tune-grid-body {

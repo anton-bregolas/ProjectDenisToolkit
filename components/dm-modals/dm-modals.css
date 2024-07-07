@@ -91,9 +91,10 @@ html:has(dialog[open]) {
 }
 
 .dm-tunelist-container {
+  display: grid;
   justify-content: center;
   scrollbar-gutter: stable both-edges;
-  grid-template-columns: repeat(auto-fit, var(--tunelist-item-width));
+  grid-template-columns: repeat(auto-fill, minmax(var(--tunelist-item-width), 1fr));
   gap: 0.75rem;
   padding: 1.5em;
 }
@@ -113,12 +114,11 @@ html:has(dialog[open]) {
 .dm-tunelist-item-wrapper {
   border-radius: 0.5rem;
   padding: 0.25em;
-  width: calc(var(--tunelist-item-width));
+  width: minmax(var(--tunelist-item-width), 1fr);
 }
 
 .dm-tunelist-item {
   flex-flow: column;
-  width: var(--tunelist-item-width);
   background-color: var(--tunelist-item-color);
   overflow: hidden;
   border-radius: 0.25rem;
@@ -165,7 +165,6 @@ html:has(dialog[open]) {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  border-spacing: none;
 }
 
 .dm-collist-row {
@@ -181,6 +180,7 @@ html:has(dialog[open]) {
   width: 100%;
   align-items: center;
   justify-content: center;
+  padding: 0.5em;
 }
 
 #dm-collist-caption {
@@ -250,6 +250,24 @@ html:has(dialog[open]) {
   align-items: center;
 }
 
+.dm-collist-item:nth-child(2):not(th) {
+  background-color: #45167171;
+}
+
+@supports (color: hsl(from white h s l)) {
+
+  .dm-collist-item:nth-child(2):not(th) {
+      background-color: hsl(from var(--secondary-color-a) h s 25% / 0.5);
+  }
+
+  body.dark {
+
+      .dm-collist-item:nth-child(2):not(th) {
+        background-color: hsl(from #551a8b h s 25% / 0.5);
+    }
+  }
+}
+
 .dm-collist-row:nth-of-type(odd) {
   background-color: color-mix(in srgb, var(--collist-item-color) 75%, white);
 }
@@ -284,6 +302,7 @@ html:has(dialog[open]) {
 
   .dm-collist-item {
     display: block;
+    width: 100%;
     border: none;
   }
 
@@ -329,28 +348,28 @@ html:has(dialog[open]) {
 }
 
 /* @media screen and (max-width: 408px) { */
-@media screen and (max-width: 25.5em) {
-
-  body {
-    --tunelist-item-width: 100%;
-  }
+@media screen and (max-width: 25.5em), (max-height: 25.5em) {
 
   .dm-tunelist-container {
     scrollbar-gutter: unset;
   }
-}
-
-/* @media screen and (max-width: 320px) { */
-@media screen and (max-width: 20em) {
 
   .dm-modal-list {
     min-height: 100svh;
     min-width: 100svw;
   }
-
-  .dm-tunelist-container,
+  
   .dm-collist-container {
     padding: 0.5em;
+  }
+}
+
+/* @media screen and (max-width: 320px) { */
+@media screen and (max-width: 20em), (max-height: 20em) {
+
+  .dm-modal-list {
+    min-height: 100svh;
+    min-width: 100svw;
   }
 
   .dm-modal-list-header-container {
