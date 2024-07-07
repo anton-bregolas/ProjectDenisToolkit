@@ -760,7 +760,8 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   .dm-track-card {
     bottom: -49%;
   }
-
+  
+  .dm-tune-grid-footer,
   .dm-col-grid-footer, 
   .dm-track-grid-footer {
     padding-bottom: 1em;
