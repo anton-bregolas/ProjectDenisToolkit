@@ -1,7 +1,6 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
-import { toolkitMode, colsDiv, tracksDiv, tunesDiv, statusBars,
-         generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { toolkitMode, statusBars, generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
 import { tracklistDiv, tracklistOutput, generateTracklist, tracklistHeaders } from '../dm-tracklist/dm-tracklist.js';         
 import { toggleAriaExpanded, toggleAriaHidden, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
 import { fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
@@ -9,6 +8,7 @@ import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 export const colsListDiv = document.querySelector('#dm-collist');
+export const libraryDiv = document.querySelector('#dm-references');
 export const dialogsDiv = document.querySelector('#dm-dialogs');
 export const allDialogLists = document.querySelectorAll('.dm-modal-list');
 export const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
@@ -25,7 +25,6 @@ export async function generateHandler() {
   let parentJson;
   let parentDialog;
   let parentDialogDiv;
-  let parentDiv;
   let listName;
   let itemName;
 
@@ -34,7 +33,6 @@ export async function generateHandler() {
     parentJson = tunesJson;
     parentDialog = tunelistDialog;
     parentDialogDiv = tunelistDiv;
-    parentDiv = tunesDiv;
     listName = "Tune";
     itemName = "tunes";
   }
@@ -44,7 +42,6 @@ export async function generateHandler() {
     parentJson = colsJson;
     parentDialog = colsListDialog;
     parentDialogDiv = colsListDiv;
-    parentDiv = colsDiv;
     listName = "Collections ";
     itemName = "collections";
   }
@@ -53,7 +50,6 @@ export async function generateHandler() {
 
     parentJson = tracksJson;
     parentDialogDiv = tracklistDiv;
-    parentDiv = tracksDiv;
     listName = "Track";
     itemName = "tracks";
   }

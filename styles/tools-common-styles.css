@@ -87,8 +87,8 @@ body.rainy {
   --secondary-color-a: #002379;
   --secondary-color-b: #FF9F66;
   --secondary-color-c: #2A629A;
-  --accent-color-a: #FF5F00;
-  --accent-color-b: #81c0ff;
+  --accent-color-a: #C25615;
+  --accent-color-b: #2a4a69;
   --accent-color-c: #9f69d1;
   --neutral-color: #00122e;
   --neutral-color-alt: #434343;
@@ -103,7 +103,7 @@ body.rainbow {
   --secondary-color-a: #ee4035;
   --secondary-color-b: #f78141;
   --secondary-color-c: #cccc00;
-  --accent-color-a: #7bc043;
+  --accent-color-a: #539c17;
   --accent-color-b: #0392cf;
   --accent-color-c: #551a8b;
   --neutral-color: black;
@@ -193,12 +193,12 @@ h1, h2, h3 {
 
 h1 {
   font-size: var(--font-large);
-  margin: 1.7rem 2rem 2rem;
+  margin: 1.7rem 2rem 0rem;
 }
 
 h2 {
   font-size: var(--font-subhead);
-  margin: 0.4rem 0 0 0;
+  margin: 0;
 }
 
 h3 {
@@ -255,8 +255,8 @@ dialog:focus-visible {
 
 .action-icon-container {
   display: inline-flex;
-  width: var(--font-button);
-  height: var(--font-button);
+  width: var(--font-mid);
+  height: var(--font-mid);
 }
 
 /* Common button styles */

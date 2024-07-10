@@ -728,6 +728,7 @@ async function navigateTuneCard() {
 
   const navBtnClass = this.classList;
   const navBtnParent = this.parentElement.classList;
+  let parentDialog;
 
   try {
 
@@ -735,15 +736,21 @@ async function navigateTuneCard() {
 
       navBtnParent.contains("dm-col-grid-header") || 
       navBtnParent.contains("dm-col-grid-footer") ? 
-
-      colCardPopover.hidePopover() :
+        colCardPopover.hidePopover() :
     
       navBtnParent.contains("dm-track-grid-header") || 
       navBtnParent.contains("dm-track-grid-footer") ? 
-      
-      trackCardPopover.hidePopover() :
-    
-      tuneCardPopover.hidePopover();
+        trackCardPopover.hidePopover() :
+        tuneCardPopover.hidePopover();
+
+      if (navBtnClass.contains("dm-btn-card-dialog-close")) {
+
+        parentDialog = navBtnParent.contains("dm-col-grid-footer")? colsListDialog : tunelistDialog;
+
+        await parentDialog.close();
+        addAriaHidden(parentDialog);
+        hideDialogsDiv();
+      }
     }
 
     if (navBtnClass.contains("dm-btn-prev-tune") ||

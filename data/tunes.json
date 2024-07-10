@@ -513,6 +513,15 @@
     "refsettinglink": ""
   },
   {
+    "tuneref": "JOLSL # 2",
+    "tunename": "Éirinn Go Brách",
+    "tunetype": "Jig",
+    "altnames": "Johnny O'Leary's / Brannigan’s",
+    "refno": "5211, 5212",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/%C3%89ireann_go_Br%C3%A1ch"
+  },
+  {
     "tuneref": "CRE 5 # 37",
     "tunename": "Fanning's",
     "tunetype": "Jig",
@@ -819,20 +828,11 @@
     "refsettinglink": "https://thesession.org/tunes/7897, https://tunearch.org/wiki/Humors_of_Mountcollins_(The)"
   },
   {
-    "tuneref": "CICD # 2275",
+    "tuneref": "CRE 2 # 79",
     "tunename": "I'd Rather be a Nun",
     "tunetype": "Slide",
-    "altnames": "",
-    "refno": "5191",
-    "transcriptlink": "",
-    "refsettinglink": ""
-  },
-  {
-    "tuneref": "CRE 2 # 79",
-    "tunename": "I'd Rather Be Married than Left",
-    "tunetype": "Slide",
-    "altnames": "",
-    "refno": "6061",
+    "altnames": "I'd Rather Be Married than Left",
+    "refno": "5191, 6061",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/I%27d_rather_be_married_than_left"
   },
@@ -1047,7 +1047,7 @@
     "tuneref": "CRE 5 # 35",
     "tunename": "Maulykeavane, The",
     "tunetype": "Jig",
-    "altnames": "Maulykevane / Port Mholl Uí Chíobháin",
+    "altnames": "Art O'Keeffe's / Maulykevane / Port Mholl Uí Chíobháin",
     "refno": "4931",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/2502-cre5.abc-16-Maulykevane~Jig, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185035.pdf",
     "refsettinglink": "https://thesession.org/tunes/12234"
@@ -1342,7 +1342,7 @@
   },
   {
     "tuneref": "JOLSL # 132",
-    "tunename": "Pádraig O'Keeffe's No. 1",
+    "tunename": "Padraig O'Keeffe's No. 1",
     "tunetype": "Slide",
     "altnames": "Julia Clifford's / Bill the Weaver's No. 1",
     "refno": "1042",
@@ -1351,7 +1351,7 @@
   },
   {
     "tuneref": "CRE 3 # 50",
-    "tunename": "Pádraig O'Keeffe's No. 2",
+    "tunename": "Padraig O'Keeffe's No. 2",
     "tunetype": "Slide",
     "altnames": "Denis Murphy's / Dark Girl in Blue / Julia Clifford's",
     "refno": "1043, 20041",
@@ -1366,6 +1366,15 @@
     "refno": "4811, 8091, 9101",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/She_didn%27t_Dance_and_Dance"
+  },
+  {
+    "tuneref": "JOLSL # 79",
+    "tunename": "Petticoat Loose",
+    "tunetype": "Jig",
+    "altnames": "Con Carthy's / Rooms of Dooagh",
+    "refno": "5291",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2277#setting47981"
   },
   {
     "tuneref": "FRC 1 # 169",
@@ -1656,6 +1665,15 @@
     "refsettinglink": "https://tunearch.org/wiki/Monsignor%27s_Blessing"
   },
   {
+    "tuneref": "CRE 5 # 159",
+    "tunename": "Silver Slipper",
+    "tunetype": "Reel",
+    "altnames": "Ríl an tSlipéir Airgid / Streams of Poolaphuca No. 1 / Streams of Poulaphouca No. 1 / Streams of Pol-A-Phooka No. 1",
+    "refno": "7131",
+    "transcriptlink": "https://thesession.org/tunes/16370#setting51001, https://tunearch.org/wiki/Silver_Slipper_Reel_(The)",
+    "refsettinglink": "https://thesession.org/tunes/16370"
+  },
+  {
     "tuneref": "CRE 1 # 39",
     "tunename": "Sixpenny Money",
     "tunetype": "Jig",
@@ -1732,18 +1750,9 @@
     "tunename": "Stick Across the Hob",
     "tunetype": "Jig",
     "altnames": "Maurice Carmody's Favourite / Lyon's Favourite / O'Keeffe's Morrison's",
-    "refno": "7351",
+    "refno": "5221, 7351",
     "transcriptlink": "https://thesession.org/tunes/71#setting50045",
-    "refsettinglink": "https://thesession.org/tunes/71"
-  },
-  {
-    "tuneref": "MISC # 2",
-    "tunename": "Streams of Poolaphuca No. 1",
-    "tunetype": "Reel",
-    "altnames": "Streams of Poulaphouca No. 1 / Streams of Pol-A-Phooka No. 1",
-    "refno": "7131",
-    "transcriptlink": "",
-    "refsettinglink": "https://thesession.org/tunes/16370"
+    "refsettinglink": "https://thesession.org/tunes/1447, https://thesession.org/tunes/71"
   },
   {
     "tuneref": "CRE 3 # 196",
@@ -1758,7 +1767,7 @@
     "tuneref": "CRE 2 # 38",
     "tunename": "Taidhgin an Asail's",
     "tunetype": "Slide",
-    "altnames": "Where is the Cat? / Thadeen the Fiddler's / Port Thaidhgín an Asail",
+    "altnames": "Where is the Cat? / Thadeen the Fiddler's / Port Thaidhgín an Asail / Kitchen with No Food",
     "refno": "5061",
     "transcriptlink": "http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182038.pdf",
     "refsettinglink": "https://tunearch.org/wiki/Taidhg%C3%ADn_an_Asail"
@@ -1850,8 +1859,8 @@
     "tunetype": "Slide",
     "altnames": "Port Taim Uí Chonchúir",
     "refno": "4901",
-    "transcriptlink": "http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182057.pdf",
-    "refsettinglink": "https://tunearch.org/wiki/Tom_Connor%27s"
+    "transcriptlink": "https://tunepal.org/index.html#!/tune/1440-cre2.abc-5-Tom~Connors~~Jig~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182057.pdf",
+    "refsettinglink": "https://thesession.org/tunes/7947, https://tunearch.org/wiki/Tom_Connor%27s"
   },
   {
     "tuneref": "JOLSL # 239",
@@ -1953,24 +1962,6 @@
     "refsettinglink": ""
   },
   {
-    "tuneref": "CICD # 1654",
-    "tunename": "Untitled Jig",
-    "tunetype": "Jig",
-    "altnames": "",
-    "refno": "5211, 5212",
-    "transcriptlink": "",
-    "refsettinglink": ""
-  },
-  {
-    "tuneref": "CICD # 2570",
-    "tunename": "Untitled Jig",
-    "tunetype": "Jig",
-    "altnames": "",
-    "refno": "5291",
-    "transcriptlink": "",
-    "refsettinglink": ""
-  },
-  {
     "tuneref": "CICD # 4273",
     "tunename": "Untitled Reel",
     "tunetype": "Reel",
@@ -2050,15 +2041,6 @@
     "refno": "21041",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Dan_O%27Connell%27s_Favourite"
-  },
-  {
-    "tuneref": "CRE 1 # 49",
-    "tunename": "Whelan's",
-    "tunetype": "Jig",
-    "altnames": "Port Uí Fhaoláin",
-    "refno": "5221",
-    "transcriptlink": "",
-    "refsettinglink": "https://thesession.org/tunes/1447"
   },
   {
     "tuneref": "JOLSL # 329",

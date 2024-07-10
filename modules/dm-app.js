@@ -1,12 +1,19 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis App v.0.3
+// #ProjectDenis App
 ///////////////////////////////////////////////////////////////////////
 
-import { toolkitMode, clearOutput, initToolkitButtons } from './dm-toolkit.js';
-import { searchSection, initSearch } from '../components/dm-search/dm-search.js';
+import { initSearch, tracksCounter, colsCounter, tunesCounter } from '../components/dm-search/dm-search.js';
+import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
 import { initModals } from '../components/dm-modals/dm-modals.js';
 import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
 import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
+
+// Define App sections
+
+const appLauncherSection = document.querySelector('.dm-launch');
+export const searchSection = document.querySelector('#dm-search');
+export const exploreSection = document.querySelector('#dm-explore');
+export const discoverSection = document.querySelector('#dm-discover');
 
 // Tune Database links
 
@@ -142,22 +149,34 @@ export async function fetchDataJsons() {
 
 export async function launchAppSequence() {
 
-  if (toolkitMode > 0) {
+  if (toolkitMode === 0) {
 
-    clearOutput();
+    try {
+
+      await fetchDataJsons();
+
+      console.log("PD App:\n\nTune Data successfully fetched and assigned to Data JSONs");
+    
+    } catch (error) {
+
+      console.warn(`PD App:\n\nLaunching app sequence failed. Details:\n\n${error.message}`);
+    }
   }
 
-  try {
+  tracksCounter.textContent = tracksJson.length;
+  colsCounter.textContent = colsJson.length;
+  tunesCounter.textContent = tunesJson.length;
 
-    await fetchDataJsons();
+  searchSection.removeAttribute("hidden");
+  exploreSection.removeAttribute("hidden");
+  discoverSection.removeAttribute("hidden");
+  appLauncherSection.setAttribute("hidden", "");
 
-    console.log("PD App:\n\nTune Data successfully fetched and assigned to Data JSONs");
+  if (toolkitMode > 0) {
 
-    searchSection.classList.remove("hidden");
-
-  } catch (error) {
-
-    console.warn(`PD App:\n\nLaunching app sequence failed. Details:\n\n${error.message}`);
+    parserSection.removeAttribute("hidden");
+    splitterSection.removeAttribute("hidden");
+    parserSection.scrollIntoView();
   }
 }
 

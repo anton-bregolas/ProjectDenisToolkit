@@ -57,23 +57,23 @@
     </header>
     <main>
         <div class="main-container">
-            <h1>#ProjectDenis Toolkit</h1>
+            <h1>#ProjectDenis Prototype</h1>
             <section class="dm-launch">
                 <div class="dm-launch-container">
                     <button id="dm-btn-start-exploring" class="btn" autofocus>
                         <span class="btn-text">Start Exploring
-                            <span class="action-icon-container action-icon-launch">
-                                <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-launch"></use></svg>
+                            <span class="action-icon-container action-icon-launch" aria-hidden="true">
+                                <svg class="action-icon"><use href="assets/icons/icons.svg#action-icon-launch"></use></svg>
                             </span>
                         </span>
                     </button>
                 </div>
             </section>
-            <section id="dm-search">
+            <section id="dm-search" hidden>
                 <div class="dm-search-container">
                     <fieldset id="dm-search-data-select" class="dm-search-radio-container" role="radiogroup">
                         <legend class="dm-search-radio-legend">
-                            <h2>Search Tunes, Tracks or Collections</h2>
+                            <h2><b>Search:</b> Tracks, Collections, Tunes</h2>
                         </legend>
                         <label for="data-search-tracks" class="dm-label-radio">
                             <h3>Tracks</h3>
@@ -89,8 +89,8 @@
                         </label>
                     </fieldset>
                     <section class="dm-search-engine" aria-label="Denis Murphy Search Engine">
-                        <input id="dm-search-input" type="search" class="input-field" placeholder="Type keywords to filter through Tune Database" aria-label="Type keywords to filter through Tune Database" autocomplete="off">
-                        <section id="dm-search-results" aria-label="Search Results">
+                        <input id="dm-search-input" type="search" class="input-field" placeholder="Input keywords to search" aria-expanded="false" autocomplete="off">
+                        <section id="dm-search-results" aria-hidden="true" aria-live="polite" aria-label="Search Results Collapsed">
                             <div class="dm-search-results-group" tabindex="-1">
                                 <div class="dm-search-results-container">
                                     <template class="dm-template-search-item">
@@ -101,7 +101,7 @@
                                         </button>
                                     </template>
                                 </div>
-                                <button class="dm-btn-search-wrap" aria-expanded="false">
+                                <button class="dm-btn-search-wrap" aria-expanded="false" aria-hidden="true" tabindex="-1">
                                     <span class="action-icon-container action-icon-wrap">
                                         <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-wrap-down"></use></svg>
                                     </span>
@@ -111,14 +111,27 @@
                         </section>
                     </section>
                 </div>
+                <section class="dm-search-db-counters"><p><span class="dm-tracks-counter">0</span> Track-items, <span class="dm-cols-counter">0</span> Collections, <span class="dm-tunes-counter">0</span> Tunes</p></section>
             </section>
-            <section class="dm-generator">
-                <!-- <h2>List Generator</h2> -->
-                <!-- <br> -->
+            <section id="dm-explore" class="dm-generator" hidden>
+                <h2><b>Explore:</b> Tunelist, Discography, Tracklist</h2>
+                <br>
                 <section class="generator-container">
-                    <button id="dm-btn-generate-tracklist" aria-expanded="false" aria-controls="dm-tracklist-output" class="btn"><span class="btn-text">Show Tracklist</span></button>
-                    <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text">Show Tunelist</span></button>
-                    <button id="dm-btn-generate-collections" class="btn"><span class="btn-text">Show Collections</span></button>
+                    <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text dm-generate-btn-container">Show Tunelist
+                        <span class="action-icon-container action-icon-tunelist" aria-hidden="true">
+                            <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-music"></use></svg>
+                        </span>
+                    </span></button>
+                    <button id="dm-btn-generate-collections" class="btn"><span class="btn-text dm-generate-btn-container">Show Collections
+                        <span class="action-icon-container action-icon-collections" aria-hidden="true">
+                            <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-records"></use></svg>
+                        </span>
+                    </span></button>
+                    <button id="dm-btn-generate-tracklist" aria-expanded="false" aria-controls="dm-tracklist-output" class="btn"><span class="btn-text dm-generate-btn-container">Show Tracklist
+                        <span class="action-icon-container action-icon-tracklist" aria-hidden="true">
+                            <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-tunelist"></use></svg>
+                        </span>
+                    </span></button>
                 </section>
                 <section id="dm-tracklist-output" class="dm-tracklist-container hidden" aria-hidden="true" aria-label="Denis Murphy Tracklist">
                     <table id="dm-tracklist-table" aria-label="Tracklist Table: Click track row to view Track card, click header cell to sort">
@@ -162,7 +175,7 @@
                     </table>
                     <article id="dm-popover-card-track" popover class="dm-track-card dm-popover-card" aria-label="Track Card">
                         <header class="dm-track-grid-header dm-popover-card-header">
-                            <button id="dm-btn-track-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Track Card"></button>
+                            <button id="dm-btn-track-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Track Card" title="Close Track Card"></button>
                             <h3 class="track-grid-hrefno"></h3>
                             <h2 class="track-grid-htitle" aria-live="polite"></h2>
                             <nav class="dm-track-grid-nav">
@@ -195,12 +208,15 @@
                             <p class="dm-track-grid-item track-grid-notes-cont"></p>
                         </div>
                         <section class="dm-track-grid-footer">
-                            <button class="dm-btn-popover-close dm-btn-card-footer-close dm-btn-card-nav" aria-label="Close Track Card"></button>
+                            <button class="dm-btn-popover-close dm-btn-card-popover-close dm-btn-card-nav" aria-label="Close Track Card" title="Close Track Card"></button>
                         </section>
                     </article>
                 </section>
-            </section>            
-            <section class="dm-parser">
+            </section>
+            <section id="dm-discover" hidden>
+                <h2><b>Discover:</b> Reference Materials</h2>
+            </section>
+            <section id="dm-parser" class="dm-parser" hidden>
                 <h2>TSV to JSON Parser</h2>
                 <br>
                 <form id="inputForm" class="form-container" onsubmit="return false;">
@@ -216,7 +232,7 @@
                 </form>
                 <div id="output" class="text-output" tabindex="0" aria-label="Mixed Data Output">Mixed output JSON will appear here.</div>
             </section>
-            <section class="dm-splitter">
+            <section id="dm-splitter" class="dm-splitter" hidden>
                 <h2>JSON Splitter</h2>
                 <br>
                 <section class="button-container">
@@ -227,16 +243,16 @@
                 </section>
                 <section class="splitter-container">
                     <div class="splitter-group">
-                        <div id="cols-counter" class="text-counter" tabindex="0" aria-label="Collections Counter">Collections: 0</div>
-                        <div id="cols-output" class="text-output" tabindex="0" aria-label="Collections Output">Collections JSON will appear here.</div>
+                        <div id="splitter-cols-counter" class="text-counter" tabindex="0" aria-label="Collections Counter">Collections: <span class="counter-value"></span></div>
+                        <div id="splitter-cols-output" class="text-output" tabindex="0" aria-label="Collections Output">Collections JSON will appear here.</div>
                     </div>
                     <div class="splitter-group">
-                        <div id="tracks-counter" class="text-counter" tabindex="0" aria-label="Tracks Counter">Tracks: 0</div>
-                        <div id="tracks-output" class="text-output" tabindex="0" aria-label="Tracks Output">Tracks JSON will appear here.</div>
+                        <div id="splitter-tracks-counter" class="text-counter" tabindex="0" aria-label="Tracks Counter">Tracks: <span class="counter-value"></span></div>
+                        <div id="splitter-tracks-output" class="text-output" tabindex="0" aria-label="Tracks Output">Tracks JSON will appear here.</div>
                     </div>
                     <div class="splitter-group">
-                        <div id="tunes-counter" class="text-counter" tabindex="0" aria-label="Tunes Counter">Tunes: 0</div>
-                        <div id="tunes-output" class="text-output" tabindex="0" aria-label="Tunes Output">Tunes JSON will appear here.</div>
+                        <div id="splitter-tunes-counter" class="text-counter" tabindex="0" aria-label="Tunes Counter">Tunes: <span class="counter-value"></span></div>
+                        <div id="splitter-tunes-output" class="text-output" tabindex="0" aria-label="Tunes Output">Tunes JSON will appear here.</div>
                     </div>
                 </section>
             </section>
@@ -251,12 +267,12 @@
                     <section id="dm-tunelist" class="dm-tunelist-container" aria-label="Tunelist grid, select a tune"></section>
                     <article id="dm-popover-card-tune" popover class="dm-tune-card dm-popover-card" aria-label="Tune Card">
                         <header class="dm-tune-grid-header dm-popover-card-header">
-                            <button id="dm-btn-tune-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Tune Card"></button>
+                            <button id="dm-btn-tune-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Card and View Tunelist" title="Close Card and View Tunelist"></button>
                             <h3 class="tune-grid-htuneref"></h3>
                             <h2 class="tune-grid-htitle" aria-live="polite"></h2>
                             <nav class="dm-tune-nav-mobile dm-tune-grid-footer">
                                 <button class="dm-btn-tune-card-nav dm-btn-prev-tune dm-btn-card-nav" title="Show previous tune" aria-label="Show previous tune"></button>
-                                <button class="dm-btn-popover-close dm-btn-card-footer-close dm-btn-card-nav" aria-label="Close Tune Card"></button>
+                                <button class="dm-btn-popover-close dm-btn-card-dialog-close dm-btn-card-nav" aria-label="Quit to Main Page" title="Quit to Main Page"></button>
                                 <button class="dm-btn-tune-card-nav dm-btn-next-tune dm-btn-card-nav" title="Show next tune" aria-label="Show next tune"></button>
                             </nav>
                         </header>
@@ -274,7 +290,7 @@
                         </div>
                         <nav class="dm-tune-grid-footer">
                             <button class="dm-btn-tune-card-nav dm-btn-prev-tune dm-btn-card-nav" title="Show previous tune" aria-label="Show previous tune"></button>
-                            <button class="dm-btn-popover-close dm-btn-card-footer-close dm-btn-card-nav" aria-label="Close Tune Card"></button>
+                            <button class="dm-btn-popover-close dm-btn-card-dialog-close dm-btn-card-nav" aria-label="Quit to Main Page" title="Quit to Main Page"></button>
                             <button class="dm-btn-tune-card-nav dm-btn-next-tune dm-btn-card-nav" title="Show next tune" aria-label="Show next tune"></button>
                         </nav>
                     </article>
@@ -312,7 +328,7 @@
                     </section>    
                     <article id="dm-popover-card-col" popover class="dm-col-card dm-popover-card" aria-label="Collection Card">
                         <header class="dm-col-grid-header dm-popover-card-header">
-                            <button id="dm-btn-col-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Collection Card"></button>
+                            <button id="dm-btn-col-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Card and View Collections" title="Close Card and View Collections"></button>
                             <h3><span class="col-grid-hrefno"></span> | <span class="col-grid-hrefcode"></span></h3>
                             <h2 class="col-grid-htitle" aria-live="polite"></h2>
                             <nav class="dm-col-grid-nav">
@@ -345,15 +361,24 @@
                             <section class="dm-col-grid-item col-grid-comments-cont"></section>
                         </div>
                         <section class="dm-col-grid-footer">                            
-                            <button class="dm-btn-popover-close dm-btn-card-footer-close dm-btn-card-nav" aria-label="Close Collection Card"></button>
+                            <button class="dm-btn-popover-close dm-btn-card-popover-close dm-btn-card-nav" aria-label="Close Card and View Collections" title="Close Card and View Collections"></button>
+                            <button class="dm-btn-popover-close dm-btn-card-dialog-close dm-btn-card-nav" aria-label="Quit to Main Page" title="Quit to Main Page"></button>
                         </section>
                     </article>
                     <div class="dm-status-bar" aria-live="assertive"></div>
                 </dialog>
+                <dialog id="dm-modal-list-library" class="dm-modal-list" aria-hidden="true" aria-label="List of Reference Materials">
+                    <header class="dm-modal-list-header">
+                        <div id="dm-modal-list-header-container" class="dm-modal-list-header-container">
+                            <h2 class="dm-modal-list-title nowrap">#ProjectDenis: References</h2>
+                            <button id="dm-btn-library-close" class="btn dm-btn-modal"><span class="btn-text">Close Library</span></button>
+                        </div>
+                    </header>
+                    <section id="dm-references" class="dm-library-container"></section>
             </section>
         </div>
     </main>
-    <footer>
+    <footer class="dm-footer">
         <div class="dm-status-bar" aria-live="assertive"></div>
     </footer>
 </body>

@@ -1,13 +1,12 @@
 /* #ProjectDenis: Search Scripts */
 
-import { toolkitMode, addMultiEventListeners } from '../../modules/dm-toolkit.js';
-import { fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
 import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
-import { toggleAriaExpanded, toggleTabIndex } from '../../modules/aria-tools.js';
+import { toolkitMode, addMultiEventListeners } from '../../modules/dm-toolkit.js';
+import { searchSection, fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
+import { toggleAriaExpanded, groupRemoveTabIndex, groupAddTabIndex, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
 
 // Define Search input and output elements
 
-export const searchSection = document.querySelector('#dm-search');
 export const searchInput = document.querySelector('#dm-search-input');
 export const searchRadioGroup = document.querySelector('#dm-search-data-select');
 export const searchResultsSection = document.querySelector('#dm-search-results');
@@ -30,6 +29,12 @@ let searchTimeout;
 // Define stop words for multi-word search
 
 const stopWordsList = ["a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "from", "if", "in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there", "these", "they", "this", "to", "was", "will", "with"];
+
+// Define total item counters
+
+export const tracksCounter = document.querySelector('.dm-tracks-counter');
+export const colsCounter = document.querySelector('.dm-cols-counter');
+export const tunesCounter = document.querySelector('.dm-tunes-counter');
 
 // Process search input and pass on value to showSearchMatches
 
@@ -233,14 +238,16 @@ function searchRadioHandler() {
 
   let searchValue = searchInput.value.trim();
 
+  searchResultsDiv.textContent = "";
+  
+  if (!searchValue || searchValue.length < minSearchLength) {
+
+    searchResultsCounter.textContent = "";
+
+    return;
+  }
+
   if (searchValue) {
-
-    if (searchValue.length < minSearchLength) {
-
-      return;
-    }
-
-      searchResultsDiv.textContent = "";
 
       doMultiWordSearch(searchValue.toLowerCase());
 
@@ -278,14 +285,15 @@ function autoExpandSearchResults() {
     return;
   }
 
+  removeAriaHidden(searchResultsSection);
+  toggleAriaExpanded(searchInput);
+  searchResultsSection.setAttribute("aria-label", "Search Results Expanded");
   searchResultsSection.classList.add("unwrapped");
 
+  removeAriaHidden(searchResultsWrapper);
   toggleAriaExpanded(searchResultsWrapper);
 
-  if (searchResultsDiv.lastElementChild && searchResultsDiv.lastElementChild.hasAttribute("tabindex")) {
-
-    toggleTabIndex(searchResultsDiv);
-  }
+  groupRemoveTabIndex(searchResultsGroup, "-1");
 
   setTimeout(() => {
     searchResultsGroup.classList.add("scrollable");
@@ -301,16 +309,16 @@ export function autoCollapseSearchResults() {
     return;
   }
 
-  searchResultsSection.classList.remove("unwrapped");
+  toggleAriaExpanded(searchInput);
 
-  // searchResultsGroup.classList.remove("scrollable");
+  searchResultsSection.setAttribute("aria-label", "Search Results Collapsed");
+  searchResultsSection.classList.remove("unwrapped");
+  addAriaHidden(searchResultsSection);
 
   toggleAriaExpanded(searchResultsWrapper);
+  addAriaHidden(searchResultsWrapper);
 
-  if (searchResultsDiv.lastElementChild) {
-
-    toggleTabIndex(searchResultsDiv);
-  }
+  groupAddTabIndex(searchResultsGroup, "-1");
 
   setTimeout(() => {
     searchResultsGroup.classList.remove("scrollable");
@@ -323,25 +331,40 @@ function toggleExpandSearchResults(event) {
 
   let closestWrapper = event.target.closest(".dm-btn-search-wrap");
    
-  toggleTabIndex(searchResultsDiv);
+  toggleAriaExpanded(searchInput);
 
   if (closestWrapper.getAttribute("aria-expanded") === "true") {
 
+    toggleAriaExpanded(closestWrapper);
+
     searchResultsSection.classList.remove("unwrapped");
 
-    // searchResultsGroup.classList.remove("scrollable");
-    
-    toggleAriaExpanded(closestWrapper);
+    searchResultsSection.setAttribute("aria-label", "Search Results Collapsed");
 
     setTimeout(() => {
       searchResultsGroup.classList.remove("scrollable");
     }, 150);
+
+    addAriaHidden(closestWrapper);
+
+    addAriaHidden(searchResultsSection);
+
+    groupAddTabIndex(searchResultsGroup, "-1");
     
     return;
   }
 
-  searchResultsSection.classList.add("unwrapped");
   toggleAriaExpanded(closestWrapper);
+
+  removeAriaHidden(closestWrapper);
+
+  removeAriaHidden(searchResultsSection);
+
+  groupRemoveTabIndex(searchResultsGroup, "-1");
+
+  searchResultsSection.setAttribute("aria-label", "Search Results Expanded");
+
+  searchResultsSection.classList.add("unwrapped");
 
   setTimeout(() => {
     searchResultsGroup.classList.add("scrollable");

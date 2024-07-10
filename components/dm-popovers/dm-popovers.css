@@ -170,7 +170,8 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 }
 
 .dm-btn-tune-card-nav,
-.dm-btn-card-footer-close {
+.dm-btn-card-popover-close,
+.dm-btn-card-dialog-close {
   text-align: center;
   font-size: var(--font-button);
   padding: 0.25rem;
@@ -223,7 +224,8 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 }
 
 .dm-btn-popover-close,
-.dm-btn-card-footer-close, 
+.dm-btn-card-popover-close,
+.dm-btn-card-dialog-close, 
 .dm-btn-tune-card-nav {
   opacity: 0.75;
   transition: opacity 0.5s ease-in-out;
@@ -272,8 +274,16 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   content: "▶";
 }
 
-.dm-btn-card-footer-close:before {
+.dm-track-grid-footer .dm-btn-card-popover-close:before {
   content: "Close";
+}
+
+.dm-col-grid-footer .dm-btn-card-popover-close:before {
+  content: "Show List";
+}
+
+.dm-btn-card-dialog-close:before {
+  content: "Quit to Main";
 }
 
 /* Popover Outlines Common Styles */
@@ -282,7 +292,8 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   outline: 0.2rem solid var(--tune-card-item-outline-color);
 }
 
-.dm-btn-card-footer-close {
+.dm-btn-card-popover-close,
+.dm-btn-card-dialog-close {
   outline: 1px dashed black;
 }
 
@@ -294,7 +305,8 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 .dm-tune-grid-item a,
 .dm-btn-popover-close,
 .dm-btn-tune-card-nav,
-.dm-btn-card-footer-close, 
+.dm-btn-card-popover-close,
+.dm-btn-card-dialog-close, 
 .dm-tune-card .dm-btn-open-track,
 .dm-col-grid-item a,
 .dm-track-grid-item a,
@@ -590,7 +602,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 }
 
 .dm-col-grid-nav .dm-btn-open-track:before {
-  content: "View in Tracklist";
+  content: "Show in Tracklist";
 }
 
 /* Track Popover */
@@ -716,7 +728,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 }
 
 .dm-track-grid-nav .dm-btn-open-track:before {
-  content: "View Tune";
+  content: "Show Tune";
 }
 
 /* Color Theme Popover Card */
@@ -742,7 +754,8 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 
 /* Media queries for popovers */
 
-@media screen and (max-width: 41.75em) {
+/* @media screen and (max-width: 668px), (max-height: 668px) { */
+@media screen and (max-width: 41.75em), (max-height: 41.75em) {
 
   .dm-popover-card {
     position: fixed;
@@ -750,17 +763,28 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    bottom: -43%;
+    bottom: -47%;
     padding-bottom: 0;
+    width: min(calc(100svw - 1.2rem));
+    max-height: calc(100svh - 1.4rem);
   }
 
   .dm-track-card {
     bottom: -49%;
   }
 
+  .dm-tune-grid-footer,
+  .dm-col-grid-footer, 
+  .dm-track-grid-footer {
+    padding-bottom: 1em;
+  }
+}
+
+/* @media screen and (max-height: 668px) { */
+@media screen and (max-height: 41.75em) {
+
   .dm-tune-grid-footer {
     display: none;
-    /* padding-top: 0; */
   }
 
   .dm-tune-nav-mobile {
@@ -768,6 +792,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   }
 }
 
+/* @media screen and (max-width: 544px) { */
 @media screen and (max-width: 34em) {
 
   .dm-tune-grid-body,
@@ -807,6 +832,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   }
 }
 
+/* @media screen and (max-width: 320px) { */
 @media screen and (max-width: 20em) {
 
   .dm-tune-grid-body {
@@ -818,7 +844,8 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   .dm-tune-grid-item, 
   .dm-col-grid-item, 
   .dm-track-grid-item, 
-  .dm-btn-card-footer-close {
+  .dm-btn-card-popover-close,
+  .dm-btn-card-dialog-close {
     font-size: var(--font-button);
   }
 
