@@ -673,26 +673,45 @@ async function createTrackCard(trackObject) {
     trackSourceTrackNoDiv.appendChild(trackSourceTrackNoLine1Btn);
     trackSourceTrackNoDiv.appendChild(trackSourceTrackNoLine2);
 
-    if (trackTranscriptUrl || trackRefSettingUrl) {
+    let trackTuneRefLink;
 
-      let trackTuneRefLink = trackTranscriptUrl? 
-        trackTranscriptUrl.split(/[\s,]+/)[0] : 
-        trackRefSettingUrl.split(/[\s,]+/)[0];
+    if (trackTranscriptUrl) {
 
-      const trackTranscriptSource = generateLinkSourceName(trackTuneRefLink);
+      trackTuneRefLink = trackTranscriptUrl;
+
+    } else {
+
+      const tuneObject = tunesJson.find(tune => tune.tuneref === trackTuneRefCode);
+      const tuneCardTranscript = tuneObject? tuneObject.transcriptlink : "";
+
+      trackTuneRefLink = tuneCardTranscript? tuneCardTranscript : trackRefSettingUrl;
+    }
+
+    const trackTuneFirstRefLink = trackTuneRefLink.split(/[\s,]+/)[0];
+    
+    if (trackTuneRefLink) {
+
+      const trackTranscriptSource = generateLinkSourceName(trackTuneFirstRefLink);
 
       const trackTranscriptHyperlink = document.createElement("a");
-      trackTranscriptHyperlink.setAttribute("href", trackTuneRefLink);
+      trackTranscriptHyperlink.setAttribute("href", trackTuneFirstRefLink);
       trackTranscriptHyperlink.setAttribute("target", "_blank");
       trackTranscriptHyperlink.textContent = trackTranscriptSource;
 
       trackTranscrDiv.appendChild(trackTranscriptHyperlink);
+    
+      const trackTuneRefCodeNo = document.createElement("p");
+      trackTuneRefCodeNo.classList.add("track-grid-tuneref");
+      trackTuneRefCodeNo.textContent = trackTuneRefCode;
+      trackTranscrDiv.appendChild(trackTuneRefCodeNo);
+    
+    } else {
+
+      const trackTuneRefCodeBlank = document.createElement("p");
+      trackTuneRefCodeBlank.classList.add("track-grid-tuneref");
+      trackTuneRefCodeBlank.textContent = "N/A";
+      trackTranscrDiv.appendChild(trackTuneRefCodeBlank);
     }
-  
-    const trackTuneRefCodeNo = document.createElement("p");
-    trackTuneRefCodeNo.classList.add("track-grid-tuneref");
-    trackTuneRefCodeNo.textContent = trackTuneRefCode;
-    trackTranscrDiv.appendChild(trackTuneRefCodeNo);
 
     if (trackNotes) {
 

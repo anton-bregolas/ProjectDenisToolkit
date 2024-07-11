@@ -204,7 +204,7 @@ export async function focusOnTrack(trigger, refNo) {
       await tunelistDialog.close();
       addAriaHidden(tunelistDialog);
       hideDialogsDiv();
-    } 
+    }
 
     if (parentDiv.classList.contains("col-grid-reflink")) {
       

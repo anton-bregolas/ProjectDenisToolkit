@@ -159,7 +159,7 @@ async function showSearchMatches(keyword) {
         if (dataTypeSelected === "cols") {
 
           let colName = searchJson[i].colname;
-          let colRefNo = searchJson[i].colrefno
+          let colRefNo = searchJson[i].colrefno;
 
           searchItemType.textContent = `Found In: Col. ${keyObj[jsonKey]}`;
           searchItemName.textContent = colName;
@@ -171,8 +171,25 @@ async function showSearchMatches(keyword) {
 
         if (dataTypeSelected === "tunes") {
 
-          let tuneName = `${searchJson[i].tunename} (${searchJson[i].tunetype})`;
+          let tuneName = searchJson[i].tunename;
           let tuneRef = searchJson[i].tuneref;
+                    
+          if (jsonKey === "altnames") {
+
+            console.warn(jsonKey);
+
+            console.warn(searchJson[i][jsonKey]);
+
+            const altNamesArr = searchJson[i][jsonKey].split(" / ");
+
+            console.warn(altNamesArr);
+
+            tuneName = altNamesArr.find(altname => altname.toLowerCase().includes(keyword));
+
+            console.warn(tuneName);
+          }
+
+          tuneName = `${tuneName} (${searchJson[i].tunetype})`;
 
           searchItemType.textContent = `Found In: Tune ${keyObj[jsonKey]}`;
           searchItemName.textContent = tuneName;

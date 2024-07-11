@@ -138,10 +138,19 @@
     "tuneref": "DMI # 602",
     "tunename": "Bill O'Keeffe's",
     "tunetype": "Reel",
-    "altnames": "Jenny Picking Cockles ?",
+    "altnames": "Bill O'Keeffe's Jenny Picking Cockles",
     "refno": "5171",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1357"
+  },
+  {
+    "tuneref": "CICD # 4333",
+    "tunename": "Bill the Weaver's Single Reel",
+    "tunetype": "Other",
+    "altnames": "John Egan's",
+    "refno": "4451",
+    "transcriptlink": "https://thesession.org/tunes/19310#setting50285",
+    "refsettinglink": "https://thesession.org/tunes/19310"
   },
   {
     "tuneref": "B&S 4 # 32",
@@ -459,10 +468,19 @@
     "refsettinglink": "https://thesession.org/tunes/357"
   },
   {
+    "tuneref": "CICD # 4273",
+    "tunename": "Denis Murphy's",
+    "tunetype": "Reel",
+    "altnames": "Tinker's Apron / Aprún an Tincéara / Monaghan Twig",
+    "refno": "4491",
+    "transcriptlink": "https://thesession.org/tunes/13013#setting50292",
+    "refsettinglink": "https://thesession.org/tunes/13013#setting50293"
+  },
+  {
     "tuneref": "CRE 2 # 295",
     "tunename": "Donal a' Clumper's",
     "tunetype": "Reel",
-    "altnames": "",
+    "altnames": "Lomonach Cross / Glountane",
     "refno": "4171",
     "transcriptlink": "https://thesession.org/tunes/12451#setting42535, https://tunepal.org/index.html#!/tune/2678-cre2.abc-5-Humors~of~Ballinacarrig*~(reel)~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182295.pdf",
     "refsettinglink": "https://thesession.org/tunes/12451"
@@ -471,7 +489,7 @@
     "tuneref": "CRE 5 # 147",
     "tunename": "Donal a' Phumpa",
     "tunetype": "Reel",
-    "altnames": "Dan the Pump / Dónall a' Phumpa",
+    "altnames": "Dan the Pump / Donal O'Pumpa / Dónall a' Phumpa",
     "refno": "4161",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/2598-cre5.abc-16-Dan~the~Pump~~(reel)~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185147.pdf",
     "refsettinglink": "https://thesession.org/tunes/2693"
@@ -504,7 +522,7 @@
     "refsettinglink": "https://thesession.org/tunes/28"
   },
   {
-    "tuneref": "MISC # 4",
+    "tuneref": "MISC # 3",
     "tunename": "Eighteen Years Old",
     "tunetype": "Song",
     "altnames": "",
@@ -756,7 +774,7 @@
     "refsettinglink": "https://thesession.org/tunes/4460"
   },
   {
-    "tuneref": "MISC # 3",
+    "tuneref": "MISC # 2",
     "tunename": "High Level",
     "tunetype": "Hornpipe",
     "altnames": "",
@@ -1220,7 +1238,7 @@
     "tunetype": "Reel",
     "altnames": "Tom Billy's / Scartaglen / Humours of Scartaglen",
     "refno": "1033, 3082, 4521",
-    "transcriptlink": "https://thesession.org/tunes/156, https://tunepal.org/index.html#!/tune/2661-cre2.abc-5-O~Callaghan~s~(reel)~%2525~cre2%253Cbb, https://thesession.org/tunes/900#setting38894",
+    "transcriptlink": "https://tunepal.org/index.html#!/tune/2597-cre5.abc-16-New~Post~Office~~(reel)~%2525~cre5%253Cbb, https://thesession.org/tunes/900#setting38894",
     "refsettinglink": "https://thesession.org/tunes/900, https://tunearch.org/wiki/Tom_Billy%27s_Reel_(2)"
   },
   {
@@ -1278,7 +1296,7 @@
     "refsettinglink": "https://thesession.org/tunes/21947"
   },
   {
-    "tuneref": "MISC # 5",
+    "tuneref": "MISC # 4",
     "tunename": "Old Dudeen, The",
     "tunetype": "Reel",
     "altnames": "",
@@ -1372,7 +1390,7 @@
     "tunename": "Petticoat Loose",
     "tunetype": "Jig",
     "altnames": "Con Carthy's / Rooms of Dooagh",
-    "refno": "5291",
+    "refno": "4651, 5291",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/2277#setting47981"
   },
@@ -1384,6 +1402,15 @@
     "refno": "10091",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Pigeon_on_the_Gate_(1)"
+  },
+  {
+    "tuneref": "CRE 2 # 182",
+    "tunename": "Pinch of Snuff",
+    "tunetype": "Reel",
+    "altnames": "Mil na Maidí",
+    "refno": "5101",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/591"
   },
   {
     "tuneref": "CRE 1 # 40",
@@ -1623,7 +1650,7 @@
     "tuneref": "CRE 5 # 218",
     "tunename": "Scotch Glasgow, The",
     "tunetype": "Other",
-    "altnames": "Weaver’s Quirky Fling / Maggie Pickens",
+    "altnames": "Weaver’s Quirky Fling / Tom Billy's / Maggie Pickens",
     "refno": "4771",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/2653-cre5.abc-16-Time~Well~Spent*~~(h~pipe)~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185218.pdf",
     "refsettinglink": "https://thesession.org/tunes/13359"
@@ -1953,49 +1980,13 @@
     "refsettinglink": "https://thesession.org/tunes/6302"
   },
   {
-    "tuneref": "CICD # 2569",
-    "tunename": "Untitled Jig",
-    "tunetype": "Jig",
-    "altnames": "",
-    "refno": "4651",
-    "transcriptlink": "",
-    "refsettinglink": ""
-  },
-  {
-    "tuneref": "CICD # 4273",
-    "tunename": "Untitled Reel",
-    "tunetype": "Reel",
-    "altnames": "Denis Murphy's",
-    "refno": "4491",
-    "transcriptlink": "https://thesession.org/tunes/13013#setting50292",
-    "refsettinglink": "https://thesession.org/tunes/13013#setting50293"
-  },
-  {
-    "tuneref": "CICD # 4127",
-    "tunename": "Untitled Reel",
-    "tunetype": "Reel",
-    "altnames": "Pinch of Snuff ?",
-    "refno": "5101",
-    "transcriptlink": "",
-    "refsettinglink": ""
-  },
-  {
     "tuneref": "CICD # 3000",
     "tunename": "Untitled Reel",
     "tunetype": "Reel",
-    "altnames": "Gleann Eoghain / Doon ?",
+    "altnames": "",
     "refno": "5261",
     "transcriptlink": "",
     "refsettinglink": ""
-  },
-  {
-    "tuneref": "CICD # 4333",
-    "tunename": "Untitled Single Reel",
-    "tunetype": "Other",
-    "altnames": "Bill the Weaver's Single Reel / John Egan's",
-    "refno": "4451",
-    "transcriptlink": "https://thesession.org/tunes/19310#setting50285",
-    "refsettinglink": "https://thesession.org/tunes/19310"
   },
   {
     "tuneref": "TMP # 4011",
