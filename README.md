@@ -8,6 +8,7 @@
 + Toolkit or Demo mode is now fully pre-set in the App via a variable. 
 + Search section checks simplified to avoid edge cases.
 + Smarter search results: matches are now explicitly grouped in the search output, relevant object sections are made more obvious.
++ Tune DB updated to version 2024-07-11 (major updates in Tracks and Tunes).
 
 [v.2.6]
 

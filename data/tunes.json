@@ -954,6 +954,15 @@
     "refsettinglink": "https://thesession.org/tunes/10855, https://tunearch.org/wiki/Kilcummin_Slide_(The)"
   },
   {
+    "tuneref": "CICD # 3000",
+    "tunename": "King's",
+    "tunetype": "Reel",
+    "altnames": "George the Fourth / King George the IV",
+    "refno": "5261",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/3859, https://tunearch.org/wiki/King%27s_Reel_(The)"
+  },
+  {
     "tuneref": "CRE 5 # 170",
     "tunename": "Kiss the Maid behind the Barrel",
     "tunetype": "Reel",
@@ -1883,7 +1892,7 @@
   {
     "tuneref": "CRE 2 # 57",
     "tunename": "Tom Connor's",
-    "tunetype": "Slide",
+    "tunetype": "Jig",
     "altnames": "Port Taim Uí Chonchúir",
     "refno": "4901",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/1440-cre2.abc-5-Tom~Connors~~Jig~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182057.pdf",
@@ -1978,15 +1987,6 @@
     "refno": "4501",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/1544-cre2.abc-5-Two~Birds~in~the~Tree~(reel)~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182232.pdf",
     "refsettinglink": "https://thesession.org/tunes/6302"
-  },
-  {
-    "tuneref": "CICD # 3000",
-    "tunename": "Untitled Reel",
-    "tunetype": "Reel",
-    "altnames": "",
-    "refno": "5261",
-    "transcriptlink": "",
-    "refsettinglink": ""
   },
   {
     "tuneref": "TMP # 4011",

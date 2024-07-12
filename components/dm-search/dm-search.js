@@ -61,7 +61,7 @@ async function searchDatabaseHandler() {
 
     doMultiWordSearch(searchKeyword);
 
-    searchResultsCounter.textContent = `Found ${searchResultsDiv.children.length} items`;
+    searchResultsCounter.textContent = `Found ${countSearchResults()} items`;
 
   }, searchTimeoutValue);
 }
@@ -72,27 +72,57 @@ async function doMultiWordSearch(keyword) {
 
   showSearchMatches(keyword);
 
-  console.log(`PD Search Engine:\n\nFound ${searchResultsDiv.children.length} result(s) by keyword search`);
+  let resultsNo = countSearchResults();
 
-  let searchMultiWord = keyword.split(' ');
+  console.log(`PD Search Engine:\n\nFound ${resultsNo} result(s) by complete search for "${keyword}"`);
 
-  if (searchMultiWord.length > 1) {
+  if (resultsNo > 0) {
 
-    for (let i = 0; i < searchMultiWord.length; i++) {
+    const resultsSeparator = document.createElement("div");
+    resultsSeparator.classList.add("dm-search-results-separator");
+    resultsSeparator.setAttribute("data-resultsgroup", "complete-matches");
 
-      if (stopWordsList.includes(searchMultiWord[i])) {
+    const resultsSeparatorText = document.createElement("p");
+    resultsSeparatorText.textContent = "Complete matches found";
+    resultsSeparator.append(resultsSeparatorText);
 
-        console.log(`PD Search Engine:\n\n"${searchMultiWord[i]}" found in search stop list`);
+    searchResultsDiv.prepend(resultsSeparator);
+  }
+  
+  let searchSplitKeyword = keyword.split(' ');
+
+  if (searchSplitKeyword.length > 1) {
+
+    let splitSearchCounter = 0;
+
+    const multiResultsSeparator = document.createElement("div");
+    multiResultsSeparator.classList.add("dm-search-results-separator");
+    multiResultsSeparator.setAttribute("data-resultsgroup", "partial-matches");
+
+    const multiResultsSeparatorText = document.createElement("p");
+    multiResultsSeparatorText.textContent = "Partial matches found";
+    multiResultsSeparator.append(multiResultsSeparatorText);
+
+    searchResultsDiv.append(multiResultsSeparator);
+
+    for (let i = 0; i < searchSplitKeyword.length; i++) {
+
+      if (stopWordsList.includes(searchSplitKeyword[i])) {
+
+        console.log(`PD Search Engine:\n\n"${searchSplitKeyword[i]}" found in search stop list`);
       }
 
-      // console.warn(`Doing search #${i + 1}`);
+      if (!stopWordsList.includes(searchSplitKeyword[i]) && searchSplitKeyword[i].length >= minSearchLength) {
 
-      if (!stopWordsList.includes(searchMultiWord[i])) {
-
-        showSearchMatches(searchMultiWord[i]);
+        splitSearchCounter += await showSearchMatches(searchSplitKeyword[i]);
       }
     }
-  }
+
+    if (splitSearchCounter === 0) {
+
+      multiResultsSeparator.setAttribute("style", "display: none");
+    }
+  } 
 }
 
 // Filter Tune Data and display items matching the search input
@@ -102,37 +132,37 @@ async function showSearchMatches(keyword) {
   const dataTypeSelected = document.querySelector('input[name="search-data-type"]:checked').value;
 
   const colSearchKeys = [
-    {"colname": "Name"}, 
-    {"source": "Source"}, 
-    {"performers": "Performers"},
-    {"refcode": "Ref. Code"}, 
-    {"pubcode": "Pub. Code"}, 
-    {"colrefno": "Ref. No."},
-    {"recyear": "Rec. Year"},
-    {"pubyear": "Pub. Year"},
-    {"colnotes": "Notes [1]"}, 
-    {"colnotes2": "Notes [2]"}, 
-    {"colnotes3": "Notes [3]"},
-    {"coltype": "Type"}];
+    {"colname": "name"}, 
+    {"source": "source"}, 
+    {"performers": "performers"},
+    {"refcode": "ref. code"}, 
+    {"pubcode": "pub. code"}, 
+    {"colrefno": "ref. no."},
+    {"recyear": "rec. year"},
+    {"pubyear": "pub. year"},
+    {"colnotes": "notes [1]"}, 
+    {"colnotes2": "notes [2]"}, 
+    {"colnotes3": "notes [3]"},
+    {"coltype": "type"}];
 
   const tuneSearchKeys = [
-    {"tunename": "Name"},
-    {"altnames": "Alt. Name"},
-    {"tunetype": "Type"},
-    {"tuneref": "Col. Ref"}
+    {"tunename": "name"},
+    {"altnames": "alt. name"},
+    {"tunetype": "type"},
+    {"tuneref": "col. ref"}
   ];
 
   const trackSearchKeys = [
-    {"tunename": "Name"},
-    {"altnames": "Alt. Name"},
-    {"performers": "Performers"}, 
-    {"tunetype": "Type"},
-    {"refno": "Ref. No."},
-    {"tuneref": "Col. Ref."},
-    {"recyear": "Rec. Year"},
-    {"pubyear": "Pub. Year"},
-    {"tracknotes": "Notes"},
-    {"category": "Category"}
+    {"tunename": "name"},
+    {"altnames": "alt. name"},
+    {"performers": "performers"}, 
+    {"tunetype": "type"},
+    {"refno": "ref. no."},
+    {"tuneref": "col. ref."},
+    {"recyear": "rec. year"},
+    {"pubyear": "pub. year"},
+    {"tracknotes": "notes"},
+    {"category": "category"}
   ];
 
   let searchKeys = dataTypeSelected === "cols" ? colSearchKeys : 
@@ -141,7 +171,9 @@ async function showSearchMatches(keyword) {
   let searchJson = dataTypeSelected === "cols" ? colsJson : 
     dataTypeSelected === "tunes"? tunesJson : tracksJson;
 
+  let foundResults = 0;
   let filteredResults = 0;
+  let resultsShown;
 
   searchKeys.forEach(keyObj => {
 
@@ -151,17 +183,23 @@ async function showSearchMatches(keyword) {
 
       if (searchJson[i][jsonKey].toLowerCase().includes(keyword)) {
 
+        foundResults++;
+
         const searchItem = searchItemTemplate.content.cloneNode(true).children[0];
         const searchItemType = searchItem.querySelector('.dm-search-item-type');
         const searchItemName = searchItem.querySelector('.dm-search-item-name');
         const searchItemRefno = searchItem.querySelector('.dm-search-item-refno');
+
+        if (jsonKey === "tunename" || jsonKey === "altnames" || jsonKey === "colname") {
+          searchItemType.setAttribute("data-type", "name");
+        }
 
         if (dataTypeSelected === "cols") {
 
           let colName = searchJson[i].colname;
           let colRefNo = searchJson[i].colrefno;
 
-          searchItemType.textContent = `Found In: Col. ${keyObj[jsonKey]}`;
+          searchItemType.textContent = `col. ${keyObj[jsonKey]}`;
           searchItemName.textContent = colName;
           searchItemRefno.textContent = `${colRefNo} | ${searchJson[i].refcode}`;
   
@@ -176,22 +214,13 @@ async function showSearchMatches(keyword) {
                     
           if (jsonKey === "altnames") {
 
-            console.warn(jsonKey);
-
-            console.warn(searchJson[i][jsonKey]);
-
             const altNamesArr = searchJson[i][jsonKey].split(" / ");
-
-            console.warn(altNamesArr);
-
             tuneName = altNamesArr.find(altname => altname.toLowerCase().includes(keyword));
-
-            console.warn(tuneName);
           }
 
           tuneName = `${tuneName} (${searchJson[i].tunetype})`;
 
-          searchItemType.textContent = `Found In: Tune ${keyObj[jsonKey]}`;
+          searchItemType.textContent = `tune ${keyObj[jsonKey]}`;
           searchItemName.textContent = tuneName;
           searchItemRefno.textContent = tuneRef;
   
@@ -201,10 +230,18 @@ async function showSearchMatches(keyword) {
 
         if (dataTypeSelected === "tracks") {
 
-          let trackName = `${searchJson[i].tunename} (${searchJson[i].tunetype})`;
+          let trackName = searchJson[i].tunename;
           let trackRefNo = searchJson[i].refno;
 
-          searchItemType.textContent = `Found In: Track ${keyObj[jsonKey]}`
+          if (jsonKey === "altnames") {
+
+            const altNamesArr = searchJson[i][jsonKey].split(" / ");
+            trackName = altNamesArr.find(altname => altname.toLowerCase().includes(keyword));
+          }          
+
+          trackName = `${trackName} (${searchJson[i].tunetype})`;
+
+          searchItemType.textContent = `track ${keyObj[jsonKey]}`
           searchItemName.textContent = trackName;
           searchItemRefno.textContent = `No. ${trackRefNo}`;
   
@@ -214,22 +251,28 @@ async function showSearchMatches(keyword) {
 
         if (isDuplicateResult(searchResultsDiv, searchItem)) {
 
-          filteredResults++
+          filteredResults++;
+          return;
         }
 
         if (!isDuplicateResult(searchResultsDiv, searchItem)) {
 
+          searchItemType.textContent = `“${keyword}”: ` + searchItemType.textContent;
           searchResultsDiv.append(searchItem);
         }
       }
     }
   });
 
-  console.log(`PD Search Engine:\n\nFound ${searchResultsDiv.children.length} result(s) by split word search`);
+  resultsShown = foundResults - filteredResults;
+
+  console.log(`PD Search Engine:\n\nFound ${foundResults} result(s) for "${keyword}" by split word search`);
 
   if (filteredResults > 0) {
-    console.log(`PD Search Engine:\n\nFiltered out ${filteredResults} result(s)`);
+    console.log(`PD Search Engine:\n\nFiltered out ${filteredResults} result(s). Results shown for "${keyword}": ${resultsShown}`);
   }
+
+  return resultsShown;
 }
 
 // Check if the next search result is a duplicate of an already found item
@@ -240,7 +283,15 @@ function isDuplicateResult(resultsDiv, newItem) {
 
   for (let i = 0; i < searchResults.length; i++) {
 
-      if (searchResults[i].isEqualNode(newItem)) {
+    // Clone and filter search object to ensure same objects with different parts of keyword displayed don't pass
+
+    const filteredObject = searchResults[i].cloneNode(true);
+
+    const typeSpan = filteredObject.firstElementChild;
+
+    typeSpan.textContent = typeSpan.textContent.split('”: ')[1];
+
+      if (filteredObject.isEqualNode(newItem)) {
 
           return true;
       }
@@ -268,7 +319,7 @@ function searchRadioHandler() {
 
       doMultiWordSearch(searchValue.toLowerCase());
 
-      searchResultsCounter.textContent = searchResultsDiv.children.length === 1? `Found 1 item` : 
+      searchResultsCounter.textContent = countSearchResults() === 1? `Found 1 item` : 
         `Found ${searchResultsDiv.children.length} items`;
 
       if (searchResultsDiv.lastElementChild) {
@@ -276,6 +327,17 @@ function searchRadioHandler() {
         autoExpandSearchResults();
       }
   }
+}
+
+// Return the number of search results excluding the separator(s) from the count
+
+function countSearchResults() {
+
+  const resultsTotalLength = searchResultsDiv.children.length;
+
+  const separatorsLength = [...document.getElementsByClassName("dm-search-results-separator")].length;
+
+  return resultsTotalLength - separatorsLength;
 }
 
 // Modify search section when input gains or loses focus

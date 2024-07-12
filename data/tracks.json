@@ -3148,7 +3148,7 @@
     "refno": "4901",
     "trackno": "90",
     "tunename": "Tom Connor's",
-    "tunetype": "Slide",
+    "tunetype": "Jig",
     "altnames": "Port Taim Uí Chonchúir",
     "tuneref": "CRE 2 # 57",
     "category": "Solo",
@@ -3482,7 +3482,7 @@
     "performers": "",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/2656-cre5.abc-16-Dolly~%2526~the~Gypsy~~(barn~dance)~%2525~cre5%253Cbb",
     "refsettinglink": "https://thesession.org/tunes/4577",
-    "tracknotes": "[Track A12 in source]. [Source title: Untitled Hornpipe]. CICD 6180. CRÉ / Paul de Grae: “Associated with local musicians Hannah Sullivan (concertina) and Mickeen Dawley. It is a hornpipe of the kind played for the last figure of a set”. NB: An apparent mix of Dolly Varden and Gypsy Princess that has become widely known as the Gypsy Princess. Terry Teahan called the same tune Dolly Varden while Denis apparently didn't have a name for it. Breandán Breathnach recorded Denis Murphy playing an unrelated tune under the title of Dolly Varden (CRE 5 # 87)”. NB: Unclear if CRÉ version comes from this recording [AZ]. Denis Murphy's version of this tune has since been recorded by Billy Clifford & Gerry Harrington on Now She's Purring, Self-published, 2018 (titled “Gypsy Princess”)."
+    "tracknotes": "[Track A12 in source]. [Source title: Untitled Hornpipe]. CICD 6180, CICD 6180.11. CRÉ version comes from a different but similar recording of Denis Murphy. CRÉ / Paul de Grae: “Associated with local musicians Hannah Sullivan (concertina) and Mickeen Dawley. It is a hornpipe of the kind played for the last figure of a set”. NB: An apparent mix of tunes known as Dolly Varden and Gypsy Princess that has become widely known as the Gypsy Princess. Terry Teahan called the same tune Dolly Varden while Denis apparently didn't have a name for it. Breandán Breathnach recorded Denis Murphy playing an unrelated tune under the title of Dolly Varden (CRE 5 # 87) [AZ]. Denis Murphy's version of this tune has since been recorded by Billy Clifford & Gerry Harrington on Now She's Purring, Self-published, 2018 (titled “Gypsy Princess”)."
   },
   {
     "refno": "5131",
@@ -3725,9 +3725,9 @@
   {
     "refno": "5261",
     "trackno": "26",
-    "tunename": "Untitled Reel",
+    "tunename": "King's",
     "tunetype": "Reel",
-    "altnames": "",
+    "altnames": "George the Fourth / King George the IV",
     "tuneref": "CICD # 3000",
     "category": "Solo",
     "recyear": "1967",
@@ -3736,8 +3736,8 @@
     "recyearto": "",
     "performers": "",
     "transcriptlink": "",
-    "refsettinglink": "",
-    "tracknotes": "[Track A26 in source]. CICD 3000 – A note says that Denis Murphy got this reel from Pádraig O'Keeffe. NB: The first part of this unusual tune reminds of the (multi-part) Farewell to Ireland as well as Toss the Feathers family of reels while the second appears to be a modified modal version of the High reel's part B."
+    "refsettinglink": "https://thesession.org/tunes/3859, https://tunearch.org/wiki/King%27s_Reel_(The)",
+    "tracknotes": "[Track A26 in source]. [Source title: Untitled Reel]. CICD 3000 – A note says that Denis Murphy got this reel from Pádraig O'Keeffe. NB: This is The King's reel, a tune of Scottish origin popular among the Cape Breton musicians. It was published in several 19th century Scottish collections of music under the titles of Kings / King's / George the Fourth Reel and it's highly likely that one of them served as the source for O'Keeffe since the reel doesn't seem to appear in any of the Irish collections [AZ]"
   },
   {
     "refno": "5271",
@@ -5403,7 +5403,7 @@
     "performers": "w. Séamus Ennis",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Flax_in_Bloom_(The)",
-    "tracknotes": "[Source timecode: 7:45]."
+    "tracknotes": "[Source timecode: 7:45]"
   },
   {
     "refno": "20032",
@@ -5420,7 +5420,7 @@
     "performers": "w. Séamus Ennis",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/901",
-    "tracknotes": "[Source timecode: 9:09]."
+    "tracknotes": "[Source timecode: 9:09]"
   },
   {
     "refno": "20041",
@@ -5505,7 +5505,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Johnny_Cope_(2)",
-    "tracknotes": "[Source timecode: 22:58]."
+    "tracknotes": "[Source timecode: 22:58]"
   },
   {
     "refno": "20101",
@@ -5624,7 +5624,7 @@
     "performers": "w. Cornelius O'Sullivan & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Sixpenny_Money",
-    "tracknotes": "[Source timecode: 3:44]."
+    "tracknotes": "[Source timecode: 3:44]"
   },
   {
     "refno": "21022",
@@ -5760,7 +5760,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Old_Pigeon_on_the_Gate",
-    "tracknotes": "[Source timecode: 1:31]."
+    "tracknotes": "[Source timecode: 1:31]"
   },
   {
     "refno": "22021",
@@ -5794,7 +5794,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Doon_Reel_(6)_(The)",
-    "tracknotes": "[Source timecode: 3:46]."
+    "tracknotes": "[Source timecode: 3:46]"
   },
   {
     "refno": "22031",
@@ -5811,7 +5811,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Martin_Wynne%27s_No._2",
-    "tracknotes": "[Source timecode: 5:03]."
+    "tracknotes": "[Source timecode: 5:03]"
   },
   {
     "refno": "22032",
@@ -5845,7 +5845,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Ballinamore_Reel_(2)",
-    "tracknotes": "[Source timecode: 7:30]."
+    "tracknotes": "[Source timecode: 7:30]"
   },
   {
     "refno": "22042",
@@ -5896,7 +5896,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Monsignor%27s_Blessing",
-    "tracknotes": "[Source timecode: 11:21]."
+    "tracknotes": "[Source timecode: 11:21]"
   },
   {
     "refno": "22061",
@@ -5913,7 +5913,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/901",
-    "tracknotes": "[Source timecode: 12:33]."
+    "tracknotes": "[Source timecode: 12:33]"
   },
   {
     "refno": "22062",
@@ -5930,7 +5930,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Mouse_behind_the_Dresser_(The)",
-    "tracknotes": "[Source timecode: 13:46]."
+    "tracknotes": "[Source timecode: 13:46]"
   },
   {
     "refno": "22071",
@@ -5964,7 +5964,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1077",
-    "tracknotes": "[Source timecode: 16:02]."
+    "tracknotes": "[Source timecode: 16:02]"
   },
   {
     "refno": "22081",
@@ -5981,7 +5981,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/365",
-    "tracknotes": "[Source timecode: 17:07]."
+    "tracknotes": "[Source timecode: 17:07]"
   },
   {
     "refno": "22082",
@@ -6032,7 +6032,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/876#setting14056",
-    "tracknotes": "[Source timecode: 20:20]."
+    "tracknotes": "[Source timecode: 20:20]"
   },
   {
     "refno": "22101",
@@ -6083,7 +6083,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1618",
-    "tracknotes": "[Source timecode: 24:02]."
+    "tracknotes": "[Source timecode: 24:02]"
   },
   {
     "refno": "22112",
@@ -6100,7 +6100,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/11674",
-    "tracknotes": "[Source timecode: 25:07]."
+    "tracknotes": "[Source timecode: 25:07]"
   },
   {
     "refno": "22121",
@@ -6117,7 +6117,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Tr%C3%AD_is_a_Rian_(An)",
-    "tracknotes": "[Source timecode: 26:16]."
+    "tracknotes": "[Source timecode: 26:16]"
   },
   {
     "refno": "22122",
@@ -6134,7 +6134,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Corney_Drew%27s_Hornpipe",
-    "tracknotes": "[Source timecode: 27:46]."
+    "tracknotes": "[Source timecode: 27:46]"
   },
   {
     "refno": "34021",
@@ -6661,7 +6661,7 @@
     "performers": "w. Paddy Murphy & unidentified pianist",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Knocknaboul_Polka_(2)",
-    "tracknotes": "[Source title: “Sneem Polka”]."
+    "tracknotes": "[Source title: “Sneem Polka”]"
   },
   {
     "refno": "94012",
@@ -6678,7 +6678,7 @@
     "performers": "w. Paddy Murphy & unidentified pianist",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Top_of_the_Maol_(The)",
-    "tracknotes": "[Source title: “Sneem Polka”]."
+    "tracknotes": "[Source title: “Sneem Polka”]"
   },
   {
     "refno": "94021",
