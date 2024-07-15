@@ -1,7 +1,32 @@
 /* #ProjectDenis: Toolkit Styles */
 
-body {
+body, .header-main {
   width: min(calc(100% - 2.4em), 120rem);
+}
+
+/* Header styles */
+
+.header-main {
+  position: fixed;
+  top: 0;
+  padding: 0 0.5rem 0.65rem;
+  background-color: var(--primary-color);
+  border: 1px dashed var(--secondary-color-a);
+  border-top: none;
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  z-index: 3;
+}
+
+@supports (color: color-mix(in srgb, black, black)) {
+  .header-main  {
+    border-color: color-mix(in srgb, var(--secondary-color-a) 80%, black);
+  }
+}
+
+.header-link {
+  font-size: var(--font-large);
 }
 
 /* Sections styles */
@@ -10,6 +35,13 @@ body {
 #dm-explore,
 #dm-discover {
   min-height: 100svh;
+}
+
+#search,
+#explore,
+#discover {
+  padding-top: 7rem;
+  padding-bottom: 2.5rem;
 }
 
 #dm-search,
@@ -23,10 +55,8 @@ body {
   margin-bottom: 1rem;
 }
 
-/* Header styles */
-
-.header-link {
-  font-size: var(--font-large);
+.dm-launch-container {
+  padding-top: 2.5rem;
 }
 
 /* Button styles */
@@ -134,8 +164,16 @@ body {
   border-radius: 0.4rem;
 }
 
-.splitter-container {
-  flex-flow: row;
+.generator-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.reference-container .btn {
+  max-width: calc(100% / 3 - 1.5rem / 3);
 }
 
 .splitter-group {
@@ -144,11 +182,8 @@ body {
   min-width: calc(100% / 3 - 1.5rem / 3);
 }
 
-.generator-container {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  margin-top: 0.75rem;
+.splitter-container {
+  flex-flow: row;
 }
 
 /* Media queries */
@@ -172,12 +207,21 @@ body {
   .generator-container > .btn {
     width: 100%;
   }
+
+  .reference-container .btn {
+    max-width: none;
+  }
 }
 
 /* @media screen and (max-width: 668px) { */
 @media screen and (max-width: 41.75em) {
-
-
+  
+  .header-main {
+    left: 0;
+    width: 100%;
+    border-left: none;
+    border-right: none;
+  }
 }
 
 /* @media screen and (max-width: 360px) { */

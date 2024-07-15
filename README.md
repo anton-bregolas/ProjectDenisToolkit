@@ -2,6 +2,14 @@
 ========================================================================================
 #ProjectDenis Toolkit is a set of simple tools for building and updating the database for the project in tribute to the Sliabh Luachra music legend, fiddle player Denis Murphy (1910–1974).
 
+[v.2.8]
+
++ Reference list sections added using modal dialogs.
++ The Star Above The Garter color theme reworked with gradient background.
++ Color theme variations split to separate override css.
++ User color theme is now saved and retrieved from localStorage.
++ Search matches results regardless of diacritics.
+
 [v.2.7]
 
 + App Main Page split into three sections: Search (Search section), Explore (Generator section) and Discover (Reference section).
@@ -31,7 +39,7 @@
 [v.2.3]
 
 + Fully fetchable Tracklist, Tunelist and Collections.
-+ Tracklist compartmentalised into separate component to reduce clutter.
++ Tracklist compartmentalized into separate component to reduce clutter.
 + Tracklist sorting introduced with several sorting algorithms.
 + Experimental ARIA Table roles added to Tracklist.
 + Tune, Collections, Track popover cards adapted to new structure.
@@ -67,7 +75,16 @@
 + Three experimental color themes added: Rainy theme, Rainbow theme and The Star above the Garter theme.
 + Color theme toggle button now triggers a popover offering a selection of themes.
 
-## App Launcher v.1.1
+[v.1.0 - v.1.6]
+
++ Development in basic Toolkit mode with Generator, Parser and Splitter sections (detailed breakdown below).
+
+## App Launcher v.1.2
+
+[v.1.2]
+
++ Support for References DB added to fetch data functions.
++ Saves user color theme and retrieves it on new page load via localStorage.
 
 [v.1.1]
 
@@ -80,11 +97,16 @@
 + Fetches Tracks, Collections and Tunes JSONs and assigns them to custom JSONs.
 + Reveals Search section with radio button group and search input / output.
 
-## Search Engine v.1.2
+## Search Engine v.1.3
+
+[v.1.3]
+
++ Matches results regardless of diacritics: both keywords and DB item strings now filtered using Normalize method.
++ Added processString function to handle search strings within the getSearchMatches function.
 
 [v.1.2]
 
-+ Matches in the search output are explicitly grouped and identified by separators.
++ Matches in the search output are explicitly grouped and identified by separators (exact matches, partial matches).
 + Results found by exact phrase, results found in object names and the rest of the results are visually grouped.
 + Relevant object sections shown in result items are additionally highlighted to make them more obvious.
 + Results found in alt. names now use Alt. Name displayed instead of Tune Name.
@@ -93,7 +115,7 @@
 
 [v.1.1]
 
-+ Search Engine now searches for each individual word in search input.
++ Search Engine now searches for each individual word in search input in addition to exact phrase search.
 + Basic stop list of English prepositions added.
 + Keyword is omitted from a multi-word search if stop list contains it.
 
@@ -107,9 +129,13 @@
 + Each search item is a button that triggers a Show Popover function.
 + Choice of functions is delegated to showPopoverHandler.
 
-## List Generator v.2.1
+## List Generator v.2.2
 
 This tool generates interactive lists of tunes, tracks and collections using the JSON Splitter data output.
+
+[v.2.2]
+
++ Generates lists of References and Links from References DB.
 
 [v.2.1]
 
@@ -119,7 +145,7 @@ This tool generates interactive lists of tunes, tracks and collections using the
 [v.2.0]
 
 + Full support for dual use of fetch and/or local JSON database.
-+ Tracklist refactored and compartmentalised, headers moved to HTML.
++ Tracklist refactored and compartmentalized, headers moved to HTML.
 + Tracklist ARIA roles added.
 + Tracklist sorting introduced.
 + Tune Card better adapts to mobile.
@@ -176,9 +202,14 @@ This tool generates interactive lists of tunes, tracks and collections using the
 + Responsive design tested for Tunelist grid using dummy tunelist.
 + Tunelist dialog styles tweaked for light and dark themes.
 
-## TSV to JSON Parser v.2.1
+## TSV to JSON Parser v.2.2
 
 This tool converts Tab-Separated Value strings from #ProjectDenis Google Sheet table into JSON format.
+
+[v.2.2]
+
++ Parser now recognizes and parses References .tsv imports.
++ References DB is printed to main output and saved.
 
 [v.2.1]
 

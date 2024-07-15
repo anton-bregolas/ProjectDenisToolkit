@@ -28,7 +28,7 @@ body {
   --focus-color: var(--secondary-color-a);
   --focus-color-inverted: var(--secondary-color-b);
 
-  background-color: var(--primary-color);
+  background: var(--primary-color);
   margin: 0 auto;
 }
 
@@ -119,7 +119,7 @@ body * {
 a {
   color: var(--accent-color-b);
   text-decoration-line: none;
-  transition: color 0.5s ease-in-out;
+  transition: color 0.35s ease-in-out;
 }
 
 a:active, a:hover {
@@ -193,7 +193,8 @@ h1, h2, h3 {
 
 h1 {
   font-size: var(--font-large);
-  margin: 1.7rem 2rem 0rem;
+  padding: 4.25rem 2rem 0rem;
+  margin: 0;
 }
 
 h2 {
@@ -242,7 +243,7 @@ dialog:focus-visible {
 .link-icon,
 .theme-icon {
   opacity: 0.75;
-  transition: opacity 0.75s ease-in-out, color 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out, color 0.35s ease-in-out;
   color: var(--accent-color-b);
   position: absolute;
 }
@@ -337,9 +338,9 @@ dialog:focus-visible {
   text-align: center;
   color: var(--neutral-color);
   caret-color: var(--neutral-color);
-  transition: opacity 0.5s ease-in-out, 
-  box-shadow 0.5s ease-in-out,
-  background-color 0.3s linear;
+  transition: opacity 0.35s ease-in-out, 
+  box-shadow 0.35s ease-in-out,
+  background-color 0.35s linear;
   box-shadow: 0px 0px 0px 0.1875rem transparent;
   width: 100%;
 }
@@ -356,6 +357,10 @@ dialog:focus-visible {
 }
 
 /* Common container styles */
+
+.main-container {
+  padding-top: 3.5rem;
+}
 
 .header-container, .flex-row-wrap, .flex-col-wrap, .flex-col-centered {
   display: flex;

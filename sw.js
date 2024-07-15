@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pd-cache-v.2.7.0';
+const CACHE_NAME = 'pd-cache-v.2.8.0';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -45,7 +45,7 @@ self.addEventListener('activate', (event) => {
         // Activate new service worker on page reload
         self.clients.claim().then(() => {
             // Stop the old service worker, notify about version change in console 
-            console.log(`PD Service Worker: Cache version updated to ${CACHE_NAME.slice(16)}`);
+            console.log(`PD Service Worker: Cache version updated to ${CACHE_NAME.slice(9)}`);
             self.registration.unregister().then(() => {
                 self.skipWaiting();
             });

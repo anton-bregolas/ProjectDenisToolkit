@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="components/dm-modals/dm-modals.css">
     <link rel="stylesheet" href="components/dm-tracklist/dm-tracklist.css">
     <link rel="stylesheet" href="components/dm-search/dm-search.css">
+    <link rel="stylesheet" href="styles/dm-themes-override.css">
     <script type="module" src="modules/dm-app.js"></script>
 </head>
-<body class="dark">
-    <header>
+<body class="star">
+    <header class="header-main">
         <nav class="header-container"> 
             <button class="link-btn github-logo" title="#ProjectDenis Toolkit on GitHub" tabindex="-1">
                 <a href="https://github.com/anton-bregolas/ProjectDenisToolkit/" target="_blank" class="link-icon-container" ria-label="Link to Project Denis Toolkit on GitHub">
@@ -33,15 +34,15 @@
                     <svg class="link-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-abc"></use></svg>
                 </a>
             </button>
-            <button id="theme-toggle-btn" class="theme-btn" title="Toggle between color themes" aria-label="Select color theme. Dark theme is on" popovertarget="theme-picker-popover">
+            <button id="theme-toggle-btn" class="theme-btn" title="Toggle between color themes" aria-label="Select color theme. The Star Above The Garter theme is on" popovertarget="theme-picker-popover">
                 <svg class="theme-icon nav-icon-theme" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-theme"></use></svg>
             </button>
             <section id="theme-picker-popover" popover>
-                <button id="dm-btn-theme-dark" class="theme-btn hidden" data-theme="dark" title="Dark theme">
+                <button id="dm-btn-theme-dark" class="theme-btn" data-theme="dark" title="Dark theme">
                     <svg class="theme-icon theme-icon-moon" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-moon"></use></svg>
                 </button>
-                <button id="dm-btn-theme-light" class="theme-btn" data-theme="light" title="Light theme">
-                    <svg class="theme-icon theme-icon-sun" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-sun"></use></svg>
+                <button id="dm-btn-theme-star" class="theme-btn hidden" data-theme="star" title="The Star Above The Garter theme">
+                    <svg class="theme-icon theme-icon-star" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-star"></use></svg>
                 </button>
                 <button id="dm-btn-theme-rain" class="theme-btn" data-theme="rainy" title="Rainy theme">
                     <svg class="theme-icon theme-icon-rainy" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-rain"></use></svg>
@@ -49,8 +50,8 @@
                 <button id="dm-btn-theme-rainbow" class="theme-btn" data-theme="rainbow" title="Rainbow theme">
                     <svg class="theme-icon theme-icon-rainbow" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-rainbow"></use></svg>
                 </button>
-                <button id="dm-btn-theme-star" class="theme-btn" data-theme="star" title="The Star above the Garter theme">
-                    <svg class="theme-icon theme-icon-star" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-star"></use></svg>
+                <button id="dm-btn-theme-light" class="theme-btn" data-theme="light" title="Light theme">
+                    <svg class="theme-icon theme-icon-sun" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-sun"></use></svg>
                 </button>
             </section>
         </nav>
@@ -73,7 +74,7 @@
                 <div class="dm-search-container">
                     <fieldset id="dm-search-data-select" class="dm-search-radio-container" role="radiogroup">
                         <legend class="dm-search-radio-legend">
-                            <h2><b>Search:</b> Tracks, Collections, Tunes</h2>
+                            <h2 id="search"><b>Search:</b> Tracks, Collections, Tunes</h2>
                         </legend>
                         <label for="data-search-tracks" class="dm-label-radio">
                             <h3>Tracks</h3>
@@ -111,11 +112,10 @@
                         </section>
                     </section>
                 </div>
-                <section class="dm-search-db-counters"><p><span class="dm-tracks-counter">0</span> Track-items, <span class="dm-cols-counter">0</span> Collections, <span class="dm-tunes-counter">0</span> Tunes</p></section>
+                <section class="dm-search-db-counters"><p><span class="dm-cols-counter">0</span> Collections, <span class="dm-tunes-counter">0</span> Tunes, <span class="dm-tracks-counter">0</span> Track-Items</p></section>
             </section>
             <section id="dm-explore" class="dm-generator" hidden>
-                <h2><b>Explore:</b> Tunelist, Discography, Tracklist</h2>
-                <br>
+                <h2 id="explore"><b>Explore:</b> Tunelist, Discography, Tracklist</h2>
                 <section class="generator-container">
                     <button id="dm-btn-generate-tunelist" class="btn"><span class="btn-text dm-generate-btn-container">Show Tunelist
                         <span class="action-icon-container action-icon-tunelist" aria-hidden="true">
@@ -214,7 +214,19 @@
                 </section>
             </section>
             <section id="dm-discover" hidden>
-                <h2><b>Discover:</b> Reference Materials</h2>
+                <h2 id="discover"><b>Discover:</b> Reference Materials</h2>
+                <section class="generator-container reference-container">
+                    <button id="dm-btn-generate-reflist" class="btn"><span class="btn-text dm-generate-btn-container">Key to References
+                        <span class="action-icon-container action-icon-tunelist" aria-hidden="true">
+                            <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-books"></use></svg>
+                        </span>
+                    </span></button>
+                    <button id="dm-btn-generate-linklist" class="btn"><span class="btn-text dm-generate-btn-container">Links to Resources
+                        <span class="action-icon-container action-icon-collections" aria-hidden="true">
+                            <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-bookmarks"></use></svg>
+                        </span>
+                    </span></button>
+                </section>
             </section>
             <section id="dm-parser" class="dm-parser" hidden>
                 <h2>TSV to JSON Parser</h2>
@@ -304,22 +316,22 @@
                         </div>
                     </header>
                     <section id="dm-collist-wrapper" class="dm-collist-container">
-                        <table id="dm-collist-table" aria-labelledby="dm-collist-caption">
-                            <caption id="dm-collist-caption">
+                        <table id="dm-collist-table" class="dm-list-table" aria-labelledby="dm-collist-caption">
+                            <caption id="dm-collist-caption" class="dm-list-table-caption">
                                 <div class="dm-table-caption-wrapper">
                                     <h2>List of Catalogued Collections</h2>
                                 </div>
                             </caption>
-                            <thead id="dm-collist-header">
+                            <thead id="dm-collist-header" class="dm-list-table-header">
                                 <tr class="dm-collist-row">
                                     <th class="dm-collist-item">
-                                        <h3 class="dm-collist-text" aria-label="Collection Reference Number">1. Collection Ref.</h3>
+                                        <h3 class="dm-collist-text" aria-label="Collection Reference Number">Collection Ref.</h3>
                                     </th>
                                     <th class="dm-collist-item">
-                                        <h3 class="dm-collist-text" aria-label="Collection Name">2. Collection Name</h3>
+                                        <h3 class="dm-collist-text" aria-label="Collection Name">Collection Name</h3>
                                     </th>
                                     <th class="dm-collist-item">
-                                        <h3 class="dm-collist-text" aria-label="Collection Details">3. Collection Details</h3>
+                                        <h3 class="dm-collist-text" aria-label="Collection Details">Collection Details</h3>
                                     </th>
                                 </tr>
                             </thead>
@@ -367,14 +379,74 @@
                     </article>
                     <div class="dm-status-bar" aria-live="assertive"></div>
                 </dialog>
-                <dialog id="dm-modal-list-library" class="dm-modal-list" aria-hidden="true" aria-label="List of Reference Materials">
+                <dialog id="dm-modal-list-references" class="dm-modal-list" aria-hidden="true" aria-label="Key to Referenced Materials">
                     <header class="dm-modal-list-header">
-                        <div id="dm-modal-list-header-container" class="dm-modal-list-header-container">
-                            <h2 class="dm-modal-list-title nowrap">#ProjectDenis: References</h2>
-                            <button id="dm-btn-library-close" class="btn dm-btn-modal"><span class="btn-text">Close Library</span></button>
+                        <div class="dm-modal-list-header-container">
+                            <h2 class="dm-modal-list-title dm-references-title">#ProjectDenis: Key to References</h2>
+                            <button id="dm-btn-references-close" class="btn dm-btn-modal"><span class="btn-text">Close List</span></button>
                         </div>
                     </header>
-                    <section id="dm-references" class="dm-library-container"></section>
+                    <section id="dm-references-wrapper" class="dm-collist-container">
+                        <table id="dm-reflist-table" class="dm-list-table" aria-labelledby="dm-collist-caption">
+                            <caption id="dm-reflist-caption" class="dm-list-table-caption">
+                                <div class="dm-table-caption-wrapper">
+                                    <h2>List of Referenced Materials</h2>
+                                </div>
+                            </caption>
+                            <thead id="dm-reflist-header" class="dm-list-table-header">
+                                <tr class="dm-collist-row">
+                                    <th colspan="3" class="dm-collist-item dm-list-table-subheader">
+                                        <h2 class="dm-collist-text">Printed Music Collections</h2>
+                                    </th>
+                                </tr>
+                                <tr class="dm-collist-row">
+                                    <th class="dm-collist-item">
+                                        <h3 class="dm-collist-text" aria-label="Reference Item Code">Ref. Code</h3>
+                                    </th>
+                                    <th class="dm-collist-item">
+                                        <h3 class="dm-collist-text" aria-label="Reference Item Name">Ref. Item Name</h3>
+                                    </th>
+                                    <th class="dm-collist-item">
+                                        <h3 class="dm-collist-text" aria-label="Reference Item Details">Ref. Item Details</h3>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="dm-references"></tbody>
+                            <thead id="dm-linkslist-header" class="dm-list-table-header">
+                                <tr class="dm-collist-row">
+                                    <th colspan="3" class="dm-collist-item dm-list-table-subheader">
+                                        <h2 class="dm-collist-text">Links to Resources</h2>
+                                    </th>
+                                </tr>
+                                <tr class="dm-collist-row">
+                                    <th class="dm-collist-item">
+                                        <h3 class="dm-collist-text" aria-label="Link Item Code">Link Code</h3>
+                                    </th>
+                                    <th class="dm-collist-item">
+                                        <h3 class="dm-collist-text" aria-label="Link Item Name">Link Item Name</h3>
+                                    </th>
+                                    <th class="dm-collist-item">
+                                        <h3 class="dm-collist-text" aria-label="Link Item Details">Link Item Details</h3>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="dm-reflinks"></tbody>
+                        </table>
+                    </section>
+                <article id="dm-popover-card-ref" popover class="dm-ref-card dm-popover-card" aria-label="Reference Item Details">
+                    <header class="dm-ref-grid-header dm-popover-card-header">
+                        <button id="dm-btn-ref-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Card and View List of References" title="Close Card and List of References"></button>
+                        <h3 class="ref-grid-hrefcode"></h3>
+                        <h2 class="ref-grid-htitle"></h2>
+                    </header>
+                    <div class="dm-ref-grid-body"></div>
+                    <section class="dm-ref-grid-footer">
+                        <button class="dm-btn-popover-close dm-btn-card-popover-close dm-btn-card-nav" aria-label="Close Card and View References" title="Close Card and View References"></button>
+                        <button class="dm-btn-popover-close dm-btn-card-dialog-close dm-btn-card-nav" aria-label="Quit to Main Page" title="Quit to Main Page"></button>
+                    </section>
+                </article>
+                <div class="dm-status-bar" aria-live="assertive"></div>
+                <dialog>
             </section>
         </div>
     </main>

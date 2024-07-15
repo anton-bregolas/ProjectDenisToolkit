@@ -36,7 +36,14 @@ export const tracksCounter = document.querySelector('.dm-tracks-counter');
 export const colsCounter = document.querySelector('.dm-cols-counter');
 export const tunesCounter = document.querySelector('.dm-tunes-counter');
 
-// Process search input and pass on value to showSearchMatches
+// Process search string: replace capital letters with lower case, latinize diactritics 
+
+function processString(string) {
+  
+  return string.toLowerCase().replace(/[\u2018\u2019\u201B\u02BC\u0060\u00B4]/g, `'`).replace(/[\u201C\u201D]/g, `"`).normalize("NFD").replace(/\p{Diacritic}/gu, "");
+}
+
+// Process search input and pass on value to getSearchMatches
 
 async function searchDatabaseHandler() {
 
@@ -57,33 +64,31 @@ async function searchDatabaseHandler() {
 
     searchResultsDiv.textContent = "";
    
-    const searchKeyword = searchValue.toLowerCase();
-
-    doMultiWordSearch(searchKeyword);
-
-    searchResultsCounter.textContent = `Found ${countSearchResults()} items`;
+    doMultiWordSearch(searchValue);
 
   }, searchTimeoutValue);
 }
 
-// Try searching for a phrase and then each keyword separately
+// Try searching for a phrase and then each keyword separately, count search results
 
 async function doMultiWordSearch(keyword) {
 
-  showSearchMatches(keyword);
+  let exactSearchCounter = 0;
+  let splitSearchCounter = 0;
+  let totalSearchCounter;
 
-  let resultsNo = countSearchResults();
+  exactSearchCounter = await getSearchMatches(keyword);
 
-  console.log(`PD Search Engine:\n\nFound ${resultsNo} result(s) by complete search for "${keyword}"`);
+  console.log(`PD Search Engine:\n\nFound ${exactSearchCounter} result(s) by exact search for "${keyword}"`);
 
-  if (resultsNo > 0) {
+  if (exactSearchCounter > 0) {
 
     const resultsSeparator = document.createElement("div");
     resultsSeparator.classList.add("dm-search-results-separator");
-    resultsSeparator.setAttribute("data-resultsgroup", "complete-matches");
+    resultsSeparator.setAttribute("data-resultsgroup", "exact-matches");
 
     const resultsSeparatorText = document.createElement("p");
-    resultsSeparatorText.textContent = "Complete matches found";
+    resultsSeparatorText.textContent = "Exact matches found";
     resultsSeparator.append(resultsSeparatorText);
 
     searchResultsDiv.prepend(resultsSeparator);
@@ -92,8 +97,6 @@ async function doMultiWordSearch(keyword) {
   let searchSplitKeyword = keyword.split(' ');
 
   if (searchSplitKeyword.length > 1) {
-
-    let splitSearchCounter = 0;
 
     const multiResultsSeparator = document.createElement("div");
     multiResultsSeparator.classList.add("dm-search-results-separator");
@@ -114,7 +117,7 @@ async function doMultiWordSearch(keyword) {
 
       if (!stopWordsList.includes(searchSplitKeyword[i]) && searchSplitKeyword[i].length >= minSearchLength) {
 
-        splitSearchCounter += await showSearchMatches(searchSplitKeyword[i]);
+        splitSearchCounter += await getSearchMatches(searchSplitKeyword[i]);
       }
     }
 
@@ -122,12 +125,18 @@ async function doMultiWordSearch(keyword) {
 
       multiResultsSeparator.setAttribute("style", "display: none");
     }
-  } 
+  }
+
+  totalSearchCounter = exactSearchCounter + splitSearchCounter;
+
+  searchResultsCounter.textContent = totalSearchCounter === 1? `Found 1 item` : `Found ${totalSearchCounter} items`;
 }
 
-// Filter Tune Data and display items matching the search input
+// Filter Tune Data and display items matching the search input, return the total number of items shown
 
-async function showSearchMatches(keyword) {
+async function getSearchMatches(keyword) {
+
+  const filteredKeyword = processString(keyword);
 
   const dataTypeSelected = document.querySelector('input[name="search-data-type"]:checked').value;
 
@@ -181,7 +190,7 @@ async function showSearchMatches(keyword) {
 
       const jsonKey = Object.keys(keyObj)[0];
 
-      if (searchJson[i][jsonKey].toLowerCase().includes(keyword)) {
+      if (processString(searchJson[i][jsonKey]).includes(filteredKeyword)) {
 
         foundResults++;
 
@@ -215,7 +224,7 @@ async function showSearchMatches(keyword) {
           if (jsonKey === "altnames") {
 
             const altNamesArr = searchJson[i][jsonKey].split(" / ");
-            tuneName = altNamesArr.find(altname => altname.toLowerCase().includes(keyword));
+            tuneName = altNamesArr.find(altname => processString(altname).includes(filteredKeyword));
           }
 
           tuneName = `${tuneName} (${searchJson[i].tunetype})`;
@@ -236,7 +245,7 @@ async function showSearchMatches(keyword) {
           if (jsonKey === "altnames") {
 
             const altNamesArr = searchJson[i][jsonKey].split(" / ");
-            trackName = altNamesArr.find(altname => altname.toLowerCase().includes(keyword));
+            trackName = altNamesArr.find(altname => processString(altname).includes(filteredKeyword));
           }          
 
           trackName = `${trackName} (${searchJson[i].tunetype})`;
@@ -317,10 +326,7 @@ function searchRadioHandler() {
 
   if (searchValue) {
 
-      doMultiWordSearch(searchValue.toLowerCase());
-
-      searchResultsCounter.textContent = countSearchResults() === 1? `Found 1 item` : 
-        `Found ${searchResultsDiv.children.length} items`;
+      doMultiWordSearch(searchValue);
 
       if (searchResultsDiv.lastElementChild) {
 
@@ -329,7 +335,7 @@ function searchRadioHandler() {
   }
 }
 
-// Return the number of search results excluding the separator(s) from the count
+// Return the number of search results based on the length of searchResultsDiv, excluding the separator(s) from the count
 
 function countSearchResults() {
 

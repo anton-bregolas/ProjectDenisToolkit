@@ -1,20 +1,25 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
-import { toolkitMode, statusBars, generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { toolkitMode, statusBars, generateTunelistBtn, generateColsListBtn, generateTracklistBtn, generateRefListBtn, generateLinkListBtn } from '../../modules/dm-toolkit.js';
 import { tracklistDiv, tracklistOutput, generateTracklist, tracklistHeaders } from '../dm-tracklist/dm-tracklist.js';         
-import { toggleAriaExpanded, toggleAriaHidden, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
-import { fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
+import { toggleAriaExpanded, toggleAriaHidden, addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
+import { fetchDataJsons, tracksJson, colsJson, tunesJson, refsJson } from '../../modules/dm-app.js';
 import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 export const colsListDiv = document.querySelector('#dm-collist');
-export const libraryDiv = document.querySelector('#dm-references');
+export const refsListDiv = document.querySelector('#dm-references');
+export const refsListLinksDiv = document.querySelector('#dm-reflinks');
+const refsListRefsHeader = document.querySelector('#dm-reflist-header');
+const refsListLinksHeader = document.querySelector('#dm-linkslist-header');
 export const dialogsDiv = document.querySelector('#dm-dialogs');
 export const allDialogLists = document.querySelectorAll('.dm-modal-list');
 export const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
 export const colsListDialog = document.querySelector('#dm-modal-list-cols');
+export const refsListDialog = document.querySelector('#dm-modal-list-references');
 const closeTunelistBtn = document.querySelector('#dm-btn-tunelist-close');
 const closeColsListBtn = document.querySelector('#dm-btn-colslist-close');
+const closeRefsListBtn = document.querySelector('#dm-btn-references-close');
 
 // Launch List Generator function depending on the button pressed
 
@@ -54,6 +59,15 @@ export async function generateHandler() {
     itemName = "tracks";
   }
 
+  if (genBtn === generateRefListBtn || genBtn === generateLinkListBtn) {
+
+    parentJson = refsJson;
+    parentDialog = refsListDialog;
+    parentDialogDiv = refsListDiv;
+    listName = "References ";
+    itemName = "references";
+  }
+
   if (parentJson.length === 0) {
 
     console.warn(`PD List Generator:\n\nNo ${itemName} found in ${itemName[0].toUpperCase() + itemName.slice(1)} JSON!`);
@@ -91,6 +105,11 @@ export async function generateHandler() {
           tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
         }
 
+        if (genBtn === generateRefListBtn || genBtn === generateLinkListBtn) {
+
+          generateRefsList(parentJson);
+        }
+
       } else {
 
         console.log(`PD App:\n\n${listName}list found, ${itemName} total: ${parentJson.length}`);
@@ -108,6 +127,17 @@ export async function generateHandler() {
         showDialogsDiv();
         removeAriaHidden(parentDialog);
         parentDialog.showModal();
+
+        if (genBtn === generateRefListBtn) {
+
+          refsListRefsHeader.scrollIntoView();
+        }
+
+        if (genBtn === generateLinkListBtn) {
+
+          refsListLinksHeader.scrollIntoView();
+        }
+
         return;
       }  
   }  
@@ -175,7 +205,7 @@ export async function generateColsList(colsJson) {
                   colPubYear && !colRecYear? `${colPubYear}. Recording date unknown` : 
                   colRecYear? `Recorded in ${colRecYear}` : "Recording date unknown";
     let colSourceRef = colPubCode? `, ${colPubCode}` : "";
-    let colRefText = `${colRefNo} / ${colRefCode}`;
+    let colRefText = `${colRefNo} | ${colRefCode}`;
     let colSourceText = colPubYear? `${colSource}${colSourceRef}, ${colYear}` : `${colSource}${colSourceRef}. ${colYear}`;
 
     const colRow = document.createElement("tr");
@@ -207,11 +237,136 @@ export async function generateColsList(colsJson) {
   console.log(`PD App:\n\nCollections list generated, collections total: ${colsJson.length}`);
 }
 
+// Create References List modal dialog populated with References and Links items
+
+export async function generateRefsList(refsJson) {
+
+  refsListDiv.textContent = "";
+  refsListLinksDiv.textContent = "";
+
+  refsJson.forEach(refObject  => {
+
+    const refItemNo = refObject.refitemno;
+    const refItemCode = refObject.refitemcode;
+    const refShortName = refObject.refshortname;
+    const refFullName = refObject.reffullname;
+    const refType = refObject.reftype;
+    const refPubYear = refObject.refpubyear;
+    const refSearchLink = refObject.refitemlink;
+
+    if (refItemNo === "501") {
+
+      const refRow = document.createElement("tr");
+      refRow.classList.add("dm-collist-row");
+    }
+
+    const refRow = document.createElement("tr");
+    refRow.classList.add("dm-collist-row");
+
+    for (let i = 0; i < 3; i++) {
+
+      const refItem = document.createElement("td");
+      refItem.classList.add("dm-collist-item");
+
+      const refItemCont = document.createElement("p");
+      refItemCont.classList.add("dm-collist-text");
+
+      if (i === 0) {
+
+        const refRowBtn = document.createElement("button");
+        refRowBtn.classList.add("dm-btn-ref-open");
+        refRowBtn.setAttribute("title", `Show Links for ${refItemCode}`);
+        setAriaLabel(refRowBtn, `Show Links for ${refItemCode}`)
+        refRowBtn.textContent = refItemCode;
+        refItem.appendChild(refRowBtn);
+      }
+
+      if (i === 1) {
+
+        refItemCont.textContent = refShortName;
+        refItem.appendChild(refItemCont);
+      }
+
+      if (i === 2) {
+
+        const refContAction = document.createElement("span");
+        refContAction.classList.add("dm-reflist-action");
+        const refContDetails = document.createElement("span");
+        refContDetails.classList.add("dm-reflist-details");
+        
+        if (refType === "collection") {
+
+          refContAction.textContent = "Cite: ";
+          refContDetails.textContent = refFullName;
+          refItemCont.appendChild(refContAction);
+          refItemCont.appendChild(refContDetails);
+          refItem.appendChild(refItemCont);
+        }
+
+        if (refItemNo > 500 && refItemNo < 1000) {
+
+          refContAction.textContent = refItemNo < 700? "Search: " : "Visit: ";
+
+          const refContLink = document.createElement("a");
+          refContLink.textContent = refFullName.split(" | ")[0];
+          refContLink.setAttribute("href", refSearchLink);
+          refContLink.setAttribute("target", "_blank");
+
+          if (refType === "archive") {
+
+            const refItemCont2 = document.createElement("p");
+            refItemCont2.classList.add("dm-collist-text");
+
+            const refContAction2 = document.createElement("span");
+            refContAction2.classList.add("dm-reflist-action");
+
+            const refItemSeparator = document.createElement("br");
+
+            refContAction2.textContent = "Visit: ";
+            refContDetails.textContent = refFullName.split(" | ")[1];
+
+            refItemCont.appendChild(refContAction);
+            refItemCont.appendChild(refContLink);
+            refItemCont2.appendChild(refContAction2);
+            refItemCont2.appendChild(refContDetails);
+
+            refItem.appendChild(refItemCont);
+            refItem.appendChild(refItemSeparator);
+            refItem.appendChild(refItemCont2);
+          }
+
+          if (refType === "tunedb" || refType === "website") {
+
+            refItemCont.appendChild(refContAction);
+            refItemCont.appendChild(refContLink);
+            refItem.appendChild(refItemCont);
+          }
+        }
+      }
+      
+      refRow.appendChild(refItem);
+      refRow.setAttribute("data-refno", refItemNo);
+    }
+
+    if (refItemNo < 500) {
+
+      refsListDiv.appendChild(refRow);
+    }
+
+    if (refItemNo > 500 && refItemNo < 1000) {
+
+      refsListLinksDiv.appendChild(refRow);
+    }
+  });
+
+  console.log(`PD App:\n\nReferences list generated, references total: ${refsJson.length}`);
+}
+
 // Close dialog window depending on the button pressed
 
 function closeDialogHandler() {
 
-  let parentDialog = this === closeTunelistBtn? tunelistDialog : colsListDialog;
+  let parentDialog = this === closeTunelistBtn? tunelistDialog : this === closeColsListBtn? colsListDialog : refsListDialog;
 
   parentDialog.close();
   addAriaHidden(parentDialog);
@@ -246,12 +401,13 @@ export function showDialogsDiv() {
 
 export function initModals() {
 
-  [generateTunelistBtn, generateColsListBtn, generateTracklistBtn].forEach(genBtn => {
+  [generateTunelistBtn, generateColsListBtn, generateTracklistBtn, 
+    generateRefListBtn, generateLinkListBtn].forEach(genBtn => {
 
     genBtn.addEventListener('click', generateHandler);
   });
   
-  [closeTunelistBtn, closeColsListBtn].forEach(btn => {
+  [closeTunelistBtn, closeColsListBtn, closeRefsListBtn].forEach(btn => {
 
     btn.addEventListener('click', closeDialogHandler);
   });

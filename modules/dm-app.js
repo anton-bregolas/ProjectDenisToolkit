@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////////////
 
 import { initSearch, tracksCounter, colsCounter, tunesCounter } from '../components/dm-search/dm-search.js';
-import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
+import { toolkitMode, initToolkitButtons, parserSection, splitterSection, allThemeBtn, themeToggleBtn } from './dm-toolkit.js';
 import { initModals } from '../components/dm-modals/dm-modals.js';
 import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
 import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
@@ -20,12 +20,14 @@ export const discoverSection = document.querySelector('#dm-discover');
 export const tunesJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tunes.json";
 export const tracksJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tracks.json";
 export const colsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/collections.json";
+export const refsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/references.json";
 
 // Custom Data JSONs
 
 export let colsJson = [];
 export let tunesJson = [];
 export let tracksJson = [];
+export let refsJson = [];
 
 // Update Custom Data JSON
 
@@ -51,6 +53,12 @@ export function updateData(newData, dataType) {
     console.log("PD App:\n\nTracks JSON updated.");
     // console.log(tracksJson);
   }
+
+  if (dataType = "refs") {
+
+    refsJson = newData;
+    console.log("PD App:\n\nReferences JSON updated.");
+  }
 }
 
 // Clear Data JSONs
@@ -60,6 +68,7 @@ export function clearData() {
   colsJson = [];
   tunesJson = [];
   tracksJson = [];
+  refsJson = [];
 
   console.log("PD App:\n\nTune Data cleared!")
 }
@@ -132,12 +141,13 @@ export async function fetchDataJsons() {
 
   try {
 
-    const [colsJsonData, tunesJsonData, tracksJsonData] =     
-    await Promise.all([fetchData(colsJsonLink, "json"), fetchData(tunesJsonLink, "json"), fetchData(tracksJsonLink, "json")]);
+    const [colsJsonData, tunesJsonData, tracksJsonData, refsJsonData] =     
+    await Promise.all([fetchData(colsJsonLink, "json"), fetchData(tunesJsonLink, "json"), fetchData(tracksJsonLink, "json"), fetchData(refsJsonLink, "json")]);
 
     colsJson = colsJsonData;
     tunesJson = tunesJsonData;
     tracksJson = tracksJsonData;
+    refsJson = refsJsonData;
 
   } catch (error) {
 
@@ -179,6 +189,38 @@ export async function launchAppSequence() {
     parserSection.scrollIntoView();
   }
 }
+
+/////////////////////////////////////////////////
+// Apply user color theme right before page load
+////////////////////////////////////////////////
+
+(() => {
+
+  const userColorTheme = localStorage.getItem("user-color-theme");
+  let currentThemeLabel;
+
+  if (userColorTheme) {
+
+    document.body.classList.value = userColorTheme;
+
+    allThemeBtn.forEach(btn => {
+
+      if (btn.getAttribute("data-theme") === userColorTheme) {
+
+        btn.classList.add("hidden");
+        currentThemeLabel = btn.title;
+
+      } else if (btn.classList.contains("hidden")) {
+
+        btn.classList.remove("hidden");
+      }
+    });
+
+    themeToggleBtn.setAttribute("aria-label", `Select color theme. ${currentThemeLabel} theme is on`);
+
+    console.log(`PD App:\n\nUser color theme retrieved, ${currentThemeLabel} is on`);
+  }
+})();
 
 ///////////////////////////////////////////////
 // Initialize necessary functions on page load

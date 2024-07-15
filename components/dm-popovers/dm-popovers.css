@@ -12,52 +12,6 @@ body {
   --tune-card-item-bg-color: transparent;
 }
 
-body.dark {
-  --tune-card-color: rgba(246, 137, 59);
-}
-
-body.light {
-  --tune-card-color: color-mix(in srgb, rgba(246, 137, 59) 75%, white);
-}
-
-body.dark .dm-col-card {
-  --col-card-color: color-mix(in srgb, #3399cc 90%, white);
-}
-
-body.light .dm-col-card,
-body.rainy .dm-col-card,
-body.star .dm-col-card {
-  --col-card-color: color-mix(in srgb, var(--secondary-color-c) 85%, white);
-}
-
-body.rainbow .dm-track-grid-nav *,
-body.rainbow .dm-track-grid-source * {
-  color: var(--primary-color-alt);
-}
-
-body.rainbow .dm-col-grid-nav button,
-body.rainbow .dm-col-grid-links {
-  background-color: color-mix(in srgb, var(--col-card-color) 40%, black);
-}
-
-body.star {
-  --tune-card-item-color: var(--accent-color-b);
-  --tune-card-item-active-color: var(--accent-color-c);
-  --tune-card-item-hover-color: var(--secondary-color-a);
-  --tune-card-item-bg-color: var(--primary-color-alt);
-}
-
-body.star .dm-track-grid-nav *,
-body.star .dm-track-grid-source * {
-  color: var(--accent-color-a);
-}
-
-body.star .dm-track-grid-nav *:is(:hover, :focus, :focus-visible),
-body.star .dm-track-grid-source button:is(:hover, :focus, :focus-visible),
-body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
-  color: var(--neutral-color);
-}
-
 /* Popover Common Styles */
 
 .dm-popover-card {
@@ -228,7 +182,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 .dm-btn-card-dialog-close, 
 .dm-btn-tune-card-nav {
   opacity: 0.75;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
 }
 
 .dm-btn-open-track,
@@ -236,7 +190,7 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 .dm-track-grid-item a,
 .dm-col-grid-nav button,
 .dm-track-grid-nav button {
-  transition: color 0.5s ease-in-out;
+  transition: color 0.35s ease-in-out;
 }
 
 .dm-col-grid-item a, 
@@ -317,8 +271,8 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   border-radius: 0.33rem;
 }
 
-.dm-col-grid-item a:is(:focus, :focus-visible),
-.dm-track-grid-item a:is(:focus, :focus-visible),
+.dm-col-grid-item a:is(:hover, :focus, :focus-visible),
+.dm-track-grid-item a:is(:hover, :focus, :focus-visible),
 .dm-col-grid-nav button:is(:hover, :focus-visible),
 .dm-track-grid-nav button:is(:hover, :focus-visible),
 .dm-col-grid-item button:is(:hover, :focus-visible),
@@ -738,18 +692,18 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
 }
 
 #theme-picker-popover {
+  position: fixed;
+  top: 0;
+  left: 0.9rem;
   flex-flow: row-reverse;
   justify-content: space-between;
   width: calc(100% - 1.8rem);
   gap: 1rem;
   padding: 0.5em 1em;
+  margin: 0;
   background-color: var(--primary-color);
   border: 2px solid var(--focus-color-inverted);
   border-radius: 0.75rem;
-  inset: unset;
-  position: absolute;
-  top: 0;
-  right: 0.9em;
 }
 
 /* Media queries for popovers */
@@ -777,6 +731,11 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   .dm-col-grid-footer, 
   .dm-track-grid-footer {
     padding-bottom: 1em;
+  }
+
+  #theme-picker-popover {
+    left: 0;
+    width: 100%;
   }
 }
 
