@@ -6392,6 +6392,57 @@
     "tracknotes": "DMI # 811, FRC 2 # 202"
   },
   {
+    "refno": "85131",
+    "trackno": "13",
+    "tunename": "Humours of Mountcollins",
+    "tunetype": "Slide",
+    "altnames": "If I Had a Wife / Nellie Mahony's / Mad Dancing",
+    "tuneref": "CRE 2 # 70",
+    "category": "",
+    "recyear": "1973",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Séamus Mac Mathúna",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/7897, https://tunearch.org/wiki/Humors_of_Mountcollins_(The)",
+    "tracknotes": "NB: One of the two slides referred to as If I Had a Wife (first line in a humorous verse) – this is the two-part slide."
+  },
+  {
+    "refno": "85141",
+    "trackno": "14.1",
+    "tunename": "Jimmy Doyle's",
+    "tunetype": "Polka",
+    "altnames": "Jimmy Doyle's No. 1",
+    "tuneref": "JOLSL # 51",
+    "category": "",
+    "recyear": "1973",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Séamus Mac Mathúna",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Jimmy_Doyle%27s_Polka_(1)",
+    "tracknotes": "CRE 3 # 74, DBW p#27"
+  },
+  {
+    "refno": "85142",
+    "trackno": "14.2",
+    "tunename": "Kilcummin Lass",
+    "tunetype": "Polka",
+    "altnames": "",
+    "tuneref": "JOLSL # 324",
+    "category": "",
+    "recyear": "1973",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Séamus Mac Mathúna",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/10372",
+    "tracknotes": "NB: Denis Murphy very likely got this tune from Johnny O'Leary. In JOLSL, Johnny says he learned this polka from Jack Sweeney."
+  },
+  {
     "refno": "86221",
     "trackno": "22.1",
     "tunename": "Danny Ab's No. 1",
@@ -6508,7 +6559,7 @@
     "performers": "w. Billy Clifford & Johnny O'Leary",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/864",
-    "tracknotes": "CRÉ / Paul de Grae on this jig: “Jackson's Bouner Bougher in “Jackson's Celebrated Irish Tunes” (c. 1774), in the key of C; Morgan Rattler (DMI # 250, MI # 1046) in C”."
+    "tracknotes": "CRÉ / Paul de Grae on this jig: “Jackson's Bouner Bougher in “Jackson's Celebrated Irish Tunes” (c. 1774), in the key of C; Morgan Rattler (DMI # 250, MI # 1046) in C”."
   },
   {
     "refno": "86252",
@@ -6797,7 +6848,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/4977, https://tunearch.org/wiki/Wearing_of_the_Green",
-    "tracknotes": "[Source title: “The Wrenday Selection”]. NB: Played here by Denis as part of a medley of tunes which is repeated twice with an additional intro / interlude. Billy Clifford: “Art O'Keeffe used to play medleys like this”"
+    "tracknotes": "[Source title: “The Wrenday Selection”]. NB: Played here by Denis as part of a medley of tunes which is repeated twice with an additional intro / interlude. Billy Clifford: “Art O'Keeffe used to play medleys like this”."
   },
   {
     "refno": "88372",
@@ -6814,7 +6865,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/4209, https://tunearch.org/wiki/Gallant_Tipperary_Boys_(The)",
-    "tracknotes": "[Source title: “The Wrenday Selection”]. FRC 1 # 39, ONMI # 894, SLOP # 36. This jig, which has been published in several historical collections, is often played as a slide in Sliabh Luachra. NB: Played here by Denis as part of a medley of tunes which is repeated twice with an additional intro / interlude. Billy Clifford: “Art O'Keeffe used to play medleys like this”"
+    "tracknotes": "[Source title: “The Wrenday Selection”]. FRC 1 # 39, ONMI # 894, SLOP # 36. This jig, which has been published in several historical collections, is often played as a slide in Sliabh Luachra. NB: Played here by Denis as part of a medley of tunes which is repeated twice with an additional intro / interlude. Billy Clifford: “Art O'Keeffe used to play medleys like this”."
   },
   {
     "refno": "88381",
