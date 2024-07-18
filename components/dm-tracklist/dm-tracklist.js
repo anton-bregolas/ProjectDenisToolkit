@@ -3,7 +3,7 @@
 import { toolkitMode, generateTracklistBtn } from '../../modules/dm-toolkit.js';
 import { tunelistDialog, colsListDialog, hideDialogsDiv } from '../dm-modals/dm-modals.js';
 import { toggleAriaExpanded, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
-import { fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
+import { doDataCheckup, tracksJson, colsJson } from '../../modules/dm-app.js';
 import { autoCollapseSearchResults, searchResultsSection } from '../dm-search/dm-search.js';
 import { trackCardPopover, colCardPopover, tuneCardPopover, showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 
@@ -15,17 +15,21 @@ export const tracklistHeaders = document.querySelectorAll('.dm-tracklist-header-
 
 export async function generateTracklist(tracksJson, isCustomSorted) {
 
-  tracklistDiv.textContent = "";
+  if (tracksJson.length === 0) {
+
+    doDataCheckup("tracks");
+
+    return;
+  }
 
   if (colsJson.length === 0) {
 
-    console.warn("PD App:\n\nNo collections found in Collections JSON!");
-    
-    if (toolkitMode === 0) {
+    doDataCheckup("cols");
 
-      await fetchDataJsons();
-    }
+    return;
   }
+
+  tracklistDiv.textContent = "";
 
   try {
 
@@ -164,21 +168,23 @@ export async function focusOnTrack(trigger, refNo) {
   const parentDiv = trigger.parentElement;
   const trackIdItem = document.getElementById(trackRefNo);
 
+  if (tracksJson.length === 0) {
+
+    doDataCheckup("tracks");
+
+    return;
+  }
+
+  if (colsJson.length === 0) {
+
+    doDataCheckup("cols");
+
+    return;
+  }
+
   try {
 
     if (tracklistDiv.children.length === 0 || !trackIdItem) {
-
-      if (tracksJson.length === 0) {
-
-        console.warn(`PD App:\n\nNo Tracks found in Track JSON!`);
-
-        if (toolkitMode > 0) {
-
-          return;
-        }
-
-        await fetchDataJsons();
-      }
 
       console.log(`PD App:\n\nGenerating Tracklist...`);
       tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
@@ -204,7 +210,7 @@ export async function focusOnTrack(trigger, refNo) {
       await tunelistDialog.close();
       addAriaHidden(tunelistDialog);
       hideDialogsDiv();
-    } 
+    }
 
     if (parentDiv.classList.contains("col-grid-reflink")) {
       
@@ -239,14 +245,16 @@ async function sortTracklistByThis() {
 
   if (tracksJson.length === 0) {
 
-    console.warn(`PD App:\n\nNo Tracks found in Tracks JSON!`);
+    doDataCheckup("tracks");
 
-    if (toolkitMode > 0) {
+    return;
+  }
 
-      return;
-    }
+  if (colsJson.length === 0) {
 
-    await fetchDataJsons();
+    doDataCheckup("cols");
+
+    return;
   }
 
   // Sort Tracks Array depending on the sorting value and order

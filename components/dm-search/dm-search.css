@@ -4,20 +4,12 @@ body {
   --search-item-width: 21rem;
 }
 
-body.light input[type="radio"] {
-  box-shadow: 0 0 0 2px black;
-}
-
-body.light input[type="radio"]:checked {
-  background-color: var(--focus-color);
-}
-
 /* Search Engine Styles */
 
 .dm-search-engine {
   display: flex;
   flex-flow: column;
-  margin-bottom: 5.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .dm-search-engine:focus-within #dm-search-input,
@@ -29,22 +21,17 @@ body.light input[type="radio"]:checked {
 
 #dm-search-input {
   position: relative;
+  min-height: 4.3rem;
   margin-bottom: 0;
-  opacity: 0.95;
   z-index: 2;
-}
-
-#dm-search-input:is(:hover, :focus, :focus-visible, :focus-within) {
-  opacity: 1;
 }
 
 #dm-search-results {
   width: 100%;
   position: absolute;
-  top: calc(100% - 1.1rem);
+  top: calc(100% - 1rem);
   z-index: 1;
   display: grid;
-  /* grid-template-rows: 3.4rem; */
   grid-template-rows: 0rem;
   transition: grid-template-rows 0.5s ease-in-out;
 }
@@ -62,24 +49,19 @@ body.light input[type="radio"]:checked {
 
 .dm-search-results-group {
   width: 100%;
-  max-height: 75svh;
+  max-height: 57.5svh;
   overflow-y: hidden;
   position: relative;
   left: 0;
   background-color: var(--primary-color);
-  opacity: 0.95;
+  /* opacity: 0.95; */
   min-height: 0;
   border-radius: 0.5rem;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border: 0.3125rem solid var(--secondary-color-b);
   border-top: none;
-  /* z-index: 1; */
 }
-
-/* #dm-search-results.unwrapped .dm-search-results-group {
-  overflow-y: auto;
-} */
 
 .dm-search-results-container {
   display: grid;
@@ -88,17 +70,17 @@ body.light input[type="radio"]:checked {
   grid-template-columns: repeat(auto-fill, minmax(var(--search-item-width), 1fr));
 }
 
-/* Search Results Wrapper Styles */
+/* Search Results Wrap Button Styles */
 
 .dm-btn-search-wrap {
-  position: sticky  ;
+  position: sticky;
   display: flex;
   align-items: center;
   justify-content: center;
   bottom: 0;
   width: 100%;
-  height: 2rem;
   background-color: var(--primary-color);
+  border-top: 1px dashed var(--secondary-color-b);
   z-index: 3;
   outline-offset: -0.2rem;
 }
@@ -110,7 +92,7 @@ body.light input[type="radio"]:checked {
 .dm-btn-search-wrap .action-icon-container {
   width: 2rem;
   height: 2rem;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.35s ease-in-out;
 }
 
 .dm-btn-search-wrap .action-icon-container > * {
@@ -131,7 +113,7 @@ body.light input[type="radio"]:checked {
   color: var(--neutral-color);
   right: 1%;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
 }
 
 #dm-search-results.unwrapped .dm-search-counter {
@@ -214,6 +196,42 @@ body.light input[type="radio"]:checked {
   font-size: var(--font-small);
 }
 
+.dm-search-item-type {
+  font-weight: bold;
+
+}
+
+.dm-search-item-type[data-type="name"],
+.dm-btn-search-item:is(:hover, :focus, :focus-visible) .dm-search-item-type {
+  color: var(--accent-color-a);
+}
+
+/* Search Result Separator Styles */
+
+.dm-search-results-separator {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px dashed var(--neutral-color-alt);
+  border-bottom: 1px dashed var(--neutral-color-alt);
+  padding: 0.25em;
+  grid-column: 1 / -1;
+}
+
+.dm-search-results-separator > p {
+  color: var(--neutral-color-alt);
+  font-size: var(--font-base);
+}
+
+/* Search Counter Styles */
+
+.dm-search-db-counters {
+  color: var(--neutral-color);
+  font-size: var(--font-base);
+  text-align: center;
+}
+
 /* Media queries for search section */
 
 /* @media screen and (max-width: 668px) { */
@@ -230,5 +248,26 @@ body.light input[type="radio"]:checked {
   .dm-label-radio {
     width: 100%;
     justify-content: space-between;
+  }
+}
+
+/* @media screen and (max-width: 408px) { */
+@media screen and (max-width: 25.5em), (max-height: 25.5em) {
+
+  .dm-search-db-counters {
+    font-size: var(--font-small);
+  }
+}
+
+/* @media screen and (max-width: 320px) { */
+@media screen and (max-width: 20em), (max-height: 25.5em) {
+
+  .dm-search-counter {
+    font-size: var(--font-small);
+  }
+
+  .dm-btn-search-wrap .action-icon-container {
+    width: var(--font-large);
+    height: var(--font-large);
   }
 }

@@ -1,13 +1,12 @@
 /* #ProjectDenis: Search Scripts */
 
-import { toolkitMode, addMultiEventListeners } from '../../modules/dm-toolkit.js';
-import { fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
 import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
-import { toggleAriaExpanded, toggleTabIndex } from '../../modules/aria-tools.js';
+import { toolkitMode, addMultiEventListeners } from '../../modules/dm-toolkit.js';
+import { searchSection, fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
+import { toggleAriaExpanded, groupRemoveTabIndex, groupAddTabIndex, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
 
 // Define Search input and output elements
 
-export const searchSection = document.querySelector('#dm-search');
 export const searchInput = document.querySelector('#dm-search-input');
 export const searchRadioGroup = document.querySelector('#dm-search-data-select');
 export const searchResultsSection = document.querySelector('#dm-search-results');
@@ -31,7 +30,20 @@ let searchTimeout;
 
 const stopWordsList = ["a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "from", "if", "in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there", "these", "they", "this", "to", "was", "will", "with"];
 
-// Process search input and pass on value to showSearchMatches
+// Define total item counters
+
+export const tracksCounter = document.querySelector('.dm-tracks-counter');
+export const colsCounter = document.querySelector('.dm-cols-counter');
+export const tunesCounter = document.querySelector('.dm-tunes-counter');
+
+// Process search string: replace capital letters with lower case, latinize diactritics 
+
+export function processString(string) {
+  
+  return string.toLowerCase().replace(/[\u2018\u2019\u201B\u02BC\u0060\u00B4]/g, `'`).replace(/[\u201C\u201D]/g, `"`).normalize("NFD").replace(/\p{Diacritic}/gu, "");
+}
+
+// Process search input and pass on value to getSearchMatches
 
 async function searchDatabaseHandler() {
 
@@ -52,82 +64,114 @@ async function searchDatabaseHandler() {
 
     searchResultsDiv.textContent = "";
    
-    const searchKeyword = searchValue.toLowerCase();
-
-    doMultiWordSearch(searchKeyword);
-
-    searchResultsCounter.textContent = `Found ${searchResultsDiv.children.length} items`;
+    doMultiWordSearch(searchValue);
 
   }, searchTimeoutValue);
 }
 
-// Try searching for a phrase and then each keyword separately
+// Try searching for a phrase and then each keyword separately, count search results
 
 async function doMultiWordSearch(keyword) {
 
-  showSearchMatches(keyword);
+  let exactSearchCounter = 0;
+  let splitSearchCounter = 0;
+  let totalSearchCounter;
 
-  console.log(`PD Search Engine:\n\nFound ${searchResultsDiv.children.length} result(s) by keyword search`);
+  exactSearchCounter = await getSearchMatches(keyword);
 
-  let searchMultiWord = keyword.split(' ');
+  console.log(`PD Search Engine:\n\nFound ${exactSearchCounter} result(s) by exact search for "${keyword}"`);
 
-  if (searchMultiWord.length > 1) {
+  if (exactSearchCounter > 0) {
 
-    for (let i = 0; i < searchMultiWord.length; i++) {
+    const resultsSeparator = document.createElement("div");
+    resultsSeparator.classList.add("dm-search-results-separator");
+    resultsSeparator.setAttribute("data-resultsgroup", "exact-matches");
 
-      if (stopWordsList.includes(searchMultiWord[i])) {
+    const resultsSeparatorText = document.createElement("p");
+    resultsSeparatorText.textContent = "Exact matches found";
+    resultsSeparator.append(resultsSeparatorText);
 
-        console.log(`PD Search Engine:\n\n"${searchMultiWord[i]}" found in search stop list`);
+    searchResultsDiv.prepend(resultsSeparator);
+  }
+  
+  let searchSplitKeyword = keyword.split(' ');
+
+  if (searchSplitKeyword.length > 1) {
+
+    const multiResultsSeparator = document.createElement("div");
+    multiResultsSeparator.classList.add("dm-search-results-separator");
+    multiResultsSeparator.setAttribute("data-resultsgroup", "partial-matches");
+
+    const multiResultsSeparatorText = document.createElement("p");
+    multiResultsSeparatorText.textContent = "Partial matches found";
+    multiResultsSeparator.append(multiResultsSeparatorText);
+
+    searchResultsDiv.append(multiResultsSeparator);
+
+    for (let i = 0; i < searchSplitKeyword.length; i++) {
+
+      if (stopWordsList.includes(searchSplitKeyword[i])) {
+
+        console.log(`PD Search Engine:\n\n"${searchSplitKeyword[i]}" found in search stop list`);
       }
 
-      // console.warn(`Doing search #${i + 1}`);
+      if (!stopWordsList.includes(searchSplitKeyword[i]) && searchSplitKeyword[i].length >= minSearchLength) {
 
-      if (!stopWordsList.includes(searchMultiWord[i])) {
-
-        showSearchMatches(searchMultiWord[i]);
+        splitSearchCounter += await getSearchMatches(searchSplitKeyword[i]);
       }
     }
+
+    if (splitSearchCounter === 0) {
+
+      multiResultsSeparator.setAttribute("style", "display: none");
+    }
   }
+
+  totalSearchCounter = exactSearchCounter + splitSearchCounter;
+
+  searchResultsCounter.textContent = totalSearchCounter === 1? `Found 1 item` : `Found ${totalSearchCounter} items`;
 }
 
-// Filter Tune Data and display items matching the search input
+// Filter Tune Data and display items matching the search input, return the total number of items shown
 
-async function showSearchMatches(keyword) {
+async function getSearchMatches(keyword) {
+
+  const filteredKeyword = processString(keyword);
 
   const dataTypeSelected = document.querySelector('input[name="search-data-type"]:checked').value;
 
   const colSearchKeys = [
-    {"colname": "Name"}, 
-    {"source": "Source"}, 
-    {"performers": "Performers"},
-    {"refcode": "Ref. Code"}, 
-    {"pubcode": "Pub. Code"}, 
-    {"colrefno": "Ref. No."},
-    {"recyear": "Rec. Year"},
-    {"pubyear": "Pub. Year"},
-    {"colnotes": "Notes [1]"}, 
-    {"colnotes2": "Notes [2]"}, 
-    {"colnotes3": "Notes [3]"},
-    {"coltype": "Type"}];
+    {"colname": "name"}, 
+    {"source": "source"}, 
+    {"performers": "performers"},
+    {"refcode": "ref. code"}, 
+    {"pubcode": "pub. code"}, 
+    {"colrefno": "ref. no."},
+    {"recyear": "rec. year"},
+    {"pubyear": "pub. year"},
+    {"colnotes": "notes [1]"}, 
+    {"colnotes2": "notes [2]"}, 
+    {"colnotes3": "notes [3]"},
+    {"coltype": "type"}];
 
   const tuneSearchKeys = [
-    {"tunename": "Name"},
-    {"altnames": "Alt. Name"},
-    {"tunetype": "Type"},
-    {"tuneref": "Col. Ref"}
+    {"tunename": "name"},
+    {"altnames": "alt. name"},
+    {"tunetype": "type"},
+    {"tuneref": "col. ref"}
   ];
 
   const trackSearchKeys = [
-    {"tunename": "Name"},
-    {"altnames": "Alt. Name"},
-    {"performers": "Performers"}, 
-    {"tunetype": "Type"},
-    {"refno": "Ref. No."},
-    {"tuneref": "Col. Ref."},
-    {"recyear": "Rec. Year"},
-    {"pubyear": "Pub. Year"},
-    {"tracknotes": "Notes"},
-    {"category": "Category"}
+    {"tunename": "name"},
+    {"altnames": "alt. name"},
+    {"performers": "performers"}, 
+    {"tunetype": "type"},
+    {"refno": "ref. no."},
+    {"tuneref": "col. ref."},
+    {"recyear": "rec. year"},
+    {"pubyear": "pub. year"},
+    {"tracknotes": "notes"},
+    {"category": "category"}
   ];
 
   let searchKeys = dataTypeSelected === "cols" ? colSearchKeys : 
@@ -136,7 +180,9 @@ async function showSearchMatches(keyword) {
   let searchJson = dataTypeSelected === "cols" ? colsJson : 
     dataTypeSelected === "tunes"? tunesJson : tracksJson;
 
+  let foundResults = 0;
   let filteredResults = 0;
+  let resultsShown;
 
   searchKeys.forEach(keyObj => {
 
@@ -144,19 +190,27 @@ async function showSearchMatches(keyword) {
 
       const jsonKey = Object.keys(keyObj)[0];
 
-      if (searchJson[i][jsonKey].toLowerCase().includes(keyword)) {
+      if (processString(searchJson[i][jsonKey]).includes(filteredKeyword)) {
+
+        foundResults++;
 
         const searchItem = searchItemTemplate.content.cloneNode(true).children[0];
         const searchItemType = searchItem.querySelector('.dm-search-item-type');
         const searchItemName = searchItem.querySelector('.dm-search-item-name');
         const searchItemRefno = searchItem.querySelector('.dm-search-item-refno');
 
+        searchItem.setAttribute("data-type", jsonKey);
+
+        if (jsonKey === "tunename" || jsonKey === "altnames" || jsonKey === "colname") {
+          searchItemType.setAttribute("data-type", "name");
+        }
+
         if (dataTypeSelected === "cols") {
 
           let colName = searchJson[i].colname;
-          let colRefNo = searchJson[i].colrefno
+          let colRefNo = searchJson[i].colrefno;
 
-          searchItemType.textContent = `Found In: Col. ${keyObj[jsonKey]}`;
+          searchItemType.textContent = `col. ${keyObj[jsonKey]}`;
           searchItemName.textContent = colName;
           searchItemRefno.textContent = `${colRefNo} | ${searchJson[i].refcode}`;
   
@@ -166,10 +220,18 @@ async function showSearchMatches(keyword) {
 
         if (dataTypeSelected === "tunes") {
 
-          let tuneName = `${searchJson[i].tunename} (${searchJson[i].tunetype})`;
+          let tuneName = searchJson[i].tunename;
           let tuneRef = searchJson[i].tuneref;
+                    
+          if (jsonKey === "altnames") {
 
-          searchItemType.textContent = `Found In: Tune ${keyObj[jsonKey]}`;
+            const altNamesArr = searchJson[i][jsonKey].split(" / ");
+            tuneName = altNamesArr.find(altname => processString(altname).includes(filteredKeyword));
+          }
+
+          tuneName = `${tuneName} (${searchJson[i].tunetype})`;
+
+          searchItemType.textContent = `tune ${keyObj[jsonKey]}`;
           searchItemName.textContent = tuneName;
           searchItemRefno.textContent = tuneRef;
   
@@ -179,10 +241,18 @@ async function showSearchMatches(keyword) {
 
         if (dataTypeSelected === "tracks") {
 
-          let trackName = `${searchJson[i].tunename} (${searchJson[i].tunetype})`;
+          let trackName = searchJson[i].tunename;
           let trackRefNo = searchJson[i].refno;
 
-          searchItemType.textContent = `Found In: Track ${keyObj[jsonKey]}`
+          if (jsonKey === "altnames") {
+
+            const altNamesArr = searchJson[i][jsonKey].split(" / ");
+            trackName = altNamesArr.find(altname => processString(altname).includes(filteredKeyword));
+          }          
+
+          trackName = `${trackName} (${searchJson[i].tunetype})`;
+
+          searchItemType.textContent = `track ${keyObj[jsonKey]}`
           searchItemName.textContent = trackName;
           searchItemRefno.textContent = `No. ${trackRefNo}`;
   
@@ -192,22 +262,28 @@ async function showSearchMatches(keyword) {
 
         if (isDuplicateResult(searchResultsDiv, searchItem)) {
 
-          filteredResults++
+          filteredResults++;
+          return;
         }
 
         if (!isDuplicateResult(searchResultsDiv, searchItem)) {
 
+          searchItemType.textContent = `“${keyword}”: ` + searchItemType.textContent;
           searchResultsDiv.append(searchItem);
         }
       }
     }
   });
 
-  console.log(`PD Search Engine:\n\nFound ${searchResultsDiv.children.length} result(s) by split word search`);
+  resultsShown = foundResults - filteredResults;
+
+  console.log(`PD Search Engine:\n\nFound ${foundResults} result(s) for "${keyword}" by split word search`);
 
   if (filteredResults > 0) {
-    console.log(`PD Search Engine:\n\nFiltered out ${filteredResults} result(s)`);
+    console.log(`PD Search Engine:\n\nFiltered out ${filteredResults} result(s). Results shown for "${keyword}": ${resultsShown}`);
   }
+
+  return resultsShown;
 }
 
 // Check if the next search result is a duplicate of an already found item
@@ -218,7 +294,15 @@ function isDuplicateResult(resultsDiv, newItem) {
 
   for (let i = 0; i < searchResults.length; i++) {
 
-      if (searchResults[i].isEqualNode(newItem)) {
+    // Clone and filter search object to ensure same objects with different parts of keyword displayed don't pass
+
+    const filteredObject = searchResults[i].cloneNode(true);
+
+    const typeSpan = filteredObject.firstElementChild;
+
+    typeSpan.textContent = typeSpan.textContent.split('”: ')[1];
+
+      if (filteredObject.isEqualNode(newItem)) {
 
           return true;
       }
@@ -233,25 +317,35 @@ function searchRadioHandler() {
 
   let searchValue = searchInput.value.trim();
 
+  searchResultsDiv.textContent = "";
+  
+  if (!searchValue || searchValue.length < minSearchLength) {
+
+    searchResultsCounter.textContent = "";
+
+    return;
+  }
+
   if (searchValue) {
 
-    if (searchValue.length < minSearchLength) {
-
-      return;
-    }
-
-      searchResultsDiv.textContent = "";
-
-      doMultiWordSearch(searchValue.toLowerCase());
-
-      searchResultsCounter.textContent = searchResultsDiv.children.length === 1? `Found 1 item` : 
-        `Found ${searchResultsDiv.children.length} items`;
+      doMultiWordSearch(searchValue);
 
       if (searchResultsDiv.lastElementChild) {
 
         autoExpandSearchResults();
       }
   }
+}
+
+// Return the number of search results based on the length of searchResultsDiv, excluding the separator(s) from the count
+
+function countSearchResults() {
+
+  const resultsTotalLength = searchResultsDiv.children.length;
+
+  const separatorsLength = [...document.getElementsByClassName("dm-search-results-separator")].length;
+
+  return resultsTotalLength - separatorsLength;
 }
 
 // Modify search section when input gains or loses focus
@@ -278,14 +372,15 @@ function autoExpandSearchResults() {
     return;
   }
 
+  removeAriaHidden(searchResultsSection);
+  toggleAriaExpanded(searchInput);
+  searchResultsSection.setAttribute("aria-label", "Search Results Expanded");
   searchResultsSection.classList.add("unwrapped");
 
+  removeAriaHidden(searchResultsWrapper);
   toggleAriaExpanded(searchResultsWrapper);
 
-  if (searchResultsDiv.lastElementChild && searchResultsDiv.lastElementChild.hasAttribute("tabindex")) {
-
-    toggleTabIndex(searchResultsDiv);
-  }
+  groupRemoveTabIndex(searchResultsGroup, "-1");
 
   setTimeout(() => {
     searchResultsGroup.classList.add("scrollable");
@@ -301,16 +396,16 @@ export function autoCollapseSearchResults() {
     return;
   }
 
-  searchResultsSection.classList.remove("unwrapped");
+  toggleAriaExpanded(searchInput);
 
-  // searchResultsGroup.classList.remove("scrollable");
+  searchResultsSection.setAttribute("aria-label", "Search Results Collapsed");
+  searchResultsSection.classList.remove("unwrapped");
+  addAriaHidden(searchResultsSection);
 
   toggleAriaExpanded(searchResultsWrapper);
+  addAriaHidden(searchResultsWrapper);
 
-  if (searchResultsDiv.lastElementChild) {
-
-    toggleTabIndex(searchResultsDiv);
-  }
+  groupAddTabIndex(searchResultsGroup, "-1");
 
   setTimeout(() => {
     searchResultsGroup.classList.remove("scrollable");
@@ -323,25 +418,40 @@ function toggleExpandSearchResults(event) {
 
   let closestWrapper = event.target.closest(".dm-btn-search-wrap");
    
-  toggleTabIndex(searchResultsDiv);
+  toggleAriaExpanded(searchInput);
 
   if (closestWrapper.getAttribute("aria-expanded") === "true") {
 
+    toggleAriaExpanded(closestWrapper);
+
     searchResultsSection.classList.remove("unwrapped");
 
-    // searchResultsGroup.classList.remove("scrollable");
-    
-    toggleAriaExpanded(closestWrapper);
+    searchResultsSection.setAttribute("aria-label", "Search Results Collapsed");
 
     setTimeout(() => {
       searchResultsGroup.classList.remove("scrollable");
     }, 150);
+
+    addAriaHidden(closestWrapper);
+
+    addAriaHidden(searchResultsSection);
+
+    groupAddTabIndex(searchResultsGroup, "-1");
     
     return;
   }
 
-  searchResultsSection.classList.add("unwrapped");
   toggleAriaExpanded(closestWrapper);
+
+  removeAriaHidden(closestWrapper);
+
+  removeAriaHidden(searchResultsSection);
+
+  groupRemoveTabIndex(searchResultsGroup, "-1");
+
+  searchResultsSection.setAttribute("aria-label", "Search Results Expanded");
+
+  searchResultsSection.classList.add("unwrapped");
 
   setTimeout(() => {
     searchResultsGroup.classList.add("scrollable");

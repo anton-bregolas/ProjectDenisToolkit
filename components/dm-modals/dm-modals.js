@@ -1,20 +1,25 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
-import { toolkitMode, colsDiv, tracksDiv, tunesDiv, statusBars,
-         generateTunelistBtn, generateColsListBtn, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { toolkitMode, statusBars, generateTunelistBtn, generateColsListBtn, generateTracklistBtn, generateRefListBtn, generateLinkListBtn } from '../../modules/dm-toolkit.js';
 import { tracklistDiv, tracklistOutput, generateTracklist, tracklistHeaders } from '../dm-tracklist/dm-tracklist.js';         
-import { toggleAriaExpanded, toggleAriaHidden, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
-import { fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
+import { toggleAriaExpanded, toggleAriaHidden, addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
+import { doDataCheckup, tracksJson, colsJson, tunesJson, refsJson, updateData, fetchDataJsons } from '../../modules/dm-app.js';
 import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
 export const colsListDiv = document.querySelector('#dm-collist');
+export const refsListDiv = document.querySelector('#dm-references');
+export const refsListLinksDiv = document.querySelector('#dm-reflinks');
+const refsListRefsTable = document.querySelector('#dm-references-table');
+const refsListLinksTable = document.querySelector('#dm-links-table');
 export const dialogsDiv = document.querySelector('#dm-dialogs');
 export const allDialogLists = document.querySelectorAll('.dm-modal-list');
 export const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
 export const colsListDialog = document.querySelector('#dm-modal-list-cols');
+export const refsListDialog = document.querySelector('#dm-modal-list-references');
 const closeTunelistBtn = document.querySelector('#dm-btn-tunelist-close');
 const closeColsListBtn = document.querySelector('#dm-btn-colslist-close');
+const closeRefsListBtn = document.querySelector('#dm-btn-references-close');
 
 // Launch List Generator function depending on the button pressed
 
@@ -25,7 +30,6 @@ export async function generateHandler() {
   let parentJson;
   let parentDialog;
   let parentDialogDiv;
-  let parentDiv;
   let listName;
   let itemName;
 
@@ -34,7 +38,6 @@ export async function generateHandler() {
     parentJson = tunesJson;
     parentDialog = tunelistDialog;
     parentDialogDiv = tunelistDiv;
-    parentDiv = tunesDiv;
     listName = "Tune";
     itemName = "tunes";
   }
@@ -44,7 +47,6 @@ export async function generateHandler() {
     parentJson = colsJson;
     parentDialog = colsListDialog;
     parentDialogDiv = colsListDiv;
-    parentDiv = colsDiv;
     listName = "Collections ";
     itemName = "collections";
   }
@@ -53,67 +55,84 @@ export async function generateHandler() {
 
     parentJson = tracksJson;
     parentDialogDiv = tracklistDiv;
-    parentDiv = tracksDiv;
     listName = "Track";
     itemName = "tracks";
   }
 
-  if (parentJson.length === 0) {
+  if (genBtn === generateRefListBtn || genBtn === generateLinkListBtn) {
 
-    console.warn(`PD List Generator:\n\nNo ${itemName} found in ${itemName[0].toUpperCase() + itemName.slice(1)} JSON!`);
-
-    if (toolkitMode > 0) {
-
-      return;
-    }
-
-    await fetchDataJsons();
+    parentJson = refsJson;
+    parentDialog = refsListDialog;
+    parentDialogDiv = refsListDiv;
+    listName = "References ";
+    itemName = "references";
   }
 
-  if (Array.isArray(parentJson) && parentJson.length > 0) {
+  if (parentJson.length === 0) {
 
-      if (!parentDialogDiv.children.length > 0) {
+    doDataCheckup(itemName);
 
-        console.log(`PD App:\n\nGenerating list of ${itemName}...`);
+    return;
+  }
 
-        if (genBtn === generateTunelistBtn) {
+  if (!parentDialogDiv.children.length > 0) {
 
-          generateTunelist(parentJson);
-        }
-  
-        if (genBtn === generateColsListBtn) {
-  
-          generateColsList(parentJson);
-        }
-  
-        if (genBtn === generateTracklistBtn) {
-  
-          tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
-          tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
-          await generateTracklist(parentJson);
-          tracklistHeaders[0].setAttribute("aria-sort", "ascending");
-          tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
-        }
+    console.log(`PD App:\n\nGenerating list of ${itemName}...`);
 
-      } else {
+    if (genBtn === generateTunelistBtn) {
 
-        console.log(`PD App:\n\n${listName}list found, ${itemName} total: ${parentJson.length}`);
-      }
+      generateTunelist(parentJson);
+    }
 
-      if (genBtn === generateTracklistBtn) {
+    if (genBtn === generateColsListBtn) {
 
-        tracklistOutput.classList.toggle("hidden");
-        toggleAriaExpanded(generateTracklistBtn);
-        toggleAriaHidden(tracklistOutput);
-        return;
-          
-      } else {
+      generateColsList(parentJson);
+    }
 
-        showDialogsDiv();
-        removeAriaHidden(parentDialog);
-        parentDialog.showModal();
-        return;
-      }  
+    if (genBtn === generateTracklistBtn) {
+
+      tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
+      tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
+      await generateTracklist(parentJson);
+      tracklistHeaders[0].setAttribute("aria-sort", "ascending");
+      tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
+    }
+
+    if (genBtn === generateRefListBtn || genBtn === generateLinkListBtn) {
+
+      generateRefsList(parentJson);
+    }
+
+  } else {
+
+    console.log(`PD App:\n\n${listName}list found, ${itemName} total: ${parentJson.length}`);
+  }
+
+  if (genBtn === generateTracklistBtn) {
+
+    tracklistOutput.classList.toggle("hidden");
+    toggleAriaExpanded(generateTracklistBtn);
+    toggleAriaHidden(tracklistOutput);
+    return;
+      
+  } else {
+
+    showDialogsDiv();
+    removeAriaHidden(parentDialog);
+    parentDialog.showModal();
+
+    if (genBtn === generateRefListBtn) {
+
+      refsListRefsTable.scrollIntoView();
+    }
+
+    if (genBtn === generateLinkListBtn) {
+
+      refsListLinksTable.scrollIntoView();
+      refsListLinksTable.querySelector('.dm-btn-ref-open[aria-label="ITMA: Click to show more links."]').focus();
+    }
+
+    return;
   }  
 }
 
@@ -179,7 +198,7 @@ export async function generateColsList(colsJson) {
                   colPubYear && !colRecYear? `${colPubYear}. Recording date unknown` : 
                   colRecYear? `Recorded in ${colRecYear}` : "Recording date unknown";
     let colSourceRef = colPubCode? `, ${colPubCode}` : "";
-    let colRefText = `${colRefNo} / ${colRefCode}`;
+    let colRefText = `${colRefNo} | ${colRefCode}`;
     let colSourceText = colPubYear? `${colSource}${colSourceRef}, ${colYear}` : `${colSource}${colSourceRef}. ${colYear}`;
 
     const colRow = document.createElement("tr");
@@ -194,11 +213,31 @@ export async function generateColsList(colsJson) {
       const colRowContClass = i === 0? "dm-btn-col-open" : "dm-collist-text";
 
       if (i === 0) {
+
         colRowCont.setAttribute("title", "Show Collection Card");
       }
 
       colRowCont.classList.add(colRowContClass);
-      colRowCont.textContent = i === 0? colRefText : i === 1? colName : colSourceText;
+      colRowCont.textContent = i === 0? colRefText : i === 2? colSourceText : "";
+
+      if (i === 1) {
+
+        const colNameArr = colName.split(" : ");
+
+        colNameArr.forEach(nameLine => {
+
+          const colNameSpan = document.createElement("span");
+          colNameSpan.textContent = nameLine;
+  
+          if (colNameArr.indexOf(nameLine) < colNameArr.length - 1) {
+  
+            const lineBreak = document.createElement("br");
+            colNameSpan.appendChild(lineBreak);
+          }
+
+          colRowCont.appendChild(colNameSpan);
+        });
+      }
       
       colItem.appendChild(colRowCont);
       colRow.appendChild(colItem);
@@ -211,11 +250,142 @@ export async function generateColsList(colsJson) {
   console.log(`PD App:\n\nCollections list generated, collections total: ${colsJson.length}`);
 }
 
+// Create References List modal dialog populated with References and Links items
+
+export async function generateRefsList(refsJson) {
+
+  refsListDiv.textContent = "";
+  refsListLinksDiv.textContent = "";
+
+  refsJson.forEach(refObject  => {
+
+    const refItemNo = refObject.refitemno;
+    const refItemCode = refObject.refitemcode;
+    const refShortName = refObject.refshortname;
+    const refFullName = refObject.reffullname;
+    const refType = refObject.reftype;
+    const refPubYear = refObject.refpubyear;
+    const refSearchLink = refObject.refitemlink;
+
+    if (refItemNo > "499") {
+
+      const refRow = document.createElement("tr");
+      refRow.classList.add("dm-collist-row");
+    }
+
+    const refRow = document.createElement("tr");
+    refRow.classList.add("dm-collist-row");
+
+    for (let i = 0; i < 3; i++) {
+
+      const refItem = document.createElement("td");
+      refItem.classList.add("dm-collist-item");
+
+      const refItemCont = document.createElement("p");
+      refItemCont.classList.add("dm-collist-text");
+
+      if (i === 0) {
+
+        const refRowBtn = document.createElement("button");
+        refRowBtn.classList.add("dm-btn-ref-open");
+        refRowBtn.setAttribute("title", `${refItemCode}: Click to show more links.`);
+        setAriaLabel(refRowBtn, `${refItemCode}: Click to show more links.`)
+        refRowBtn.textContent = refItemCode;
+        refItem.appendChild(refRowBtn);
+      }
+
+      if (i === 1) {
+
+        refItemCont.textContent = refShortName;
+        refItem.appendChild(refItemCont);
+      }
+
+      if (i === 2) {
+
+        const refContAction = document.createElement("span");
+        refContAction.classList.add("dm-reflist-action");
+        const refContDetails = document.createElement("span");
+        refContDetails.classList.add("dm-reflist-details");
+        
+        if (refType === "collection") {
+
+          refContAction.textContent = "Cite: ";
+          refContDetails.textContent = refFullName;
+          refItemCont.appendChild(refContAction);
+          refItemCont.appendChild(refContDetails);
+          refItem.appendChild(refItemCont);
+        }
+
+        if (refItemNo > 500 && refItemNo < 1000) {
+
+          refContAction.textContent = refItemNo < 700? "Search: " : "Visit: ";
+
+          const refContLink = document.createElement("a");
+          refContLink.textContent = refFullName.split(" | ")[0];
+          refContLink.setAttribute("href", refSearchLink);
+          refContLink.setAttribute("target", "_blank");
+
+          const refLinkWrapper = document.createElement("div");
+          refLinkWrapper.classList.add("link-wrapper-block");
+
+          refLinkWrapper.appendChild(refContAction);
+          refLinkWrapper.appendChild(refContLink);
+          refItemCont.appendChild(refLinkWrapper);
+          refItem.appendChild(refItemCont);
+
+          if (refType === "archive") {
+
+            const refItemCont2 = document.createElement("p");
+            refItemCont2.classList.add("dm-collist-text");
+
+            const refLinkWrapper2 = document.createElement("div");
+            refLinkWrapper2.classList.add("link-wrapper-block");
+
+            const refContAction2 = document.createElement("span");
+            refContAction2.classList.add("dm-reflist-action");
+
+            const refItemSeparator = document.createElement("br");
+
+            refContAction2.textContent = "Visit: ";
+            refContDetails.textContent = refFullName.split(" | ")[1];
+
+            refItemCont2.appendChild(refContAction2);
+            refItemCont2.appendChild(refContDetails);
+            
+            refLinkWrapper2.appendChild(refContAction2);
+            refLinkWrapper2.appendChild(refContDetails);
+
+            refItemCont.appendChild(refLinkWrapper2);
+
+            refItem.appendChild(refItemSeparator);
+            refItem.appendChild(refItemCont2);
+          }
+        }
+      }
+      
+      refRow.appendChild(refItem);
+      refRow.setAttribute("data-refno", refItemNo);
+    }
+
+    if (refItemNo < 500) {
+
+      refsListDiv.appendChild(refRow);
+    }
+
+    if (refItemNo > 500 && refItemNo < 1000) {
+
+      refsListLinksDiv.appendChild(refRow);
+    }
+  });
+
+  console.log(`PD App:\n\nReference list generated, references total: ${refsJson.length}`);
+}
+
 // Close dialog window depending on the button pressed
 
 function closeDialogHandler() {
 
-  let parentDialog = this === closeTunelistBtn? tunelistDialog : colsListDialog;
+  let parentDialog = this === closeTunelistBtn? tunelistDialog : this === closeColsListBtn? colsListDialog : refsListDialog;
 
   parentDialog.close();
   addAriaHidden(parentDialog);
@@ -250,18 +420,22 @@ export function showDialogsDiv() {
 
 export function initModals() {
 
-  [generateTunelistBtn, generateColsListBtn, generateTracklistBtn].forEach(genBtn => {
+  [generateTunelistBtn, generateColsListBtn, generateTracklistBtn, 
+    generateRefListBtn, generateLinkListBtn].forEach(genBtn => {
 
     genBtn.addEventListener('click', generateHandler);
   });
   
-  [closeTunelistBtn, closeColsListBtn].forEach(btn => {
+  [closeTunelistBtn, closeColsListBtn, closeRefsListBtn].forEach(btn => {
 
     btn.addEventListener('click', closeDialogHandler);
   });
 
-  colsListDiv.addEventListener('click', showPopoverHandler);
+  [colsListDiv, refsListDiv, refsListLinksDiv].forEach(list => {
 
+    list.addEventListener('click', showPopoverHandler);
+  });
+  
   allDialogLists.forEach(dialog => {
 
     dialog.addEventListener('cancel', hideDialogsDiv);

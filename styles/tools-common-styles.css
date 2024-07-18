@@ -28,7 +28,7 @@ body {
   --focus-color: var(--secondary-color-a);
   --focus-color-inverted: var(--secondary-color-b);
 
-  background-color: var(--primary-color);
+  background: var(--primary-color);
   margin: 0 auto;
 }
 
@@ -87,13 +87,29 @@ body.rainy {
   --secondary-color-a: #002379;
   --secondary-color-b: #FF9F66;
   --secondary-color-c: #2A629A;
-  --accent-color-a: #FF5F00;
-  --accent-color-b: #81c0ff;
+  --accent-color-a: #C25615;
+  --accent-color-b: #2a4a69;
   --accent-color-c: #9f69d1;
   --neutral-color: #00122e;
   --neutral-color-alt: #434343;
   --neutral-color-inactive:#a3a3a3;
   --neutral-color-inverted: #d8d8d8;
+}
+
+body.papsofanu {
+
+  --primary-color: #606f49;
+  --primary-color-alt: #585c47;
+  --secondary-color-a: #ffb37d;
+  --secondary-color-b: #ffcb69;
+  --secondary-color-c: #adc178;
+  --accent-color-a: #ffa95c;
+  --accent-color-b: #d9ae94;
+  --accent-color-c: #ffa86b;
+  --neutral-color: #ececec;
+  --neutral-color-alt: #ffcb69;
+  --neutral-color-inactive:#dce0d9;
+  --neutral-color-inverted: black;
 }
 
 body.rainbow {
@@ -103,7 +119,7 @@ body.rainbow {
   --secondary-color-a: #ee4035;
   --secondary-color-b: #f78141;
   --secondary-color-c: #cccc00;
-  --accent-color-a: #7bc043;
+  --accent-color-a: #539c17;
   --accent-color-b: #0392cf;
   --accent-color-c: #551a8b;
   --neutral-color: black;
@@ -119,7 +135,7 @@ body * {
 a {
   color: var(--accent-color-b);
   text-decoration-line: none;
-  transition: color 0.5s ease-in-out;
+  transition: color 0.35s ease-in-out;
 }
 
 a:active, a:hover {
@@ -193,12 +209,14 @@ h1, h2, h3 {
 
 h1 {
   font-size: var(--font-large);
-  margin: 1.7rem 2rem 2rem;
+  /* padding: 4.25rem 2rem 0rem; */
+  padding: 3.25rem 2rem 0rem;
+  margin: 0;
 }
 
 h2 {
   font-size: var(--font-subhead);
-  margin: 0.4rem 0 0 0;
+  margin: 0;
 }
 
 h3 {
@@ -222,44 +240,7 @@ dialog:focus-visible {
   outline-offset: 0.07rem;
 }
 
-/* Common icon styles */
-
-.link-btn,
-.theme-btn {
-  display: flex;
-  width: 2.25rem; 
-  height: 2.25rem;
-  position: relative;
-}
-
-.link-icon,
-.theme-icon,
-.action-icon {
-  width: 100%;
-  height: 100%;
-}
-
-.link-icon,
-.theme-icon {
-  opacity: 0.75;
-  transition: opacity 0.75s ease-in-out, color 0.5s ease-in-out;
-  color: var(--accent-color-b);
-  position: absolute;
-}
-
-.link-icon-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.action-icon-container {
-  display: inline-flex;
-  width: var(--font-button);
-  height: var(--font-button);
-}
-
-/* Common button styles */
+/* Common button and link styles */
 
 .btn {
   display: flex;
@@ -273,15 +254,19 @@ dialog:focus-visible {
   line-height: 2rem;
   color: black;
   background: var(--secondary-color-b);
-  transition: all 0.33s ease-in-out;
   position: relative;
   width: fit-content;
   height: inherit;
   flex-grow: 1;
   opacity: 0.95;
-  box-shadow: 0px 0px 0px 0.1875rem transparent;
   outline-offset: 0.05rem;
   border-radius: 0.5rem;
+}
+
+.btn, 
+.btn-text,
+.link-wrapper a {
+  transition: all 0.33s ease-in-out;
 }
 
 .btn:disabled {
@@ -293,8 +278,14 @@ dialog:focus-visible {
   opacity: 1;
 }
 
-.btn:is(:hover, :focus, :focus-visible) > .btn-text {
-  transform: scale(1.07);
+.link-wrapper a:is(:hover, :focus, :focus-visible) {
+  box-shadow: 0px 0px 0px 0.1875rem var(--neutral-color);
+  outline: none;
+}
+
+.btn:is(:hover, :focus, :focus-visible) > .btn-text,
+.link-wrapper a:is(:hover, :focus, :focus-visible) {
+  transform: scale(1.05);
 }
 
 /* .btn:focus:not(:focus-visible) {
@@ -302,26 +293,114 @@ dialog:focus-visible {
 } */
 
 .btn-text {
+  width: 100%;
+  color: black;
+  position: relative;
+}
+
+.btn-text,
+.link-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
-  position: relative;
-  transition: all 0.33s ease-in-out;
+}
+
+.link-wrapper a {
+  display: block;
   width: 100%;
+  color: black;
+  background-color: var(--secondary-color-b);
+  font-size: var(--font-button);
+  text-align: center;
+  border-radius: 0.5rem;
+  line-height: 4rem;
+}
+
+.link-btn,
+.theme-btn {
+  display: flex;
+  width: 2.25rem; 
+  height: 2.25rem;
+  position: relative;
+}
+
+.link-btn a,
+.theme-btn,
+.section-nav-btn {
+  border-radius: 100%;
 }
 
 .link-btn a:is(:hover, :focus) > *,
-.theme-btn:is(:hover, :focus) > * {
+.theme-btn:is(:hover, :focus) > *,
+.section-nav-btn:is(:hover, :focus) {
   opacity: 1;
   color: var(--accent-color-a);
 }
 
 .link-btn a:focus-visible,
-.theme-btn:focus-visible {
+.theme-btn:focus-visible,
+.section-nav-btn:focus-visible {
   outline-offset: 0.25rem;
-  border-radius: 0.8rem;
   outline: 0.2rem solid var(--focus-color);
+}
+
+.link-wrapper-block {
+  border-radius: 0.5rem;
+  outline-offset: -0.2rem;
+  padding: 0.5em;
+}
+
+.link-wrapper-block a:is(:active, :hover, :focus, :focus-visible) {
+  text-decoration: underline;  
+}
+
+.link-wrapper-block:focus-within {
+  outline: 0.2rem solid var(--focus-color-inverted);
+}
+
+.section-nav-btn {
+  position: fixed;
+  width: 2.8rem; 
+  height: 2.8rem;
+  z-index: 3;
+}
+
+/* Common icon styles */
+
+.link-icon,
+.theme-icon,
+.action-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.link-icon,
+.theme-icon {
+  position: absolute;
+}
+
+.link-icon,
+.theme-icon,
+.section-nav-btn {
+  opacity: 0.75;
+  transition: opacity 0.5s ease-in-out, color 0.35s ease-in-out;
+  color: var(--accent-color-b);
+}
+
+.link-icon-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.action-icon-container {
+  display: inline-flex;
+  width: var(--font-mid);
+  height: var(--font-mid);
+}
+
+circle {
+  stroke: currentColor;
 }
 
 /* Common input form styles */
@@ -337,10 +416,9 @@ dialog:focus-visible {
   text-align: center;
   color: var(--neutral-color);
   caret-color: var(--neutral-color);
-  transition: opacity 0.5s ease-in-out, 
-  box-shadow 0.5s ease-in-out,
-  background-color 0.3s linear;
-  box-shadow: 0px 0px 0px 0.1875rem transparent;
+  transition: opacity 0.35s ease-in-out, 
+  box-shadow 0.35s ease-in-out,
+  background-color 0.35s linear;
   width: 100%;
 }
 
@@ -356,6 +434,10 @@ dialog:focus-visible {
 }
 
 /* Common container styles */
+
+.main-container {
+  padding-top: 3.5rem;
+}
 
 .header-container, .flex-row-wrap, .flex-col-wrap, .flex-col-centered {
   display: flex;
@@ -388,6 +470,14 @@ dialog:focus-visible {
   opacity: 1;
 }
 
+.highlighted {
+  background-color: var(--focus-color-inverted);
+}
+
+.highlighted-bright {
+  background-color: #ffdc18;
+}
+
 .invisible {
   opacity: 0;
 }
@@ -396,6 +486,10 @@ dialog:focus-visible {
   outline: 0.16rem solid var(--focus-color);
   outline-offset: 0.07rem;
   box-shadow: 0px 0px 0px 0.1875rem black;
+}
+
+.shadowed {
+  text-shadow: 1px 1px 1px black;
 }
 
 .scrollable {

@@ -1,13 +1,110 @@
 /* #ProjectDenis: Toolkit Styles */
 
-body {
+body, .header-main {
   width: min(calc(100% - 2.4em), 120rem);
 }
 
 /* Header styles */
 
+.header-main {
+  position: fixed;
+  top: 0;
+  padding: 0 0.5rem 0.65rem;
+  background-color: var(--primary-color);
+  border: 1px dashed var(--secondary-color-a);
+  border-top: none;
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  z-index: 3;
+}
+
+@supports (color: color-mix(in srgb, black, black)) {
+  .header-main  {
+    border-color: color-mix(in srgb, var(--secondary-color-a) 80%, black);
+  }
+}
+
 .header-link {
   font-size: var(--font-large);
+}
+
+/* Sections styles */
+
+#dm-search,
+#dm-explore,
+#dm-discover {
+  min-height: 100svh;
+}
+
+#dm-search,
+#dm-explore,
+#dm-discover,
+.dm-launch, 
+.dm-parser,
+.dm-splitter {
+  padding-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.dm-section-header,
+.dm-section-anchor {
+  padding-top: 7rem;
+  padding-bottom: 2.5rem;
+}
+
+.dm-section-anchor span {
+  transition: opacity 0.35s ease-in-out;
+}
+
+.dm-section-anchor:is(:hover, :focus, :focus-visible) span {
+  opacity: 1;
+}
+
+#top {
+  color: var(--secondary-color-a);
+}
+
+#top:is(:hover, :focus, :focus-visible) {
+  outline: none;
+  text-decoration-color: var(--secondary-color-a);
+}
+
+.dm-section-anchor:is(:hover, :focus, :focus-visible) {
+  outline: none;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-color-a);
+}
+
+.dm-launch-container {
+  padding-top: 2.5rem;
+}
+
+.dm-footer {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.dm-footer,
+.dm-footer a {
+  color: var(--neutral-color-inactive);
+  font-size: var(--font-small);
+  text-align: center;
+}
+
+.dm-footer a {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.12rem;
+}
+
+.dm-footer a:is(:hover, :focus, :focus-visible) {
+  text-decoration: underline;
+  color: var(--focus-color);
+  border-radius: 0.25rem;
+}
+
+.dm-footer a:is(:focus-visible) {
+  outline: 2px solid var(--focus-color-inverted);
 }
 
 /* Button styles */
@@ -19,13 +116,18 @@ body {
   font-size: var(--font-mid);
 }
 
-#dm-btn-start-exploring .btn-text {
+#dm-btn-start-exploring .action-icon-container {
+  width: var(--font-button);
+  height: var(--font-button);
+}
+
+#dm-btn-start-exploring .btn-text,
+#dm-btn-generate-collections .btn-text {
   gap: 0.2em;
 }
 
-.action-icon-music {
-  width: var(--font-mid);
-  height: var(--font-mid);
+.dm-generate-btn-container {
+  gap: 0.25em;
 }
 
 .table-btn {
@@ -41,11 +143,18 @@ body {
   position: relative;
 }
 
-/* Container styles */
-
-.dm-launch, .dm-parser, .dm-splitter, .dm-generator {
-  margin-bottom: 2rem;
+.section-nav-btn {
+  bottom: 5%;
+  right: 1.1rem;
+  outline-offset: 2rem;
+  z-index: 3;
 }
+
+.section-nav-btn:focus-visible circle {
+  display: none;
+}
+
+/* Container styles */
 
 .dm-launch-container {
   display: flex;
@@ -57,8 +166,13 @@ body {
   width: 100%;
 }
 
-.button-container, .splitter-container {
+.generator-container,
+.splitter-container,
+.button-container {
   gap: 0.75rem;
+}
+
+.button-container {
   margin-bottom: 1.5rem;
 }
 
@@ -109,9 +223,16 @@ body {
   border-radius: 0.4rem;
 }
 
-.splitter-container {
-  flex-flow: row;
-  margin-bottom: 1.5rem;
+.generator-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.reference-container .btn {
+  max-width: calc(100% / 3 - 1.5rem / 3);
 }
 
 .splitter-group {
@@ -120,11 +241,8 @@ body {
   min-width: calc(100% / 3 - 1.5rem / 3);
 }
 
-.generator-container {
-  display: flex;
-  flex-flow: row wrap;
-  gap: 0.75rem;
-  align-items: center;
+.splitter-container {
+  flex-flow: row;
 }
 
 /* Media queries */
@@ -148,12 +266,21 @@ body {
   .generator-container > .btn {
     width: 100%;
   }
+
+  .reference-container .btn {
+    max-width: none;
+  }
 }
 
 /* @media screen and (max-width: 668px) { */
 @media screen and (max-width: 41.75em) {
-
-
+  
+  .header-main {
+    left: 0;
+    width: 100%;
+    border-left: none;
+    border-right: none;
+  }
 }
 
 /* @media screen and (max-width: 360px) { */
@@ -161,6 +288,10 @@ body {
 
   html {
     font-size: 90%;
+  }
+
+  circle {
+    display: none;
   }
 }
 
@@ -209,7 +340,7 @@ body {
     margin-bottom: 1rem;
   }
   
-  .dm-parser, .dm-splitter, .dm-generator {
-    margin-bottom: 1.5rem;
+  .dm-parser, .dm-splitter {
+    margin-bottom: 0.5rem;
   }
 }

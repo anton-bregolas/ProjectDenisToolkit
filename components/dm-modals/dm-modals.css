@@ -9,26 +9,6 @@ body {
   --collist-item-border-color: #afafaf;
 }
 
-body.light {
-  --tunelist-item-hover-color: var(--secondary-color-b);
-}
-
-body.light #dm-collist-wrapper h2,
-body.light #dm-collist-wrapper h3,
-body.rainy #dm-collist-wrapper h2,
-body.rainy #dm-collist-wrapper h3 {
-  color: color-mix(in srgb, var(--secondary-color-a) 50%, white);
-}
-
-body.star .dm-collist-item::before,
-body.rainy .dm-collist-item::before {
-  color: color-mix(in srgb, var(--secondary-color-b) 75%, white);
-}
-
-body.rainbow .dm-collist-item::before {
-  color: color-mix(in srgb, var(--secondary-color-b) 60%, white);
-}
-
 html:has(dialog[open]) {
   overflow: hidden;
 }
@@ -183,24 +163,25 @@ html:has(dialog[open]) {
   padding: 0.5em;
 }
 
-#dm-collist-caption {
+.dm-list-table-caption {
   height: var(--collist-item-height);
   border: 3px solid var(--collist-item-border-color);
   border-bottom: none;
 }
 
-#dm-collist-caption h2 {
+.dm-list-table-caption h2 {
   margin: 0;
 }
 
-#dm-collist-header .dm-collist-row,
-#dm-collist-caption {
-  background-color: color-mix(in srgb, var(--collist-item-color) 75%, black);
-}
-
-#dm-collist-header .dm-collist-item {
+.dm-list-table-caption,
+.dm-list-table-header .dm-collist-item {
   padding: 0.25em;
   height: 6rem;
+}
+
+.dm-list-table-header tr.dm-collist-row,
+.dm-list-table-caption {
+  background-color: color-mix(in srgb, var(--collist-item-color) 75%, black);
 }
 
 .dm-collist-item {
@@ -246,30 +227,86 @@ html:has(dialog[open]) {
   overflow: clip;
   text-overflow: ellipsis;
   display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
 }
 
-.dm-collist-item:nth-child(2):not(th) {
-  background-color: #45167171;
-}
-
-@supports (color: hsl(from white h s l)) {
-
-  .dm-collist-item:nth-child(2):not(th) {
-      background-color: hsl(from var(--secondary-color-a) h s 25% / 0.5);
-  }
-
-  body.dark {
-
-      .dm-collist-item:nth-child(2):not(th) {
-        background-color: hsl(from #551a8b h s 25% / 0.5);
-    }
-  }
+#dm-collist-table .dm-collist-text {
+  min-height: var(--collist-item-height);
 }
 
 .dm-collist-row:nth-of-type(odd) {
   background-color: color-mix(in srgb, var(--collist-item-color) 75%, white);
+}
+
+/* Reference Library List */
+
+#dm-references-wrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+}
+
+.dm-reflist-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.dm-reflist-table .dm-table-caption-wrapper {
+  padding: 0.5em;
+}
+
+.dm-reflist-table h2,
+.dm-reflist-table h3 {
+  color: var(--focus-color-inverted);
+}
+
+.dm-reflist-table .dm-collist-item:nth-of-type(2) {
+  font-weight: bold;
+}
+
+.dm-reflist-table .dm-collist-item:not(th):not(:nth-of-type(3)) .dm-collist-text {
+  min-height: 7rem;
+}
+
+#dm-references .dm-collist-item:nth-of-type(3),
+#dm-reflinks .dm-collist-item:nth-of-type(3) {
+  text-align: left;
+}
+
+#dm-references .dm-collist-item:nth-of-type(3) .dm-collist-text,
+#dm-reflinks .dm-collist-item:nth-of-type(3) .dm-collist-text {
+  display: block;
+}
+
+.dm-btn-ref-open {
+  min-width: 6rem;
+}
+
+.dm-reflist-action {
+  font-weight: bold;
+  color: var(--focus-color-inverted);
+  transition: color 0.35s ease-in-out;
+}
+
+.dm-reflist-table .dm-collist-item a {
+  color: white;
+  font-weight: bold;
+}
+
+.dm-reflist-table .dm-collist-item a:is(:active, :hover, :focus, :focus-visible) {
+  color: var(--secondary-color-b);
+}
+
+.dm-reflist-table .link-wrapper-block a:focus-visible {
+  outline: none;
+}
+
+#dm-references .dm-collist-text:hover .dm-reflist-action,
+.link-wrapper-block:is(:hover, :focus-within) .dm-reflist-action {
+  color: white;
 }
 
 /* Status Bar styles */
@@ -305,11 +342,11 @@ html:has(dialog[open]) {
     border: none;
   }
 
-  #dm-collist-header {
+  .dm-list-table-header {
     display: none;
   }
 
-  #dm-collist-caption h2 {
+  .dm-list-table-caption h2 {
     font-size: var(--font-mid);
   }
 
@@ -321,18 +358,48 @@ html:has(dialog[open]) {
     background-color: var(--collist-item-color);
   }
 
-  .dm-collist-item:nth-child(1)::before {
+  #dm-collist-table .dm-collist-text {
+    min-height: 0;
+  }
+
+  #dm-collist-table .dm-collist-item:nth-child(1)::before {
     content: "Collection Ref.: \A\A";
     white-space: pre;
   }
 
-  .dm-collist-item:nth-child(2)::before {
+  #dm-collist-table .dm-collist-item:nth-child(2)::before {
     content: "Collection Name:\A\A";
     white-space: pre;
   }
 
-  .dm-collist-item:nth-child(3)::before {
+  #dm-collist-table .dm-collist-item:nth-child(3)::before {
     content: "Collection Details:\A\A";
+    white-space: pre;
+  }
+
+  .dm-reflist-table .dm-collist-row .dm-collist-item {
+    width: 100%;
+  }
+
+  .dm-reflist-table .dm-collist-item:not(th):not(:nth-of-type(3)) .dm-collist-text {
+    min-height: 0rem;
+  }
+
+  .dm-reflist-table .dm-collist-item:nth-child(3) {
+    text-align: center;
+  }
+
+  .dm-reflist-table .dm-collist-item:nth-child(1)::before {
+    content: "";
+  }
+
+  .dm-reflist-table .dm-collist-item:nth-child(2)::before {
+    content: "Ref. Name:\A\A";
+    white-space: pre;
+  }
+
+  .dm-reflist-table .dm-collist-item:nth-child(3)::before {
+    content: "Ref. Details:\A\A";
     white-space: pre;
   }
 }

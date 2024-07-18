@@ -116,12 +116,12 @@
     "performers": "w. Johnny O'Leary",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Star_above_the_Garter_(The)",
-    "tracknotes": "B&S 2 # 59, DBW p#79. Recorded by Séamus Ennis in January 1949. Denis is joined by his long-time musical partner Johnny O'Leary (1923–2004) who was playing on a D/D# box during this recording session at Denis's old house. MFSL notes suggest that the title might be referring to the insignia of a 15th century Order of Chivalry in England. ITMA notes to BB30 suggest that this title was used by Tom Billy. A Pádraig O'Keeffe manuscript cited by Matt Cranitch suggests that the tune might have been called The Star and Garter before SATG was published in 1969. Unsupported evidence citing Paddy Moloney has pointed to Claddagh Records founder Garech de Brún as a possible culprit behind the variation put on the name."
+    "tracknotes": "B&S 2 # 59, DBW p#79. Recorded by Séamus Ennis in January 1949. Denis is joined by his long-time musical partner Johnny O'Leary (1923–2004) who was playing on a D/D# box during this recording session at Denis's old house. NB: Denis Murphy told Breandán Breathnach in 1966 that “Tom Billy called it The Star above the Garter” (BB30). MFSL notes say that the title might be referring to the insignia of Order of the Garter, an order of chivalry founded in the 14th-century England. A Pádraig O'Keeffe manuscript cited by Matt Cranitch suggests that the tune might have originally been called The Star and Garter, which is a common informal abbreviation of the order’s insignia. If so, it is unclear when the Sliabh Luachra musicians creatively changed the name but apparently it happened well before SATG came out in 1969."
   },
   {
     "refno": "1042",
     "trackno": "4.2",
-    "tunename": "Padraig O'Keeffe's No. 1",
+    "tunename": "Pádraig O'Keeffe's No. 1",
     "tunetype": "Slide",
     "altnames": "Julia Clifford's / Bill the Weaver's No. 1",
     "tuneref": "JOLSL # 132",
@@ -138,7 +138,7 @@
   {
     "refno": "1043",
     "trackno": "4.3",
-    "tunename": "Padraig O'Keeffe's No. 2",
+    "tunename": "Pádraig O'Keeffe's No. 2",
     "tunetype": "Slide",
     "altnames": "Denis Murphy's / Dark Girl in Blue / Julia Clifford's",
     "tuneref": "CRE 3 # 50",
@@ -208,7 +208,7 @@
     "trackno": "7.2",
     "tunename": "Tarrant's No. 2",
     "tunetype": "Polka",
-    "altnames": "Julia Clifford's / Lacka Cross",
+    "altnames": "Lacka Cross / Julia Clifford's / Denis Murphy's",
     "tuneref": "DL 2 p#47",
     "category": "Solo",
     "recyear": "1949",
@@ -1583,7 +1583,7 @@
   {
     "refno": "3161",
     "trackno": "16.1",
-    "tunename": "Padraig O'Keeffe's",
+    "tunename": "Pádraig O'Keeffe's",
     "tunetype": "Slide",
     "altnames": "Bank of Turf / First Cousin of the Gallant Tipperary Boys",
     "tuneref": "JOLSL # 130",
@@ -1697,7 +1697,7 @@
     "performers": "w. Julia Clifford",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Star_above_the_Garter_(The)",
-    "tracknotes": "B&S 2 # 59, DBW p#79. MFSL notes suggest that the title might be referring to the insignia of a 15th century Order of Chivalry in England. ITMA notes to BB30 suggest that this title was used by Tom Billy. A Pádraig O'Keeffe manuscript cited by Matt Cranitch suggests that the tune might have been called The Star and Garter before SATG was published in 1969. Unsupported evidence citing Paddy Moloney has pointed to Claddagh Records founder Garech de Brún as a possible culprit behind the variation put on the name."
+    "tracknotes": "B&S 2 # 59, DBW p#79. NB: Denis Murphy told Breandán Breathnach in 1966 that “Tom Billy called it The Star above the Garter” (BB30). MFSL notes say that the title might be referring to the insignia of Order of the Garter, an order of chivalry founded in the 14th-century England. A Pádraig O'Keeffe manuscript cited by Matt Cranitch suggests that the tune might have originally been called The Star and Garter, which is a common informal abbreviation of the order’s insignia. If so, it is unclear when the Sliabh Luachra musicians creatively changed the name but apparently it happened well before SATG came out in 1969."
   },
   {
     "refno": "3202",
@@ -1721,8 +1721,8 @@
     "trackno": "1",
     "tunename": "Untitled Slide",
     "tunetype": "Slide",
-    "altnames": "",
-    "tuneref": "???",
+    "altnames": "Art O'Keeffe's No. 1",
+    "tuneref": "MISC # 5",
     "category": "Duo",
     "recyear": "1966",
     "pubyear": "",
@@ -1731,15 +1731,15 @@
     "performers": "w. Art O'Keeffe",
     "transcriptlink": "",
     "refsettinglink": "",
-    "tracknotes": "[Track A1 in source]. [Source title: Untitled Slide]. BB index 2064"
+    "tracknotes": "[Track A1 in source]. [Source title: Untitled Slide]. BB index 2064. NB: This is an unusual tune that doesn't seem to appear anywhere in Irish music collections. On both known recordings of Denis Murphy playing it he pairs it with Art O'Keeffe's slide (JOLSL # 345) and is apparently accompanied by his neighbour Art O'Keeffe on the tinwhistle, making it possible both tunes come from the repertoire of Art O'Keeffe or were at least associated with him [AZ]."
   },
   {
     "refno": "4021",
     "trackno": "2",
-    "tunename": "Untitled Slide",
+    "tunename": "Art O'Keeffe's",
     "tunetype": "Slide",
-    "altnames": "",
-    "tuneref": "???",
+    "altnames": "Echoes of Killarney / Well I Know What Kitty Wants / Denis McMahon's",
+    "tuneref": "JOLSL # 345",
     "category": "Duo",
     "recyear": "1966",
     "pubyear": "",
@@ -1747,16 +1747,16 @@
     "recyearto": "",
     "performers": "w. Art O'Keeffe",
     "transcriptlink": "",
-    "refsettinglink": "",
+    "refsettinglink": "https://thesession.org/tunes/5945, https://tunearch.org/wiki/Art_O%27Keeffe%27s_(3)",
     "tracknotes": "[Track A2 in source]. [Source title: Untitled Slide]. BB index 160"
   },
   {
     "refno": "4031",
     "trackno": "3",
-    "tunename": "Untitled Slide",
+    "tunename": "Slopes of Sliabh Luachra",
     "tunetype": "Slide",
-    "altnames": "",
-    "tuneref": "???",
+    "altnames": "Follow Me Down to Carlow / Banks of Lough Gowna",
+    "tuneref": "JOLSL # 325",
     "category": "Duo",
     "recyear": "1966",
     "pubyear": "",
@@ -1764,16 +1764,16 @@
     "recyearto": "",
     "performers": "w. Art O'Keeffe",
     "transcriptlink": "",
-    "refsettinglink": "",
-    "tracknotes": "[Track A3 in source]. [Source title: Untitled Slide]. BB index 229"
+    "refsettinglink": "https://thesession.org/tunes/12634, https://tunearch.org/wiki/Slopes_of_Sliabh_Luachra_(The)",
+    "tracknotes": "[Track A3 in source]. [Source title: Untitled Slide]. BB index 229. NB: This is a jig / slide version of the song Follow Me Down to Carlow. Billy Clifford also points to the similarity of this tune to the Banks of Lough Gowna (largely in part A) [AZ]."
   },
   {
     "refno": "4041",
     "trackno": "4",
     "tunename": "Willie Reidy's No.2",
     "tunetype": "Polka",
-    "altnames": "",
-    "tuneref": "JOLSL # 245",
+    "altnames": "Billy Mahony's / Newmarket",
+    "tuneref": "CRE 2 # 114",
     "category": "Duo",
     "recyear": "1966",
     "pubyear": "",
@@ -1782,7 +1782,7 @@
     "performers": "w. Art O'Keeffe",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/22993",
-    "tracknotes": "[Track A4 in source]. [Source title: Untitled Polka]. CICD 6471"
+    "tracknotes": "[Track A4 in source]. [Source title: Untitled Polka]. JOLSL # 245, CICD 6471. CRE version comes from Art O'Keeffe who was recorded playing it separately in 1970. The title for the polka comes from JOLSL # 245. NB: This polka is a version of the same tune as the Green Cottage No. 3 but different from the one Denis Murphy and Pádraig O'Keeffe played on MFSL. Denis plays this polka in G major. There is another very similar version from the Newmarket, Co. Cork area played by Timmy O'Connor of Toureendarby in G major (titled Billy Mahony's polka) which Jackie Daly popularised after recording it in A major (titled the Newmarket polka) [AZ]."
   },
   {
     "refno": "4051",
@@ -1840,7 +1840,7 @@
     "trackno": "8",
     "tunename": "Din Tarrant's No. 1",
     "tunetype": "Polka",
-    "altnames": "Bill the Weaver's No. 2",
+    "altnames": "Bill the Weaver's No. 2 / Tarrant's No. 1",
     "tuneref": "JOLSL # 269",
     "category": "Solo",
     "recyear": "1966",
@@ -1850,7 +1850,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1825",
-    "tracknotes": "[Track A8 in source]. [Source title: Untitled Polka]. MFSL notes say that this polka was named after the blind fiddle player Denis \"Din\" Tarrant (1871-1957) from Ballydesmond, Co. Cork. Johnny O'Leary also called the first polka Bill The Weaver's after Denis Murphy's father, Bill “The Weaver” Murphy (1870–1947), who played fiddle, flute and fife and led the Lisheen Fife and Drum Band."
+    "tracknotes": "[Track A8 in source]. [Source title: Untitled Polka]. MFSL notes say that this polka was named after the blind fiddle player Denis \"Din\" Tarrant (1871-1957) from Ballydesmond, Co. Cork. Johnny O'Leary also called this polka Bill The Weaver's after Denis Murphy's father, Bill “The Weaver” Murphy (1870–1947), who played fiddle, flute and fife and led the Lisheen Fife and Drum Band."
   },
   {
     "refno": "4091",
@@ -1867,15 +1867,15 @@
     "performers": "w. Art O'Keeffe",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Five_Servants_(The)",
-    "tracknotes": "[Track A9 in source]. [Source title: Untitled Polka]. Published in the journal ‘Ceol’ (Vol. 2, No. 4, 1966) NB: Reference added via titles provided."
+    "tracknotes": "[Track A9 in source]. [Source title: Untitled Polka]. Published in the journal ‘Ceol’ (Vol. 2, No. 4, 1966)."
   },
   {
     "refno": "4101",
     "trackno": "10",
     "tunename": "Denis Murphy's",
     "tunetype": "Polka",
-    "altnames": "Casey's",
-    "tuneref": "JOLSL # 42",
+    "altnames": "Lacka Cross / Tarrant's No. 2 / Julia Clifford's",
+    "tuneref": "DL 2 p#47",
     "category": "Duo",
     "recyear": "1966",
     "pubyear": "",
@@ -1883,8 +1883,8 @@
     "recyearto": "",
     "performers": "w. Art O'Keeffe",
     "transcriptlink": "",
-    "refsettinglink": "https://thesession.org/tunes/357",
-    "tracknotes": "[Track A10 in source]. [Source title: Untitled Polka]. NB: Reference added via titles provided."
+    "refsettinglink": "https://thesession.org/tunes/11314",
+    "tracknotes": "[Track A10 in source]. [Source title: Untitled Polka]. This polka is also known as Tarrant's. MFSL notes say that this polka was named after the blind fiddle player Denis \"Din\" Tarrant (1871-1957) from Ballydesmond, Co. Cork."
   },
   {
     "refno": "4111",
@@ -1952,7 +1952,7 @@
     "performers": "w. Art O'Keeffe",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Scart_Slide",
-    "tracknotes": "[Track A14 in source]. CICD 2169 NB: Reference added via titles provided."
+    "tracknotes": "[Track A14 in source]. CICD 2169."
   },
   {
     "refno": "4151",
@@ -2105,7 +2105,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Doon_Reel_(6)_(The)",
-    "tracknotes": "[Track A21 in source]. CICD 3542. ITMA: “Pat Ward's – a version of this tune played as a single jig by Seamus Ennis”"
+    "tracknotes": "[Track A21 in source]. CICD 3542. ITMA: “Pat Ward's – a version of this tune played as a single jig by Séamus Ennis”"
   },
   {
     "refno": "4221",
@@ -2282,7 +2282,7 @@
     "trackno": "31",
     "tunename": "Cordal",
     "tunetype": "Jig",
-    "altnames": "Port na Cordaile",
+    "altnames": "Port na Cordaile / Muckross",
     "tuneref": "CRE 2 # 50",
     "category": "Solo",
     "recyear": "1966",
@@ -2433,7 +2433,7 @@
   {
     "refno": "4401",
     "trackno": "40",
-    "tunename": "Padraig O'Keeffe's",
+    "tunename": "Pádraig O'Keeffe's",
     "tunetype": "Slide",
     "altnames": "Bank of Turf / First Cousin of the Gallant Tipperary Boys",
     "tuneref": "JOLSL # 130",
@@ -2479,7 +2479,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1209, https://tunearch.org/wiki/Colonel_Fraser",
-    "tracknotes": "[Track A42 in source]. CICD 4250, CICD 4251. NB: A 4-part version of Colonel Fraser. Denis Murphy plays each part with no repeats and with distinct order of parts C and D."
+    "tracknotes": "[Track A42 in source]. CICD 4250, CICD 4251. NB: A 4-part version of Colonel Fraser that Denis Murphy said he had heard his brother play (BB40). Denis plays each part with no repeats and with distinct order of parts C and D."
   },
   {
     "refno": "4431",
@@ -2581,7 +2581,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/430",
-    "tracknotes": "[Track A48 in source]. CRE 1 # 133, CICD 5285. NB: Reference added via titles provided."
+    "tracknotes": "[Track A48 in source]. CRE 1 # 133, CICD 5285. NB: Denis Murphy's version distinct from printed sources."
   },
   {
     "refno": "4491",
@@ -2598,14 +2598,14 @@
     "performers": "",
     "transcriptlink": "https://thesession.org/tunes/13013#setting50292",
     "refsettinglink": "https://thesession.org/tunes/13013#setting50293",
-    "tracknotes": "[Track A49 in source]. [Source title: Untitled Reel]. CICD 4273 – ITMA: “Played slower than usual reel tempo”, CICD 1349 – ITMA: “Notated as a single jig”. NB: Denis Murphy's version of this tune has since been recorded by Bryan O’Leary and Colm Guilfoyle on Where the Bog Is, Self-published, 2015 under the title of Denis Murphy's. This reel has structural similarities to The Monaghan Twig / Tinker's Apron and appears to be a distinct minor version or a relative thereof (see CRE 2 # 152 for another version of that reel). It is also possible that the tune had developed separately from Monaghan Twig's apparent Scottish ancestor, the strathspey Alasdair MacAlasdair (Allister McAllister), some versions of which are musically very similar to CICD 4273 / CICD 1349 while a version found in RMC (“Alistair MacAlastair”) has apparently been turned into a Sliabh Luachra polka, now known as Denis Doody's (a version of the Green Cottage No. 1) [AZ]."
+    "tracknotes": "[Track A49 in source]. [Source title: Untitled Reel]. CICD 4273 – ITMA: “Played slower than usual reel tempo”, CICD 1349 – ITMA: “Notated as a single jig”. NB: Denis Murphy's version of this tune has since been recorded by Bryan O’Leary and Colm Guilfoyle on Where the Bog Is, Self-published, 2015 under the title of Denis Murphy's. This reel has structural similarities to The Monaghan Twig / Tinker's Apron and appears to be a distinct minor version or a relative thereof (see CRE 2 # 152 for another version of that reel). It is also possible that the tune had developed separately from Monaghan Twig's apparent Scottish ancestor, the strathspey Alasdair MacAlasdair (Allister McAllister), some versions of which are musically very similar to CICD 4273 / CICD 1349 while a version found in RMC (“Alistair MacAlastair”) has apparently been turned into a Sliabh Luachra polka, now known as Denis Doody's (a version of the Green Cottage No. 1) [AZ]."
   },
   {
     "refno": "4501",
     "trackno": "50",
     "tunename": "Two Birds in the Tree",
     "tunetype": "Hornpipe",
-    "altnames": "Two Birds on a Tree / Dhá Éan ar an gCrann",
+    "altnames": "Two Birds on a Tree / Two Birds on the Tree / Dhá Éan ar an gCrann",
     "tuneref": "CRE 2 # 232",
     "category": "Solo",
     "recyear": "1966",
@@ -2649,7 +2649,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/900, https://tunearch.org/wiki/Tom_Billy%27s_Reel_(2)",
-    "tracknotes": "[Track A52 in source]. CICD 3031. NB: Denis recorded a 2-part version on SATG and one with an extra part (or recurring variation) on MFSL."
+    "tracknotes": "[Track A52 in source]. CICD 3031. NB: Denis recorded a 2-part version on SATG and one with an extra part (or recurring variation) on MFSL, this is a mix of the two with two parts and a variation once through."
   },
   {
     "refno": "4531",
@@ -2700,7 +2700,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/142",
-    "tracknotes": "[Track A55 in source]. CICD 5843. NB: Reference added via titles provided."
+    "tracknotes": "[Track A55 in source]. CICD 5843"
   },
   {
     "refno": "4561",
@@ -2819,7 +2819,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Lord_Gordon%27s_Reel",
-    "tracknotes": "[Track B8 in source]. CICD 5982. ITMA: “A version of Lord Gordon”"
+    "tracknotes": "[Track B8 in source]. CICD 5982. ITMA: “A version of Lord Gordon”. NB: Denis Murphy's version distinct from those in printed sources."
   },
   {
     "refno": "4681",
@@ -2938,7 +2938,7 @@
     "performers": "",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/2653-cre5.abc-16-Time~Well~Spent*~~(h~pipe)~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185218.pdf",
     "refsettinglink": "https://thesession.org/tunes/13359",
-    "tracknotes": "[Track B18 in source]. ITMA: CICD 3607.18 – “Written as a reel, but played slower than usual reel tempo”, CICD 1027.11 – “Written as a single jig”. CRÉ version apparently comes from a different recording. Denis Murphy plays it as a rather fast fling on this track. NB: Possibly a version of Maggie Pickens, which is musically very similar, with a distinct variation in part B [AZ]. Denis Murphy's version of this tune has since been recorded by Mick O’Brien & Caoimhín Ó Raghallaigh on Deadly Buzz / Aoibhinn Crónán, Self-published, 2011 (titled “Denis Murphy’s Quirky Fling”, previously self-published by Caoimhín as “Weaver’s Quirky Fling”) and Billy Clifford & Gerry Harrington on Now She's Purring, Self-published, 2018 (Untitled on “Donal O'Pumpa Set”). A similar version of the tune has been recorded by The Monks of the Screw on Brathar na n​Ó​l, Self-published, 1995 (titled “Tom Billy's”)."
+    "tracknotes": "[Track B18 in source]. ITMA: CICD 3607.18 – “Written as a reel, but played slower than usual reel tempo”, CICD 1027.11 – “Written as a single jig”. CRÉ version apparently comes from a different recording of Denis Murphy. Denis plays it as a rather fast fling on this track. NB: Possibly a version of Maggie Pickens, which is musically very similar in part A but has a distinct variation in part B [AZ]. Denis Murphy's version of this tune has since been recorded by Mick O’Brien & Caoimhín Ó Raghallaigh on Deadly Buzz / Aoibhinn Crónán, Self-published, 2011 (titled “Denis Murphy’s Quirky Fling”, previously self-published by Caoimhín as “Weaver’s Quirky Fling”) and Billy Clifford & Gerry Harrington on Now She's Purring, Self-published, 2018 (Untitled on “Donal O'Pumpa Set”). A similar version of the tune has been recorded by The Monks of the Screw on Brathar na n​Ó​l, Self-published, 1995 (titled “Tom Billy's”)."
   },
   {
     "refno": "4781",
@@ -2955,7 +2955,7 @@
     "performers": "",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/1558-cre2.abc-5-Rising~Sun~(a)~i~(reel)~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182327.pdf",
     "refsettinglink": "https://tunearch.org/wiki/Rising_Sun_(2)_(The)",
-    "tracknotes": "[Track B19 in source]. CICD 2982, CRE 2 # 214 (i). ITMA: “Written as a reel, but played slower than usual reel tempo; two comments on card: 'Tom Billy's setting' and 'Paraic wrote it' (the latter a reference to Padraig O'Keeffe)”. NB: CRÉ version apparently comes from this recording."
+    "tracknotes": "[Track B19 in source]. CICD 2982, CRE 2 # 214 (i). ITMA: “Written as a reel, but played slower than usual reel tempo; two comments on card: 'Tom Billy's setting' and 'Paraic wrote it' (the latter a reference to Pádraig O'Keeffe)”. NB: CRÉ version apparently comes from this recording."
   },
   {
     "refno": "4791",
@@ -2989,7 +2989,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Walsh%27s_Reel",
-    "tracknotes": "[Track B21 in source]. JOLSL # 295, CICD 4497. Alt. title given: Nellie Donovan. NB: CRÉ version comes from this recording. This reel is sometimes named after fiddle player Cal O'Callaghan (1863-?), who was Pádraig O'Keeffe's uncle from Doon (Doonasleen), Kishkeam, Co. Cork and apparently a source of many popular tunes passed on via Pádraig and Denis."
+    "tracknotes": "[Track B21 in source]. JOLSL # 295, CICD 4497. Alt. title given by ITMA: Nellie Donovan. NB: CRÉ version comes from this recording. This reel is sometimes named after fiddle player Cal O'Callaghan (1863-?), who was Pádraig O'Keeffe's uncle from Doon (Doonasleen), Kishkeam, Co. Cork and apparently a source of many popular tunes passed on via Pádraig and Denis."
   },
   {
     "refno": "4811",
@@ -3074,7 +3074,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Chancellor_(3)_(The)",
-    "tracknotes": "[Track B26 in source]. DMI # 881. NB: Possibly mistitled since Denis often played this hornpipe together with SLOP # 149. Pádraig O'Keeffe called Harlequin's hornpipe The Chancellor in his MS and the tune called The Chancellor is variously known as the Harlequin or Father Dollard's [AZ]"
+    "tracknotes": "[Track B26 in source]. DMI # 881. NB: Possibly mistitled since Denis Murphy often played this hornpipe together with SLOP # 149 but the name on this recording does come from Denis. Pádraig O'Keeffe called Harlequin's hornpipe The Chancellor in his MS and the tune called The Chancellor is variously known as the Harlequin or Father Dollard's [AZ]"
   },
   {
     "refno": "4861",
@@ -3148,7 +3148,7 @@
     "refno": "4901",
     "trackno": "90",
     "tunename": "Tom Connor's",
-    "tunetype": "Slide",
+    "tunetype": "Jig",
     "altnames": "Port Taim Uí Chonchúir",
     "tuneref": "CRE 2 # 57",
     "category": "Solo",
@@ -3227,7 +3227,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Star_above_the_Garter_(The)",
-    "tracknotes": "[Track B35 in source]. B&S 2 # 59, DBW p#79, CICD 1201. ITMA: “The title was that used by Tom Billy”. MFSL notes suggest that the title might be referring to the insignia of a 15th century Order of Chivalry in England. A Pádraig O'Keeffe manuscript cited by Matt Cranitch suggests that the tune might have been called The Star and Garter before SATG was published in 1969. Unsupported evidence citing Paddy Moloney has pointed to Claddagh Records founder Garech de Brún as a possible culprit behind the variation put on the name."
+    "tracknotes": "[Track B35 in source]. B&S 2 # 59, DBW p#79, CICD 1201. NB: Denis Murphy says on the recording: “Tom Billy called it The Star above the Garter”. MFSL notes say that the title might be referring to the insignia of Order of the Garter, an order of chivalry founded in the 14th-century England. A Pádraig O'Keeffe manuscript cited by Matt Cranitch suggests that the tune might have originally been called The Star and Garter, which is a common informal abbreviation of the order’s insignia. If so, it is unclear when the Sliabh Luachra musicians creatively changed the name but apparently it happened well before SATG came out in 1969."
   },
   {
     "refno": "4951",
@@ -3244,7 +3244,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Johnny_Leary%27s_Slide_(2)",
-    "tracknotes": "[Track B36 in source]. DBW p#39, CICD 1416. ITMA: “Card notes: 'Probably P O C made it from the reel', a reference to Padraig O'Keeffe”."
+    "tracknotes": "[Track B36 in source]. DBW p#39, CICD 1416. ITMA: “Card notes: 'Probably P O C made it from the reel', a reference to Pádraig O'Keeffe”."
   },
   {
     "refno": "4961",
@@ -3370,7 +3370,7 @@
     "trackno": "6",
     "tunename": "Taidhgin an Asail's",
     "tunetype": "Slide",
-    "altnames": "Where is the Cat? / Thadeen the Fiddler's / Port Thaidhgín an Asail / Kitchen with No Food",
+    "altnames": "Where is the Cat? / Wallop the Cat from under the Table / Thadeen the Fiddler's / Port Thaidhgín an Asail / Kitchen with No Food",
     "tuneref": "CRE 2 # 38",
     "category": "Solo",
     "recyear": "1967",
@@ -3448,7 +3448,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/591",
-    "tracknotes": "[Track A10 in source]. [Source title: Untitled Reel]. CICD 4127. ITMA: “A version of The Pinch of Snuff”. NB: Denis Murphy's version distinct from those in printed sources. This is apparently a 2-part version of the Pinch of Snuff / Mil na Maidí or AB if compared to CRE 2 # 182. Multi-part version of this reel have come from both the north (Mil na Maidí from Co. Donegal) and the south of Ireland (The Four Courts, DMI # 641 / ONMI # 1397 sourced from Edward Cronin of Co. Tipperary) [AZ]."
+    "tracknotes": "[Track A10 in source]. [Source title: Untitled Reel]. CICD 4127. ITMA: “A version of The Pinch of Snuff”. NB: Denis Murphy's version distinct from those in printed sources. This is apparently a 2-part version of the Pinch of Snuff / Mil na Maidí or AB if compared to CRE 2 # 182. Multi-part version of this reel have come from both the north (Mil na Maidí from Co. Donegal) and the south of Ireland (The Four Courts, DMI # 641 / ONMI # 1397 sourced from Edward Cronin of Co. Tipperary) [AZ]."
   },
   {
     "refno": "5111",
@@ -3482,7 +3482,7 @@
     "performers": "",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/2656-cre5.abc-16-Dolly~%2526~the~Gypsy~~(barn~dance)~%2525~cre5%253Cbb",
     "refsettinglink": "https://thesession.org/tunes/4577",
-    "tracknotes": "[Track A12 in source]. [Source title: Untitled Hornpipe]. CICD 6180. CRÉ / Paul de Grae: “Associated with local musicians Hannah Sullivan (concertina) and Mickeen Dawley. It is a hornpipe of the kind played for the last figure of a set”. NB: An apparent mix of Dolly Varden and Gypsy Princess that has become widely known as the Gypsy Princess. Terry Teahan called the same tune Dolly Varden while Denis apparently didn't have a name for it. Breandán Breathnach recorded Denis Murphy playing an unrelated tune under the title of Dolly Varden (CRE 5 # 87)”. NB: Unclear if CRÉ version comes from this recording [AZ]. Denis Murphy's version of this tune has since been recorded by Billy Clifford & Gerry Harrington on Now She's Purring, Self-published, 2018 (titled “Gypsy Princess”)."
+    "tracknotes": "[Track A12 in source]. [Source title: Untitled Hornpipe]. CICD 6180, CICD 6180.11. CRÉ version comes from a different but similar recording of Denis Murphy. CRÉ / Paul de Grae: “Associated with local musicians Hannah Sullivan (concertina) and Mickeen Dawley. It is a hornpipe of the kind played for the last figure of a set”. NB: An apparent mix of tunes known as Dolly Varden and Gypsy Princess that has become widely known as the Gypsy Princess. Terry Teahan called the same tune Dolly Varden while Denis apparently didn't have a name for it. Breandán Breathnach recorded Denis Murphy playing an unrelated tune under the title of Dolly Varden (CRE 5 # 87) [AZ]. Denis Murphy's version of this tune has since been recorded by Billy Clifford & Gerry Harrington on Now She's Purring, Self-published, 2018 (titled “Gypsy Princess”)."
   },
   {
     "refno": "5131",
@@ -3506,7 +3506,7 @@
     "trackno": "14",
     "tunename": "Anthony Crimmin's",
     "tunetype": "Slide",
-    "altnames": "Quarry Cross / Dingle Regatta ?",
+    "altnames": "Anthony Crimmin's Quarry Cross / Anthony Crimmin's Dingle Regatta",
     "tuneref": "JOLSL # 32",
     "category": "Solo",
     "recyear": "1967",
@@ -3515,8 +3515,8 @@
     "recyearto": "",
     "performers": "",
     "transcriptlink": "",
-    "refsettinglink": "",
-    "tracknotes": "[Track A14 in source]. ITMA: “Version of The Dingle Regatta”."
+    "refsettinglink": "https://thesession.org/tunes/15412, https://tunearch.org/wiki/Denis_Murphy%27s_Slide_(2)",
+    "tracknotes": "[Track A14 in source]. ITMA: “Version of The Dingle Regatta”. NB: This is a distinct 3-part version of the Quarry Cross slide that Denis got from Anthony Crimmin / Anton Crimmin."
   },
   {
     "refno": "5151",
@@ -3533,7 +3533,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/455",
-    "tracknotes": "[Track A15 in source]. ITMA: “Slide / Jig”."
+    "tracknotes": "[Track A15 in source]. ITMA: “Slide / Jig”. NB: Denis gave the title for this tune. According to Billy Clifford, it is often called The Kaiser after a nickname of a local man, Thomas Murphy."
   },
   {
     "refno": "5161",
@@ -3567,7 +3567,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1357",
-    "tracknotes": "[Track A17 in source]. FRC 1 # 180, CRE 2 # 277. ITMA: “First part is that of Jenny Picking Cockles. Tune just played used to be played by Bill O'Keeffe, brother of Padraig O'Keeffe”. NB: Denis Murphy's version distinct from those in printed sources."
+    "tracknotes": "[Track A17 in source]. FRC 1 # 180, CRE 2 # 277. ITMA: “First part is that of Jenny Picking Cockles. Tune just played used to be played by Bill O'Keeffe, brother of Pádraig O'Keeffe”. NB: Denis Murphy's version distinct from those in printed sources."
   },
   {
     "refno": "5181",
@@ -3659,7 +3659,7 @@
     "trackno": "22",
     "tunename": "Stick Across the Hob",
     "tunetype": "Jig",
-    "altnames": "Maurice Carmody's Favourite / Lyon's Favourite / O'Keeffe's Morrison's",
+    "altnames": "Maurice Carmody's Favourite / Lyon's Favourite / O'Keeffe's Morrison's / Tom Billy's Whelan's",
     "tuneref": "JOLSL # 198",
     "category": "Solo",
     "recyear": "1967",
@@ -3669,7 +3669,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1447",
-    "tracknotes": "[Track A22 in source]. [Whelan's Jig]. CICD 1038. ITMA: “Not the standard version”. NB: Tune identified by Breathnach as Whelan's is known as The Stick across the Hob in North Kerry as well as “O'Keeffe's Morrison's” due to its similarity to the famous two-part jig. The two-part version was recorded by James Morrison, who got it from accordion player Tom Carmody, a Kerryman, under the title of “Maurice Carmody's Favourite”. Denis Murphy's version is distinct from others, such as CRE 1 # 50, and he apparently learned it from Pádraig O'Keeffe. O'Keeffe himself cited the blind fiddle master Tom Billy Murphy (1879–1944) as the source for his version of the tune on the Paddy McElvaney tape from the Tom Davis Collection published by ITMA in 2024."
+    "tracknotes": "[Track A22 in source]. [Whelan's Jig]. CICD 1038. ITMA: “Not the standard version”. NB: Tune identified on this track as Whelan's is known as The Stick across the Hob in North Kerry as well as “O'Keeffe's Morrison's” due to its similarity to the famous two-part jig. The two-part version was recorded by James Morrison, who got it from accordion player Tom Carmody, a Kerryman, under the title of “Maurice Carmody's Favourite”. Denis Murphy's version is distinct from others, such as CRE 1 # 50, and he apparently learned it from Pádraig O'Keeffe. O'Keeffe himself cited the blind fiddle master Tom Billy Murphy (1879–1944) as the source for his version of the tune on the Paddy McElvaney tape from the Tom Davis Collection published by ITMA in 2024."
   },
   {
     "refno": "5231",
@@ -3703,7 +3703,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1209, https://tunearch.org/wiki/Colonel_Fraser",
-    "tracknotes": "[Track A24 in source]. CICD 4250–4251. NB: A 4-part version of Colonel Fraser. Denis Murphy played each part with no repeats and with distinct order of parts C and D."
+    "tracknotes": "[Track A24 in source]. CICD 4250–4251. NB: A 4-part version of Colonel Fraser that Denis Murphy said he had heard his brother play (ITMA). Denis plays each part with no repeats and with distinct order of parts C and D."
   },
   {
     "refno": "5251",
@@ -3725,9 +3725,9 @@
   {
     "refno": "5261",
     "trackno": "26",
-    "tunename": "Untitled Reel",
+    "tunename": "King's",
     "tunetype": "Reel",
-    "altnames": "",
+    "altnames": "George the Fourth / King George the IV",
     "tuneref": "CICD # 3000",
     "category": "Solo",
     "recyear": "1967",
@@ -3736,8 +3736,8 @@
     "recyearto": "",
     "performers": "",
     "transcriptlink": "",
-    "refsettinglink": "",
-    "tracknotes": "[Track A26 in source]. CICD 3000 – A note says that Denis Murphy got this reel from Pádraig O'Keeffe. NB: The first part of this unusual tune reminds of the (multi-part) Farewell to Ireland as well as Toss the Feathers family of reels while the second appears to be a modified modal version of the High reel's part B."
+    "refsettinglink": "https://thesession.org/tunes/3859, https://tunearch.org/wiki/King%27s_Reel_(The)",
+    "tracknotes": "[Track A26 in source]. [Source title: Untitled Reel]. CICD 3000 – A note says that Denis Murphy got this reel from Pádraig O'Keeffe. NB: This is The King's reel, a tune of Scottish origin popular among the Cape Breton musicians. It was published in several 19th century Scottish collections of music under the titles of Kings / King's / George the Fourth Reel and it's highly likely that one of them served as the source for O'Keeffe since the reel doesn't seem to appear in any of the Irish collections [AZ]"
   },
   {
     "refno": "5271",
@@ -3761,7 +3761,7 @@
     "trackno": "28.1",
     "tunename": "Rambles of Kitty, The",
     "tunetype": "Jig",
-    "altnames": "Kitty's Rambles / Hag with her Keg on her Shoulder / An Chailleach is a Ceag ar a Gualainn",
+    "altnames": "O'Keeffe's Rambles of Kitty / Kitty's Rambles / Hag with her Keg on her Shoulder / An Chailleach is a Ceag ar a Gualainn",
     "tuneref": "CRE 3 # 36",
     "category": "Solo",
     "recyear": "1967",
@@ -3771,14 +3771,14 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Kitty%27s_Rambles",
-    "tracknotes": "[Track A28 in source]. DMI # 5, CICD 1818. ITMA: “Discussion about the similarity of the tune just played to Banish Misfortune; with fiddle playing”. NB: Denis Murphy's version may be distinct from those in printed sources."
+    "tracknotes": "[Track A28 in source]. DMI # 5, CICD 1818. ITMA: “Discussion about the similarity of the tune just played to Banish Misfortune; with fiddle playing”. NB: Denis Murphy's version distinct from those in printed sources, CICD 1818 says that part of the tune is “too close to Banish Misfortune” and that this version comes from Pádraig O'Keeffe."
   },
   {
     "refno": "5282",
     "trackno": "28.2",
     "tunename": "Rambles of Kitty, The",
     "tunetype": "Jig",
-    "altnames": "Kitty's Rambles / Hag with her Keg on her Shoulder / An Chailleach is a Ceag ar a Gualainn",
+    "altnames": "O'Keeffe's Rambles of Kitty / Kitty's Rambles / Hag with her Keg on her Shoulder / An Chailleach is a Ceag ar a Gualainn",
     "tuneref": "CRE 3 # 36",
     "category": "Solo",
     "recyear": "1967",
@@ -3788,7 +3788,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Kitty%27s_Rambles",
-    "tracknotes": "[Track A28 in source]. DMI # 5, CICD 1818. ITMA: “Repeat of the tune just played”. NB: Denis Murphy's version may be distinct from those in printed sources."
+    "tracknotes": "[Track A28 in source]. DMI # 5, CICD 1818. ITMA: “Repeat of the tune just played”. NB: Denis Murphy's version distinct from those in printed sources, CICD 1818 says that part of the tune is “too close to Banish Misfortune” and that this version comes from Pádraig O'Keeffe."
   },
   {
     "refno": "5291",
@@ -3822,7 +3822,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/901",
-    "tracknotes": "[Track A30 in source]. CICD 2972.11–2972.12. ITMA: “Padraig O'Keeffe's Peter Street / Padraig O'Keeffe's Speed the Plough; the reel that Padraig O'Keeffe called 'Speed the Plough'” (as opposed to CRÉ 2 # 160)."
+    "tracknotes": "[Track A30 in source]. CICD 2972.11–2972.12. ITMA: “Pádraig O'Keeffe's Peter Street / Pádraig O'Keeffe's Speed the Plough; the reel that Pádraig O'Keeffe called 'Speed the Plough'” (as opposed to CRÉ 2 # 160)."
   },
   {
     "refno": "5471",
@@ -3839,7 +3839,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/3441",
-    "tracknotes": "CICD 1025 (notated as slide), CICD 6116 (notated as hornpipe). NB: A slide version of Maggie Pickens. See also CRE 5 # 218 for a hornpipe / fling version."
+    "tracknotes": "[Track B17 in source]. CICD 1025 (notated as slide), CICD 6116 (notated as hornpipe). NB: A slide version of Maggie Pickens. See also CRE 5 # 218 for a hornpipe / fling version."
   },
   {
     "refno": "5481",
@@ -3856,7 +3856,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/3441",
-    "tracknotes": "ITMA: “Sung to melody just played; words given on CICD 1025; a more comprehensive set of words to the song is given on 1159a-ITMA-REEL/CDR, track 49 (from Breathnach tape 'Kerry 1 1970')”. NB: A version of Maggie Pickens. See also CRE 5 # 218 for a hornpipe / fling version."
+    "tracknotes": "[Track B18 in source]. ITMA: “Sung to melody just played; words given on CICD 1025; a more comprehensive set of words to the song is given on 1159a-ITMA-REEL/CDR, track 49 (from Breathnach tape 'Kerry 1 1970')”. NB: A version of Maggie Pickens. See also CRE 5 # 218 for a hornpipe / fling version."
   },
   {
     "refno": "6061",
@@ -4084,7 +4084,7 @@
     "trackno": "13",
     "tunename": "Silver Slipper",
     "tunetype": "Reel",
-    "altnames": "Ríl an tSlipéir Airgid / Streams of Poolaphuca No. 1 / Streams of Poulaphouca No. 1 / Streams of Pol-A-Phooka No. 1",
+    "altnames": "Ríl an tSlipéir Airgid / Streams of Poolaphuca No. 1 / Streams of Poulaphouca No. 1 / Streams of Pol-A-Phooka No. 1",
     "tuneref": "CRE 5 # 159",
     "category": "Solo",
     "recyear": "1961",
@@ -4424,7 +4424,7 @@
     "trackno": "35",
     "tunename": "Stick Across the Hob",
     "tunetype": "Jig",
-    "altnames": "Maurice Carmody's Favourite / Lyon's Favourite / O'Keeffe's Morrison's",
+    "altnames": "Maurice Carmody's Favourite / Lyon's Favourite / O'Keeffe's Morrison's /  Tom Billy's Whelan's",
     "tuneref": "JOLSL # 198",
     "category": "Duo",
     "recyear": "1961",
@@ -4655,7 +4655,7 @@
     "performers": "w. Cornelius O'Sullivan",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1209, https://tunearch.org/wiki/Colonel_Fraser",
-    "tracknotes": "NB: A 4-part version of Colonel Fraser. Denis Murphy plays each part with no repeats and with distinct order of parts C and D. On Year Recorded: Narrowed down to 1955-1956 in the ITMA catalogue [AZ]"
+    "tracknotes": "NB: A 4-part version of Colonel Fraser that Denis Murphy said he had heard his brother play (BB40). Denis plays each part with no repeats and with distinct order of parts C and D. On Year Recorded: Narrowed down to 1955-1956 in the ITMA catalogue [AZ]"
   },
   {
     "refno": "9021",
@@ -4808,7 +4808,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1209, https://tunearch.org/wiki/Colonel_Fraser",
-    "tracknotes": "[Originally released as Gael-Linn CE 4, 1957]. NB: A 4-part version of Colonel Fraser. Denis Murphy plays each part with no repeats and with distinct order of parts C and D."
+    "tracknotes": "[Originally released as Gael-Linn CE 4, 1957]. NB: A 4-part version of Colonel Fraser that Denis Murphy said he had heard his brother play (BB40). Denis plays each part with no repeats and with distinct order of parts C and D."
   },
   {
     "refno": "11093",
@@ -5403,12 +5403,12 @@
     "performers": "w. Séamus Ennis",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Flax_in_Bloom_(The)",
-    "tracknotes": "[Source timecode: 7:45]."
+    "tracknotes": "[Source timecode: 7:45]"
   },
   {
     "refno": "20032",
     "trackno": "3.2",
-    "tunename": "Padraig O'Keeffe's Speed the Plough",
+    "tunename": "Pádraig O'Keeffe's Speed the Plough",
     "tunetype": "Reel",
     "altnames": "Speed the Plough / O'Keeffe's Plough / Mulvihill's",
     "tuneref": "CRE 3 # 92",
@@ -5420,14 +5420,14 @@
     "performers": "w. Séamus Ennis",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/901",
-    "tracknotes": "[Source timecode: 9:09]."
+    "tracknotes": "[Source timecode: 9:09]"
   },
   {
     "refno": "20041",
     "trackno": "4.1",
     "tunename": "Denis Murphy's",
     "tunetype": "Slide",
-    "altnames": "Dark Girl in Blue / Julia Clifford's / Padraig O'Keeffe's",
+    "altnames": "Dark Girl in Blue / Julia Clifford's / Pádraig O'Keeffe's",
     "tuneref": "CRE 3 # 50",
     "category": "Duo",
     "recyear": "1960s",
@@ -5505,7 +5505,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Johnny_Cope_(2)",
-    "tracknotes": "[Source timecode: 22:58]."
+    "tracknotes": "[Source timecode: 22:58]"
   },
   {
     "refno": "20101",
@@ -5624,7 +5624,7 @@
     "performers": "w. Cornelius O'Sullivan & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Sixpenny_Money",
-    "tracknotes": "[Source timecode: 3:44]."
+    "tracknotes": "[Source timecode: 3:44]"
   },
   {
     "refno": "21022",
@@ -5760,7 +5760,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Old_Pigeon_on_the_Gate",
-    "tracknotes": "[Source timecode: 1:31]."
+    "tracknotes": "[Source timecode: 1:31]"
   },
   {
     "refno": "22021",
@@ -5794,7 +5794,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Doon_Reel_(6)_(The)",
-    "tracknotes": "[Source timecode: 3:46]."
+    "tracknotes": "[Source timecode: 3:46]"
   },
   {
     "refno": "22031",
@@ -5811,7 +5811,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Martin_Wynne%27s_No._2",
-    "tracknotes": "[Source timecode: 5:03]."
+    "tracknotes": "[Source timecode: 5:03]"
   },
   {
     "refno": "22032",
@@ -5845,7 +5845,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Ballinamore_Reel_(2)",
-    "tracknotes": "[Source timecode: 7:30]."
+    "tracknotes": "[Source timecode: 7:30]"
   },
   {
     "refno": "22042",
@@ -5896,7 +5896,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Monsignor%27s_Blessing",
-    "tracknotes": "[Source timecode: 11:21]."
+    "tracknotes": "[Source timecode: 11:21]"
   },
   {
     "refno": "22061",
@@ -5913,7 +5913,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/901",
-    "tracknotes": "[Source timecode: 12:33]."
+    "tracknotes": "[Source timecode: 12:33]"
   },
   {
     "refno": "22062",
@@ -5930,7 +5930,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Mouse_behind_the_Dresser_(The)",
-    "tracknotes": "[Source timecode: 13:46]."
+    "tracknotes": "[Source timecode: 13:46]"
   },
   {
     "refno": "22071",
@@ -5964,7 +5964,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1077",
-    "tracknotes": "[Source timecode: 16:02]."
+    "tracknotes": "[Source timecode: 16:02]"
   },
   {
     "refno": "22081",
@@ -5981,7 +5981,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/365",
-    "tracknotes": "[Source timecode: 17:07]."
+    "tracknotes": "[Source timecode: 17:07]"
   },
   {
     "refno": "22082",
@@ -6032,7 +6032,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/876#setting14056",
-    "tracknotes": "[Source timecode: 20:20]."
+    "tracknotes": "[Source timecode: 20:20]"
   },
   {
     "refno": "22101",
@@ -6083,7 +6083,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1618",
-    "tracknotes": "[Source timecode: 24:02]."
+    "tracknotes": "[Source timecode: 24:02]"
   },
   {
     "refno": "22112",
@@ -6100,7 +6100,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/11674",
-    "tracknotes": "[Source timecode: 25:07]."
+    "tracknotes": "[Source timecode: 25:07]"
   },
   {
     "refno": "22121",
@@ -6117,7 +6117,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Tr%C3%AD_is_a_Rian_(An)",
-    "tracknotes": "[Source timecode: 26:16]."
+    "tracknotes": "[Source timecode: 26:16]"
   },
   {
     "refno": "22122",
@@ -6134,7 +6134,7 @@
     "performers": "w. Charlie Mulvihill & Geraldine Mulvihill",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Corney_Drew%27s_Hornpipe",
-    "tracknotes": "[Source timecode: 27:46]."
+    "tracknotes": "[Source timecode: 27:46]"
   },
   {
     "refno": "34021",
@@ -6392,6 +6392,516 @@
     "tracknotes": "DMI # 811, FRC 2 # 202"
   },
   {
+    "refno": "85131",
+    "trackno": "13",
+    "tunename": "Humours of Mountcollins",
+    "tunetype": "Slide",
+    "altnames": "If I Had a Wife / Nellie Mahony's / Mad Dancing",
+    "tuneref": "CRE 2 # 70",
+    "category": "",
+    "recyear": "1973",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Séamus Mac Mathúna",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/7897, https://tunearch.org/wiki/Humors_of_Mountcollins_(The)",
+    "tracknotes": "NB: One of the two slides referred to as If I Had a Wife (first line in a humorous verse) – this is the two-part slide."
+  },
+  {
+    "refno": "85141",
+    "trackno": "14.1",
+    "tunename": "Jimmy Doyle's",
+    "tunetype": "Polka",
+    "altnames": "Jimmy Doyle's No. 1",
+    "tuneref": "JOLSL # 51",
+    "category": "",
+    "recyear": "1973",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Séamus Mac Mathúna",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Jimmy_Doyle%27s_Polka_(1)",
+    "tracknotes": "CRE 3 # 74, DBW p#27"
+  },
+  {
+    "refno": "85142",
+    "trackno": "14.2",
+    "tunename": "Kilcummin Lass",
+    "tunetype": "Polka",
+    "altnames": "",
+    "tuneref": "JOLSL # 324",
+    "category": "",
+    "recyear": "1973",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Séamus Mac Mathúna",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/10372",
+    "tracknotes": "NB: Denis Murphy very likely got this tune from Johnny O'Leary. In JOLSL, Johnny says he learned this polka from Jack Sweeney."
+  },
+  {
+    "refno": "86221",
+    "trackno": "22.1",
+    "tunename": "Danny Ab's No. 1",
+    "tunetype": "Slide",
+    "altnames": "Dan O'Keeffe's No. 1 / Sleamhnán Dhónaill Uí Chaoimh",
+    "tuneref": "CRE 3 # 45",
+    "category": "Group",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Danny_Ab%27s_Slide_(1)",
+    "tracknotes": "[Source title: Untitled Slide]. JOLSL # 176. NB: One of the tunes Denis Murphy apparently got in his younger years from his neighbour Danny ‘Ab’ O’Keeffe (1846-?) who lived in Tureencahill, Co. Kerry. The two slides from Danny ‘Ab’ recorded on KEFI and SATG have since become known as Danny Ab's, Dan O'Keeffe's or O'Keeffe's slides."
+  },
+  {
+    "refno": "86222",
+    "trackno": "22.2",
+    "tunename": "Danny Ab's No. 2",
+    "tunetype": "Slide",
+    "altnames": "Dan O'Keeffe's No. 2 / Sleamhnán Dhónaill Uí Chaoimh",
+    "tuneref": "CRE 2 # 86",
+    "category": "Group",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Danny_Ab%27s_Slide_(2)",
+    "tracknotes": "JOLSL # 177. NB: One of the tunes Denis Murphy apparently got in his younger years from his neighbour Danny ‘Ab’ O’Keeffe (1846-?) who lived in Tureencahill, Co. Kerry. The two slides from Danny ‘Ab’ recorded on KEFI and SATG have since become known as Danny Ab's, Dan O'Keeffe's or O'Keeffe's slides."
+  },
+  {
+    "refno": "86231",
+    "trackno": "23.1",
+    "tunename": "Star above the Garter",
+    "tunetype": "Slide",
+    "altnames": "Star and Garter",
+    "tuneref": "JOLSL # 355",
+    "category": "Group",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Star_above_the_Garter_(The)",
+    "tracknotes": "B&S 2 # 59, DBW p#79. NB: Denis Murphy told Breandán Breathnach in 1966 that “Tom Billy called it The Star above the Garter” (BB30). MFSL notes say that the title might be referring to the insignia of Order of the Garter, an order of chivalry founded in the 14th-century England. A Pádraig O'Keeffe manuscript cited by Matt Cranitch suggests that the tune might have originally been called The Star and Garter, which is a common informal abbreviation of the order’s insignia. If so, it is unclear when the Sliabh Luachra musicians creatively changed the name but apparently it happened well before SATG came out in 1969."
+  },
+  {
+    "refno": "86232",
+    "trackno": "23.2",
+    "tunename": "Lisheen",
+    "tunetype": "Slide",
+    "altnames": "",
+    "tuneref": "JOLSL # 376",
+    "category": "Group",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Lisheen_Slide",
+    "tracknotes": "B&S 2 # 64"
+  },
+  {
+    "refno": "86241",
+    "trackno": "24.1",
+    "tunename": "Five Servants, The",
+    "tunetype": "Polka",
+    "altnames": "Ballybunion",
+    "tuneref": "JOLSL # 374",
+    "category": "Group",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Five_Servants_(The)",
+    "tracknotes": "[Source title: Untitled Polka] Published in the journal ‘Ceol’ (vol. 2, No. 4, 1966)."
+  },
+  {
+    "refno": "86242",
+    "trackno": "24.2",
+    "tunename": "Tarrant's No. 1",
+    "tunetype": "Polka",
+    "altnames": "Bill the Weaver's No. 2",
+    "tuneref": "JOLSL # 269",
+    "category": "Group",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/1825",
+    "tracknotes": "MFSL notes suggest that this polka was named after the blind fiddle player Denis \"Din\" Tarrant (1871-1957) from Ballydesmond, Co. Cork. Johnny O'Leary also called the first polka Bill The Weaver's after Denis Murphy's father, Bill “The Weaver” Murphy (1870–1947), who played fiddle, flute and fife and led the Lisheen Fife and Drum Band."
+  },
+  {
+    "refno": "86251",
+    "trackno": "25.1",
+    "tunename": "Muckross",
+    "tunetype": "Jig",
+    "altnames": "Cordal / Port na Cordaile",
+    "tuneref": "CRE 2 # 50",
+    "category": "Group",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/864",
+    "tracknotes": "CRÉ / Paul de Grae on this jig: “Jackson's Bouner Bougher in “Jackson's Celebrated Irish Tunes” (c. 1774), in the key of C; Morgan Rattler (DMI # 250, MI # 1046) in C”."
+  },
+  {
+    "refno": "86252",
+    "trackno": "25.2",
+    "tunename": "Munster",
+    "tunetype": "Jig",
+    "altnames": "",
+    "tuneref": "JOLSL # 174",
+    "category": "Group",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/372",
+    "tracknotes": ""
+  },
+  {
+    "refno": "86261",
+    "trackno": "26.1",
+    "tunename": "Sullivan's",
+    "tunetype": "Hornpipe",
+    "altnames": "Humours of Tullycrine / Mike Sullivan's",
+    "tuneref": "JOLSL # 77",
+    "category": "Duo",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2013",
+    "tracknotes": "NB: A distinct mixolydian version of the tune from Denis Murphy and Johny O'Leary that is effectively a mix of the Humours of Tullycrine (CRE 1 # 205, part A) and its mixolydian relative (part B), also known as Behind the Ditch in Pairc Anna, Flynn’s, McDermott’s or Tom Billy’s. Johnny recorded this hornpipe under the name of Mike Sullivan's. Terry Teahan called the same tune How Are You, Mary Geaney? in SLOP # 78 where it's categorised as a barndance. The same tune has been collected and recorded as a reel (CRE 1 # 104, CRE 2 # 224) and a march (O'Malley's March) among other versions."
+  },
+  {
+    "refno": "86271",
+    "trackno": "27.1",
+    "tunename": "Slopes of Sliabh Luachra",
+    "tunetype": "Jig",
+    "altnames": "Follow Me Down to Carlow / Banks of Lough Gowna",
+    "tuneref": "JOLSL # 325",
+    "category": "Duo",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/12634, https://tunearch.org/wiki/Slopes_of_Sliabh_Luachra_(The)",
+    "tracknotes": "NB: This is a jig / slide version of the song Follow Me Down to Carlow. Billy Clifford also points to the similarity of this tune to the Banks of Lough Gowna (largely in part A) [AZ]."
+  },
+  {
+    "refno": "86281",
+    "trackno": "28.1",
+    "tunename": "Frisco",
+    "tunetype": "Hornpipe",
+    "altnames": "Gleanntán",
+    "tuneref": "JOLSL # 197",
+    "category": "Duo",
+    "recyear": "1970s",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/11137",
+    "tracknotes": "[Source title: “Fresco”]"
+  },
+  {
+    "refno": "88241",
+    "trackno": "24",
+    "tunename": "Caoine Uí Néill",
+    "tunetype": "Air",
+    "altnames": "Caoineadh Uí Néill / O'Neill's Lament",
+    "tuneref": "MISC # 1",
+    "category": "Solo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "https://thesession.org/tunes/23605#setting48373",
+    "refsettinglink": "https://thesession.org/tunes/23605",
+    "tracknotes": "MFSL notes suggest that the name of the air refers to Hugh O'Neill, Earl of Tyrone (1550–1616). O'Neill was one of the leaders of the resistance to the Tudor conquest of Ireland who was forced to flee to continental Europe alongside Hugh Roe O'Donnell, in what became known as the Flight of the Earls, after their defeat at the Battle of Kinsale in 1602. Denis's version of the air apparently comes from Pádraig O'Keeffe [AZ]. Ciarán Mac Mathúna (1925–2009) was a prominent music collector and broadcaster who helped popularise traditional music both at home and abroad. MacMathúna joined RTÉ in late 1954, see MFCK for a separate collection of DM recordings he made; see MCTH and TOMH for archival selections of Denis's music from MacMathúna's long-running Sunday morning radio programme Mo Cheol Thú."
+  },
+  {
+    "refno": "88251",
+    "trackno": "25",
+    "tunename": "Down Our Street",
+    "tunetype": "Song",
+    "altnames": "",
+    "tuneref": "MISC #6",
+    "category": "Solo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "",
+    "refsettinglink": "",
+    "tracknotes": ""
+  },
+  {
+    "refno": "88261",
+    "trackno": "26",
+    "tunename": "Clamper, The",
+    "tunetype": "Slide",
+    "altnames": "Going to the Well for Water / Kaiser",
+    "tuneref": "JOLSL # 134",
+    "category": "Solo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/455",
+    "tracknotes": "NB: Denis gave the title for this tune (BB40). According to Billy Clifford, it is often called The Kaiser after a nickname of a local man, Thomas Murphy."
+  },
+  {
+    "refno": "88271",
+    "trackno": "27",
+    "tunename": "Two Birds on the Tree",
+    "tunetype": "Hornpipe",
+    "altnames": "Two Birds on a Tree / Two Birds on the Tree / Dhá Éan ar an gCrann",
+    "tuneref": "CRE 2 # 232",
+    "category": "Solo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/6302",
+    "tracknotes": ""
+  },
+  {
+    "refno": "88291",
+    "trackno": "29",
+    "tunename": "Caoineadh Uí Dhomhnaill",
+    "tunetype": "Air",
+    "altnames": "Caoine Uí Dhonaill / Queen of O'Donnell / Lament for O'Donnell / O'Donnell's Lament",
+    "tuneref": "SLOW # 19",
+    "category": "Solo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/19635",
+    "tracknotes": "MFSL notes suggest that the name of the air refers to Hugh Roe O'Donnell, Lord of Tyrconnell (1572–1602). O'Donnell was one of the leaders of the resistance to the Tudor conquest of Ireland who was forced to flee to continental Europe alongside Hugh O'Neill, in what became known as the Flight of the Earls, after their defeat at the Battle of Kinsale in 1602. Denis Murphy has been recorded telling a story possibly inspired by a corrupted Irish title of the air – The Queen of O'Donnell – which describes a dying man, who fell sick after dancing in poisoned shoes at a party, being visited by an angelic woman that proceeds to sing this lament. In Pádraig O'Keeffe's version of the same story it is \"the banshee of the O'Donnells\" who \"cried after the Queen of the O'Donnells\". Denis's version of the air apparently comes from Pádraig O'Keeffe [AZ]. Ciarán Mac Mathúna (1925–2009) was a prominent music collector and broadcaster who helped popularise traditional music both at home and abroad. MacMathúna joined RTÉ in late 1954, see MFCK for a separate collection of DM recordings he made; see MCTH and TOMH for archival selections of Denis's music from MacMathúna's long-running Sunday morning radio programme Mo Cheol Thú."
+  },
+  {
+    "refno": "88301",
+    "trackno": "30.1",
+    "tunename": "Johnny When You Die",
+    "tunetype": "Reel",
+    "altnames": "Old Maids of Galway",
+    "tuneref": "JOLSL # 165",
+    "category": "Group",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Johnny_When_You_Die_(1)",
+    "tracknotes": "CRE 1 # 80, DMI # 654. NB: Denis Murphy's version distinct from those in some printed sources."
+  },
+  {
+    "refno": "88302",
+    "trackno": "30.2",
+    "tunename": "Anything for John-Joe",
+    "tunetype": "Reel",
+    "altnames": "Did the Rum Do, Da / Rud ar bith do Sheán Joe?",
+    "tuneref": "CRE 3 # 164",
+    "category": "Group",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Anything_for_John_Joe",
+    "tracknotes": ""
+  },
+  {
+    "refno": "88311",
+    "trackno": "31",
+    "tunename": "Maid on the Green",
+    "tunetype": "Jig",
+    "altnames": "",
+    "tuneref": "JOLSL # 179",
+    "category": "Duo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Mary Ryan (?)",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/1831",
+    "tracknotes": "NB: The identity of the lilter joining Denis on this track is uncertain, name suggested by Billy Clifford."
+  },
+  {
+    "refno": "88321",
+    "trackno": "32",
+    "tunename": "Garrett Barry's",
+    "tunetype": "Jig",
+    "altnames": "",
+    "tuneref": "CRE 1 # 46",
+    "category": "Duo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. unidentified lilter",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/544, https://tunearch.org/wiki/Garrett_Barry%27s_Jig",
+    "tracknotes": "NB: The identity of the lilter joining Denis on this track is uncertain."
+  },
+  {
+    "refno": "88331",
+    "trackno": "33",
+    "tunename": "Boys in the Cart",
+    "tunetype": "Slide",
+    "altnames": "Where is the Cat? / Wallop the Cat from under the Table / Taidhgin an Asail's / Thadeen the Fiddler's / Port Thaidhgín an Asail / Kitchen with No Food",
+    "tuneref": "CRE 2 # 38",
+    "category": "Duo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Taidhg%C3%ADn_an_Asail",
+    "tracknotes": ""
+  },
+  {
+    "refno": "88341",
+    "trackno": "34.1",
+    "tunename": "I’d Rather Be Left Alone",
+    "tunetype": "Slide",
+    "altnames": "Kishkeam Lasses / Rural Felicity",
+    "tuneref": "JOLSL # 184",
+    "category": "Group",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/4162, https://tunearch.org/wiki/Rural_Felicity_(2)",
+    "tracknotes": "FRC 2 # 248, CRE 2 # 81. NB: Not related to the slide variously known as I'd Rather be Married than Left / I'd Rather Be a Nun, the similarly-sounding name comes from the source recording's page. Johnny O'Leary called the tune the Kishkeam Lasses. The tune was published in Francis Roche Collection, vol. 2 around 1912 under the name “Rural Felicity”. Should not be confused with Cathleen Hehir’s slide which is a contemporary arrangement put together for De Danann’s first album in 1974 and includes Rural Felicity plus two extra unrelated tunes in parts C and D."
+  },
+  {
+    "refno": "88342",
+    "trackno": "34.2",
+    "tunename": "Clamper, The",
+    "tunetype": "Slide",
+    "altnames": "Going to the Well for Water / Kaiser",
+    "tuneref": "JOLSL # 134",
+    "category": "Group",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "w. Billy Clifford & Johnny O'Leary",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/455",
+    "tracknotes": "NB: Denis gave the title for this tune (BB40). According to Billy Clifford, it is often called The Kaiser after a nickname of a local man, Thomas Murphy."
+  },
+  {
+    "refno": "88371",
+    "trackno": "37.1",
+    "tunename": "Wearing of the Green (Wrenday Selection No. 1)",
+    "tunetype": "March",
+    "altnames": "Rising of the Moon / Wrenday Selection No. 1",
+    "tuneref": "ONMI # 467",
+    "category": "Solo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/4977, https://tunearch.org/wiki/Wearing_of_the_Green",
+    "tracknotes": "[Source title: “The Wrenday Selection”]. NB: Played here by Denis as part of a medley of tunes which is repeated twice with an additional intro / interlude. Billy Clifford: “Art O'Keeffe used to play medleys like this”."
+  },
+  {
+    "refno": "88372",
+    "trackno": "37.2",
+    "tunename": "Gallant Tipperary Boys (Wrenday Selection No. 2)",
+    "tunetype": "Slide",
+    "altnames": "Wrenday Selection No. 2",
+    "tuneref": "JOLSL # 129",
+    "category": "Solo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/4209, https://tunearch.org/wiki/Gallant_Tipperary_Boys_(The)",
+    "tracknotes": "[Source title: “The Wrenday Selection”]. FRC 1 # 39, ONMI # 894, SLOP # 36. This jig, which has been published in several historical collections, is often played as a slide in Sliabh Luachra. NB: Played here by Denis as part of a medley of tunes which is repeated twice with an additional intro / interlude. Billy Clifford: “Art O'Keeffe used to play medleys like this”."
+  },
+  {
+    "refno": "88381",
+    "trackno": "38",
+    "tunename": "Down Our Street",
+    "tunetype": "Song",
+    "altnames": "",
+    "tuneref": "MISC #6",
+    "category": "Solo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "",
+    "refsettinglink": "",
+    "tracknotes": ""
+  },
+  {
+    "refno": "88391",
+    "trackno": "39",
+    "tunename": "Clamper, The",
+    "tunetype": "Slide",
+    "altnames": "Going to the Well for Water / Kaiser",
+    "tuneref": "JOLSL # 134",
+    "category": "Solo",
+    "recyear": "1972",
+    "pubyear": "",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/455",
+    "tracknotes": "NB: Denis gave the title for this tune (BB40). According to Billy Clifford, it is often called The Kaiser after a nickname of a local man, Thomas Murphy."
+  },
+  {
     "refno": "90011",
     "trackno": "1.1",
     "tunename": "Fisherman's",
@@ -6457,7 +6967,7 @@
     "performers": "w. unidentified pianist",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1209, https://tunearch.org/wiki/Colonel_Fraser",
-    "tracknotes": "[Source title: “Piper's Despair”]. NB: A 4-part version of Colonel Fraser. Denis Murphy played each part with no repeats and with distinct order of parts C and D. NB: “Colonel Fraser and Piper's Despair” are mistitled on this recording, DM plays the Kerry Reel (Green Fields of Rossbeigh) and Colonel Fraser."
+    "tracknotes": "[Source title: “Piper's Despair”]. NB: A 4-part version of Colonel Fraser that Denis Murphy said he had heard his brother play (BB40). Denis plays each part with no repeats and with distinct order of parts C and D. NB: “Colonel Fraser and Piper's Despair” are mistitled on this recording, DM plays the Kerry Reel (Green Fields of Rossbeigh) and Colonel Fraser."
   },
   {
     "refno": "91011",
@@ -6661,7 +7171,7 @@
     "performers": "w. Paddy Murphy & unidentified pianist",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Knocknaboul_Polka_(2)",
-    "tracknotes": "[Source title: “Sneem Polka”]."
+    "tracknotes": "[Source title: “Sneem Polka”]"
   },
   {
     "refno": "94012",
@@ -6678,7 +7188,7 @@
     "performers": "w. Paddy Murphy & unidentified pianist",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Top_of_the_Maol_(The)",
-    "tracknotes": "[Source title: “Sneem Polka”]."
+    "tracknotes": "[Source title: “Sneem Polka”]"
   },
   {
     "refno": "94021",
@@ -6746,7 +7256,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1209, https://tunearch.org/wiki/Colonel_Fraser",
-    "tracknotes": "NB: A 4-part version of Colonel Fraser. Denis Murphy plays each part with no repeats and with distinct order of parts C and D."
+    "tracknotes": "NB: A 4-part version of Colonel Fraser that Denis Murphy said he had heard his brother play (BB40). Denis plays each part with no repeats and with distinct order of parts C and D."
   },
   {
     "refno": "95023",

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pd-cache-v.0.4.1';
+const CACHE_NAME = 'pd-cache-v.2.9.2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -9,11 +9,14 @@ self.addEventListener('install', (event) => {
         'components/dm-modals/dm-modals.js',
         'components/dm-popovers/dm-popovers.css',
         'components/dm-popovers/dm-popovers.js',
+        'components/dm-search/dm-search.css',
+        'components/dm-search/dm-search.js',
         'components/dm-tracklist/dm-tracklist.css',
         'components/dm-tracklist/dm-tracklist.js',
         'modules/aria-tools.js',
         'modules/dm-app.js',
         'modules/dm-toolkit.js',
+        'styles/dm-themes-override.css',
         'styles/dm-toolkit.css',
         'styles/tools-common-styles.css',
         'index.html'
@@ -45,7 +48,7 @@ self.addEventListener('activate', (event) => {
         // Activate new service worker on page reload
         self.clients.claim().then(() => {
             // Stop the old service worker, notify about version change in console 
-            console.log(`PD Service Worker: Cache version updated to ${CACHE_NAME.slice(16)}`);
+            console.log(`PD Service Worker: Cache version updated to ${CACHE_NAME.slice(9)}`);
             self.registration.unregister().then(() => {
                 self.skipWaiting();
             });
@@ -59,7 +62,8 @@ self.addEventListener('fetch', (event) => {
 
   if (event.request.url.endsWith('tunes.json') || 
       event.request.url.endsWith('tracks.json') || 
-      event.request.url.endsWith('collections.json')) {
+      event.request.url.endsWith('collections.json') ||
+      event.request.url.endsWith('references.json')) {
       event.respondWith(
         // Check if the file is already cached
         caches.open(CACHE_NAME).then((cache) => {

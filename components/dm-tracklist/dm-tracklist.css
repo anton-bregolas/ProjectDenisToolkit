@@ -7,17 +7,6 @@ body {
   --tracklist-text-shadow: 0 1px 1px black;
 }
 
-body.light, body.rainy {
-  --tracklist-row-color: #d8d8d8;
-  --tracklist-text-color: black;
-  --tracklist-text-shadow: 0px 1px 1px white;
-}
-
-body.star {
-  --tracklist-row-color: color-mix(in srgb, var(--primary-color) 75%, black);
-  --tracklist-header-color: color-mix(in srgb, var(--secondary-color-c) 50%, black);
-}
-
 #dm-tracklist-table {
   table-layout: fixed;
   width: 100%;
@@ -204,6 +193,14 @@ body.star {
 .dm-tracklist-header-item:hover,
 .dm-tracklist-col-header-row:hover {
   background-color: color-mix(in srgb, var(--tracklist-header-color) 90%, black);
+}
+
+#dm-btn-generate-tracklist .dm-tracklist-action-status::before {
+  content: "Show";
+}
+
+#dm-btn-generate-tracklist[aria-expanded="true"] .dm-tracklist-action-status::before {
+  content: "Close";
 }
 
 /* Media queries for Tracklist */

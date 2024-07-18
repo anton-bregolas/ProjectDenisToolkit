@@ -29,6 +29,8 @@ export function toggleAriaHidden(element) {
 export function addAriaHidden(element) {
   
   element.setAttribute("aria-hidden", "true");
+
+  // console.warn("AriaHidden added:", element);
 }
 
 // Remove the ARIA-hidden state of an element
@@ -36,9 +38,11 @@ export function addAriaHidden(element) {
 export function removeAriaHidden(element) {
 
   element.removeAttribute("aria-hidden");
+
+  // console.warn("AriaHidden removed:", element);
 }
 
-// Make links, buttons and inputs inside an element focusable / not focusable
+// Toggle links, buttons and inputs inside an element focusable / not focusable
 
 export function toggleTabIndex(element) {
 
@@ -48,16 +52,46 @@ export function toggleTabIndex(element) {
 
     element.querySelectorAll(itemType).forEach(item => {
 
-      // let tabIndex = item.getAttribute("tabindex") === "0"? "-1" : "0";
+      let tabIndex = item.getAttribute("tabindex") === "0"? "-1" : "0";
 
-      if (item.getAttribute("tabindex") === "-1") {
+      item.setAttribute("tabindex", tabIndex);
+    });
+  });
+}
+
+// Remove tabindex from children of element if it matches the value specified
+
+export function groupRemoveTabIndex(element, tabindex) {
+
+  let focusableItems = ['a[href]', 'button:not([disabled])', 'input:not([disabled])'];
+
+  focusableItems.forEach(itemType => {
+
+    element.querySelectorAll(itemType).forEach(item => {
+
+      if (item.getAttribute("tabindex") === tabindex) {
 
         item.removeAttribute("tabindex");
 
-        return;
+        // console.warn("Tabindex removed:", item);
       }
-  
-      item.setAttribute("tabindex", "-1");
+    });
+  });
+}
+
+// Make focusable links, buttons and inputs inside an element focusable/unfocusable
+
+export function groupAddTabIndex(element, tabindex) {
+
+  let focusableItems = ['a[href]', 'button:not([disabled])', 'input:not([disabled])'];
+
+  focusableItems.forEach(itemType => {
+
+    element.querySelectorAll(itemType).forEach(item => {
+
+      item.setAttribute("tabindex", tabindex);
+
+      // console.warn(`Tabindex ${tabindex} added:`, item);
     });
   });
 }
