@@ -5,7 +5,7 @@
 [v.2.9]
 
 + Click on Search item highlights keyword in target popover card.
-+ Main page navigation fixed button with popover menu added.
++ Main page navigation hover button with popover menu added.
 + Color theme The Paps of Anu added and fine-tuned.
 + Data status checks simplified with doDataCheckup function.
 + Reference popover with additional links finished and styled.
