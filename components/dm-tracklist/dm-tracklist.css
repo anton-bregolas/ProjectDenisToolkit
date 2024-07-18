@@ -195,6 +195,14 @@ body {
   background-color: color-mix(in srgb, var(--tracklist-header-color) 90%, black);
 }
 
+#dm-btn-generate-tracklist .dm-tracklist-action-status::before {
+  content: "Show";
+}
+
+#dm-btn-generate-tracklist[aria-expanded="true"] .dm-tracklist-action-status::before {
+  content: "Close";
+}
+
 /* Media queries for Tracklist */
 
 /* @media screen and (max-width: 968px) { */

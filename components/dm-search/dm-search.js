@@ -38,7 +38,7 @@ export const tunesCounter = document.querySelector('.dm-tunes-counter');
 
 // Process search string: replace capital letters with lower case, latinize diactritics 
 
-function processString(string) {
+export function processString(string) {
   
   return string.toLowerCase().replace(/[\u2018\u2019\u201B\u02BC\u0060\u00B4]/g, `'`).replace(/[\u201C\u201D]/g, `"`).normalize("NFD").replace(/\p{Diacritic}/gu, "");
 }
@@ -198,6 +198,8 @@ async function getSearchMatches(keyword) {
         const searchItemType = searchItem.querySelector('.dm-search-item-type');
         const searchItemName = searchItem.querySelector('.dm-search-item-name');
         const searchItemRefno = searchItem.querySelector('.dm-search-item-refno');
+
+        searchItem.setAttribute("data-type", jsonKey);
 
         if (jsonKey === "tunename" || jsonKey === "altnames" || jsonKey === "colname") {
           searchItemType.setAttribute("data-type", "name");

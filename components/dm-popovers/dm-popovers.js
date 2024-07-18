@@ -1,77 +1,77 @@
 /* #ProjectDenis Popovers Scripts*/
 
-import { toolkitMode, statusBars, generateTracklistBtn } from '../../modules/dm-toolkit.js';
-import { searchResultsDiv, autoCollapseSearchResults } from '../dm-search/dm-search.js'
-import { dialogsDiv, tunelistDialog, colsListDialog, colsListDiv,
+import { toolkitMode, isObjectEmpty, statusBars, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { processString } from '../dm-search/dm-search.js'
+import { tunelistDialog, colsListDialog, colsListDiv,
          generateTunelist, generateColsList, tunelistDiv, 
          showDialogsDiv, hideDialogsDiv } from '../dm-modals/dm-modals.js';
 import { tracklistOutput, focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
-import { toggleAriaExpanded, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
-import { fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
+import { addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
+import { doDataCheckup, fetchDataJsons, tracksJson, colsJson, tunesJson, refsJson } from '../../modules/dm-app.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
 export const trackCardPopover = document.querySelector('#dm-popover-card-track');
+export const linksCardPopover = document.querySelector('#dm-popover-card-reflinks');
 export const allPopovers = document.querySelectorAll('.dm-popover-card');
 export const themePickerPopover = document.querySelector('#theme-picker-popover');
+export const navCardPopover = document.querySelector('#dm-popover-nav-main');
 
 const trackRefLinkDiv = document.querySelector('.track-grid-reflink');
 const trackSourceDiv = document.querySelector('.dm-track-grid-source');
 const tuneTrackRefDiv = document.querySelector('.tune-grid-refno-cont');
 const colRefLinkDiv = document.querySelector('.col-grid-reflink');
 const cardNavBtn = document.querySelectorAll('.dm-btn-card-nav');
+const refCardGridDiv = document.querySelector('.dm-ref-grid-body');
 
-// Display the Tune Card popover
+// Show Tune Card popover handler function: Do checks, Create card, Highlight text, Display card 
 
-export async function showTunePopover(trigger, tuneRefNo) {
+export async function showTunePopover(trigger, tuneRefNo, highlightObj) {
 
   if (tunesJson.length === 0) {
 
-    console.warn("PD App:\n\nNo tunes found in Tunes JSON!");
+    doDataCheckup("tunes");
 
-    if (toolkitMode > 0) {
+    return;
+  }
 
-      return;
+  try {
+
+    if (!tunelistDiv.children.length > 0) {
+
+      console.log(`PD App:\n\nGenerating list of tunes...`);
+      await generateTunelist(tunesJson);
     }
 
-    await fetchDataJsons();
-  }
-  
-  if (Array.isArray(tunesJson) && tunesJson.length > 0) {
+      const tuneRef = tuneRefNo === "???" || tuneRefNo === "" ? 
+        `TMP # ${trackCardPopover.dataset.refno}` :
+        tuneRefNo;
+        
+      const tuneObject = tunesJson.find(tune => tune.tuneref === tuneRef);
 
-    try {
+      await createTuneCard(tuneObject);
 
-      if (!tunelistDiv.children.length > 0) {
+      if (!trigger.classList.contains("dm-tunelist-item")) {
 
-        console.log(`PD App:\n\nGenerating list of tunes...`);
-        await generateTunelist(tunesJson);
+        showDialogsDiv();
+        await tunelistDialog.showModal();
+        removeAriaHidden(tunelistDialog);
       }
 
-        const tuneRef = tuneRefNo === "???" || tuneRefNo === "" ? 
-          `TMP # ${trackCardPopover.dataset.refno}` :
-          tuneRefNo;
-          
-        const tuneObject = tunesJson.find(tune => tune.tuneref === tuneRef);
+      tuneCardPopover.showPopover();
+      
+      if (highlightObj) {
 
-        await createTuneCard(tuneObject);
+        highlightCardText(highlightObj, tuneCardPopover);
+      }
 
-        if (!trigger.classList.contains("dm-tunelist-item")) {
+      document.querySelector("#dm-btn-tune-card-close").focus();
 
-          showDialogsDiv();
-          await tunelistDialog.showModal();
-          removeAriaHidden(tunelistDialog);
-        }
+      console.log("PD App:\n\nTune Card created.");
 
-        tuneCardPopover.showPopover();
+  } catch (error) {
 
-        document.querySelector("#dm-btn-tune-card-close").focus();
-
-        console.log("PD App:\n\nTune Card created.");
-
-    } catch (error) {
-
-      console.warn(`PD App:\n\nCreating Tune Card failed. Details:\n\n${error}`);
-    }
+    console.warn(`PD App:\n\nCreating Tune Card failed. Details:\n\n${error}`);
   }
 }
 
@@ -191,8 +191,7 @@ async function createTuneCard(tuneObject) {
 
 function generateTuneName(rawname) {
 
-  let tuneName = rawname.endsWith(")")? rawname.split(" (")[0] : 
-                                        rawname;
+  let tuneName = rawname;
 
   let filteredTuneName = tuneName.endsWith(", The")? `The ${tuneName.slice(0, -5)}` : 
                          tuneName.endsWith(", A")? `A ${tuneName.slice(0, -3)}` : 
@@ -309,14 +308,9 @@ async function getColRefCode(colRefNo) {
 
   if (colsJson.length === 0) {
 
-    console.warn("PD App:\n\nFailed to get Col. Ref. Code.\n\nNo collections found in Collections JSON!");
+    doDataCheckup("cols");
 
-    if (toolkitMode > 0) {
-
-      return;
-    }
-
-    await fetchDataJsons();
+    return;
   }
 
   try {
@@ -363,9 +357,9 @@ function generateLinkSourceName(tuneTranscriptUrl) {
   }
 }
 
-// Display the Collection Card popover
+// Show Collection Card popover handler function: Do checks, Create card, Highlight text, Display card
 
-export async function showColPopover(trigger, colRefNo) {
+async function showColPopover(trigger, colRefNo, highlightObj) {
 
   const parentDiv = trigger.parentElement;
 
@@ -383,47 +377,44 @@ export async function showColPopover(trigger, colRefNo) {
 
   if (colsJson.length === 0) {
 
-    console.warn("PD App:\n\nNo collections found in Collections JSON!");
+    doDataCheckup("cols");
 
-    if (toolkitMode > 0) {
-
-      return;
-    }
-
-    await fetchDataJsons();
+    return;
   }
-  
-  if (Array.isArray(colsJson) && colsJson.length > 0) {
 
-    try {
+  try {
 
-      if (!colsListDiv.children.length > 0) {
+    if (!colsListDiv.children.length > 0) {
 
-        console.log(`PD App:\n\nGenerating list of collections...`);
-        generateColsList(colsJson);
-      }
-
-      const colObject = colsJson.find(col => col.colrefno === colRefNo);
-
-      await createColCard(colObject);
-      
-      if (!trigger.classList.contains("dm-collist-row")) {
-
-        showDialogsDiv();
-        await colsListDialog.showModal();
-        removeAriaHidden(colsListDialog);
-      }
-
-      colCardPopover.showPopover();
-
-      document.querySelector("#dm-btn-col-card-close").focus();
-
-      console.log("PD App:\n\nCollection Card created.");
-    
-    } catch (error) {
-
-      console.warn(`PD App:\n\nCreating Collection Card failed. Details:\n\n${error}`);
+      console.log(`PD App:\n\nGenerating list of collections...`);
+      generateColsList(colsJson);
     }
+
+    const colObject = colsJson.find(col => col.colrefno === colRefNo);
+
+    await createColCard(colObject);
+    
+    if (!trigger.classList.contains("dm-collist-row")) {
+
+      showDialogsDiv();
+      await colsListDialog.showModal();
+      removeAriaHidden(colsListDialog);
+    }
+
+    if (highlightObj) {
+
+      highlightCardText(highlightObj, colCardPopover);
+    }
+
+    colCardPopover.showPopover();
+
+    document.querySelector("#dm-btn-col-card-close").focus();
+
+    console.log("PD App:\n\nCollection Card created.");
+  
+  } catch (error) {
+
+    console.warn(`PD App:\n\nCreating Collection Card failed. Details:\n\n${error}`);
   }
 }
 
@@ -534,6 +525,7 @@ async function createColCard(colObject) {
 
         const notesPar = document.createElement("p");
         notesPar.classList.add("dm-col-grid-notes");
+        notesPar.setAttribute("data-type", `${colNotes}`);
         notesPar.textContent = colObject[colNotes];
         colCommentsDiv.appendChild(notesPar);
       }
@@ -545,9 +537,9 @@ async function createColCard(colObject) {
   }
 }
 
-// Display the Track Card popover
+// Show Track Card popover handler function: Do checks, Create card, Highlight text, Display card
 
-export async function showTrackPopover(trigger, trackRefNo) {
+async function showTrackPopover(trigger, trackRefNo, highlightObj) {
 
   // Prevent click if text selection is being made
 
@@ -558,34 +550,31 @@ export async function showTrackPopover(trigger, trackRefNo) {
 
   if (tracksJson.length === 0) {
 
-    console.warn("PD App:\n\nNo tracks found!");
+    doDataCheckup("tracks");
 
-    if (toolkitMode > 0) {
-
-      return;
-    }
-
-    await fetchDataJsons();
+    return;
   }
-  
-  if (Array.isArray(tracksJson) && tracksJson.length > 0) {
 
-    try {
+  try {
 
-        const trackObject = tracksJson.find(track => track.refno === trackRefNo);
+      const trackObject = tracksJson.find(track => track.refno === trackRefNo);
 
-        await createTrackCard(trackObject);
+      await createTrackCard(trackObject);
 
-        trackCardPopover.showPopover();
+      if (highlightObj) {
 
-        document.querySelector("#dm-btn-track-card-close").focus();
+        highlightCardText(highlightObj, trackCardPopover);
+      }
 
-        console.log("PD App:\n\nTrack Card created.");
+      trackCardPopover.showPopover();
 
-    } catch (error) {
+      document.querySelector("#dm-btn-track-card-close").focus();
 
-      console.warn(`PD App:\n\nCreating Track Card failed. Details:\n\n${error}`);
-    }
+      console.log("PD App:\n\nTrack Card created.");
+
+  } catch (error) {
+
+    console.warn(`PD App:\n\nCreating Track Card failed. Details:\n\n${error}`);
   }
 }
 
@@ -652,6 +641,7 @@ async function createTrackCard(trackObject) {
     trackSourceColNoBtn.classList.add("dm-btn-open-track");
     trackSourceColNoBtn.setAttribute("title", "View Collection Card");
     trackSourceColNoBtn.setAttribute("data-colrefno", trackSourceColNo);
+    trackSourceColNoBtn.setAttribute("data-type", "colrefno");
     trackSourceColNoDiv.appendChild(trackSourceColNoBtn);
 
     const trackColRefCode = document.createElement("p");
@@ -666,6 +656,7 @@ async function createTrackCard(trackObject) {
     trackSourceTrackNoLine1Btn.classList.add("dm-btn-open-track");
     trackSourceTrackNoLine1Btn.setAttribute("title", "View Track in Tracklist");
     trackSourceTrackNoLine1Btn.setAttribute("data-refno", trackRefNo);
+    trackSourceTrackNoLine1Btn.setAttribute("data-type", "trackno");
     trackSourceTrackNoLine1Btn.textContent = `Track # ${trackSourceTrackNoArr[0]}`;
     trackSourceTrackNoLine2.textContent = trackSourceTrackNoArr[1]? 
     `Tune # ${trackSourceTrackNoArr[1]}` :
@@ -701,6 +692,7 @@ async function createTrackCard(trackObject) {
       trackTranscrDiv.appendChild(trackTranscriptHyperlink);
     
       const trackTuneRefCodeNo = document.createElement("p");
+      trackTuneRefCodeNo.setAttribute("data-type", "tuneref");
       trackTuneRefCodeNo.classList.add("track-grid-tuneref");
       trackTuneRefCodeNo.textContent = trackTuneRefCode;
       trackTranscrDiv.appendChild(trackTuneRefCodeNo);
@@ -741,6 +733,91 @@ async function createTrackCard(trackObject) {
   }
 }
 
+// Show Reference Links popover handler function
+
+async function showRefPopover(trigger, refNo) {
+
+  if (refsJson.length === 0) {
+
+    doDataCheckup("refs");
+
+    return;
+  }
+
+  try {
+
+    const refObject = refsJson.find(reflinks => reflinks.refitemno === refNo);
+
+    await createRefCard(refObject);
+
+    linksCardPopover.showPopover();
+
+    document.querySelector("#dm-btn-ref-card-close").focus();
+
+    console.log("PD App:\n\nRefLinks Card created.");
+
+  } catch (error) {
+
+    console.warn(`PD App:\n\nCreating RefLink Card failed. Details:\n\n${error}`);
+  }
+}
+
+
+// Generate Reference Links details using data from refLinksObject
+
+async function createRefCard(refObject) {
+
+  try {
+
+    refCardGridDiv.textContent = "";
+
+    const refItemCodeDiv = document.querySelector(".ref-grid-hcode");
+    const refItemTitleDiv = document.querySelector(".ref-grid-htitle");
+
+    const refItemCode = refObject.refitemcode;
+    const refItemName = refObject.refshortname;
+    const refItemType = refObject.reftype;
+
+    let refItemTitle = `Links for: ${refItemName}`;
+
+    refItemCodeDiv.textContent = refItemCode;
+    refItemTitleDiv.textContent = refItemTitle;
+
+    for (let i = 1; i <= 5; i++) {
+      
+      const linkText = refObject[`refdetails${i}`].split(' | ')[0];
+      const linkUrl = refObject[`refdetailslink${i}`];
+
+      if (linkText && linkUrl) {
+
+        const linkAltText = refObject[`refdetails${i}`].split(' | ')[1];
+
+        const linkDescription = 
+          refItemType === "tunedb" && linkAltText? `${refItemName} ${linkText}: ${linkAltText}` :
+          linkAltText? linkAltText : 
+          `${refItemName}: ${linkText}`;
+
+        const refLinkWrapper = document.createElement("div");
+        refLinkWrapper.classList.add("dm-ref-link-wrapper", "link-wrapper");
+
+        const refLink = document.createElement("a");
+        refLink.setAttribute("href", linkUrl);
+        refLink.setAttribute("target", "_blank");
+        refLink.setAttribute("title", linkDescription);
+        setAriaLabel(refLink, linkDescription);
+        refLink.textContent = linkText.split(' | ')[0];
+
+        refLinkWrapper.appendChild(refLink);
+        refCardGridDiv.appendChild(refLinkWrapper);
+      }
+    }
+
+  } catch (error) {
+
+    throw new Error(error.message);
+  }
+}
+
 // Navigate between cards using navigation buttons (prev, close, next)
 
 async function navigateTuneCard() {
@@ -760,6 +837,13 @@ async function navigateTuneCard() {
       navBtnParent.contains("dm-track-grid-header") || 
       navBtnParent.contains("dm-track-grid-footer") ? 
         trackCardPopover.hidePopover() :
+      
+      navBtnParent.contains("dm-ref-grid-header") ?
+        linksCardPopover.hidePopover() :
+      
+      navBtnParent.contains("dm-nav-card-header") ?
+        navCardPopover.hidePopover() :
+      
         tuneCardPopover.hidePopover();
 
       if (navBtnClass.contains("dm-btn-card-dialog-close")) {
@@ -867,9 +951,138 @@ async function switchTuneCard(switchDirection, cardType) {
   }
 }
 
+// Get popover section and keyword to highlight, return them as object
+
+function getHighlightObject(button) {
+
+  let targetSectionPar = button.getAttribute("data-type");
+
+  if (targetSectionPar === "tunetype") {
+
+    targetSectionPar = "tunename";
+  }
+
+  let highlightObj = {};
+
+  if (targetSectionPar) {
+
+    const targetKeyword = button.firstElementChild.textContent.split('”: ')[0].slice(1);
+
+    highlightObj.section = targetSectionPar;
+    highlightObj.keyword = targetKeyword;
+  }
+
+  return highlightObj;
+}
+
+// Highlight target text inside popover element
+
+function highlightCardText(hightlightObj, targetPopover) {
+
+  if (isObjectEmpty(hightlightObj)) {
+
+    return;
+  }
+
+  const targetText = hightlightObj.keyword;
+  const targetSection = hightlightObj.section;
+  let targetSectionPar = targetPopover.querySelector(`[data-type="${targetSection}"]`);
+
+  if (targetSectionPar) {
+    
+    if (targetSection === "tracknotes") {
+
+      targetSectionPar.querySelectorAll("p").forEach(paragraph => {
+
+        if (processString(paragraph.textContent).includes(processString(targetText))) {
+
+          splitHighlightRejoin(targetText, paragraph, targetPopover);
+        }
+      });
+
+    } else {
+
+      splitHighlightRejoin(targetText, targetSectionPar, targetPopover);
+    }
+  }
+}
+
+// Split normalized text on keyword, rejoin using original string and split indexes, wrap keyword into highlighting span
+
+function splitHighlightRejoin(targetText, targetSectionPar, targetPopover) {
+
+  const origText = targetSectionPar.textContent;
+
+  const plainTargetText = processString(targetText);
+  const plainSectionText = processString(targetSectionPar.textContent);
+  const plainPartsArr = plainSectionText.split(plainTargetText);
+
+  let partsStringLastIndex = 0;
+
+  targetSectionPar.textContent = "";
+  
+  for (let i = 0; i < plainPartsArr.length; i++) {
+
+    const origTextPart = origText.substring(partsStringLastIndex, partsStringLastIndex + plainPartsArr[i].length);
+
+    const origTextPartNode = document.createTextNode(origTextPart);
+
+    targetSectionPar.appendChild(origTextPartNode);
+
+    partsStringLastIndex += plainPartsArr[i].length;
+
+    if (i < plainPartsArr.length - 1) {
+
+      const matchingText = origText.substring(partsStringLastIndex, partsStringLastIndex + targetText.length);
+
+      const highlightSpan = document.createElement("span");
+
+      if (targetPopover === tuneCardPopover) {
+
+        highlightSpan.classList.add("highlighted-bright");
+
+      } else {
+
+        highlightSpan.classList.add("highlighted");
+      }
+
+      const matchingTextNode = document.createTextNode(matchingText);
+
+      highlightSpan.appendChild(matchingTextNode);
+
+      targetSectionPar.appendChild(highlightSpan);
+
+      partsStringLastIndex += targetText.length;
+    }
+  }
+}
+
+// Notify speech reader user when Popover Card is opened / closed
+
+export function alertPopoverState() {
+
+  const isPopoverOpen = this.matches(':popover-open');
+
+  let popoverType = this === tuneCardPopover? "Tune Card" : 
+                    this === colCardPopover? "Collection Card" :
+                    this === trackCardPopover? "Track Card" :
+                    "Links Card";
+
+  let popoverMessage = isPopoverOpen? " is open." : " was closed.";
+
+  statusBars.forEach(bar => {
+
+    bar.textContent = `${popoverType} ${popoverMessage}`;
+
+    setTimeout(() => {
+      bar.textContent = "";
+    }, 3000);
+  });
+}
+
 // Call a Show Popover function depending on element clicked
 
-export function showPopoverHandler(event) {
+export async function showPopoverHandler(event) {
 
   try {
 
@@ -886,6 +1099,18 @@ export function showPopoverHandler(event) {
       if (closestClickableRow.classList.contains("dm-tracklist-col-header-row") || 
           closestClickableRow.classList.contains("dm-collist-row")) {
 
+        if (closestClickableRow.parentElement.id === "dm-references" || 
+          closestClickableRow.parentElement.id === "dm-reflinks") {
+
+            if (triggerElement.classList.contains("dm-btn-ref-open")) {
+
+              showRefPopover(triggerElement, rowRefNo);
+              return;
+            }
+
+          return;
+        }
+
         showColPopover(closestClickableRow, rowRefNo);
         return;
       }
@@ -900,6 +1125,12 @@ export function showPopoverHandler(event) {
     if (closestButton) {
       
       let refNo;
+      let textToHighlight;
+
+      if (closestButton.classList.contains("dm-btn-search-item")) {
+
+        textToHighlight = getHighlightObject(closestButton);
+      }
 
       if (closestButton.hasAttribute("data-refno")) {
 
@@ -912,25 +1143,31 @@ export function showPopoverHandler(event) {
             generateTracklistBtn.click();
           }
 
-          showTrackPopover(closestButton, refNo);
+          showTrackPopover(closestButton, refNo, textToHighlight);
+
           return;
         }
 
         focusOnTrack(closestButton, refNo);
+
         return;
       }    
       
       if (closestButton.hasAttribute("data-colrefno")) {
 
         refNo = closestButton.dataset.colrefno;
-        showColPopover(closestButton, refNo);
+        
+        showColPopover(closestButton, refNo, textToHighlight);
+
         return;
       }
 
       if (closestButton.hasAttribute("data-tuneref")) {
 
         refNo = closestButton.dataset.tuneref;
-        showTunePopover(closestButton, refNo);
+        
+        showTunePopover(closestButton, refNo, textToHighlight);
+
         return;
       }
     }
@@ -938,27 +1175,6 @@ export function showPopoverHandler(event) {
 
     console.warn(`PD App:\n\nshowPopoverHandler failed. Details:\n\n${error}`)
   }
-}
-
-// Notify speech reader user when Popover Card is opened / closed
-
-export function alertPopoverState() {
-
-  const isPopoverOpen = this.matches(':popover-open');
-
-  let popoverType = this === tuneCardPopover? "Tune Card" : 
-                    this === colCardPopover? "Collection Card" :
-                    "Track Card";
-  let popoverMessage = isPopoverOpen? " is open." : " was closed.";
-
-  statusBars.forEach(bar => {
-
-    bar.textContent = `${popoverType} ${popoverMessage}`;
-
-    setTimeout(() => {
-      bar.textContent = "";
-    }, 3000);
-  });
 }
 
 // Add event listeners to Popover Card navigation buttons

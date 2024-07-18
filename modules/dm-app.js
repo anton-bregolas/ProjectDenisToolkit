@@ -14,6 +14,7 @@ const appLauncherSection = document.querySelector('.dm-launch');
 export const searchSection = document.querySelector('#dm-search');
 export const exploreSection = document.querySelector('#dm-explore');
 export const discoverSection = document.querySelector('#dm-discover');
+const footerSection = document.querySelector('.dm-footer');
 
 // Tune Database links
 
@@ -31,7 +32,7 @@ export let refsJson = [];
 
 // Update Custom Data JSON
 
-export function updateData(newData, dataType) {
+export async function updateData(newData, dataType) {
 
   if (dataType == "cols") {
 
@@ -70,7 +71,78 @@ export function clearData() {
   tracksJson = [];
   refsJson = [];
 
-  console.log("PD App:\n\nTune Data cleared!")
+  console.log("PD App:\n\nTune DB data cleared!")
+}
+
+// Check if Data JSON contains data, fetchDataJsons if it doesn't
+
+export async function doDataCheckup(jsonType) {
+
+  let parentJson;
+  let dataIndex;
+  let dataName = jsonType;
+
+  switch (jsonType) {
+    case "cols":
+    case "collections":
+      parentJson = colsJson;
+      dataIndex = 0;
+      dataName = "collections";
+      break;
+
+    case "tunes":
+      parentJson = tunesJson;
+      dataIndex = 1;
+      break;
+
+    case "tracks":
+      parentJson = tracksJson;
+      dataIndex = 2;
+      break;
+
+    case "refs":
+    case "references":
+      parentJson = refsJson;
+      dataIndex = 3;
+      dataName = "references";
+      break;     
+  
+    default:
+      console.warn("PD App:\n\nData checkup type is invalid");
+      return;
+  }
+
+  const jsonName = dataName[0].toUpperCase() + jsonType.slice(1);
+
+  if (parentJson.length === 0 || !Array.isArray(parentJson)) {
+
+    console.warn(`PD App:\n\nNo data found in ${jsonName} JSON!`);
+
+    if (toolkitMode > 0) {
+
+      return;
+    }
+
+    try {
+
+      const jsonUpdate = await fetchDataJsons();
+
+      const newDataSize = jsonUpdate[dataIndex];
+
+      if (newDataSize > 0) {
+
+        console.log(`PD App:\n\n${jsonName} updated, new data count: ${newDataSize}`);
+      }
+
+      return newDataSize;
+
+    } catch (error) {
+
+      console.warn(error);
+    }
+  }
+
+  return parentJson.length;
 }
 
 // Make a Tune data fetch request then return JSON or text or handle errors
@@ -107,7 +179,7 @@ export async function fetchData(url, type) {
 
     if (type === "json") {
 
-      console.log("PD App:\n\nFetching Tune data...");
+      console.log("PD App:\n\nFetching data from Tune DB...");
 
       data = await response.json();
 
@@ -129,7 +201,7 @@ export async function fetchData(url, type) {
     let thrownErrorMessage = error.message === "Failed to fetch"? "Network error, check your connection!" :
     error.message || "Fetching data failed, try again!";
 
-    console.error(`PD App:\n\nError fetching Tune data:\n\n` + thrownErrorMessage);
+    console.error(`PD App:\n\nError fetching data from Tune DB:\n\n` + thrownErrorMessage);
 
     throw new Error(error);
   }
@@ -149,9 +221,13 @@ export async function fetchDataJsons() {
     tracksJson = tracksJsonData;
     refsJson = refsJsonData;
 
+    return [colsJson.length, tunesJson.length, tracksJson.length, refsJson.length];
+
   } catch (error) {
 
-    throw new Error(`Error fetching Data JSONs!\n\n${error.message}`);
+    console.warn(error);
+
+    return[0, 0, 0, 0];
   }
 }
 
@@ -163,10 +239,13 @@ export async function launchAppSequence() {
 
     try {
 
-      await fetchDataJsons();
+      const tuneDataSize = await fetchDataJsons();
 
-      console.log("PD App:\n\nTune Data successfully fetched and assigned to Data JSONs");
-    
+      if (tuneDataSize[2] > 0) {
+
+        console.log("PD App:\n\nTune DB data successfully fetched and assigned to data JSONs");
+      }
+
     } catch (error) {
 
       console.warn(`PD App:\n\nLaunching app sequence failed. Details:\n\n${error.message}`);
@@ -180,6 +259,7 @@ export async function launchAppSequence() {
   searchSection.removeAttribute("hidden");
   exploreSection.removeAttribute("hidden");
   discoverSection.removeAttribute("hidden");
+  footerSection.removeAttribute("hidden");
   appLauncherSection.setAttribute("hidden", "");
 
   if (toolkitMode > 0) {

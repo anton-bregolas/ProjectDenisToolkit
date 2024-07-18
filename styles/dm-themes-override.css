@@ -1,6 +1,17 @@
 /* Color theme styles fine-tuning by theme */
 
 
+/* Fallbacks for hsl */
+
+.dm-collist-item:nth-child(2):not(th) {
+  background-color: #45167171;
+}
+
+body.papsofanu .dm-collist-item:nth-child(2):not(th) {
+  background-color: #5f3413a6;
+}
+
+
 @supports (color: hsl(from white h s l)) {
 
   .dm-collist-item:nth-child(2):not(th) {
@@ -10,6 +21,12 @@
   body.dark {
       .dm-collist-item:nth-child(2):not(th) {
         background-color: hsl(from #551a8b h s 25% / 0.5);
+    }
+  }
+
+  body.papsofanu {
+      .dm-collist-item:nth-child(2):not(th) {
+        background-color: hsl(from #ffb37d h s 18% / 0.5);
     }
   }
 
@@ -24,6 +41,7 @@
 
 body.dark {
   --tune-card-color: rgba(246, 137, 59);
+  --nav-card-color: var(--primary-color);
 }
 
 body.dark .header-main {
@@ -32,6 +50,11 @@ body.dark .header-main {
 
 body.dark .dm-col-card {
   --col-card-color: color-mix(in srgb, #3399cc 90%, white);
+}
+
+body.dark .dm-search-item-type[data-type="name"],
+body.dark .dm-btn-search-item:is(:hover, :focus, :focus-visible) .dm-search-item-type {
+  color: var(--secondary-color-b);
 }
 
 @supports (color: color-mix(in srgb, black, yellowgreen)) {
@@ -50,6 +73,7 @@ body.light {
   --tracklist-row-color: #f2f2f2;
   --tracklist-text-color: black;
   --tracklist-text-shadow: 0px 1px 1px white;
+  --nav-card-focus-color: var(--accent-color-a);
 }
 
 body.light input[type="radio"] {
@@ -68,6 +92,11 @@ body.light .dm-btn-search-wrap .action-icon-container > * {
   color: var(--accent-color-b);
 }
 
+body.light .dm-search-item-type[data-type="name"],
+body.light .dm-btn-search-item:is(:hover, :focus, :focus-visible) .dm-search-item-type {
+  color: var(--secondary-color-c);
+}
+
 body.light #dm-collist-wrapper h2,
 body.light #dm-collist-wrapper h3 {
   color: color-mix(in srgb, var(--secondary-color-a) 50%, white);
@@ -77,8 +106,10 @@ body.light .dm-btn-tracklist-open:is(:hover, :focus, :focus-visible) {
   outline-color: var(--neutral-color);
 }
 
-body.light #dm-reflist-caption h2 {
-  color: var(--secondary-color-a);
+/* Fallbacks */
+
+body.light .dm-ref-card {
+  background-color: #663197;
 }
 
 @supports (color: color-mix(in srgb, cornsilk, #551a8b)) {
@@ -95,6 +126,10 @@ body.light #dm-reflist-caption h2 {
     cursor: pointer;
     background-color: color-mix(in srgb, var(--tracklist-row-color) 88%, black);
   }
+
+  body.light .dm-ref-card {
+    background-color: color-mix(in srgb, var(--ref-card-color) 90%, white);
+  }
 }
 
 
@@ -104,11 +139,8 @@ body.rainy {
   --tracklist-row-color: #f2f2f2;
   --tracklist-text-color: black;
   --tracklist-text-shadow: 0px 1px 1px white;
+  --nav-card-focus-color: var(--primary-color);
 }
-
-body.rainy .dm-search-item-type[data-type="name"] {
-  color: var(--secondary-color-a);
-} 
 
 body.rainy .dm-btn-search-wrap {
   border-color: var(--accent-color-b);
@@ -124,6 +156,7 @@ body.rainy .dm-btn-search-wrap .action-icon-container > * {
     background-color: color-mix(in srgb, var(--accent-color-b) 80%, white);
   }
 
+  body.rainy .dm-search-counter,
   body.rainy #theme-picker-popover .theme-icon {
     color: var(--primary-color);
   }
@@ -131,7 +164,7 @@ body.rainy .dm-btn-search-wrap .action-icon-container > * {
   body.rainy #theme-picker-popover .theme-btn:is(:hover, :focus) > * {
     color: color-mix(in srgb, var(--accent-color-a) 55%, white);
   }
-  
+    
   body.rainy #dm-collist-wrapper h2,
   body.rainy #dm-collist-wrapper h3 {
     color: color-mix(in srgb, var(--secondary-color-a) 50%, white);
@@ -213,9 +246,10 @@ body.rainy .dm-btn-search-wrap .action-icon-container > * {
 
 /* Rainbow Theme */
 
-body.rainbow .dm-search-item-type[data-type="name"] {
-  color: var(--accent-color-c);
-} 
+body.rainbow .dm-search-item-type[data-type="name"],
+body.rainbow .dm-btn-search-item:is(:hover, :focus, :focus-visible) .dm-search-item-type {
+  color: var(--secondary-color-a);
+}
  
 body.rainbow .dm-track-grid-nav *,
 body.rainbow .dm-track-grid-source * {
@@ -248,6 +282,94 @@ body.rainbow .dm-track-grid-source * {
   body.rainbow .header-main {
     background: linear-gradient(110deg, rgba(255,0,0,0.5) 0%, rgba(255,154,0,0.5) 10%, rgba(208,222,33,0.5) 20%, rgba(79,220,74,0.5) 30%, rgba(63,218,216,0.5) 40%, rgba(47,201,226,0.5) 50%, rgba(28,127,238,0.5) 60%, rgba(95,21,242,0.5) 70%, rgba(186,12,248,0.5) 80%, rgba(251,7,217,0.5) 90%, rgba(255,0,0,0.5) 100%);
   } */
+}
+
+
+/* The Paps of Anu Color Theme */
+
+body.papsofanu {
+  --tunelist-item-color: #19090059;
+  --tunelist-item-hover-color: #323828;
+  --tune-card-item-color: #744c2f;
+  --tune-card-item-active-color: #b76225;
+  --tune-card-item-active-color: #a5561f;
+  --tune-card-item-outline-color: rgb(0 53 0 / 65%);
+  --tune-card-item-close-color: #6f0000a9;
+  --collist-item-color: rgb(19 19 19 / 50%);
+  --tracklist-row-color: #485337;
+  --tracklist-header-color: #57603c;
+}
+
+body.papsofanu h1,
+body.papsofanu h2,
+body.papsofanu h3 {
+  text-shadow: 1px 1px 2px #323828;
+}
+
+body.papsofanu .header-main,
+body.papsofanu #theme-picker-popover {
+  background-color: #485337;
+}
+
+body.papsofanu .dm-tracklist-row:nth-of-type(odd) {
+  background-color: #767e69;
+}
+
+body.papsofanu .dm-tracklist-header-row.dm-tracklist-header-row,
+body.papsofanu .dm-tracklist-row.dm-tracklist-col-header-row {
+  background-color: #303521;
+}
+
+
+body.papsofanu .dm-tracklist-col-header-row:hover {
+  background-color: #46351a96;
+}
+
+body.papsofanu .dm-tracklist-header-item:hover,
+body.papsofanu .dm-tracklist-row:not(.dm-tracklist-header-row):hover {
+  background-color: #46351a96;
+}
+
+body.papsofanu .dm-popover-card:not(#dm-popover-card-reflinks) h2,
+body.papsofanu .dm-popover-card:not(#dm-popover-card-reflinks) h3 {
+  text-shadow: none;
+}
+
+body.papsofanu .dm-track-grid-item button:is(:hover, :focus-visible){
+  color: var(--focus-color-inverted);
+}
+
+body.papsofanu .dm-collist-item button {
+  background-color: #373e2d;
+}
+
+body.papsofanu .dm-track-grid-nav button, 
+body.papsofanu .dm-track-grid-source {
+  background-color: #8e6345;
+}
+
+body.papsofanu .dm-col-grid-item a:is(:focus, :focus-visible), 
+body.papsofanu .dm-track-grid-item a:is(:focus, :focus-visible), 
+body.papsofanu .dm-track-grid-item button:is(:focus, :focus-visible), 
+body.papsofanu .dm-track-grid-source .dm-btn-open-track :is(:focus, :focus-visible) {
+  outline: 0.2rem solid var(--focus-color-inverted);
+}
+
+body.papsofanu .dm-col-grid-nav button:is(:hover, :focus-visible), 
+body.papsofanu .dm-track-grid-nav button:is(:hover, :focus-visible) {
+  outline: 0.25rem solid var(--focus-color-inverted);
+}
+
+body.papsofanu .dm-ref-card {
+  background-color: #323828;
+}
+
+@supports (color: color-mix(in srgb, #606f49, #ffcb69)) {
+
+  body.papsofanu {
+    --tracklist-row-color: color-mix(in srgb, var(--primary-color) 75%, black);
+    --tracklist-header-color: color-mix(in srgb, var(--secondary-color-c) 50%, black);
+  }
 }
 
 

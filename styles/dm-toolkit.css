@@ -37,26 +37,74 @@ body, .header-main {
   min-height: 100svh;
 }
 
-#search,
-#explore,
-#discover {
-  padding-top: 7rem;
-  padding-bottom: 2.5rem;
-}
-
 #dm-search,
 #dm-explore,
 #dm-discover,
 .dm-launch, 
 .dm-parser,
-.dm-splitter,
-.dm-footer {
+.dm-splitter {
   padding-top: 1.5rem;
   margin-bottom: 1rem;
 }
 
+.dm-section-header,
+.dm-section-anchor {
+  padding-top: 7rem;
+  padding-bottom: 2.5rem;
+}
+
+.dm-section-anchor span {
+  transition: opacity 0.35s ease-in-out;
+}
+
+.dm-section-anchor:is(:hover, :focus, :focus-visible) span {
+  opacity: 1;
+}
+
+#top {
+  color: var(--secondary-color-a);
+}
+
+#top:is(:hover, :focus, :focus-visible) {
+  outline: none;
+  text-decoration-color: var(--secondary-color-a);
+}
+
+.dm-section-anchor:is(:hover, :focus, :focus-visible) {
+  outline: none;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-color-a);
+}
+
 .dm-launch-container {
   padding-top: 2.5rem;
+}
+
+.dm-footer {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.dm-footer,
+.dm-footer a {
+  color: var(--neutral-color-inactive);
+  font-size: var(--font-small);
+  text-align: center;
+}
+
+.dm-footer a {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.12rem;
+}
+
+.dm-footer a:is(:hover, :focus, :focus-visible) {
+  text-decoration: underline;
+  color: var(--focus-color);
+  border-radius: 0.25rem;
+}
+
+.dm-footer a:is(:focus-visible) {
+  outline: 2px solid var(--focus-color-inverted);
 }
 
 /* Button styles */
@@ -93,6 +141,17 @@ body, .header-main {
 
 .theme-toggle-btn {
   position: relative;
+}
+
+.section-nav-btn {
+  bottom: 5%;
+  right: 1.1rem;
+  outline-offset: 2rem;
+  z-index: 3;
+}
+
+.section-nav-btn:focus-visible circle {
+  display: none;
 }
 
 /* Container styles */
@@ -229,6 +288,10 @@ body, .header-main {
 
   html {
     font-size: 90%;
+  }
+
+  circle {
+    display: none;
   }
 }
 

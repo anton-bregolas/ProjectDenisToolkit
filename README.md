@@ -2,6 +2,15 @@
 ========================================================================================
 #ProjectDenis Toolkit is a set of simple tools for building and updating the database for the project in tribute to the Sliabh Luachra music legend, fiddle player Denis Murphy (1910–1974).
 
+[v.2.9]
+
++ Click on Search item highlights keyword in target popover card.
++ Main page navigation fixed button with popover menu added.
++ Color theme The Paps of Anu added and fine-tuned.
++ Data status checks simplified with doDataCheckup function.
++ Reference popover with additional links finished and styled.
++ Reference lists split into two tables to fix accessibility bug.
+
 [v.2.8]
 
 + Reference list sections added using modal dialogs.
@@ -79,7 +88,13 @@
 
 + Development in basic Toolkit mode with Generator, Parser and Splitter sections (detailed breakdown below).
 
-## App Launcher v.1.2
+## App Launcher v.1.3
+
+[v.1.3]
+
++ Added doDataCheckup function to check status of Tune DB files. 
++ The length of individual data JSONs is now returned via fetchDataJsons.
++ App launching sequence tweaked.
 
 [v.1.2]
 
@@ -97,7 +112,12 @@
 + Fetches Tracks, Collections and Tunes JSONs and assigns them to custom JSONs.
 + Reveals Search section with radio button group and search input / output.
 
-## Search Engine v.1.3
+## Search Engine v.1.4
+
+[v.1.4]
+
++ Text matching keyword is now automatically highlighted when the opening of a popover card is triggered by search item.
++ If multiple instances of keyword are found in the text of the target popover card section, they are all highlighted.
 
 [v.1.3]
 

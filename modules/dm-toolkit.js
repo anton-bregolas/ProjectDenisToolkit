@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.2.8
+// #ProjectDenis Toolkit v.2.9
 //
-// App Launcher v.1.2
-// Search Engine v.1.3
+// App Launcher v.1.3
+// Search Engine v.1.4
 // List Generator v.2.2
 // TSV to JSON Parser v.2.2
 // JSON Splitter v.2.1
@@ -13,11 +13,11 @@ import { tracklistDiv, tracklistOutput } from '../components/dm-tracklist/dm-tra
 import { tunelistDiv, colsListDiv } from '../components/dm-modals/dm-modals.js';
 import { themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
 import { toggleAriaExpanded, toggleTabIndex, setAriaLabel, addAriaHidden } from './aria-tools.js';
-import { updateData, clearData, launchAppSequence, tracksJson, colsJson, tunesJson } from './dm-app.js';
+import { doDataCheckup, updateData, clearData, launchAppSequence, tracksJson, colsJson, tunesJson } from './dm-app.js';
 
 // Define global variable that if > 0 turns off initial fetching of Tune Data JSONs
 
-export let toolkitMode = 1;
+export let toolkitMode = 0;
 
 // Define keys in track and collection header objects
 
@@ -26,7 +26,7 @@ const trackKeys = ["refno", "trackno", "tunename", "tunetype", "altnames", "tune
 
 // Define keys in reflist and linklist objects
 
-const refListKeys = ["refitemno", "refitemcode", "refpubyear", "refshortname", "reffullname", "reftype", "refdetailslink1", "refdetails2", "refdetailslink2", "refdetails3", "refdetailslink3", "refdetails4", "refdetailslink4", "refdetails5", "refdetailslink5"];
+const refListKeys = ["refitemno", "refitemcode", "refpubyear", "refshortname", "reffullname", "reftype", "refdetails1", "refdetailslink1", "refdetails2", "refdetailslink2", "refdetails3", "refdetailslink3", "refdetails4", "refdetailslink4", "refdetails5", "refdetailslink5"];
 const linkListKeys = ["refitemno","refitemlink", "refitemcode", "refshortname", "reffullname", "reftype", "refdetails1", "refdetailslink1", "refdetails2", "refdetailslink2", "refdetails3", "refdetailslink3", "refdetails4", "refdetailslink4", "refdetails5", "refdetailslink5"];
 
 // Define Toolkit input and output fields
@@ -100,13 +100,25 @@ function checkStringType(line) {
 
             return linkListKeys;
 
-        } else {
+        } else if (numberValue > 100){
 
             return refListKeys;
         }
     }
 
     return null;
+}
+
+// Checks if an object is empty
+
+export function isObjectEmpty(obj) {
+
+    for(let i in obj) {
+
+        return false;
+    }
+
+    return true;
 }
 
 // Check if an object is a valid track/collection or reflist object and contains a reference number
@@ -338,7 +350,7 @@ export function disableGenButtons() {
 
 export function clearOutput() {
 
-    toolkitMode = 0;
+    // toolkitMode = 0;
     parserInputDiv.value = "";
     parserOutputDiv.textContent = "Data cleared.";
     splitterColsDiv.textContent = "Data cleared.";
@@ -425,7 +437,7 @@ async function filterOutput(mixedJson) {
                 splitterTracksDiv.innerText = JSON.stringify(tracksJson, null, 2);
                 splitterTunesDiv.innerText = JSON.stringify(tunesJson, null, 2);
                 splitterSection.scrollIntoView();
-                toolkitMode = 1;
+                // toolkitMode = 1;
                 return;
             });
 
@@ -435,7 +447,7 @@ async function filterOutput(mixedJson) {
             splitterTracksDiv.innerText = "No tracks data found in JSON.";
             splitterTunesDiv.innerText = "No tune data found in JSON.";
             splitterSection.scrollIntoView();
-            toolkitMode = 1;
+            // toolkitMode = 1;
             return;
         }
     }
@@ -443,7 +455,7 @@ async function filterOutput(mixedJson) {
     splitterColsDiv.innerText = "No collections data found in JSON.";
     splitterTracksDiv.innerText = "No tracks data found in JSON.";
     splitterTunesDiv.innerText = "No tune data found in JSON.";    
-    toolkitMode = 0;
+    // toolkitMode = 0;
 }
 
 // Filter down items to a unique comma-separated string of links removing duplicates
@@ -488,14 +500,19 @@ async function createTuneList(tracks) {
                 tuneref = `TMP # ${refno}`;
             }
 
-            if (tunetype == "") {
-
-                tunetype = `Other`;
-            }
-
             if (tunename == "") {
 
                 tunename = `Untitled ${tunetype}`;
+            }
+
+            if (tunename.includes("(")) {
+
+                tunename = tunename.split(" (")[0];
+            }
+
+            if (tunetype == "") {
+
+                tunetype = `Other`;
             }
 
             if (!tunesMap.has(tuneref)) {
