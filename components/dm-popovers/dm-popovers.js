@@ -1,19 +1,21 @@
 /* #ProjectDenis Popovers Scripts*/
 
-import { toolkitMode, isObjectEmpty, statusBars, generateTracklistBtn } from '../../modules/dm-toolkit.js';
+import { toolkitMode } from '../../modules/dm-toolkit.js';
 import { processString } from '../dm-search/dm-search.js'
 import { tunelistDialog, colsListDialog, colsListDiv,
          generateTunelist, generateColsList, tunelistDiv, 
          showDialogsDiv, hideDialogsDiv } from '../dm-modals/dm-modals.js';
 import { tracklistOutput, focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
 import { addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
-import { doDataCheckup, fetchDataJsons, tracksJson, colsJson, tunesJson, refsJson } from '../../modules/dm-app.js';
+import { doDataCheckup, isObjectEmpty, toggleColorTheme, themeToggleBtn, statusBars, 
+         tracksJson, colsJson, tunesJson, refsJson, generateTracklistBtn, 
+         getInfoFromDataType, allAppHelperImgs, showAppHelper, hideAppHelper } from '../../modules/dm-app.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
 export const trackCardPopover = document.querySelector('#dm-popover-card-track');
 export const linksCardPopover = document.querySelector('#dm-popover-card-reflinks');
-export const allPopovers = document.querySelectorAll('.dm-popover-card');
+export const allPopovers = document.querySelectorAll('[popover]');
 export const themePickerPopover = document.querySelector('#theme-picker-popover');
 export const navCardPopover = document.querySelector('#dm-popover-nav-main');
 
@@ -24,13 +26,17 @@ const colRefLinkDiv = document.querySelector('.col-grid-reflink');
 const cardNavBtn = document.querySelectorAll('.dm-btn-card-nav');
 const refCardGridDiv = document.querySelector('.dm-ref-grid-body');
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Tune Popover Functions
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // Show Tune Card popover handler function: Do checks, Create card, Highlight text, Display card 
 
 export async function showTunePopover(trigger, tuneRefNo, highlightObj) {
 
-  if (tunesJson.length === 0) {
-
-    doDataCheckup("tunes");
+  if (await doDataCheckup(tunesJson, "tunes") === 0) {
 
     return;
   }
@@ -302,31 +308,6 @@ function generateTuneFullRef(tuneRef) {
   return `${fullColRef}, ${page}No. ${refNo}`;
 }
 
-// Get collection reference code from Collections JSON
-
-async function getColRefCode(colRefNo) {
-
-  if (colsJson.length === 0) {
-
-    doDataCheckup("cols");
-
-    return;
-  }
-
-  try {
-
-    const colObject = colsJson.find(col => col.colrefno == colRefNo);
-
-    let colRefCode = colObject.refcode;
-
-    return colRefCode;
-  
-  } catch (error) {
-
-    throw new Error(`Failed to get Col. Ref. Code.\n\n${error.message}`);
-  }
-}
-
 // Generate source name based on source link hostname
 
 function generateLinkSourceName(tuneTranscriptUrl) {
@@ -357,6 +338,11 @@ function generateLinkSourceName(tuneTranscriptUrl) {
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Collection Popover Functions
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // Show Collection Card popover handler function: Do checks, Create card, Highlight text, Display card
 
 async function showColPopover(trigger, colRefNo, highlightObj) {
@@ -369,17 +355,15 @@ async function showColPopover(trigger, colRefNo, highlightObj) {
 
     return;
   }
+  
+  if (await doDataCheckup(colsJson, "cols") === 0) {
+
+    return;
+  }
 
   if (parentDiv.classList.contains("track-grid-colno-cont")) {
 
     trackCardPopover.hidePopover();
-  }
-
-  if (colsJson.length === 0) {
-
-    doDataCheckup("cols");
-
-    return;
   }
 
   try {
@@ -537,6 +521,34 @@ async function createColCard(colObject) {
   }
 }
 
+// Get collection reference code from Collections JSON
+
+async function getColRefCode(colRefNo) {
+
+  if (await doDataCheckup(colsJson, "cols") === 0) {
+
+    return;
+  }
+
+  try {
+
+    const colObject = colsJson.find(col => col.colrefno == colRefNo);
+
+    let colRefCode = colObject.refcode;
+
+    return colRefCode;
+  
+  } catch (error) {
+
+    throw new Error(`Failed to get Col. Ref. Code.\n\n${error.message}`);
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Track Popover Functions
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // Show Track Card popover handler function: Do checks, Create card, Highlight text, Display card
 
 async function showTrackPopover(trigger, trackRefNo, highlightObj) {
@@ -548,9 +560,7 @@ async function showTrackPopover(trigger, trackRefNo, highlightObj) {
     return;
   }
 
-  if (tracksJson.length === 0) {
-
-    doDataCheckup("tracks");
+  if (await doDataCheckup(tracksJson, "tracks") === 0) {
 
     return;
   }
@@ -733,13 +743,16 @@ async function createTrackCard(trackObject) {
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Reference Popover Functions
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // Show Reference Links popover handler function
 
 async function showRefPopover(trigger, refNo) {
 
-  if (refsJson.length === 0) {
-
-    doDataCheckup("refs");
+  if (await doDataCheckup(refsJson, "refs") === 0) {
 
     return;
   }
@@ -818,6 +831,11 @@ async function createRefCard(refObject) {
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Popover Navigation Functions
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // Navigate between cards using navigation buttons (prev, close, next)
 
 async function navigateTuneCard() {
@@ -854,27 +872,21 @@ async function navigateTuneCard() {
         addAriaHidden(parentDialog);
         hideDialogsDiv();
       }
+
+      return;
     }
 
-    if (navBtnClass.contains("dm-btn-prev-tune") ||
-        navBtnClass.contains("dm-btn-prev-col") ||
-        navBtnClass.contains("dm-btn-prev-track")) {
+    if (navBtnClass[1].endsWith("tune") ||
+        navBtnClass[1].endsWith("col") ||
+        navBtnClass[1].endsWith("track")) {
 
-          navBtnParent[0].startsWith("dm-track") ? switchTuneCard("prev", "track") :
-          navBtnParent[0].startsWith("dm-tune") ? switchTuneCard("prev", "tune") :
-          navBtnParent[0].startsWith("dm-col") ? switchTuneCard("prev", "col") :
-          console.warn("PD App:\n\nUnknown card type!");
-        }
+      const navBtnDirection = navBtnClass[1].slice(7, 11);
 
-    if (navBtnClass.contains("dm-btn-next-tune") ||
-        navBtnClass.contains("dm-btn-next-col") ||
-        navBtnClass.contains("dm-btn-next-track")) {
-
-          navBtnParent[0].startsWith("dm-track") ? switchTuneCard("next", "track") :
-          navBtnParent[0].startsWith("dm-tune") ? switchTuneCard("next", "tune") :
-          navBtnParent[0].startsWith("dm-col") ? switchTuneCard("next", "col") :
-          console.warn("PD App:\n\nUnknown card type!");
-        }
+      navBtnClass[1].endsWith("track") ? switchTuneCard(navBtnDirection, tracksJson, "tracks") :
+      navBtnClass[1].endsWith("tune") ? switchTuneCard(navBtnDirection, tunesJson, "tunes") :
+      navBtnClass[1].endsWith("col") ? switchTuneCard(navBtnDirection, colsJson, "cols") :
+      console.warn("PD App:\n\nUnknown card type!");
+    }
 
   } catch (error) {
 
@@ -882,25 +894,18 @@ async function navigateTuneCard() {
   }
 }
 
-async function switchTuneCard(switchDirection, cardType) {
+async function switchTuneCard(switchDirection, parentJson, dataType) {
 
-  if (!switchDirection || !cardType) {
+  if (!switchDirection || !parentJson) {
+
     console.warn("PD App:\n\nCard switch direction or type not specified!");
+
     return;
   }
 
-  let parentJson = cardType === "track"? tracksJson : cardType === "tune"? tunesJson : colsJson;
+  if (await doDataCheckup(parentJson, dataType) === 0) {
 
-  if (parentJson.length === 0) {
-
-    console.warn(`PD App:\n\nNo tunes found in ${cardType[0].toUpperCase() + cardType.slice(1)} JSON!`);
-
-    if (toolkitMode > 0) {
-
-      return;
-    }
-
-    await fetchDataJsons();
+    return;
   }
 
   try {
@@ -910,17 +915,17 @@ async function switchTuneCard(switchDirection, cardType) {
     let targetTuneObject;
     let targetLabel;
 
-    if (cardType === "track") {
+    if (parentJson === tracksJson) {
       cardRef = document.querySelector('.track-grid-hrefno').textContent.split(' ')[1];
       currentCardObject = parentJson.find(track => track.refno === cardRef);
     }
 
-    if (cardType === "tune") {      
+    if (parentJson === tunesJson) {      
       cardRef = document.querySelector('.tune-grid-htuneref').textContent;
       currentCardObject = parentJson.find(tune => tune.tuneref === cardRef);
     }
 
-    if (cardType === "col") {
+    if (parentJson === colsJson) {
       cardRef = document.querySelector('.col-grid-hrefcode').textContent;
       currentCardObject = parentJson.find(col => col.refcode === cardRef);
     }
@@ -939,15 +944,15 @@ async function switchTuneCard(switchDirection, cardType) {
       targetTuneObject = currentCardObject === parentJson[parentJson.length - 1]? parentJson[0] : parentJson[currentCardObjectIndex + 1];
     }
     
-    cardType === "track"? createTrackCard(targetTuneObject) : 
-    cardType === "tune"? createTuneCard(targetTuneObject) :
+    parentJson === tracksJson? createTrackCard(targetTuneObject) : 
+    parentJson === tunesJson? createTuneCard(targetTuneObject) :
     createColCard(targetTuneObject);
 
     console.log(`PD App:\n\n${targetLabel} card rendered.`);
   
   } catch (error) {
 
-    throw new Error(`Error rendering ${targetLabel} card. Details:\n\n${error}`);
+    throw new Error(`Error rendering ${targetLabel} card in ${getInfoFromDataType(parentJson)[1]}. Details:\n\n${error}`);
   }
 }
 
@@ -1066,6 +1071,7 @@ export function alertPopoverState() {
   let popoverType = this === tuneCardPopover? "Tune Card" : 
                     this === colCardPopover? "Collection Card" :
                     this === trackCardPopover? "Track Card" :
+                    this === themePickerPopover? "Color Theme Selection Card" :
                     "Links Card";
 
   let popoverMessage = isPopoverOpen? " is open." : " was closed.";
@@ -1079,6 +1085,11 @@ export function alertPopoverState() {
     }, 3000);
   });
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Popover Handler Functions
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 // Call a Show Popover function depending on element clicked
 
@@ -1177,10 +1188,50 @@ export async function showPopoverHandler(event) {
   }
 }
 
+// Handle click on Color Theme Picker Popover
+
+function toggleColorThemeHandler(event) {
+
+  const btn = event.target.closest('.theme-btn');
+
+  if (btn) {
+
+    themePickerPopover.hidePopover();
+
+    toggleColorTheme(btn.dataset.theme);
+
+    btn.classList.add("hidden");
+
+    themeToggleBtn.focus();
+
+    // Let App Helper show off their new look
+
+    if (!allAppHelperImgs[0].classList.contains("expanded")) {
+    
+        setTimeout(() => {
+
+          showAppHelper();
+        }, 150);
+
+        setTimeout(() => {
+          
+          hideAppHelper();
+        }, 3750);
+      }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Initialize Popovers & Popover Elements
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // Add event listeners to Popover Card navigation buttons
 
 export function initPopovers() {
 
+  themePickerPopover.addEventListener('click', toggleColorThemeHandler);
+  
   [trackRefLinkDiv, 
     trackSourceDiv, 
     tuneTrackRefDiv, 

@@ -1,11 +1,10 @@
 /* #ProjectDenis: Tracklist Scripts */
 
-import { toolkitMode, generateTracklistBtn } from '../../modules/dm-toolkit.js';
-import { tunelistDialog, colsListDialog, hideDialogsDiv } from '../dm-modals/dm-modals.js';
-import { toggleAriaExpanded, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
-import { doDataCheckup, tracksJson, colsJson } from '../../modules/dm-app.js';
+import { doDataCheckup, tracksJson, colsJson, generateTracklistBtn } from '../../modules/dm-app.js';
 import { autoCollapseSearchResults, searchResultsSection } from '../dm-search/dm-search.js';
+import { tunelistDialog, colsListDialog, hideDialogsDiv } from '../dm-modals/dm-modals.js';
 import { trackCardPopover, colCardPopover, tuneCardPopover, showPopoverHandler } from '../dm-popovers/dm-popovers.js';
+import { toggleAriaExpanded, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
 
 export const tracklistDiv = document.querySelector('#dm-tracklist');
 export const tracklistOutput = document.querySelector('#dm-tracklist-output');
@@ -13,18 +12,9 @@ export const tracklistHeaders = document.querySelectorAll('.dm-tracklist-header-
 
 // Create TrackList populated with Tracklist items
 
-export async function generateTracklist(tracksJson, isCustomSorted) {
+export async function generateTracklist(tracksData, isCustomSorted) {
 
-  if (tracksJson.length === 0) {
-
-    doDataCheckup("tracks");
-
-    return;
-  }
-
-  if (colsJson.length === 0) {
-
-    doDataCheckup("cols");
+  if (await doDataCheckup(tracksJson, "tracks") === 0 || await doDataCheckup(colsJson, "cols") === 0) {
 
     return;
   }
@@ -33,11 +23,11 @@ export async function generateTracklist(tracksJson, isCustomSorted) {
 
   try {
 
-    let firstTrackNo = tracksJson[0].refno;
+    let firstTrackNo = tracksData[0].refno;
     let colNo = Math.floor(firstTrackNo / 1000) * 1000;
     let sortOrder = tracklistDiv.dataset.sortedby.split("-")[1];
 
-    tracksJson.forEach(trackObject  => {
+    tracksData.forEach(trackObject  => {
 
       const trackRefNo = trackObject.refno;
       const trackNo = trackObject.trackno;
@@ -54,7 +44,7 @@ export async function generateTracklist(tracksJson, isCustomSorted) {
 
         try {
 
-          if (trackRefNo === tracksJson[0].refno || 
+          if (trackRefNo === tracksData[0].refno || 
               (sortOrder === "ascending" && trackRefNo > colNo + 1000) || 
               (sortOrder === "descending" && trackRefNo < colNo)) {
 
@@ -152,7 +142,7 @@ export async function generateTracklist(tracksJson, isCustomSorted) {
       tracklistDiv.appendChild(trackRow);
     });
 
-    console.log(`PD App:\n\nTracklist generated, tracks total: ${tracksJson.length}`);
+    console.log(`PD App:\n\nTracklist generated, tracks total: ${tracksData.length}`);
   
   } catch (error) {
 
@@ -168,16 +158,7 @@ export async function focusOnTrack(trigger, refNo) {
   const parentDiv = trigger.parentElement;
   const trackIdItem = document.getElementById(trackRefNo);
 
-  if (tracksJson.length === 0) {
-
-    doDataCheckup("tracks");
-
-    return;
-  }
-
-  if (colsJson.length === 0) {
-
-    doDataCheckup("cols");
+  if (await doDataCheckup(tracksJson, "tracks") === 0 || await doDataCheckup(colsJson, "cols") === 0) {
 
     return;
   }
@@ -243,16 +224,7 @@ async function sortTracklistByThis() {
   let tracklistIsSortedBy = tracklistDiv.dataset.sortedby;
   let sortedArray = [];
 
-  if (tracksJson.length === 0) {
-
-    doDataCheckup("tracks");
-
-    return;
-  }
-
-  if (colsJson.length === 0) {
-
-    doDataCheckup("cols");
+  if (await doDataCheckup(tracksJson, "tracks") === 0 || await doDataCheckup(colsJson, "cols") === 0) {
 
     return;
   }
