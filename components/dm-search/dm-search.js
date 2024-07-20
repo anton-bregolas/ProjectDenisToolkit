@@ -2,7 +2,7 @@
 
 import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 import { toolkitMode, addMultiEventListeners } from '../../modules/dm-toolkit.js';
-import { searchSection, fetchDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
+import { searchSection, updateDataJsons, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
 import { toggleAriaExpanded, groupRemoveTabIndex, groupAddTabIndex, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
 
 // Define Search input and output elements
@@ -40,7 +40,7 @@ export const tunesCounter = document.querySelector('.dm-tunes-counter');
 
 export function processString(string) {
   
-  return string.toLowerCase().replace(/[\u2018\u2019\u201B\u02BC\u0060\u00B4]/g, `'`).replace(/[\u201C\u201D]/g, `"`).normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  return string.toLowerCase().replace(/[\u2018\u2019\u0060\u00B4]/g, `'`).normalize("NFD").replace(/\p{Diacritic}/gu, "");
 }
 
 // Process search input and pass on value to getSearchMatches
@@ -69,6 +69,22 @@ async function searchDatabaseHandler() {
   }, searchTimeoutValue);
 }
 
+// Call getSearchMatches for each valid keyword to asynchronously search and print results
+
+async function asyncSearchFor(keyword) {
+
+  if (!stopWordsList.includes(keyword) && keyword.length >= minSearchLength) {
+
+      const matchesCount = await getSearchMatches(keyword);
+        
+      console.log(`PD Search Engine:\n\nFound ${matchesCount} more unique result(s) by Split Search for "${keyword}"`);
+
+      return matchesCount;
+  }
+
+  return 0;
+}
+
 // Try searching for a phrase and then each keyword separately, count search results
 
 async function doMultiWordSearch(keyword) {
@@ -79,7 +95,7 @@ async function doMultiWordSearch(keyword) {
 
   exactSearchCounter = await getSearchMatches(keyword);
 
-  console.log(`PD Search Engine:\n\nFound ${exactSearchCounter} result(s) by exact search for "${keyword}"`);
+  console.log(`PD Search Engine:\n\nFound ${exactSearchCounter} result(s) by Exact Search for "${keyword}"`);
 
   if (exactSearchCounter > 0) {
 
@@ -108,17 +124,17 @@ async function doMultiWordSearch(keyword) {
 
     searchResultsDiv.append(multiResultsSeparator);
 
-    for (let i = 0; i < searchSplitKeyword.length; i++) {
+    try {
 
-      if (stopWordsList.includes(searchSplitKeyword[i])) {
+      const asyncSearchResults = searchSplitKeyword.map(keyword => asyncSearchFor(keyword));
 
-        console.log(`PD Search Engine:\n\n"${searchSplitKeyword[i]}" found in search stop list`);
-      }
+        const matchesCountArr = await Promise.all(asyncSearchResults);
 
-      if (!stopWordsList.includes(searchSplitKeyword[i]) && searchSplitKeyword[i].length >= minSearchLength) {
+        splitSearchCounter = matchesCountArr.reduce((sum, count) => sum + count, 0);
+        
+    } catch (error) {
 
-        splitSearchCounter += await getSearchMatches(searchSplitKeyword[i]);
-      }
+      console.warn(`PD Search Engine:\n\n Split search failed, details:\n\n`, error);
     }
 
     if (splitSearchCounter === 0) {
@@ -277,11 +293,9 @@ async function getSearchMatches(keyword) {
 
   resultsShown = foundResults - filteredResults;
 
-  console.log(`PD Search Engine:\n\nFound ${foundResults} result(s) for "${keyword}" by split word search`);
-
-  if (filteredResults > 0) {
-    console.log(`PD Search Engine:\n\nFiltered out ${filteredResults} result(s). Results shown for "${keyword}": ${resultsShown}`);
-  }
+  // if (filteredResults > 0) {
+  //   console.log(`PD Search Engine:\n\nFiltered out ${filteredResults} result(s) when searching for "${keyword}"`);
+  // }
 
   return resultsShown;
 }

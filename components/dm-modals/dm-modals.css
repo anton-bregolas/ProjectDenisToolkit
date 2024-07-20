@@ -288,7 +288,7 @@ html:has(dialog[open]) {
 .dm-reflist-action {
   font-weight: bold;
   color: var(--focus-color-inverted);
-  transition: color 0.35s ease-in-out;
+  transition: color 0.33s ease-in-out;
 }
 
 .dm-reflist-table .dm-collist-item a {
@@ -322,6 +322,27 @@ html:has(dialog[open]) {
   clip: rect(1px 1px 1px 1px);
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/* Dialog animations */
+
+.dm-modal-list:not(#dm-modal-list-tunes) {
+  &[open] {
+
+    @starting-style {
+      opacity: 0;
+    }
+    
+  /* :popover-open */
+    opacity: 1;
+  }
+  
+  /* popover out */
+  opacity: 0;
+
+  transition: 
+  opacity 0.2s, 
+  display 0.2s allow-discrete;
 }
 
 /* Media queries for dialogs */

@@ -1,10 +1,11 @@
-const CACHE_NAME = 'pd-cache-v.2.9.2';
+const CACHE_NAME = 'pd-cache-v.3.0.0';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll([
         'assets/icons/icons.svg',
+        
         'components/dm-modals/dm-modals.css',
         'components/dm-modals/dm-modals.js',
         'components/dm-popovers/dm-popovers.css',
@@ -107,7 +108,7 @@ self.addEventListener('fetch', (event) => {
                 // If no cached response, return an error response
                 return new Response('Fetch error: No cached Tune database available', {
                   status: 400,
-                  statusText: 'Fetch error and no cached Tune database available. User may need to clear settings.',
+                  statusText: 'Fetch error and no cached Tune database available',
                 });
               });
           });

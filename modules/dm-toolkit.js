@@ -1,19 +1,19 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.2.9
+// #ProjectDenis Toolkit v.3.0
 //
-// App Launcher v.1.3
-// Search Engine v.1.4
-// List Generator v.2.2
-// TSV to JSON Parser v.2.2
-// JSON Splitter v.2.1
+// App Helper v.1.0
+// App Launcher v.1.4
+// Search Engine v.1.5
+// List Generator v.2.3
+// TSV to JSON Parser v.2.3
+// JSON Splitter v.2.3
 ///////////////////////////////////////////////////////////////////////
 
+import { updateData, clearData, tracksJson, colsJson, tunesJson, refsJson, discoverSection } from './dm-app.js';
 import { tracksCounter, colsCounter, tunesCounter } from '../components/dm-search/dm-search.js';
+import { tunelistDiv, colsListDiv, refsListDiv, refsListLinksDiv } from '../components/dm-modals/dm-modals.js';
 import { tracklistDiv, tracklistOutput } from '../components/dm-tracklist/dm-tracklist.js'
-import { tunelistDiv, colsListDiv } from '../components/dm-modals/dm-modals.js';
-import { themePickerPopover } from '../components/dm-popovers/dm-popovers.js';
 import { toggleAriaExpanded, toggleTabIndex, setAriaLabel, addAriaHidden } from './aria-tools.js';
-import { doDataCheckup, updateData, clearData, launchAppSequence, tracksJson, colsJson, tunesJson } from './dm-app.js';
 
 // Define global variable that if > 0 turns off initial fetching of Tune Data JSONs
 
@@ -29,34 +29,20 @@ const trackKeys = ["refno", "trackno", "tunename", "tunetype", "altnames", "tune
 const refListKeys = ["refitemno", "refitemcode", "refpubyear", "refshortname", "reffullname", "reftype", "refdetails1", "refdetailslink1", "refdetails2", "refdetailslink2", "refdetails3", "refdetailslink3", "refdetails4", "refdetailslink4", "refdetails5", "refdetailslink5"];
 const linkListKeys = ["refitemno","refitemlink", "refitemcode", "refshortname", "reffullname", "reftype", "refdetails1", "refdetailslink1", "refdetails2", "refdetailslink2", "refdetails3", "refdetailslink3", "refdetails4", "refdetailslink4", "refdetails5", "refdetailslink5"];
 
-// Define Toolkit input and output fields
-
-export const parserInputDiv = document.getElementById('inputString');
-export const parserOutputDiv = document.getElementById('output');
-
-export const splitterColsDiv = document.getElementById('splitter-cols-output');
-export const splitterTracksDiv = document.getElementById('splitter-tracks-output');
-export const splitterTunesDiv = document.getElementById('splitter-tunes-output');
-
 // Define Toolkit Sections
 
 export const generatorSection = document.querySelector('.dm-generator');
 export const parserSection = document.querySelector('.dm-parser');
 export const splitterSection = document.querySelector('.dm-splitter');
 
-// Define Header buttons
+// Define Toolkit input and output fields
 
-export const allThemeBtn = document.querySelectorAll('.theme-btn');
-export const themeToggleBtn = document.getElementById('theme-toggle-btn');
-
-// Define Generator buttons
-
-export const startExploringBtn = document.querySelector('#dm-btn-start-exploring');
-export const generateTunelistBtn = document.querySelector('#dm-btn-generate-tunelist');
-export const generateColsListBtn = document.querySelector('#dm-btn-generate-collections');
-export const generateTracklistBtn = document.querySelector('#dm-btn-generate-tracklist');
-export const generateRefListBtn = document.querySelector('#dm-btn-generate-reflist');
-export const generateLinkListBtn = document.querySelector('#dm-btn-generate-linklist');
+const parserInputDiv = document.getElementById('inputString');
+const parserOutputDiv = document.getElementById('output');
+const splitterColsDiv = document.getElementById('splitter-cols-output');
+const splitterTracksDiv = document.getElementById('splitter-tracks-output');
+const splitterTunesDiv = document.getElementById('splitter-tunes-output');
+const splitterRefsDiv = document.getElementById('splitter-refs-output');
 
 // Define Parser buttons
 
@@ -74,10 +60,7 @@ const getTunesBtn = document.getElementById("getTunes");
 const splitterColsCounter = document.getElementById("splitter-cols-counter");
 const splitterTracksCounter = document.getElementById("splitter-tracks-counter");
 const splitterTunesCounter = document.getElementById("splitter-tunes-counter");
-
-// Define status bars for screenreaders
-
-export const statusBars = document.querySelectorAll('.dm-status-bar');
+const splitterRefsCounter = document.getElementById("splitter-refs-counter");
 
 // Check if a line in a raw tsv file is a track or a collection header (= 1000s)
 
@@ -109,18 +92,6 @@ function checkStringType(line) {
     return null;
 }
 
-// Checks if an object is empty
-
-export function isObjectEmpty(obj) {
-
-    for(let i in obj) {
-
-        return false;
-    }
-
-    return true;
-}
-
 // Check if an object is a valid track/collection or reflist object and contains a reference number
 
 function checkObjectType(obj, key) {
@@ -145,12 +116,8 @@ function checkObjectType(obj, key) {
 
             if (refNo < 1000) {
 
-                if (key === "tunerefs" && refNo < 500) {
+                if (key === "refitemno") {
 
-                    return true;
-
-                } else if (key === "linkrefs" && refNo > 500) {
-                    
                     return true;
                 }
             }
@@ -356,12 +323,16 @@ export function clearOutput() {
     splitterColsDiv.textContent = "Data cleared.";
     splitterTracksDiv.textContent = "Data cleared.";
     splitterTunesDiv.textContent = "Data cleared.";
+    splitterRefsDiv.textContent = "Data cleared.";
     splitterColsCounter.firstElementChild.textContent = "0";
     splitterTracksCounter.firstElementChild.textContent = "0";
     splitterTunesCounter.firstElementChild.textContent = "0";
+    splitterRefsCounter.firstElementChild.textContent = "0";
     tunelistDiv.textContent = ""; 
     colsListDiv.textContent = ""; 
     tracklistDiv.textContent = "";
+    refsListDiv.textContent = "";
+    refsListLinksDiv.textContent = "";
     colsCounter.textContent = "0";
     tracksCounter.textContent = "0";
     tunesCounter.textContent = "0";
@@ -396,7 +367,7 @@ async function filterOutput(mixedJson) {
 
     if (Array.isArray(mixedJson) || mixedJson.length > 0) {
 
-        if (mixedJson[0]["refitemno"] || mixedJson[0]["linkitemno"]) {
+        if (mixedJson[0]["refitemno"]) {
 
             saveOutputFile("output", "references");
             return;
@@ -405,16 +376,22 @@ async function filterOutput(mixedJson) {
         tunelistDiv.textContent = ""; 
         colsListDiv.textContent = ""; 
         tracklistDiv.textContent = "";
+        refsListDiv.textContent = "";
+        refsListLinksDiv.textContent = "";
+
         clearData();
 
         let filteredColsJson = mixedJson.filter(obj => checkObjectType(obj, "colrefno"));
         let filteredTracksJson = mixedJson.filter(obj => checkObjectType(obj, "refno"));
+        let filteredRefsJson = mixedJson.filter(obj => checkObjectType(obj, "refitemno"));
 
-        let updatedColsJson = await validateJson(filteredColsJson);
-        let updatedTracksJson = await validateJson(filteredTracksJson);
+        let newColsJson = await validateJson(filteredColsJson);
+        let newTracksJson = await validateJson(filteredTracksJson);
+        let newRefsJson = await validateJson(filteredRefsJson);
 
-        updateData(updatedColsJson, "cols");
-        updateData(updatedTracksJson, "tracks");
+        updateData(colsJson, newColsJson);
+        updateData(tracksJson, newTracksJson);
+        updateData(refsJson, newRefsJson);
 
         colsCounter.textContent = colsJson.length;
         tracksCounter.textContent = tracksJson.length;
@@ -422,13 +399,34 @@ async function filterOutput(mixedJson) {
 
         splitterColsCounter.firstElementChild.textContent = colsJson.length;
         splitterTracksCounter.firstElementChild.textContent = tracksJson.length;
+        splitterRefsCounter.firstElementChild.textContent = refsJson.length;
         splitterTunesCounter.firstElementChild.textContent = "0";
+
+        if (colsJson.length === 0) {
+
+            splitterColsDiv.innerText = "No collections data found in JSON.";
+        }
+
+        if (tracksJson.length === 0) {
+
+            splitterTracksDiv.innerText = "No tracks data found in JSON.";
+            splitterTunesDiv.innerText = "No tune data found in JSON.";   
+        }
+
+        if (refsJson.length === 0) {
+
+            splitterRefsDiv.innerText = "No references data found in JSON.";
+
+        } else {
+
+            splitterRefsDiv.innerText = JSON.stringify(refsJson, null, 2);
+        }
 
         if (tracksJson.length > 0) {
 
             createTuneList(tracksJson).then(result => {
 
-                updateData(result, "tunes");                
+                updateData(tunesJson, result);                
 
                 splitterTunesCounter.firstElementChild.textContent = tunesJson.length;
                 tunesCounter.textContent = tunesJson.length;
@@ -437,25 +435,16 @@ async function filterOutput(mixedJson) {
                 splitterTracksDiv.innerText = JSON.stringify(tracksJson, null, 2);
                 splitterTunesDiv.innerText = JSON.stringify(tunesJson, null, 2);
                 splitterSection.scrollIntoView();
-                // toolkitMode = 1;
                 return;
             });
 
         } else if (colsJson.length > 0) {
 
             splitterColsDiv.innerText = JSON.stringify(colsJson, null, 2);
-            splitterTracksDiv.innerText = "No tracks data found in JSON.";
-            splitterTunesDiv.innerText = "No tune data found in JSON.";
             splitterSection.scrollIntoView();
-            // toolkitMode = 1;
             return;
         }
     }
-
-    splitterColsDiv.innerText = "No collections data found in JSON.";
-    splitterTracksDiv.innerText = "No tracks data found in JSON.";
-    splitterTunesDiv.innerText = "No tune data found in JSON.";    
-    // toolkitMode = 0;
 }
 
 // Filter down items to a unique comma-separated string of links removing duplicates
@@ -576,8 +565,6 @@ export function addMultiEventListeners(element, events, handler) {
 
 export async function initToolkitButtons() {
 
-    startExploringBtn.addEventListener("click", launchAppSequence);
-
     parseSingleStringBtn.addEventListener("click", parseSingleString);
     parseFromFileBtn.addEventListener("click", parseFromFile);
     saveOutputFileBtn.addEventListener("click", () => saveOutputFile("output", "output"));
@@ -588,39 +575,12 @@ export async function initToolkitButtons() {
     getTracksBtn.addEventListener("click", () => saveOutputFile("splitter-tracks-output", "tracks"));
     getTunesBtn.addEventListener("click", () => saveOutputFile("splitter-tunes-output", "tunes"));
 
-    // Color theme toggle buttons
+    [splitterColsCounter, splitterTracksCounter, splitterTunesCounter].forEach(counter => {
 
-    allThemeBtn.forEach(btn => {
+    counter.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+    });
 
-        btn.addEventListener('click', () => {
-
-            if (btn === themeToggleBtn) {
-
-                return;
-            }
-
-            themePickerPopover.hidePopover();
-            document.body.classList.value = btn.dataset.theme;
-            localStorage.setItem("user-color-theme", btn.dataset.theme);
-
-            setAriaLabel(themeToggleBtn, `${btn.title} is on. Select color theme.`);
-
-            allThemeBtn.forEach(btn => { 
-                if (btn.classList.contains("hidden")) {
-                    btn.classList.remove("hidden");
-                }
-            });
-
-            btn.classList.add("hidden");
-
-            themeToggleBtn.focus();
-        });
-     });
-
-     [splitterColsCounter, splitterTracksCounter, splitterTunesCounter].forEach(counter => {
-
-        counter.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-         })
-     });
+    splitterRefsCounter.addEventListener("click", () => discoverSection.scrollIntoView());
 }

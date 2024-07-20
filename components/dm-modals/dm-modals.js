@@ -1,9 +1,9 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
-import { toolkitMode, statusBars, generateTunelistBtn, generateColsListBtn, generateTracklistBtn, generateRefListBtn, generateLinkListBtn } from '../../modules/dm-toolkit.js';
+import { doDataCheckup, tracksJson, colsJson, tunesJson, refsJson, getInfoFromDataType, updateData, updateDataJsons, statusBars, 
+  generateTunelistBtn, generateColsListBtn, generateTracklistBtn, generateRefListBtn, generateLinkListBtn } from '../../modules/dm-app.js';
 import { tracklistDiv, tracklistOutput, generateTracklist, tracklistHeaders } from '../dm-tracklist/dm-tracklist.js';         
 import { toggleAriaExpanded, toggleAriaHidden, addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
-import { doDataCheckup, tracksJson, colsJson, tunesJson, refsJson, updateData, fetchDataJsons } from '../../modules/dm-app.js';
 import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
 
 export const tunelistDiv = document.querySelector('#dm-tunelist');
@@ -26,114 +26,118 @@ const closeRefsListBtn = document.querySelector('#dm-btn-references-close');
 export async function generateHandler() {
 
   const genBtn = this;
+  const genDataInfo = getInfoFromDataType(genBtn.dataset.generates);
+  const parentJson = genDataInfo[0];
+  const listName = genDataInfo[1];
+  const itemName = listName.toLowerCase();
 
-  let parentJson;
+  const checkData = await doDataCheckup(
+        parentJson === "colsJson"? colsJson : 
+        parentJson === "tunesJson"? tunesJson :
+        parentJson === "refsJson"? refsJson :
+        tracksJson
+    );
+
+  if (checkData === 0) {
+
+    return;
+  }
+
   let parentDialog;
   let parentDialogDiv;
-  let listName;
-  let itemName;
 
   if (genBtn === generateTunelistBtn) {
 
-    parentJson = tunesJson;
     parentDialog = tunelistDialog;
     parentDialogDiv = tunelistDiv;
-    listName = "Tune";
-    itemName = "tunes";
   }
 
   if (genBtn === generateColsListBtn) {
 
-    parentJson = colsJson;
     parentDialog = colsListDialog;
     parentDialogDiv = colsListDiv;
-    listName = "Collections ";
-    itemName = "collections";
   }
 
   if (genBtn === generateTracklistBtn) {
 
-    parentJson = tracksJson;
     parentDialogDiv = tracklistDiv;
-    listName = "Track";
-    itemName = "tracks";
   }
 
   if (genBtn === generateRefListBtn || genBtn === generateLinkListBtn) {
 
-    parentJson = refsJson;
     parentDialog = refsListDialog;
     parentDialogDiv = refsListDiv;
-    listName = "References ";
-    itemName = "references";
   }
 
-  if (parentJson.length === 0) {
+  if (parentDialogDiv.children.length > 0 && genBtn !== generateTracklistBtn) {
 
-    doDataCheckup(itemName);
-
-    return;
+    console.log(`PD App:\n\n${listName} list found, opening dialog`);
   }
 
-  if (!parentDialogDiv.children.length > 0) {
+  if (parentDialogDiv.children.length === 0) {
 
-    console.log(`PD App:\n\nGenerating list of ${itemName}...`);
+    try {
 
-    if (genBtn === generateTunelistBtn) {
+      console.log(`PD App:\n\nGenerating list of ${itemName}...`);
 
-      generateTunelist(parentJson);
+      if (genBtn === generateTunelistBtn) {
+
+        generateTunelist(tunesJson);
+      }
+
+      if (genBtn === generateColsListBtn) {
+
+        generateColsList(colsJson);
+      }
+
+      if (genBtn === generateTracklistBtn) {
+
+        tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
+        tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
+        await generateTracklist(tracksJson);
+        tracklistHeaders[0].setAttribute("aria-sort", "ascending");
+        tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
+      }
+
+      if (genBtn === generateRefListBtn || genBtn === generateLinkListBtn) {
+
+        generateRefsList(refsJson);
+      }
+
+    } catch (error) {
+
+      console.warn(`PD App:\n\n Failed to generate list, details: `+ error);
+      return;
     }
-
-    if (genBtn === generateColsListBtn) {
-
-      generateColsList(parentJson);
-    }
-
-    if (genBtn === generateTracklistBtn) {
-
-      tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
-      tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
-      await generateTracklist(parentJson);
-      tracklistHeaders[0].setAttribute("aria-sort", "ascending");
-      tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
-    }
-
-    if (genBtn === generateRefListBtn || genBtn === generateLinkListBtn) {
-
-      generateRefsList(parentJson);
-    }
-
-  } else {
-
-    console.log(`PD App:\n\n${listName}list found, ${itemName} total: ${parentJson.length}`);
-  }
+  } 
 
   if (genBtn === generateTracklistBtn) {
+  
+    console.log(`PD App:\n\nTracklist toggled`);
 
     tracklistOutput.classList.toggle("hidden");
+
     toggleAriaExpanded(generateTracklistBtn);
+
     toggleAriaHidden(tracklistOutput);
-    return;
-      
-  } else {
-
-    showDialogsDiv();
-    removeAriaHidden(parentDialog);
-    parentDialog.showModal();
-
-    if (genBtn === generateRefListBtn) {
-
-      refsListRefsTable.scrollIntoView();
-    }
-
-    if (genBtn === generateLinkListBtn) {
-
-      refsListLinksTable.scrollIntoView();
-      refsListLinksTable.querySelector('.dm-btn-ref-open[aria-label="ITMA: Click to show more links."]').focus();
-    }
 
     return;
-  }  
+  }
+
+  showDialogsDiv();
+  removeAriaHidden(parentDialog);
+  parentDialog.showModal();
+
+  if (genBtn === generateRefListBtn) {
+
+    refsListRefsTable.scrollIntoView();
+  }
+
+  if (genBtn === generateLinkListBtn) {
+
+    refsListLinksTable.scrollIntoView();
+    refsListLinksTable.querySelector('.dm-btn-ref-open[aria-label="ITMA: Click to show more links."]').focus();
+  }
 }
 
 // Create Tunelist modal dialog populated with Tune items

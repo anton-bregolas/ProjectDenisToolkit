@@ -4,7 +4,7 @@
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box; 
-  transition: background-color 0.3s linear;
+  /* transition: background-color 0.3s linear; */
   /* outline: 0.1rem solid red; */
 }
 
@@ -160,6 +160,8 @@ button {
   padding: 0;
   margin: 0;
   max-width: 100%;
+  outline-color: transparent;
+  transition: outline-color 0.1s ease-in-out;
 }
 
 button:hover {
@@ -266,7 +268,11 @@ dialog:focus-visible {
 .btn, 
 .btn-text,
 .link-wrapper a {
-  transition: all 0.33s ease-in-out;
+  transition: 
+  outline-color 0.33s ease-in-out,
+  transform 0.3s ease-in-out, 
+  box-shadow 0.33s ease-in-out, 
+  opacity 0.33s ease-in-out;
 }
 
 .btn:disabled {
@@ -383,7 +389,9 @@ dialog:focus-visible {
 .theme-icon,
 .section-nav-btn {
   opacity: 0.75;
-  transition: opacity 0.5s ease-in-out, color 0.35s ease-in-out;
+  transition: 
+  opacity 0.5s ease-in-out, 
+  color 0.35s ease-in-out;
   color: var(--accent-color-b);
 }
 
@@ -416,9 +424,11 @@ circle {
   text-align: center;
   color: var(--neutral-color);
   caret-color: var(--neutral-color);
-  transition: opacity 0.35s ease-in-out, 
-  box-shadow 0.35s ease-in-out,
-  background-color 0.35s linear;
+  outline: 0.16rem solid transparent;
+  transition: 
+  outline-color 0.35s ease-in-out,
+  opacity 0.35s ease-in-out, 
+  box-shadow 0.5s ease-in-out;
   width: 100%;
 }
 
@@ -428,7 +438,7 @@ circle {
 }
 
 .input-field:is(:hover, :focus, :focus-visible) {
-  outline: 0.16rem solid var(--focus-color);
+  outline-color: var(--focus-color);
   outline-offset: 0.07rem;
   box-shadow: 0px 0px 0px 0.1875rem black;
 }
@@ -495,3 +505,26 @@ circle {
 .scrollable {
   overflow-y: auto !important;
 }
+
+/* Global animations override */
+
+/* Custom override (animations reduced to 1ms) */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::after, *::before {
+    animation-duration: 1ms !important;
+    animation-delay: -1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    transition-delay: -1ms !important;
+  }  
+}
+
+/* Blanket override (may break JS code) */
+
+/* @media (prefers-reduced-motion: reduce) {
+  *, *::after, *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+} */

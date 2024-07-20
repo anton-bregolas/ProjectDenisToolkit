@@ -407,6 +407,16 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   color: var(--neutral-color);
 }
 
+/* Fallbacks */
+
+body.star .dm-collist-item::before {
+  color: #ffb366;
+}
+
+body.star .dm-col-card {
+  --col-card-color: #7d52a8;
+}
+
 @supports (color: color-mix(in srgb, #663399, #ff6699)) {
 
   body.star .dm-collist-item::before {
@@ -416,6 +426,22 @@ body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   body.star .dm-col-card {
     --col-card-color: color-mix(in srgb, var(--secondary-color-c) 85%, white);
   }
+}
+
+/* Fallbacks */
+
+body.star .header-main {
+  border-color: var(--secondary-color-a);
+}
+
+body.star,
+body.star .dm-modal-list,
+body.star .dm-btn-search-wrap,
+body.star .dm-search-results-group,
+body.star #theme-picker-popover,
+body.star .header-main,
+body.star .input-field {
+  background: var(--primary-color);
 }
 
 @supports (background: linear-gradient(0deg, #663399, #ff6699)) {
