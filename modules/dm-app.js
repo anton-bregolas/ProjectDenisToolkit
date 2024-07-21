@@ -5,8 +5,8 @@
 import { initSearch, tracksCounter, colsCounter, tunesCounter } from '../components/dm-search/dm-search.js';
 import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
 import { setAriaLabel } from './aria-tools.js';
-import { initModals } from '../components/dm-modals/dm-modals.js';
-import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
+import { initModals, generateHandler } from '../components/dm-modals/dm-modals.js';
+import { initPopovers, helpCardPopover } from '../components/dm-popovers/dm-popovers.js';
 import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
 
 // Tune Database links
@@ -15,19 +15,28 @@ export const tunesJsonLink = "https://raw.githubusercontent.com/anton-bregolas/P
 export const tracksJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tracks.json";
 export const colsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/collections.json";
 export const refsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/references.json";
+export const helperJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/helper.json";
 
 // Define App sections
 
-const appLauncherSection = document.querySelector('.dm-launch');
+export const appLauncherSection = document.querySelector('.dm-launch');
+const mainHeaderSection = document.querySelector('.header-main');
 export const searchSection = document.querySelector('#dm-search');
 export const exploreSection = document.querySelector('#dm-explore');
 export const discoverSection = document.querySelector('#dm-discover');
 export const footerSection = document.querySelector('.dm-footer');
 export const navMenuToggleBtn = document.querySelector('#main-nav-btn');
-const navSectionButtons = document.querySelectorAll('.nav-link');
+
+// Define Header App buttons
+
+export const openCollectionsBtn = document.querySelector('#collections-header-btn');
+export const openTracklistBtn = document.querySelector('#tracklist-header-btn');
+export const openTunelistBtn = document.querySelector('#tunelist-header-btn');
 
 // Define Main Page Nav and Theme buttons
 
+export const allAppBtn = document.querySelectorAll('.app-btn'); 
+export const allLinkBtn = document.querySelectorAll('.link-btn');
 export const allThemeBtn = document.querySelectorAll('.theme-btn');
 export const themeToggleBtn = document.getElementById('theme-toggle-btn');
 
@@ -40,6 +49,12 @@ export const generateTracklistBtn = document.querySelector('#dm-btn-generate-tra
 export const generateRefListBtn = document.querySelector('#dm-btn-generate-reflist');
 export const generateLinkListBtn = document.querySelector('#dm-btn-generate-linklist');
 
+// Define Generator button groups
+
+export const allGenerateTunelistBtn = document.querySelectorAll('[data-generates="tunes"]');
+export const allGenerateColsListBtn = document.querySelectorAll('[data-generates="cols"]');
+export const allGenerateTracklistBtn = document.querySelectorAll('[data-generates="tracks"]');
+
 // Define App Helper elements
 
 export const allAppHelperImgs = document.querySelectorAll('.dm-helper-image');
@@ -47,6 +62,10 @@ export const allAppHelperImgs = document.querySelectorAll('.dm-helper-image');
 // Define status bars for screenreaders
 
 export const statusBars = document.querySelectorAll('.dm-status-bar');
+
+// Set starting Guided Help Tour variable value
+
+export let showWelcomeMessage = 1;
 
 ////////////////////////////////
 // Fetch Tune DB data functions
@@ -58,6 +77,7 @@ export const colsJson = [];
 export const tunesJson = [];
 export const tracksJson = [];
 export const refsJson = [];
+export const helperJson = [];
 
 // Clear Data JSONs
 
@@ -83,7 +103,7 @@ export async function fetchData(url, type) {
 
     if (!response.ok) {
 
-      throw new Error("Error fetching data from Tune DB:\n\n", { cause: response });
+      throw new Error("Failed to fetch data from Tune DB", { cause: response });
     }
 
     if (type === "json") {
@@ -105,7 +125,7 @@ export async function fetchData(url, type) {
 
   } catch (error) {
 
-    throw new Error(`PD App:\n\n` + error + `\n\nHTTP error code: ` + error.cause.response?.status);
+    throw new Error(`[PD App]\n\n` + error + `\n\nHTTP error code: ` + error.cause?.status);
   }
 }
 
@@ -119,12 +139,13 @@ export async function fetchDataJsons() {
       fetchData(colsJsonLink, "json"), 
       fetchData(tunesJsonLink, "json"), 
       fetchData(tracksJsonLink, "json"), 
-      fetchData(refsJsonLink, "json")
+      fetchData(refsJsonLink, "json"),
+      fetchData(helperJsonLink, "json")
     ]);
 
   } catch (error) {
 
-    throw new Error(error)
+    throw (error);
   }
 }
 
@@ -136,25 +157,24 @@ export async function updateDataJsons() {
 
     console.log("PD App:\n\nFetching data from Tune DB...");
 
-    const [colsJsonData, tunesJsonData, tracksJsonData, refsJsonData] =     
+    const [colsJsonData, tunesJsonData, tracksJsonData, refsJsonData, helperJsonData] =     
     await fetchDataJsons();
 
     updateData(colsJson, colsJsonData);
     updateData(tunesJson, tunesJsonData);
     updateData(tracksJson, tracksJsonData);
     updateData(refsJson, refsJsonData);
+    updateData(helperJson, helperJsonData);
     
     tracksCounter.textContent = tracksJson.length;
     colsCounter.textContent = colsJson.length;
     tunesCounter.textContent = tunesJson.length;
 
-    return [colsJson.length, tunesJson.length, tracksJson.length, refsJson.length];
+    return [colsJson.length, tunesJson.length, tracksJson.length, refsJson.length, helperJson.length];
 
   } catch (error) {
 
-    console.warn(error);
-
-    return[0, 0, 0, 0];
+    throw (error);
   }
 }
 
@@ -200,6 +220,13 @@ export function getInfoFromDataType(jsonType) {
       dataName = "References";
       dataIndex = 3;
       break;     
+
+    case "help":
+    case "helper":
+      parentJson = "helperJson";
+      dataName = "Helper";
+      dataIndex = 4;
+      break;   
   
     default:
       dataName = "Tune DB";
@@ -288,9 +315,33 @@ function initLaunchButtons() {
   startExploringBtn.addEventListener("click", launchAppSequence);
 }
 
-// Launch app sequence: Fetch all Data JSONs, assign them to Custom JSONs, reveal app menu
+// Launch app sequence: Check if help tour is needed, fetch all Data JSONs, update Custom JSONs, reveal app menu
 
 async function launchAppSequence() {
+
+  if (showWelcomeMessage === 1 && !localStorage.getItem("user-skip-help-tour")) {
+
+    helpCardPopover.showPopover();
+
+    return;
+  }
+
+  if (toolkitMode === 0) {
+
+    try {
+
+      await launchAppFetch();
+
+    } catch (error) {
+
+      console.warn(`PD App:\n\nLaunching app sequence failed. Details:\n\n${error.message}`);
+    }
+  }
+}
+
+// Fetch Tune DB data and reveal main page sections
+
+async function launchAppFetch() {
 
   if (toolkitMode === 0) {
 
@@ -305,15 +356,32 @@ async function launchAppSequence() {
 
     } catch (error) {
 
-      console.warn(`PD App:\n\nLaunching app sequence failed. Details:\n\n${error.message}`);
+      throw error;
     }
   }
+
+  launchAppReveal();
+}
+
+// Reveal hidden Main Page sections, hide App Launcher section and Helper (if not on guided tour)
+
+async function launchAppReveal() {
 
   searchSection.removeAttribute("hidden");
   exploreSection.removeAttribute("hidden");
   discoverSection.removeAttribute("hidden");
   footerSection.removeAttribute("hidden");
   appLauncherSection.setAttribute("hidden", "");
+
+  allLinkBtn.forEach(linkBtn => {
+
+    linkBtn.classList.add("hidden");
+  });
+
+  allAppBtn.forEach(appBtn => {
+
+    appBtn.classList.remove("hidden");
+  });
 
   if (toolkitMode > 0) {
 
@@ -322,7 +390,33 @@ async function launchAppSequence() {
     parserSection.scrollIntoView();
   }
   
-  hideAppHelper();
+  if (+helpCardPopover.dataset.stage === 0) {
+
+    hideAppHelper();
+  }
+}
+
+/////////////////////////////////////////
+// App Header Generator button functions
+////////////////////////////////////////
+
+// Initialize App Main Page Header
+
+function initHeaderButtons() {
+
+  mainHeaderSection.addEventListener('click', mainHeaderHandler);
+}
+
+// Handle clicks on Open / Generate buttons in main page header
+
+function mainHeaderHandler(event) {
+
+  const appGenBtn = event.target.closest('[data-generates]');
+
+  if (appGenBtn) {
+
+    generateHandler(appGenBtn);
+  }
 }
 
 ////////////////////////////////////
@@ -385,6 +479,36 @@ function toggleAppHelpers(currentColorTheme) {
   });
 }
 
+//////////////////////////////////////
+// App Helper and Help Menu Functions
+/////////////////////////////////////
+
+// Initialize App Helpers
+
+function initAppHelpers() {
+
+  allAppHelperImgs.forEach(helper => {
+
+    helper.addEventListener('click', appHelperHandler);
+  });
+
+  showAppHelper();
+}
+
+// Show or hide popover when Helper is clicked
+
+export function appHelperHandler() {
+
+  if (helpCardPopover.matches(':popover-open')) {
+
+    helpCardPopover.hidePopover();
+
+    return;
+  }
+
+  helpCardPopover.showPopover();
+}
+
 // Show App Helper, slide in to full size
 
 export function showAppHelper() {
@@ -405,18 +529,6 @@ export function hideAppHelper() {
   });
 }
 
-// Initialize App Helpers
-
-function initAppHelpers() {
-
-  allAppHelperImgs.forEach(helper => {
-
-    helper.addEventListener('click', hideAppHelper);
-  });
-
-  showAppHelper();
-}
-
 /////////////////////////////////////////////////
 // Apply user color theme right before page load
 ////////////////////////////////////////////////
@@ -431,10 +543,6 @@ function initAppHelpers() {
 
     toggleAppHelpers(userColorTheme);
 
-    setTimeout(() => {
-      showAppHelper();
-    }, 500);
-
     console.log(`PD App:\n\nUser color theme retrieved`);
   }
 })();
@@ -445,7 +553,9 @@ function initAppHelpers() {
 
 document.addEventListener("DOMContentLoaded", () => {
   
+  showAppHelper();
   initLaunchButtons();
+  initHeaderButtons();
   initToolkitButtons();
   initSearch();
   initModals();

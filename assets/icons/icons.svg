@@ -60,7 +60,12 @@
     <path fill-rule="evenodd" d="M14 11V2h1v9zM6 3v10H5V3z"></path>
     <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4z"></path>
   </symbol>
-  <symbol xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 15" id="action-icon-records">
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" id="action-icon-records">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-8 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+    <path d="M 7.99 8.007 m -2.484 0 a 2.484 2.492 0 1 0 4.968 0 a 2.484 2.492 0 1 0 -4.968 0 Z M 7.99 8.007 m -1.49 0 a 1.49 1.497 0 0 1 2.98 0 a 1.49 1.497 0 0 1 -2.98 0 Z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 15" id="action-icon-records-crop">
     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-8 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
     <path d="M 7.99 8.007 m -2.484 0 a 2.484 2.492 0 1 0 4.968 0 a 2.484 2.492 0 1 0 -4.968 0 Z M 7.99 8.007 m -1.49 0 a 1.49 1.497 0 0 1 2.98 0 a 1.49 1.497 0 0 1 -2.98 0 Z"></path>

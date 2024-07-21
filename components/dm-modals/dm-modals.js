@@ -1,7 +1,8 @@
 /* #ProjectDenis: Modal Dialogs Scripts */
 
-import { doDataCheckup, tracksJson, colsJson, tunesJson, refsJson, getInfoFromDataType, updateData, updateDataJsons, statusBars, 
-  generateTunelistBtn, generateColsListBtn, generateTracklistBtn, generateRefListBtn, generateLinkListBtn } from '../../modules/dm-app.js';
+import { doDataCheckup, tracksJson, colsJson, tunesJson, refsJson, getInfoFromDataType, statusBars,
+         generateTunelistBtn, generateColsListBtn, generateTracklistBtn, generateRefListBtn, generateLinkListBtn,
+         openCollectionsBtn, openTracklistBtn, openTunelistBtn, exploreSection} from '../../modules/dm-app.js';
 import { tracklistDiv, tracklistOutput, generateTracklist, tracklistHeaders } from '../dm-tracklist/dm-tracklist.js';         
 import { toggleAriaExpanded, toggleAriaHidden, addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
 import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
@@ -17,15 +18,39 @@ export const allDialogLists = document.querySelectorAll('.dm-modal-list');
 export const tunelistDialog = document.querySelector('#dm-modal-list-tunes');
 export const colsListDialog = document.querySelector('#dm-modal-list-cols');
 export const refsListDialog = document.querySelector('#dm-modal-list-references');
+export const generatorDivs = document.querySelectorAll('.generator-container');
 const closeTunelistBtn = document.querySelector('#dm-btn-tunelist-close');
 const closeColsListBtn = document.querySelector('#dm-btn-colslist-close');
 const closeRefsListBtn = document.querySelector('#dm-btn-references-close');
 
+// Initialize elements in Generator button containers of main app sections
+
+function initGeneratorDivs() {
+
+  generatorDivs.forEach(genDiv => {
+    
+    genDiv.addEventListener('click', generatorDivHandler);
+
+  });  
+}
+
+// Handle clicks in Generator button container
+
+function generatorDivHandler(event) {
+
+  const thisGenBtn = event.target.closest('[data-generates]');
+
+  if (thisGenBtn) {
+
+    generateHandler(thisGenBtn);
+  }
+}
+
 // Launch List Generator function depending on the button pressed
 
-export async function generateHandler() {
+export async function generateHandler(thisGenBtn) {
 
-  const genBtn = this;
+  const genBtn = thisGenBtn;
   const genDataInfo = getInfoFromDataType(genBtn.dataset.generates);
   const parentJson = genDataInfo[0];
   const listName = genDataInfo[1];
@@ -46,19 +71,19 @@ export async function generateHandler() {
   let parentDialog;
   let parentDialogDiv;
 
-  if (genBtn === generateTunelistBtn) {
+  if (genBtn === generateTunelistBtn || genBtn === openTunelistBtn) {
 
     parentDialog = tunelistDialog;
     parentDialogDiv = tunelistDiv;
   }
 
-  if (genBtn === generateColsListBtn) {
+  if (genBtn === generateColsListBtn || genBtn === openCollectionsBtn) {
 
     parentDialog = colsListDialog;
     parentDialogDiv = colsListDiv;
   }
 
-  if (genBtn === generateTracklistBtn) {
+  if (genBtn === generateTracklistBtn || genBtn === openTracklistBtn) {
 
     parentDialogDiv = tracklistDiv;
   }
@@ -69,7 +94,7 @@ export async function generateHandler() {
     parentDialogDiv = refsListDiv;
   }
 
-  if (parentDialogDiv.children.length > 0 && genBtn !== generateTracklistBtn) {
+  if (parentDialogDiv.children.length > 0 && genBtn !== generateTracklistBtn && genBtn !==openTracklistBtn) {
 
     console.log(`PD App:\n\n${listName} list found, opening dialog`);
   }
@@ -80,23 +105,28 @@ export async function generateHandler() {
 
       console.log(`PD App:\n\nGenerating list of ${itemName}...`);
 
-      if (genBtn === generateTunelistBtn) {
+      if (genBtn === generateTunelistBtn || genBtn === openTunelistBtn) {
 
         generateTunelist(tunesJson);
       }
 
-      if (genBtn === generateColsListBtn) {
+      if (genBtn === generateColsListBtn || genBtn === openCollectionsBtn) {
 
         generateColsList(colsJson);
       }
 
-      if (genBtn === generateTracklistBtn) {
+      if (genBtn === generateTracklistBtn || genBtn === openTracklistBtn) {
 
         tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
         tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
         await generateTracklist(tracksJson);
         tracklistHeaders[0].setAttribute("aria-sort", "ascending");
         tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
+        
+        if (genBtn === openTracklistBtn) {
+
+          exploreSection.scrollIntoView();
+        }
       }
 
       if (genBtn === generateRefListBtn || genBtn === generateLinkListBtn) {
@@ -111,7 +141,7 @@ export async function generateHandler() {
     }
   } 
 
-  if (genBtn === generateTracklistBtn) {
+  if (genBtn === generateTracklistBtn || genBtn === openTracklistBtn) {
   
     console.log(`PD App:\n\nTracklist toggled`);
 
@@ -420,15 +450,12 @@ export function showDialogsDiv() {
   removeAriaHidden(dialogsDiv);
 }
 
+
 // Add event listeners to Tunelist buttons, listen to Dialog close & cancel events
 
 export function initModals() {
 
-  [generateTunelistBtn, generateColsListBtn, generateTracklistBtn, 
-    generateRefListBtn, generateLinkListBtn].forEach(genBtn => {
-
-    genBtn.addEventListener('click', generateHandler);
-  });
+  initGeneratorDivs();
   
   [closeTunelistBtn, closeColsListBtn, closeRefsListBtn].forEach(btn => {
 

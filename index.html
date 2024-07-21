@@ -19,12 +19,12 @@
 <body class="star">
     <header class="header-main">
         <nav class="header-container"> 
-            <button class="link-btn github-logo" title="#ProjectDenis Toolkit on GitHub" tabindex="-1">
+            <button class="link-btn github-btn" title="#ProjectDenis Toolkit on GitHub" tabindex="-1">
                 <a href="https://github.com/anton-bregolas/ProjectDenisToolkit/" target="_blank" class="link-icon-container" ria-label="Link to Project Denis Toolkit on GitHub">
                     <svg class="link-icon github-icon-dark" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-github"></use></svg>
                 </a>
             </button>
-            <button class="link-btn table-btn" title="Tunetable" tabindex="-1">
+            <button class="link-btn tunetable-btn" title="Tunetable App" tabindex="-1">
                 <a href="https://anton-bregolas.github.io/Tunetable" target="_blank" class="link-icon-container" aria-label="Link to Tunetable app">
                     <svg class="link-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-tunelist"></use></svg>
                 </a>
@@ -34,7 +34,16 @@
                     <svg class="link-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-abc"></use></svg>
                 </a>
             </button>
-            <button id="theme-toggle-btn" class="theme-btn" title="Toggle between color themes" aria-label="Select color theme. The Star Above The Garter theme is on" popovertarget="theme-picker-popover">
+            <button id="collections-header-btn" class="app-btn hidden" title="Open Collections" data-generates="cols">
+                <svg class="app-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-records"></use></svg>
+            </button>
+            <button id="tracklist-header-btn" class="app-btn hidden" title="Go to Tracklist" data-generates="tracks">
+                <svg class="app-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-tunelist"></use></svg>
+            </button>
+            <button id="tunelist-header-btn" class="app-btn hidden" title="Open Tunelist" data-generates="tunes">
+                <svg class="app-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-music"></use></svg>
+            </button>
+            <button id="theme-toggle-btn" class="theme-btn" title="Change Color Theme" aria-label="Select color theme. The Star Above The Garter theme is on" popovertarget="theme-picker-popover">
                 <svg class="theme-icon nav-icon-theme" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-theme"></use></svg>
             </button>
             <section id="theme-picker-popover" popover>
@@ -124,10 +133,10 @@
                     </span></button>
                     <button id="dm-btn-generate-collections" class="btn" data-generates="cols"><span class="btn-text dm-generate-btn-container">Show Collections
                         <span class="action-icon-container action-icon-collections" aria-hidden="true">
-                            <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-records"></use></svg>
+                            <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-records-crop"></use></svg>
                         </span>
                     </span></button>
-                    <button id="dm-btn-generate-tracklist" aria-expanded="false" aria-controls="dm-tracklist-output" class="btn" data-generates="tracks">
+                    <button id="dm-btn-generate-tracklist" class="btn" aria-expanded="false" aria-controls="dm-tracklist-output" data-generates="tracks">
                         <span class="btn-text dm-generate-btn-container"><span class="dm-tracklist-action-status"></span> Tracklist
                         <span class="action-icon-container action-icon-tracklist" aria-hidden="true">
                             <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-tunelist"></use></svg>
@@ -544,6 +553,25 @@
                     <img src="assets/images/dm-helper-pink.png" draggable="false" alt="Image of Denis the Little App Helper playing the fiddle">
                 </picture>
             </article>
+        </article>
+        <article id="dm-popover-help" popover="manual" class="dm-help-card dm-tune-card dm-popover-card" aria-label="Help Menu" data-stage="0">
+            <div class="dm-help-card-container">
+                <div class="dm-help-body">
+                    <p class="dm-help-welcome">Welcome to Project Denis, a prototype app that helps uncover the rich repertoire of the Sliabh Luachra fiddle legend Denis Murphy (1910–1974). Would you like to take a detailed guided tour of the app?</p>
+                    <p class="dm-help-msg" hidden></p>
+                    <div class="dm-help-options">
+                        <label for="dm-help-tour-checkbox" class="dm-checkbox-label">Show this on startup
+                            <input type="checkbox" id="dm-help-tour-checkbox" name="help-tour" class="dm-checkbox" value="1" title="Uncheck to skip welcome screen on app launch" aria-label="Uncheck to skip welcome screen on app launch" checked="checked">
+                        </label>
+                    </div>
+                </div>
+                <nav class="dm-help-nav-footer">
+                    <button class="dm-btn-help-card-nav dm-btn-help-prev" title="Show previous help message" aria-label="Show previous help message" hidden>Back</button>
+                    <button class="dm-btn-help-card-nav dm-btn-help-ok" title="Confirm guided app tour action" autofocus></button>
+                    <button class="dm-btn-help-card-nav dm-btn-help-skip" title="Quit guided app tour" aria-label="Quit guided app tour"></button>
+                    <button class="dm-btn-help-card-nav dm-btn-help-next" title="Show next help message" aria-label="Show next help message" hidden>Next</button>
+                </nav>
+            </div>
         </article>
     </main>
     <footer class="dm-footer" hidden>

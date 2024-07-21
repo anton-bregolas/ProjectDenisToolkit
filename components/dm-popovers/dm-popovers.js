@@ -8,8 +8,8 @@ import { tunelistDialog, colsListDialog, colsListDiv,
 import { tracklistOutput, focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
 import { addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
 import { doDataCheckup, isObjectEmpty, toggleColorTheme, themeToggleBtn, statusBars, 
-         tracksJson, colsJson, tunesJson, refsJson, generateTracklistBtn, 
-         getInfoFromDataType, allAppHelperImgs, showAppHelper, hideAppHelper } from '../../modules/dm-app.js';
+         tracksJson, colsJson, tunesJson, refsJson, generateTracklistBtn, getInfoFromDataType, 
+         allAppHelperImgs, showAppHelper, hideAppHelper, helperJson, appLauncherSection } from '../../modules/dm-app.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
@@ -18,6 +18,7 @@ export const linksCardPopover = document.querySelector('#dm-popover-card-reflink
 export const allPopovers = document.querySelectorAll('[popover]');
 export const themePickerPopover = document.querySelector('#theme-picker-popover');
 export const navCardPopover = document.querySelector('#dm-popover-nav-main');
+export const helpCardPopover = document.querySelector('#dm-popover-help');
 
 const trackRefLinkDiv = document.querySelector('.track-grid-reflink');
 const trackSourceDiv = document.querySelector('.dm-track-grid-source');
@@ -26,6 +27,13 @@ const colRefLinkDiv = document.querySelector('.col-grid-reflink');
 const cardNavBtn = document.querySelectorAll('.dm-btn-card-nav');
 const refCardGridDiv = document.querySelector('.dm-ref-grid-body');
 
+const helpCardWelcome = helpCardPopover.querySelector('.dm-help-welcome'); 
+const helpCardMessage = helpCardPopover.querySelector('.dm-help-msg');
+const helpCardOptions = helpCardPopover.querySelector('.dm-help-options');
+const helpTourCheckbox = helpCardPopover.querySelector('#dm-help-tour-checkbox');
+const helpOKBtn = helpCardPopover.querySelector('.dm-btn-help-ok');
+const helpSkipTourBtn = helpCardPopover.querySelector('.dm-btn-help-skip');
+const allHelpBtns = helpCardPopover.querySelectorAll('.dm-btn-help-card-nav');
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tune Popover Functions
@@ -790,6 +798,7 @@ async function createRefCard(refObject) {
     const refItemCode = refObject.refitemcode;
     const refItemName = refObject.refshortname;
     const refItemType = refObject.reftype;
+    const refSearchLinkUrl = refObject.refitemlink;
 
     let refItemTitle = `Links for: ${refItemName}`;
 
@@ -822,6 +831,27 @@ async function createRefCard(refObject) {
 
         refLinkWrapper.appendChild(refLink);
         refCardGridDiv.appendChild(refLinkWrapper);
+      }
+    }
+
+    if (refItemType === "archive" || refItemType === "tunedb") {
+
+      if (refSearchLinkUrl) {
+
+        const searchLinkDescription = `${refItemName}: Search for Tunes`;
+
+        const refSearchLinkWrapper = document.createElement("div");
+        refSearchLinkWrapper.classList.add("dm-ref-link-wrapper", "link-wrapper");
+
+        const refSearchLink = document.createElement("a");
+        refSearchLink.setAttribute("href", refSearchLinkUrl);
+        refSearchLink.setAttribute("target", "_blank");
+        refSearchLink.setAttribute("title", searchLinkDescription);
+        setAriaLabel(refSearchLink, searchLinkDescription);
+        refSearchLink.textContent = "Search";
+
+        refSearchLinkWrapper.appendChild(refSearchLink);
+        refCardGridDiv.appendChild(refSearchLinkWrapper);
       }
     }
 
@@ -1206,20 +1236,183 @@ function toggleColorThemeHandler(event) {
 
     // Let App Helper show off their new look
 
-    if (!allAppHelperImgs[0].classList.contains("expanded")) {
+    if (!allAppHelperImgs[0].classList.contains("expanded") && +helpCardPopover.dataset.stage === 0) {
     
-        setTimeout(() => {
+      setTimeout(() => {
 
-          showAppHelper();
-        }, 150);
+        showAppHelper();
+      }, 150);
 
-        setTimeout(() => {
-          
-          hideAppHelper();
-        }, 3750);
-      }
+      setTimeout(() => {
+        
+        hideAppHelper();
+      }, 3750);
     }
+  }
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Helper Popover Functions
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Handle clicks on elements inside the Help Popover
+
+export function helpPopoverHandler(event) {
+
+  const helpBtn = event.target.closest('button');
+  const helpBox = event.target.closest('input[type="checkbox"]');
+  const helpTourStage = +helpCardPopover.getAttribute("data-stage");
+
+  console.warn(helpTourStage);
+
+  if (helpBtn) {
+    
+    if (helpBtn === helpOKBtn) {
+
+      doHelpAction(helpTourStage);
+    }
+
+    if (helpBtn === helpSkipTourBtn) {
+
+      doHelpAction(-1);
+    }
+
+    if (helpBtn.classList.contains("dm-btn-help-prev") && helpTourStage > 2) {
+
+      doHelpAction(helpTourStage - 1);
+    }
+
+    if (helpBtn.classList.contains("dm-btn-help-next") && helpTourStage < 10) {
+
+      doHelpAction(helpTourStage + 1);
+    }
+  }
+
+  if (helpBox) {
+
+    if (helpBox === helpTourCheckbox) {
+
+      toggleHelpTourCheckbox(helpBox);
+    }
+  }
+}
+
+// Initialize Help Popover elements
+
+function initHelpPopover() {
+
+  helpCardPopover.addEventListener('click', helpPopoverHandler);
+
+  if (localStorage.getItem("user-skip-help-tour")) {
+
+    console.log(`PD Helper: Welcome message is off`);
+
+    helpTourCheckbox.checked = false;
+
+  } else {
+
+    console.log(`PD Helper: Welcome message is on`);
+  }
+}
+
+// Handle the checking and unchecking of Show Help Tour checkbox
+
+function toggleHelpTourCheckbox(checkbox) {
+
+  if (checkbox.checked) {
+
+    localStorage.removeItem("user-skip-help-tour");
+
+    return;
+  } 
+
+  localStorage.setItem("user-skip-help-tour", 1);
+}
+
+// Update Help Tour stage number in Help Popover dataset
+
+function updateTourStage(targetStageNo) {
+
+  helpCardPopover.setAttribute("data-stage", targetStageNo);
+}
+
+// Generate Help Tour card content from Helper JSON
+
+async function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
+
+  const newMessage = helperJson[helpItemNo]? helperJson[helpItemNo].msgtext : ""; 
+  const okBtnNewText = okBtnText? okBtnText : helperJson[helpItemNo]? helperJson[helpItemNo].oktext : "";
+  const skipBtnNewText = skipBtnText? skipBtnText : "Quit";
+
+  if (helpItemNo === -1) {
+
+    helpCardMessage.setAttribute("hidden", "");
+    helpCardWelcome.removeAttribute("hidden");
+    helpCardOptions.removeAttribute("hidden");
+
+    helpCardMessage.textContent = "";
+    helpOKBtn.textContent = "";
+    helpSkipTourBtn.textContent = "";
+
+    return;
+  }
+
+  helpCardMessage.textContent = newMessage;
+  helpOKBtn.textContent = okBtnNewText;
+  helpSkipTourBtn.textContent = skipBtnNewText;
+}
+
+// Trigger a Help action depending on Guided Tour stage
+
+async function doHelpAction(targetStageNo) {
+
+  if (targetStageNo === -1) {
+
+    helpCardPopover.hidePopover();
+    helpTourCheckbox.checked = false;
+    localStorage.setItem("user-skip-help-tour", 1);
+    generateHelpCard(-1);
+
+    return;
+  }
+
+  if (await doDataCheckup(helperJson, "help") === 0) {
+
+    console.warn("0!");
+
+    helpCardWelcome.textContent = "Oops! Helper's Gone For His Tea! Try pressing OK again or refresh the page.";
+
+    return;
+  }
+
+  if (targetStageNo === 1) {
+
+    helpCardOptions.setAttribute("hidden", "");
+
+    if (appLauncherSection.hasAttribute("hidden")) {
+
+      generateHelpCard(2);
+
+    } else {
+
+      generateHelpCard(1, "OK", "Cancel");
+    }
+  }
+
+  if (targetStageNo === 2) {
+
+    helpCardPopover.hidePopover();
+
+    setTimeout(() => {
+      
+      generateHelpCard(2);
+    }, 150);
+  }
+
+  updateTourStage(targetStageNo);
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialize Popovers & Popover Elements
@@ -1229,6 +1422,8 @@ function toggleColorThemeHandler(event) {
 // Add event listeners to Popover Card navigation buttons
 
 export function initPopovers() {
+
+  initHelpPopover();
 
   themePickerPopover.addEventListener('click', toggleColorThemeHandler);
   

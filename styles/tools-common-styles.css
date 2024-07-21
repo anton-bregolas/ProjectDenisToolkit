@@ -198,6 +198,38 @@ input[type="radio"]:focus-visible {
   outline-offset: 0.345rem;
 }
 
+input[type="checkbox"] {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  width: var(--font-base);
+  height: var(--font-base);
+  border: 0.1rem solid black;
+  border-radius: 0.12rem;
+  background: transparent;
+  font: inherit;
+  color: black;
+}
+
+input[type="checkbox"]::before{
+  content:"\2714";
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:checked::before{
+  opacity: 1;
+}
+
+input[type="checkbox"]:focus-visible {
+  outline: 0.2rem solid green;
+  outline-offset: 0.25rem;
+}
+
+input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
 fieldset {
   margin: 0;
   padding: 0;
@@ -322,6 +354,7 @@ dialog:focus-visible {
   line-height: 4rem;
 }
 
+.app-btn,
 .link-btn,
 .theme-btn {
   display: flex;
@@ -330,12 +363,14 @@ dialog:focus-visible {
   position: relative;
 }
 
+.app-btn,
 .link-btn a,
 .theme-btn,
 .section-nav-btn {
   border-radius: 100%;
 }
 
+.app-btn:is(:hover, :focus) > *,
 .link-btn a:is(:hover, :focus) > *,
 .theme-btn:is(:hover, :focus) > *,
 .section-nav-btn:is(:hover, :focus) {
@@ -343,6 +378,7 @@ dialog:focus-visible {
   color: var(--accent-color-a);
 }
 
+.app-btn:focus-visible,
 .link-btn a:focus-visible,
 .theme-btn:focus-visible,
 .section-nav-btn:focus-visible {
@@ -373,6 +409,7 @@ dialog:focus-visible {
 
 /* Common icon styles */
 
+.app-icon,
 .link-icon,
 .theme-icon,
 .action-icon {
@@ -380,11 +417,13 @@ dialog:focus-visible {
   height: 100%;
 }
 
+.app-icon,
 .link-icon,
 .theme-icon {
   position: absolute;
 }
 
+.app-icon,
 .link-icon,
 .theme-icon,
 .section-nav-btn {

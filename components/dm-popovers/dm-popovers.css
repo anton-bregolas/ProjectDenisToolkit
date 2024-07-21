@@ -105,7 +105,8 @@ body {
 
 .dm-tune-grid-footer, 
 .dm-col-grid-footer,
-.dm-track-grid-footer {
+.dm-track-grid-footer,
+.dm-help-nav-footer {
   display: flex;
   padding: 0 1em;
 }
@@ -118,7 +119,8 @@ body {
 .dm-tune-grid-footer, 
 .dm-tune-nav-mobile,
 .dm-col-grid-footer,
-.dm-track-grid-footer {
+.dm-track-grid-footer,
+.dm-help-nav-footer {
   justify-content: center;
   gap: 0.75rem;
 }
@@ -130,6 +132,7 @@ body {
 }
 
 .dm-btn-tune-card-nav,
+.dm-btn-help-card-nav,
 .dm-btn-card-popover-close,
 .dm-btn-card-dialog-close {
   text-align: center;
@@ -145,6 +148,7 @@ body {
 }
 
 .dm-btn-card-nav,
+.dm-btn-help-card-nav,
 .dm-col-grid-nav .dm-btn-open-track,
 .dm-track-grid-nav .dm-btn-open-track {
   flex-grow: 1;
@@ -186,7 +190,8 @@ body {
 .dm-btn-popover-close,
 .dm-btn-card-popover-close,
 .dm-btn-card-dialog-close, 
-.dm-btn-tune-card-nav {
+.dm-btn-tune-card-nav,
+.dm-btn-help-card-nav {
   opacity: 0.75;
   transition: opacity 0.35s ease-in-out;
 }
@@ -262,19 +267,22 @@ body {
   outline: 0.2rem solid var(--tune-card-item-outline-color);
 }
 
-.dm-btn-card-popover-close,
-.dm-btn-card-dialog-close {
-  outline: 1px dashed black;
+.dm-btn-tune-card-nav,
+.dm-btn-help-card-nav {
+  outline: 1px dotted black;
 }
 
-.dm-btn-tune-card-nav {
-  outline: 1px dotted black;
+.dm-btn-card-popover-close,
+.dm-btn-card-dialog-close,
+.dm-btn-help-skip {
+  outline: 1px dashed black;
 }
 
 .dm-popover-card-header h2,
 .dm-tune-grid-item a,
 .dm-btn-popover-close,
 .dm-btn-tune-card-nav,
+.dm-btn-help-card-nav,
 .dm-btn-card-popover-close,
 .dm-btn-card-dialog-close, 
 .dm-tune-card .dm-btn-open-track,
@@ -358,7 +366,8 @@ body {
 }
 
 .dm-tune-grid-footer, 
-.dm-tune-nav-mobile {
+.dm-tune-nav-mobile,
+.dm-help-nav-footer {
   padding-top: 0.5em;
 }
 
@@ -435,13 +444,15 @@ body {
 
 .dm-tune-grid-item a:is(:focus-visible),
 .dm-btn-tune-card-nav:is(:hover, :focus-visible),
+.dm-btn-help-card-nav:is(:hover, :focus-visible),
 .dm-btn-popover-close:is(:hover, :focus-visible),
 .dm-tune-card .dm-btn-open-track:is(:focus, :focus-visible) {
   outline: 0.16rem solid var(--tune-card-item-outline-color);
   opacity: 1;
 }
 
-.dm-btn-popover-close:is(:hover, :focus-visible) {
+.dm-btn-popover-close:is(:hover, :focus-visible),
+.dm-btn-help-skip:is(:hover, :focus-visible) {
   outline: 0.16rem solid var(--tune-card-item-close-color);
 }
 
@@ -862,6 +873,7 @@ body {
   /* color: transparent; */
   color: var(--neutral-color);
   align-content: end;
+  cursor: pointer;
 }
 
 /* .dm-helper-image:hover > * {
@@ -870,6 +882,59 @@ body {
 
 .dm-helper-image.expanded > * {
   transform: translateY(0);
+}
+
+/* Help Menu Styles */
+
+.dm-help-card {
+  inset: unset;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 65%);
+  font-size: var(--font-button);
+  z-index: 4;
+}
+
+.dm-help-card-container {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+  padding: 1em 1em 0;
+}
+
+.dm-help-body {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
+.dm-help-options {
+  text-align: center;
+}
+
+.dm-checkbox-label {
+  user-select: none;
+}
+
+.dm-help-nav-footer {
+  padding: 0.5em 0 0;
+}
+
+.dm-btn-help-card-nav {
+  
+}
+
+.dm-help-card[data-stage="0"] .dm-btn-help-ok::before {
+  content: "Show me around!";
+}
+
+.dm-help-card[data-stage="11"] .dm-btn-help-ok::before {
+  content: "Finish Tour & Start Exploring";
+}
+
+.dm-help-card[data-stage="0"] .dm-btn-help-skip::before {
+  content: "Thanks I'm grand";
 }
 
 /* Popover animations */
@@ -921,6 +986,25 @@ body {
   display 0.2s cubic-bezier(0.075, 0.82, 0.165, 1) allow-discrete;
 }
 
+.dm-help-card {
+  &:popover-open {
+
+    @starting-style {
+      opacity: 0;
+    }
+    
+  /* :popover-open */
+    opacity: 1;
+  }
+  
+  /* popover out */
+  opacity: 0;
+
+  transition: 
+  opacity 0.35s cubic-bezier(0.075, 0.82, 0.165, 1), 
+  display 0.5s cubic-bezier(0.075, 0.82, 0.165, 1) allow-discrete;
+}
+
 #theme-picker-popover {
   &:popover-open {
 
@@ -936,18 +1020,34 @@ body {
   transform: translateY(-100%);
 
   transition: 
-  opacity 0.25s cubic-bezier(1, 0, 0, 1), 
-  transform 0.5s cubic-bezier(1, 0, 0, 1), 
-  display 0.5s cubic-bezier(1, 0, 0, 1), allow-discrete;
+  opacity 0.25s ease-out, 
+  transform 0.5s ease-out, 
+  display 0.5s ease-out allow-discrete;
 }
 
 /* Media queries for popovers */
+
+/* @media screen and (min-height: 1000px) { */
+@media screen and (min-height: 62.5em) {
+
+  /* .dm-help-card {
+    transform: translate(-50%, 75%);
+  } */
+}
+
+/* @media screen and (max-width: 700px), (max-height: 700px) { */
+@media screen and (max-width: 43.75em) {
+
+  .dm-help-card {
+    transform: translate(-50%, 50%);
+  }
+}
 
 /* @media screen and (max-width: 668px), (max-height: 668px) { */
 @media screen and (max-width: 41.75em), (max-height: 41.75em) {
 
   .dm-nav-card,
-  .dm-popover-card {
+  .dm-popover-card:not(.dm-help-card) {
     position: fixed;
     inset: unset;
     top: 50%;
@@ -956,7 +1056,7 @@ body {
     bottom: -47%;
   }
 
-  .dm-popover-card {
+  .dm-popover-card:not(.dm-help-card) {
     padding-bottom: 0;
     width: min(calc(100svw - 1.2rem));
     max-height: calc(100svh - 1.4rem);
@@ -1004,6 +1104,10 @@ body {
   .dm-tune-nav-mobile {
     display: flex;
   }
+
+  .dm-help-card {
+    transform: translate(-50%, 3.5rem);
+  }
 }
 
 /* @media screen and (max-width: 544px) { */
@@ -1043,6 +1147,26 @@ body {
   .dm-btn-prev-col[hidden],
   .dm-btn-prev-track[hidden] {
     display: block;
+  }
+}
+
+/* @media screen and (max-width: 469px) { */
+@media screen and (max-width: 29.3125em) and (min-height: 41.74em) {
+  
+  .dm-help-card {
+    transform: translate(-50%, 39%);
+  }
+
+  .dm-help-card[data-stage="0"] .dm-btn-help-ok::before {
+    content: "Yes!";
+  }
+
+  .dm-help-card[data-stage="11"] .dm-btn-help-ok::before {
+    content: "Finish Tour";
+  }
+  
+  .dm-help-card[data-stage="0"] .dm-btn-help-skip::before {
+    content: "Skip";
   }
 }
 
