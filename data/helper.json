@@ -73,8 +73,8 @@
   },
   {
 	"msgno": "12",
-	"msgtext": "",
+	"msgtext": "Click on the little Denis Helper or a “Try it!” button whenever you need to close this menu and look around, click on the Helper again to reopen it. If you want to stop the tour at any time, press “Quit”.",
 	"msgtype": "tour",
-  "oktext": "OK"
+  "oktext": "Continue"
   }
 ]
