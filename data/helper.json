@@ -7,9 +7,9 @@
   },
   {
     "msgno": "1",
-    "msgtext": "Press the Start Exploring button to load fresh Tune Data and then click OK to continue. Click on the little Denis Helper or the Try it! button whenever you need to close this menu and look around, click on the Helper again to reopen it. If you want to stop the tour at any time, press Quit.",
+    "msgtext": "Press the Start Exploring button to load fresh Tune Data and then click OK to continue. Click on the little Denis Helper or the OK / Try it! button whenever you need to close this menu and look around, click on the Helper again to reopen it. If you want to stop the tour at any time, press Quit.",
     "msgtype": "tour",
-    "oktext": "Try it!"
+    "oktext": "OK"
   },
   {
     "msgno": "2",
@@ -93,7 +93,7 @@
     "msgno": "15",
     "msgtext": "Note that this is a beta version of the app and a work-in-progress project: the database is continuously being updated and more features may be added later. The Tune Data will periodically update when you launch the app by pressing the Start Exploring button. You can follow the fiddle playing developer Anton Zille’s spaces for the all latest additions to #ProjectDenis – links are at the bottom of the page.",
     "msgtype": "tour",
-    "oktext": "OK"
+    "oktext": "Continue"
   },
   {
     "msgno": "16",

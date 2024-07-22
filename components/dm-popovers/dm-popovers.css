@@ -239,14 +239,16 @@ body {
 
 .dm-btn-prev-col:before,
 .dm-btn-prev-tune:before,
-.dm-btn-prev-track:before {
-  content: "◀ \FE0E";
+.dm-btn-prev-track:before,
+.dm-btn-help-prev::before {
+  content: "◀\FE0E";
 }
 
 .dm-btn-next-tune:before,
 .dm-btn-next-col:before,
-.dm-btn-next-track:before {
-  content: "▶ \FE0E";
+.dm-btn-next-track:before,
+.dm-btn-help-next::before {
+  content: "▶\FE0E";
 }
 
 .dm-track-grid-footer .dm-btn-card-popover-close:before {
@@ -865,12 +867,15 @@ body {
 }
 
 .dm-helper-image > * {
+  width: 100%;
+  height: 100%;
+}
+
+.dm-helper-container {
   position: fixed;
+  display: flex;
   bottom: 0;
   left: 0;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
   max-width: 55svw;
   max-height: 55svh;
   aspect-ratio: 1/1;
@@ -879,13 +884,26 @@ body {
   transform 1.75s ease-in-out;
   transform: translateY(100%);
   color: transparent;
-  /* color: var(--neutral-color); */
-  align-content: end;
-  cursor: pointer;
+  color: var(--neutral-color);
 }
 
-.dm-helper-image.expanded > * {
+.dm-helper-container.expanded {
   transform: translateY(0);
+}
+
+.dm-btn-helper {
+  border-radius: 3.5rem;
+  display: flex;
+  align-content: end;
+  text-align: center;
+}
+
+.dm-btn-helper:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.dm-btn-helper:focus-visible {
+  outline: 0.25rem solid var(--focus-color);
 }
 
 /* Help Menu Styles */
@@ -925,20 +943,20 @@ body {
   padding: 0.5em 0 0;
 }
 
-.dm-btn-help-card-nav {
-  
-}
-
-.dm-help-card[data-stage]:not([data-stage="0"]) {
+.dm-help-card[data-stage]:not([data-stage="0"]):not([data-stage="20"]) {
   transform: translate(-50%, -3%);
   transition: transform 1.5s ease-out;
+}
+
+.dm-help-card[data-stage="20"] {
+  transform: translate(-50%, -220%);
 }
 
 .dm-help-card[data-stage="0"] .dm-btn-help-ok::before {
   content: "Show me around!";
 }
 
-.dm-help-card[data-stage="10"] .dm-btn-help-ok::before {
+.dm-help-card[data-stage="17"] .dm-btn-help-ok::before {
   content: "Finish Tour & Start Exploring";
 }
 
@@ -946,6 +964,27 @@ body {
   content: "Thanks I'm grand";
 }
 
+.dm-help-card[data-stage="3"] .dm-btn-help-next::before,
+.dm-help-card[data-stage="8"] .dm-btn-help-next::before,
+.dm-help-card[data-stage="10"] .dm-btn-help-next::before,
+.dm-help-card[data-stage="12"] .dm-btn-help-next::before,
+.dm-help-card[data-stage="13"] .dm-btn-help-next::before {
+  content: "Next";
+}
+
+.dm-help-card[data-stage="0"] .dm-btn-help-next,
+.dm-help-card[data-stage="0"] .dm-btn-help-prev,
+.dm-help-card[data-stage="1"] .dm-btn-help-next,
+.dm-help-card[data-stage="1"] .dm-btn-help-prev,
+.dm-help-card[data-stage="2"] .dm-btn-help-next,
+.dm-help-card[data-stage="2"] .dm-btn-help-prev,
+.dm-help-card[data-stage="17"] .dm-btn-help-next,
+.dm-help-card[data-stage="20"] .dm-btn-help-next,
+.dm-help-card[data-stage="20"] .dm-btn-help-prev,
+.dm-help-card[data-stage="21"] .dm-btn-help-next,
+.dm-help-card[data-stage="21"] .dm-btn-help-prev {
+  display: none;
+}
 
 /* Popover animations */
 
@@ -955,7 +994,6 @@ body {
     @starting-style {
       transform: translateY(150%);
       opacity: 0;
-
     }
     
   /* :popover-open */
@@ -1040,8 +1078,8 @@ body {
 /* @media screen and (min-height: 960px) { */
 @media screen and (min-height: 60em) {
 
-  .dm-help-card[data-stage="0"] {
-
+  .dm-help-card[data-stage="0"],
+  .dm-help-card[data-stage="20"] {
     top: 50%;
     bottom: unset;
     transform: translate(-50%, -50%);
@@ -1052,10 +1090,16 @@ body {
 @media screen and (max-width: 43.75em) {
 
   .dm-help-card[data-stage="0"] {
-
     bottom: unset;
     top: 0;
     transform: translate(-50%, 50%);
+  }
+
+  .dm-help-card[data-stage="20"] {
+    bottom: unset;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -1121,7 +1165,8 @@ body {
     display: flex;
   }
 
-  .dm-help-card[data-stage="0"] {
+  .dm-help-card[data-stage="0"],
+  .dm-help-card[data-stage="20"] {
     top: 0;
     bottom: unset;
     transform: translate(-50%, 3.5rem);
@@ -1179,7 +1224,7 @@ body {
     content: "Yes!";
   }
 
-  .dm-help-card[data-stage="10"] .dm-btn-help-ok::before {
+  .dm-help-card[data-stage="17"] .dm-btn-help-ok::before {
     content: "Finish Tour";
   }
   

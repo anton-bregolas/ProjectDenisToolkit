@@ -55,6 +55,8 @@ export function toggleTabIndex(element) {
       let tabIndex = item.getAttribute("tabindex") === "0"? "-1" : "0";
 
       item.setAttribute("tabindex", tabIndex);
+
+      return;
     });
   });
 }

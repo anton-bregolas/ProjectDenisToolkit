@@ -4,7 +4,7 @@
 
 import { initSearch, tracksCounter, colsCounter, tunesCounter } from '../components/dm-search/dm-search.js';
 import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
-import { setAriaLabel } from './aria-tools.js';
+import { addAriaHidden, removeAriaHidden, setAriaLabel, toggleTabIndex } from './aria-tools.js';
 import { initModals, generateHandler } from '../components/dm-modals/dm-modals.js';
 import { initPopovers, helpCardPopover } from '../components/dm-popovers/dm-popovers.js';
 import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
@@ -57,7 +57,10 @@ export const allGenerateTracklistBtn = document.querySelectorAll('[data-generate
 
 // Define App Helper elements
 
-export const allAppHelperImgs = document.querySelectorAll('.dm-helper-image');
+export const mainAppHelper = document.querySelector('#dm-helper-main');
+export const appHelperContainer = document.querySelector('.dm-helper-container');
+export const appHelperBtn = document.querySelector('.dm-btn-helper');
+export const allAppHelperPics = document.querySelectorAll('.dm-helper-image');
 
 // Define status bars for screenreaders
 
@@ -458,7 +461,7 @@ function toggleAppHelpers(currentColorTheme) {
 
   const appropriatelyDressedAppHelper = document.querySelector(`#dm-helper-${currentColorTheme}`);
 
-  allAppHelperImgs.forEach(helper => {
+  allAppHelperPics.forEach(helper => {
     
     if (helper === appropriatelyDressedAppHelper) {
 
@@ -485,64 +488,79 @@ function toggleAppHelpers(currentColorTheme) {
 
 function initAppHelpers() {
 
-  allAppHelperImgs.forEach(helper => {
+  appHelperContainer.addEventListener('click', appHelperHandler);
 
-    if (!helper.complete) {
+  allAppHelperPics.forEach(helper => {
+
+    const helperImg = helper.querySelector('img');
+
+    if (helperImg.complete) {
 
       helper.classList.add("active");
     
     } else {
 
-      helper.addEventListener('load', handleHelperSlowLoad);
-      helper.addEventListener('error', handleHelperSlowLoad);
+      helperImg.addEventListener('load', handleHelperSlowLoad);
+      helperImg.addEventListener('error', handleHelperSlowLoad);
     }
-
-    helper.addEventListener('click', appHelperHandler);
   });
 
   showAppHelper();
 }
 
-//
+// Make sure the Helper images don't appear before fully loading by making them visible on load
 
-function handleHelperSlowLoad() {
+function handleHelperSlowLoad(event) {
 
-  this.classList.add("active");
-	this.removeEventListener('load', handleHelperSlowLoad);
+  const helperImg = event.target;
+  const helperPicture = helperImg.parentElement;
+
+  if (event.type === "error") {
+    console.warn(`PD Helper:\n\nFailed to load Helper image within picture #` + helperPicture.id);
+    return;
+  }
+
+  helperPicture.classList.add("active");
+	helperImg.removeEventListener('load', handleHelperSlowLoad);
+  helperImg.removeEventListener('error', handleHelperSlowLoad);
 }
 
 // Show or hide popover when Helper is clicked
 
-export function appHelperHandler() {
+export function appHelperHandler(event) {
+  
+  const helperBtn = event.target.closest('.dm-btn-helper');
 
-  if (helpCardPopover.matches(':popover-open')) {
+  if (helperBtn) {
 
-    helpCardPopover.hidePopover();
+    if (helpCardPopover.matches(':popover-open')) {
 
-    return;
+      helpCardPopover.hidePopover();
+  
+      return;
+    }
+  
+    helpCardPopover.showPopover();
   }
-
-  helpCardPopover.showPopover();
 }
 
 // Show App Helper, slide in to full size
 
 export function showAppHelper() {
 
-  allAppHelperImgs.forEach(helper => {
-
-    helper.classList.add("expanded");
-  });
+  appHelperContainer.classList.add("expanded");
+  removeAriaHidden(mainAppHelper);
+  appHelperBtn.setAttribute("tabindex", "0");
 }
 
 // Hide App Helper, slide out to below the bottom of the page
 
 export function hideAppHelper() {
 
-  allAppHelperImgs.forEach(helper => {
-
-    helper.classList.remove("expanded");
-  });
+  appHelperContainer.classList.remove("expanded");
+  addAriaHidden(mainAppHelper);
+  toggleTabIndex(mainAppHelper);
+  appHelperBtn.setAttribute("tabindex", "-1");
 }
 
 /////////////////////////////////////////////////

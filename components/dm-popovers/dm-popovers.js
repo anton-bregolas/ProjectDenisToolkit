@@ -9,7 +9,8 @@ import { tracklistOutput, focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
 import { addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
 import { doDataCheckup, isObjectEmpty, toggleColorTheme, themeToggleBtn, statusBars, 
          tracksJson, colsJson, tunesJson, refsJson, generateTracklistBtn, getInfoFromDataType, 
-         allAppHelperImgs, showAppHelper, hideAppHelper, helperJson, appLauncherSection, showWelcomeMessage } from '../../modules/dm-app.js';
+         appHelperContainer, showAppHelper, hideAppHelper, helperJson, appLauncherSection, showWelcomeMessage, 
+         searchSection, exploreSection, discoverSection} from '../../modules/dm-app.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
@@ -27,7 +28,6 @@ const colRefLinkDiv = document.querySelector('.col-grid-reflink');
 const cardNavBtn = document.querySelectorAll('.dm-btn-card-nav');
 const refCardGridDiv = document.querySelector('.dm-ref-grid-body');
 
-const helpCardWelcome = helpCardPopover.querySelector('.dm-help-welcome'); 
 const helpCardMessage = helpCardPopover.querySelector('.dm-help-msg');
 const helpCardOptions = helpCardPopover.querySelector('.dm-help-options');
 const helpTourCheckbox = helpCardPopover.querySelector('#dm-help-tour-checkbox');
@@ -1236,7 +1236,7 @@ function toggleColorThemeHandler(event) {
 
     // Let App Helper show off their new look
 
-    if (!allAppHelperImgs[0].classList.contains("expanded") && +helpCardPopover.dataset.stage === 0) {
+    if (!appHelperContainer.classList.contains("expanded") && +helpCardPopover.dataset.stage === 0) {
     
       setTimeout(() => {
 
@@ -1280,39 +1280,8 @@ export function helpPopoverHandler(event) {
   console.warn("BEFORE: " + helpTourStage);
 
   if (helpBtn) {
-    
-    if (helpBtn === helpOKBtn) {
 
-      doHelpAction(helpTourStage, helpOKBtn);
-
-      return;
-    }
-
-    if (helpBtn === helpSkipTourBtn) {
-
-      if (helpTourStage === 0) {
-
-        helpCardPopover.dataset.welcome = 0;
-
-        doHelpAction(20, helpSkipTourBtn);
-
-        return;
-      }
-
-      doHelpAction(-1, helpSkipTourBtn);
-
-      return;
-    }
-
-    if (helpBtn.classList.contains("dm-btn-help-prev") && helpTourStage > 2) {
-
-      doHelpAction(helpTourStage - 1, helpBtn);
-    }
-
-    if (helpBtn.classList.contains("dm-btn-help-next") && helpTourStage < 17) {
-
-      doHelpAction(helpTourStage + 1, helpBtn);
-    }
+    doHelpAction(helpTourStage, helpBtn);
 
     return;
   }
@@ -1362,6 +1331,56 @@ function updateTourStage(stageNo) {
   helpCardPopover.setAttribute("data-stage", stageNo);
 }
 
+// Start the Guided Help Tour after checking the state of the launcher
+
+function startHelpTour() {
+
+  showAppHelper();
+
+  helpCardOptions.setAttribute("hidden", "");
+
+  if (appLauncherSection.hasAttribute("hidden")) {
+
+    updateTourStage(21);
+    generateHelpCard(21);
+    return;
+  }
+
+  updateTourStage(1);
+  generateHelpCard(1);
+}
+
+// Check if the App has been launched awaiting confirmation
+
+function pauseHelpTourUntilLaunch() {
+
+  if (appLauncherSection.hasAttribute("hidden")) {
+
+    updateTourStage(2);
+    generateHelpCard(2);
+    return;
+  }
+
+  helpCardPopover.hidePopover();
+  return;
+}
+
+// Quit the Guided Help Tour and reset the Help Popover Card
+
+async function quitHelpTour() {
+
+  helpCardPopover.dataset.welcome = 0;
+
+  await helpCardPopover.hidePopover();
+
+  setTimeout(() => {
+    updateTourStage(0);
+    generateHelpCard(-1);    
+  }, 500);
+
+  hideAppHelper();
+}
+
 // Generate Help Tour card content from Helper JSON
 
 async function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
@@ -1374,15 +1393,18 @@ async function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
 
   if (helpItemNo === -1) {
 
-    helpCardMessage.setAttribute("hidden", "");
-    helpCardWelcome.removeAttribute("hidden");
     helpCardOptions.removeAttribute("hidden");
 
-    helpCardMessage.textContent = "";
+    helpCardMessage.textContent = helperJson[0].msgtext;
     helpOKBtn.textContent = "";
     helpSkipTourBtn.textContent = "";
 
     return;
+  }
+
+  if (helpItemNo === 20) {
+    
+    helpCardOptions.setAttribute("hidden", "");
   }
 
   helpCardMessage.textContent = newMessage;
@@ -1393,89 +1415,101 @@ async function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
 // Trigger a Help action depending on Guided Tour stage
 
 async function doHelpAction(stageNo, triggerBtn) {
+
+  // console.warn(triggerBtn);
+
+  if (stageNo === undefined || Number.isNaN(stageNo)) {
+
+    console.warn(`PD Helper: Stage number is undefined`);
+
+    return;
+  }
+
+  if (await doDataCheckup(helperJson, "help") === 0) {
+
+    helpCardMessage.textContent = "Oops! Helper's Gone For His Tea! Try pressing OK again or refresh the page.";
+
+    return;
+  }
+
+  if (triggerBtn === helpSkipTourBtn) {
+
+    switch (stageNo) {
+
+      case 0:
+        updateTourStage(20);
+        generateHelpCard(20);
+        return;
+    
+      default:
+        quitHelpTour();
+        return;
+    }
+  }
   
-  if (stageNo) {
+  if (stageNo === 2) {
 
-    if (stageNo === -1 || stageNo === 17 ||
-      (stageNo === 20 && triggerBtn === helpOKBtn)) {
+    searchSection.scrollIntoView();
+  }
 
-      await helpCardPopover.hidePopover();
+  if (stageNo === 5) {
+    
+    exploreSection.scrollIntoView();
+  }
 
-      setTimeout(() => {
-        updateTourStage(0);
-        generateHelpCard(-1);    
-      }, 500);
+  if (stageNo === 12) {
 
-      hideAppHelper();
-      return;
-    }
+    discoverSection.scrollIntoView();
+  }
 
-    if (await doDataCheckup(helperJson, "help") === 0) {
+  if (triggerBtn === helpOKBtn) {
 
-      helpCardWelcome.setAttribute("hidden", "");
-      helpCardMessage.removeAttribute("hidden");
-      helpCardMessage.textContent = "Oops! Helper's Gone For His Tea! Try pressing OK again or refresh the page.";
+    switch (stageNo) {
 
-      return;
-    }
-
-    if (stageNo === 0) {
-
-      helpCardWelcome.setAttribute("hidden", "");
-      helpCardOptions.setAttribute("hidden", "");
-      helpCardMessage.removeAttribute("hidden");
-      
-      showAppHelper();
-
-      if (appLauncherSection.hasAttribute("hidden")) {
-
-        updateTourStage(21);
-        generateHelpCard(21);
+      case 0:
+        startHelpTour();
         return;
-      }
 
-      updateTourStage(1);
-      generateHelpCard(1);
-      return;
-    }
-
-    if (stageNo === 1 || stageNo === 21) {
-
-      if (appLauncherSection.hasAttribute("hidden")) {
-
-        updateTourStage(2);
-        generateHelpCard(2);
-
+      case 1:
+      case 21:
+        pauseHelpTourUntilLaunch();
         return;
-      }
 
-      helpCardPopover.hidePopover();
-      return;
-    }
+      case 3:
+      case 8:
+      case 10:
+      case 12:
+      case 13:
 
-    if (triggerBtn === helpOKBtn) {
-
-      switch (stageNo) {
-        case 3:
-        case 8:
-        case 10:
-        case 12:
-        case 13:
-
-          helpCardPopover.hidePopover();
-          return;
+        helpCardPopover.hidePopover();
+        return;
       
-        default:
-          break;
-      }
+      case 17:
+      case 20:
+
+        quitHelpTour();
+        return;
+    
+      default:
+
+        updateTourStage(stageNo + 1);
+        generateHelpCard(stageNo + 1);
+        return;
     }
+  }
+
+  if (triggerBtn.classList.contains("dm-btn-help-prev") && stageNo > 2) {
+
+    updateTourStage(stageNo - 1);
+    generateHelpCard(stageNo - 1);
+    return;
+  }
+
+  if (triggerBtn.classList.contains("dm-btn-help-next") && stageNo < 17) {
 
     updateTourStage(stageNo + 1);
     generateHelpCard(stageNo + 1);
-
-  } else {
-
-    console.warn(`PD Helper: Stage number is undefined`)
+    return;
   }
 }
 
