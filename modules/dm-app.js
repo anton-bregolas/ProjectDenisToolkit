@@ -329,7 +329,7 @@ async function launchAppSequence() {
     }
   }
 
-  if (showWelcomeMessage === 1 && !localStorage.getItem("user-skip-help-tour")) {
+  if (+helpCardPopover.dataset.welcome === 1 && +helpCardPopover.dataset.stage === 0 && !localStorage.getItem("user-skip-welcome-msg")) {
 
     helpCardPopover.showPopover();
 
@@ -487,10 +487,28 @@ function initAppHelpers() {
 
   allAppHelperImgs.forEach(helper => {
 
+    if (!helper.complete) {
+
+      helper.classList.add("active");
+    
+    } else {
+
+      helper.addEventListener('load', handleHelperSlowLoad);
+      helper.addEventListener('error', handleHelperSlowLoad);
+    }
+
     helper.addEventListener('click', appHelperHandler);
   });
 
   showAppHelper();
+}
+
+//
+
+function handleHelperSlowLoad() {
+
+  this.classList.add("active");
+	this.removeEventListener('load', handleHelperSlowLoad);
 }
 
 // Show or hide popover when Helper is clicked

@@ -856,6 +856,14 @@ body {
 
 /* Helper Styles */
 
+.dm-helper-image {
+  opacity: 0;
+}
+
+.dm-helper-image.active {
+  opacity: 1;
+}
+
 .dm-helper-image > * {
   position: fixed;
   bottom: 0;
@@ -870,15 +878,11 @@ body {
   transition: 
   transform 1.75s ease-in-out;
   transform: translateY(100%);
-  /* color: transparent; */
-  color: var(--neutral-color);
+  color: transparent;
+  /* color: var(--neutral-color); */
   align-content: end;
   cursor: pointer;
 }
-
-/* .dm-helper-image:hover > * {
-  transform: translateY(100%);
-} */
 
 .dm-helper-image.expanded > * {
   transform: translateY(0);
@@ -889,9 +893,9 @@ body {
 .dm-help-card {
   inset: unset;
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 50%;
-  transform: translate(-50%, 65%);
+  transform: translate(-50%, -100%);
   font-size: var(--font-button);
   z-index: 4;
 }
@@ -925,17 +929,23 @@ body {
   
 }
 
+.dm-help-card[data-stage]:not([data-stage="0"]) {
+  transform: translate(-50%, -3%);
+  transition: transform 1.5s ease-out;
+}
+
 .dm-help-card[data-stage="0"] .dm-btn-help-ok::before {
   content: "Show me around!";
 }
 
-.dm-help-card[data-stage="11"] .dm-btn-help-ok::before {
+.dm-help-card[data-stage="10"] .dm-btn-help-ok::before {
   content: "Finish Tour & Start Exploring";
 }
 
 .dm-help-card[data-stage="0"] .dm-btn-help-skip::before {
   content: "Thanks I'm grand";
 }
+
 
 /* Popover animations */
 
@@ -1027,18 +1037,24 @@ body {
 
 /* Media queries for popovers */
 
-/* @media screen and (min-height: 1000px) { */
-@media screen and (min-height: 62.5em) {
+/* @media screen and (min-height: 960px) { */
+@media screen and (min-height: 60em) {
 
-  /* .dm-help-card {
-    transform: translate(-50%, 75%);
-  } */
+  .dm-help-card[data-stage="0"] {
+
+    top: 50%;
+    bottom: unset;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* @media screen and (max-width: 700px), (max-height: 700px) { */
 @media screen and (max-width: 43.75em) {
 
-  .dm-help-card {
+  .dm-help-card[data-stage="0"] {
+
+    bottom: unset;
+    top: 0;
     transform: translate(-50%, 50%);
   }
 }
@@ -1105,7 +1121,9 @@ body {
     display: flex;
   }
 
-  .dm-help-card {
+  .dm-help-card[data-stage="0"] {
+    top: 0;
+    bottom: unset;
     transform: translate(-50%, 3.5rem);
   }
 }
@@ -1161,7 +1179,7 @@ body {
     content: "Yes!";
   }
 
-  .dm-help-card[data-stage="11"] .dm-btn-help-ok::before {
+  .dm-help-card[data-stage="10"] .dm-btn-help-ok::before {
     content: "Finish Tour";
   }
   

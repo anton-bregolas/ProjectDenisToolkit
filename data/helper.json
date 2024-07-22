@@ -1,80 +1,134 @@
 [
   {
     "msgno": "0",
-    "msgtext": "Welcome to Project Denis, a prototype app that helps uncover the rich repertoire of the Sliabh Luachra fiddle legend Denis Murphy. Would you like to take a short guided tour of the app?",
+    "msgtext": "Welcome to Project Denis, a prototype app that helps uncover the rich repertoire of the Sliabh Luachra fiddle legend Denis Murphy. Would you like to take a detailed guided tour of the app?",
     "msgtype": "welcome",
     "oktext": ""
   },
   {
     "msgno": "1",
-    "msgtext": "Press “Start Exploring” button to load fresh Tune Data and then click “OK” to continue. Click on the little Denis Helper or a “Try it!” button whenever you need to close this menu and look around, click on the Helper again to reopen it. If you want to stop the tour at any time, press “Quit”.",
+    "msgtext": "Press the Start Exploring button to load fresh Tune Data and then click OK to continue. Click on the little Denis Helper or the Try it! button whenever you need to close this menu and look around, click on the Helper again to reopen it. If you want to stop the tour at any time, press Quit.",
     "msgtype": "tour",
     "oktext": "OK"
   },
   {
     "msgno": "2",
-    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through! Whenever you need to quickly look up some details of an album, a track or a tune recorded by Denis Murphy, start by selecting the search category and typing a word or two in the Search input. Try searching for “Pádraig O’Keeffe” to get a large selection of results or ”Donal a' Clumper's” to view a very specific search set.",
-    "msgtype": "tour",
-    "oktext": "Try it!"
-  },
-  {
-    "msgno": "3",
-    "msgtext": "Clicking on a search result will open an individual card of a Track, a Collection or a Tune with the matching words highlighted. You can then go back to the main menu by pressing the “Quit to Main” button or keep exploring the Denis Murphy materials using card navigation. Each item provides references and links to help you identify tunes and connect to the sources. Let’s take a closer look at how the categories are organised.",
+    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through!",
     "msgtype": "tour",
     "oktext": "Continue"
   },
   {
+    "msgno": "3",
+    "msgtext": "Whenever you need to quickly look up some details of an album, a track or a tune recorded by Denis Murphy, start by selecting the search category and typing a word or two in the Search input. Try searching for “Pádraig O’Keeffe” to get a large selection of results or ”Donal a' Clumper's” to view a very specific search set.",
+    "msgtype": "tour",
+    "oktext": "Try it!"
+  },
+  {
     "msgno": "4",
-    "msgtext": "To help navigate through the rich tapestry of Denis Murphy’s recordings, the app refers to any set of recordings – commercial, archival or otherwise – as “Collections”. Each Collection is broken down into individual “Tracks”, one tune per Track, and each one of those is given a reference number. After each Track is researched and identified, the Tunes played there are given short code names that also serve as a reference to printed collections of Irish music. The full set of all unique Tunes forms the Tunelist. Each of these three categories – Collections, Tracklist and Tunelist – can be accessed in the app’s Explore section.",
+    "msgtext": "Clicking on a search result will open an individual card of a Track, a Collection or a Tune with the matching words highlighted. You can then go back to the main menu by pressing the Quit button or keep exploring the Denis Murphy materials using card navigation. Each item provides references and links to help you identify tunes and find their sources.",
     "msgtype": "tour",
     "oktext": "Continue"
   },
   {
     "msgno": "5",
-    "msgtext": "Press the “Show Tracklist” button to see the full scope of the Denis Murphy materials catalogued so far. The Tracklist view allows you to browse the entire list of recordings in one place and sort the tunes by name, ID, year of recording, other track performers joining Denis etc. The Tracklist is a table with interactive elements: click on a row to view the details of the referenced Track, click on the collection headers to study Collection cards. Track cards contain links to the associated Tune and Collection and comments about the particular recording being referenced. Note that the Tracklist has responsive design and will show more information on a wider screen. If you’re viewing it from a mobile device, try rotating your screen to see more details.",
+    "msgtext": "Let’s take a closer look at the categories. To help navigate through the rich tapestry of Denis Murphy’s recordings, the app refers to any set of recordings – commercial, archival or otherwise – as “Collections”. Each Collection is broken down into individual “Tracks”, one tune per Track, and each one of those is given a reference number that can be easily decoded. Track Ref. No. 1234 would for example refer to album 1[000] track 23, tune 4.",
     "msgtype": "tour",
-    "oktext": "Try it!"
+    "oktext": "Continue"
   },
   {
     "msgno": "6",
-    "msgtext": "Enter the Collections menu by pressing the button with a gramophone record icon to view the full list of Collections added to the database. This section of the app lets you browse through the albums and archival items, get their reference details and connect to the source recordings. Clicking on each numbered button or a table row will bring up a Collection card which you can dismiss by pressing a Close button or the Escape key. Each card contains a set of external links available for the source recording which you can pick from depending on your needs. The menu can also serve as shortcut to various items in the Tracklist: click Show in Tracklist button in each card to see the full listing of tunes found there.",
+    "msgtext": "After each Track is researched and identified, the Tunes played there are given short code names that also serve as a reference to printed collections of Irish music. The full set of all unique Tunes forms the Tunelist. Each of these three categories – Collections, Tracklist and Tunelist – can be accessed in the app’s Explore section.",
     "msgtype": "tour",
-    "oktext": "Try it!"
+    "oktext": "Continue"
   },
   {
     "msgno": "7",
-    "msgtext": "The complete list of Denis Murphy tunes referenced so far can be accessed in the Tunelist menu. Pick from the list of tune cards and click on one to see the key information for each Tune. Links with Track numbers will take you to the Tracklist, highlighting the tune there. If you need to quickly identify the tune, click on a link below “What Tune is This?” to open the tune’s page in an external tune database with sheet music and ABC. To get the exact Denis Murphy version of the tune instead, pick the “Transcription” link whenever it’s available. Those are added slowly but surely – you can contribute by transcribing the tunes and submitting them to The Session or the Tune Archive!",
+    "msgtext": "Press the Show Tracklist button to see the full scope of the Denis Murphy items catalogued so far, including many rare archival materials waiting to be explored. The Tracklist view allows you to browse the entire list of recordings in one place and sort the tunes by name, ID, year of recording, other track performers joining Denis etc.",
     "msgtype": "tour",
-    "oktext": "Try it!"
+    "oktext": "Continue"
   },
   {
     "msgno": "8",
-    "msgtext": "The final section of the app – the Discover section – contains the key to all the printed collections of music referenced in this database and a list of bookmarked resources to aid you in your journey through Denis Murphy’s repertoire. The first button will take you to the list of music collections with full citations and all the currently available formats linked in the details. The second button is a shortcut to the list of web resources relevant to Irish music: traditional music archives, ABC tune databases and pages dedicated to Sliabh Luachra musicians.",
+    "msgtext": "The Tracklist is a table with interactive elements: click on a row to view the details of the referenced Track, click on the collection headers to study Collection cards. Track cards contain links to the associated Tune and Collection and comments about the particular recording being referenced. Note that the Tracklist has responsive design and will show more information on a wider screen. If you’re viewing it from a mobile device, try rotating your screen to see more details.",
     "msgtype": "tour",
     "oktext": "Try it!"
   },
   {
     "msgno": "9",
-    "msgtext": "To quickly navigate between the sections, press the hover button in the bottom right corner of the screen. You can also quickly access the Collections, Tracklist and Tunelist via shortcuts in the app’s header. Note that this is a beta version of the app and a work-in-progress project: the database is continuously being updated and more features may be added later. The Tune data will update automatically once in while when you launch the app by pressing the “Start Exploring” button. You can follow the fiddle playing developer Anton Zille’s spaces for the all latest additions to #ProjectDenis – links are at the bottom of the page.",
+    "msgtext": "Enter the Collections menu by pressing the button with a gramophone record icon to view the full list of Collections added to the database. This section of the app lets you browse through the albums and archival items, get their reference details and connect to the sources. If you're looking for links to the recordings, this is the section to go!",
     "msgtype": "tour",
-    "oktext": "OK"
+    "oktext": "Continue"
   },
   {
     "msgno": "10",
-    "msgtext": "A word from Anton Zille: This is a passion open-source project which I hope to one day integrate into a larger resource celebrating Denis Murphy’s legacy. You can contribute to #ProjectDenis in several ways: by making detailed tracklists of recordings not found in the database or by submitting publicly accessible transcriptions of Denis Murphy’s tunes that will then be verified against the source recording and added to the Tune DB. Of course, it’s not the notes and the lists that are important but the personal journey through the recordings that we take and the musical legacy of Denis that we pass on in the process. I hope that this project has aided you in connecting to the source material of this wonderful musician – please send me any feedback that you have! This project would not have been possible without all the people and sources that came before and the help of Billy Clifford, the Irish Traditional Music Archive and the Friends of Sliabh Luachra in particular. Up Sliabh Luachra!",
+    "msgtext": "Clicking on each numbered button or a table row will bring up a Collection card which you can dismiss by pressing a Close button or the Escape key. Each card contains a set of external links available for the source recording which you can pick from depending on your needs. The menu can also serve as shortcut to various items in the Tracklist: click Show in Tracklist button in each card to see the full listing of tunes found there.",
     "msgtype": "tour",
-    "oktext": ""
+    "oktext": "Try it!"
   },
   {
     "msgno": "11",
-    "msgtext": "Click on the little Denis Helper or a “Try it!” button whenever you need to close this menu and look around, click on the Helper again to reopen it. If you want to stop the tour at any time, press “Quit”.",
+    "msgtext": "The complete list of Denis Murphy tunes referenced so far can be accessed in the Tunelist menu. Pick from the list of tune cards and click on one to see the key information for each Tune. Links with Track numbers will take you to the Tracklist, highlighting the tune there.",
     "msgtype": "tour",
     "oktext": "Continue"
   },
   {
     "msgno": "12",
+    "msgtext": "If you need to quickly identify the tune, click on a link below What Tune is This? to open the tune’s page in an external tune database with sheet music and ABC. To get the exact Denis Murphy version of the tune instead, pick the Transcription link whenever it’s available. Those are added slowly but surely – you can contribute by transcribing the tunes and submitting them to The Session or the Tune Archive!",
+    "msgtype": "tour",
+    "oktext": "Try it!"
+  },
+  {
+    "msgno": "13",
+    "msgtext": "The final section of the app – the Discover section – contains the key to all the printed collections of music referenced in this database and a list of bookmarked resources to aid you in your journey through Denis Murphy’s repertoire. The first button will take you to the list of music collections with full citations and all the currently available formats linked in the details. The second button is a shortcut to the list of web resources relevant to Irish music: traditional music archives, ABC tune databases and pages dedicated to Sliabh Luachra musicians.",
+    "msgtype": "tour",
+    "oktext": "Try it!"
+  },
+  {
+    "msgno": "14",
+    "msgtext": "To quickly navigate between the sections, press the hover button in the bottom right corner of the screen. You can also quickly access the Collections, Tracklist and Tunelist via shortcuts in the app’s header. Don't forget to check out the alternative color themes and the Helper's new look in each of them!",
+    "msgtype": "tour",
+    "oktext": "Continue"
+  },
+  {
+    "msgno": "15",
+    "msgtext": "Note that this is a beta version of the app and a work-in-progress project: the database is continuously being updated and more features may be added later. The Tune Data will periodically update when you launch the app by pressing the Start Exploring button. You can follow the fiddle playing developer Anton Zille’s spaces for the all latest additions to #ProjectDenis – links are at the bottom of the page.",
+    "msgtype": "tour",
+    "oktext": "OK"
+  },
+  {
+    "msgno": "16",
+    "msgtext": "A word from the editor: This is a passion open-source project which I hope to one day integrate into a larger resource celebrating Denis Murphy’s legacy. You can contribute to #ProjectDenis in several ways: by making detailed tracklists of recordings not found in the database or by submitting publicly accessible transcriptions of Denis Murphy’s tunes that will then be verified against the source recording and added to the Tune DB.",
+    "msgtype": "tour",
+    "oktext": "Continue"
+  },
+  {
+    "msgno": "17",
+    "msgtext": "Of course, it’s not the notes and the lists that are important but the personal journey through the recordings that we take and the musical legacy of Denis that we pass on in the process. I hope that this project will help you connect to the source material of this wonderful musician – feel free to send me any feedback that you have! This project would not have been possible without all the people and sources that came before and the help of Billy Clifford, the Irish Traditional Music Archive and the Friends of Sliabh Luachra in particular. Up Sliabh Luachra!",
+    "msgtype": "tour",
+    "oktext": ""
+  },
+  {
+    "msgno": "18",
+    "msgtext": "",
+    "msgtype": "reserved",
+    "oktext": "OK"
+  },
+  {
+    "msgno": "19",
+    "msgtext": "",
+    "msgtype": "reserved",
+    "oktext": "OK"
+  },
+  {
+    "msgno": "20",
     "msgtext": "No worries, you can always click on the little Denis Helper in the Start Menu if you want to revisit the tour. Enjoy the tunes!",
     "msgtype": "quit",
     "oktext": "OK"
+  },
+  {
+    "msgno": "21",
+    "msgtext": "Click on the little Denis Helper or the Try it! button whenever you need to close this menu and look around, click on the Helper again to reopen it. If you want to stop the tour at any time, press Quit.",
+    "msgtype": "tour",
+    "oktext": "Continue"
   }
 ]

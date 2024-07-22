@@ -9,7 +9,7 @@ import { tracklistOutput, focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
 import { addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
 import { doDataCheckup, isObjectEmpty, toggleColorTheme, themeToggleBtn, statusBars, 
          tracksJson, colsJson, tunesJson, refsJson, generateTracklistBtn, getInfoFromDataType, 
-         allAppHelperImgs, showAppHelper, hideAppHelper, helperJson, appLauncherSection } from '../../modules/dm-app.js';
+         allAppHelperImgs, showAppHelper, hideAppHelper, helperJson, appLauncherSection, showWelcomeMessage } from '../../modules/dm-app.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
@@ -1245,7 +1245,10 @@ function toggleColorThemeHandler(event) {
 
       setTimeout(() => {
         
-        hideAppHelper();
+        if (+helpCardPopover.dataset.stage === 0) {
+
+          hideAppHelper();
+        }
       }, 3750);
     }
   }
@@ -1264,37 +1267,54 @@ export function helpPopoverHandler(event) {
   const helpBox = event.target.closest('input[type="checkbox"]');
   const helpTourStage = +helpCardPopover.getAttribute("data-stage");
 
-  console.warn("BEFORE: " + helpTourStage);
-
-  if (helpBtn) {
-    
-    if (helpBtn === helpOKBtn) {
-
-      doHelpAction(helpTourStage);
-    }
-
-    if (helpBtn === helpSkipTourBtn) {
-
-      doHelpAction(-1);
-    }
-
-    if (helpBtn.classList.contains("dm-btn-help-prev") && helpTourStage > 2) {
-
-      doHelpAction(helpTourStage - 1);
-    }
-
-    if (helpBtn.classList.contains("dm-btn-help-next") && helpTourStage < 11) {
-
-      doHelpAction(helpTourStage + 1);
-    }
-  }
-
   if (helpBox) {
 
     if (helpBox === helpTourCheckbox) {
 
       toggleHelpTourCheckbox(helpBox);
     }
+
+    return;
+  }
+
+  console.warn("BEFORE: " + helpTourStage);
+
+  if (helpBtn) {
+    
+    if (helpBtn === helpOKBtn) {
+
+      doHelpAction(helpTourStage, helpOKBtn);
+
+      return;
+    }
+
+    if (helpBtn === helpSkipTourBtn) {
+
+      if (helpTourStage === 0) {
+
+        helpCardPopover.dataset.welcome = 0;
+
+        doHelpAction(20, helpSkipTourBtn);
+
+        return;
+      }
+
+      doHelpAction(-1, helpSkipTourBtn);
+
+      return;
+    }
+
+    if (helpBtn.classList.contains("dm-btn-help-prev") && helpTourStage > 2) {
+
+      doHelpAction(helpTourStage - 1, helpBtn);
+    }
+
+    if (helpBtn.classList.contains("dm-btn-help-next") && helpTourStage < 17) {
+
+      doHelpAction(helpTourStage + 1, helpBtn);
+    }
+
+    return;
   }
 }
 
@@ -1304,7 +1324,12 @@ function initHelpPopover() {
 
   helpCardPopover.addEventListener('click', helpPopoverHandler);
 
-  if (localStorage.getItem("user-skip-help-tour")) {
+  if (showWelcomeMessage) {
+
+    helpCardPopover.dataset.welcome = 1;
+  }
+
+  if (localStorage.getItem("user-skip-welcome-msg")) {
 
     console.log(`PD Helper: Welcome message is off`);
 
@@ -1322,12 +1347,12 @@ function toggleHelpTourCheckbox(checkbox) {
 
   if (checkbox.checked) {
 
-    localStorage.removeItem("user-skip-help-tour");
+    localStorage.removeItem("user-skip-welcome-msg");
 
     return;
   } 
 
-  localStorage.setItem("user-skip-help-tour", 1);
+  localStorage.setItem("user-skip-welcome-msg", 1);
 }
 
 // Update Help Tour stage number in Help Popover dataset
@@ -1367,66 +1392,91 @@ async function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
 
 // Trigger a Help action depending on Guided Tour stage
 
-async function doHelpAction(targetStageNo) {
+async function doHelpAction(stageNo, triggerBtn) {
+  
+  if (stageNo) {
 
-  if (targetStageNo === -1 || targetStageNo === 11) {
+    if (stageNo === -1 || stageNo === 17 ||
+      (stageNo === 20 && triggerBtn === helpOKBtn)) {
 
-    helpCardPopover.hidePopover();
-    helpTourCheckbox.checked = false;
-    localStorage.setItem("user-skip-help-tour", 1);
-    updateTourStage(0);
-    generateHelpCard(-1);
+      await helpCardPopover.hidePopover();
 
-    return;
-  }
+      setTimeout(() => {
+        updateTourStage(0);
+        generateHelpCard(-1);    
+      }, 500);
 
-  if (await doDataCheckup(helperJson, "help") === 0) {
+      hideAppHelper();
+      return;
+    }
 
-    helpCardWelcome.setAttribute("hidden", "");
-    helpCardMessage.removeAttribute("hidden");
-    helpCardMessage.textContent = "Oops! Helper's Gone For His Tea! Try pressing OK again or refresh the page.";
+    if (await doDataCheckup(helperJson, "help") === 0) {
 
-    return;
-  }
-
-  if (targetStageNo === 0) {
-
-    helpCardWelcome.setAttribute("hidden", "");
-    helpCardOptions.setAttribute("hidden", "");
-    helpCardMessage.removeAttribute("hidden");
-
-    if (appLauncherSection.hasAttribute("hidden")) {
-
-      updateTourStage(12);
-      generateHelpCard(12);
+      helpCardWelcome.setAttribute("hidden", "");
+      helpCardMessage.removeAttribute("hidden");
+      helpCardMessage.textContent = "Oops! Helper's Gone For His Tea! Try pressing OK again or refresh the page.";
 
       return;
     }
 
-    updateTourStage(2);
-    generateHelpCard(2);
-    return;
-  }
+    if (stageNo === 0) {
 
-  if (targetStageNo === 2) {
+      helpCardWelcome.setAttribute("hidden", "");
+      helpCardOptions.setAttribute("hidden", "");
+      helpCardMessage.removeAttribute("hidden");
+      
+      showAppHelper();
 
-    if (appLauncherSection.hasAttribute("hidden")) {
+      if (appLauncherSection.hasAttribute("hidden")) {
 
-      helpCardPopover.dataset.stage = 2;
+        updateTourStage(21);
+        generateHelpCard(21);
+        return;
+      }
 
-      updateTourStage(3);
-      generateHelpCard(3);
-
+      updateTourStage(1);
+      generateHelpCard(1);
       return;
-
     }
 
-    helpCardPopover.hidePopover();
+    if (stageNo === 1 || stageNo === 21) {
 
-    return;
+      if (appLauncherSection.hasAttribute("hidden")) {
+
+        updateTourStage(2);
+        generateHelpCard(2);
+
+        return;
+      }
+
+      helpCardPopover.hidePopover();
+      return;
+    }
+
+    if (triggerBtn === helpOKBtn) {
+
+      switch (stageNo) {
+        case 3:
+        case 8:
+        case 10:
+        case 12:
+        case 13:
+
+          helpCardPopover.hidePopover();
+          return;
+      
+        default:
+          break;
+      }
+    }
+
+    updateTourStage(stageNo + 1);
+    generateHelpCard(stageNo + 1);
+
+  } else {
+
+    console.warn(`PD Helper: Stage number is undefined`)
   }
-
-  updateTourStage(targetStageNo);
 }
 
 

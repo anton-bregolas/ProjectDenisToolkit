@@ -196,11 +196,13 @@ body.rainy .dm-btn-search-wrap .action-icon-container > * {
     border-color: var(--secondary-color-b);
   }
 
+  body.rainy .app-icon, 
   body.rainy .link-icon, 
   body.rainy .theme-icon {
     color: var(--primary-color);
   }
 
+  body.rainy .app-btn a:is(:hover, :focus) > *, 
   body.rainy .link-btn a:is(:hover, :focus) > *, 
   body.rainy .theme-btn:is(:hover, :focus) > * {
     color: color-mix(in srgb, var(--accent-color-a) 55%, white);
