@@ -1264,7 +1264,7 @@ export function helpPopoverHandler(event) {
   const helpBox = event.target.closest('input[type="checkbox"]');
   const helpTourStage = +helpCardPopover.getAttribute("data-stage");
 
-  console.warn(helpTourStage);
+  console.warn("BEFORE: " + helpTourStage);
 
   if (helpBtn) {
     
@@ -1283,7 +1283,7 @@ export function helpPopoverHandler(event) {
       doHelpAction(helpTourStage - 1);
     }
 
-    if (helpBtn.classList.contains("dm-btn-help-next") && helpTourStage < 10) {
+    if (helpBtn.classList.contains("dm-btn-help-next") && helpTourStage < 11) {
 
       doHelpAction(helpTourStage + 1);
     }
@@ -1332,9 +1332,9 @@ function toggleHelpTourCheckbox(checkbox) {
 
 // Update Help Tour stage number in Help Popover dataset
 
-function updateTourStage(targetStageNo) {
+function updateTourStage(stageNo) {
 
-  helpCardPopover.setAttribute("data-stage", targetStageNo);
+  helpCardPopover.setAttribute("data-stage", stageNo);
 }
 
 // Generate Help Tour card content from Helper JSON
@@ -1344,6 +1344,8 @@ async function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
   const newMessage = helperJson[helpItemNo]? helperJson[helpItemNo].msgtext : ""; 
   const okBtnNewText = okBtnText? okBtnText : helperJson[helpItemNo]? helperJson[helpItemNo].oktext : "";
   const skipBtnNewText = skipBtnText? skipBtnText : "Quit";
+
+  console.warn(`AFTER: ${+helpCardPopover.getAttribute("data-stage")}`);
 
   if (helpItemNo === -1) {
 
@@ -1367,11 +1369,12 @@ async function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
 
 async function doHelpAction(targetStageNo) {
 
-  if (targetStageNo === -1) {
+  if (targetStageNo === -1 || targetStageNo === 11) {
 
     helpCardPopover.hidePopover();
     helpTourCheckbox.checked = false;
     localStorage.setItem("user-skip-help-tour", 1);
+    updateTourStage(0);
     generateHelpCard(-1);
 
     return;
@@ -1379,35 +1382,48 @@ async function doHelpAction(targetStageNo) {
 
   if (await doDataCheckup(helperJson, "help") === 0) {
 
-    console.warn("0!");
-
-    helpCardWelcome.textContent = "Oops! Helper's Gone For His Tea! Try pressing OK again or refresh the page.";
+    helpCardWelcome.setAttribute("hidden", "");
+    helpCardMessage.removeAttribute("hidden");
+    helpCardMessage.textContent = "Oops! Helper's Gone For His Tea! Try pressing OK again or refresh the page.";
 
     return;
   }
 
-  if (targetStageNo === 1) {
+  if (targetStageNo === 0) {
 
+    helpCardWelcome.setAttribute("hidden", "");
     helpCardOptions.setAttribute("hidden", "");
+    helpCardMessage.removeAttribute("hidden");
 
     if (appLauncherSection.hasAttribute("hidden")) {
 
-      generateHelpCard(2);
+      updateTourStage(12);
+      generateHelpCard(12);
 
-    } else {
-
-      generateHelpCard(1, "OK", "Cancel");
+      return;
     }
+
+    updateTourStage(2);
+    generateHelpCard(2);
+    return;
   }
 
   if (targetStageNo === 2) {
 
+    if (appLauncherSection.hasAttribute("hidden")) {
+
+      helpCardPopover.dataset.stage = 2;
+
+      updateTourStage(3);
+      generateHelpCard(3);
+
+      return;
+
+    }
+
     helpCardPopover.hidePopover();
 
-    setTimeout(() => {
-      
-      generateHelpCard(2);
-    }, 150);
+    return;
   }
 
   updateTourStage(targetStageNo);

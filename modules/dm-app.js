@@ -264,8 +264,6 @@ export async function doDataCheckup(parentJson, dataType) {
 
       const newDataSize = jsonUpdate[jsonDataIndex];
 
-      console.warn(newDataSize);
-
       return newDataSize;
 
     } catch (error) {
@@ -319,13 +317,6 @@ function initLaunchButtons() {
 
 async function launchAppSequence() {
 
-  if (showWelcomeMessage === 1 && !localStorage.getItem("user-skip-help-tour")) {
-
-    helpCardPopover.showPopover();
-
-    return;
-  }
-
   if (toolkitMode === 0) {
 
     try {
@@ -337,6 +328,15 @@ async function launchAppSequence() {
       console.warn(`PD App:\n\nLaunching app sequence failed. Details:\n\n${error.message}`);
     }
   }
+
+  if (showWelcomeMessage === 1 && !localStorage.getItem("user-skip-help-tour")) {
+
+    helpCardPopover.showPopover();
+
+    return;
+  }
+
+  launchAppReveal();
 }
 
 // Fetch Tune DB data and reveal main page sections
@@ -359,8 +359,6 @@ async function launchAppFetch() {
       throw error;
     }
   }
-
-  launchAppReveal();
 }
 
 // Reveal hidden Main Page sections, hide App Launcher section and Helper (if not on guided tour)
