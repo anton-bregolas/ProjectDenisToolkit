@@ -27,25 +27,25 @@
     "msgno": "4",
     "msgtext": "Clicking on a search result will open an individual card of a Track, a Collection or a Tune with the matching words highlighted. You can then go back to the main menu by pressing the Quit button or keep exploring the Denis Murphy materials using card navigation. Each item provides references and links to help you identify tunes and find their sources.",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "OK"
   },
   {
     "msgno": "5",
     "msgtext": "Let’s take a closer look at the categories. To help navigate through the rich tapestry of Denis Murphy’s recordings, the app refers to any set of recordings – commercial, archival or otherwise – as “Collections”. Each Collection is broken down into individual “Tracks”, one tune per Track, and each one of those is given a reference number that can be easily decoded. Track Ref. No. 1234 would for example refer to album 1[000] track 23, tune 4.",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "OK"
   },
   {
     "msgno": "6",
     "msgtext": "After each Track is researched and identified, the Tunes played there are given short code names that also serve as a reference to printed collections of Irish music. The full set of all unique Tunes forms the Tunelist. Each of these three categories – Collections, Tracklist and Tunelist – can be accessed in the app’s Explore section.",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "OK"
   },
   {
     "msgno": "7",
     "msgtext": "Press the Show Tracklist button to see the full scope of the Denis Murphy items catalogued so far, including many rare archival materials waiting to be explored. The Tracklist view allows you to browse the entire list of recordings in one place and sort the tunes by name, ID, year of recording, other track performers joining Denis etc.",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "OK"
   },
   {
     "msgno": "8",
@@ -57,7 +57,7 @@
     "msgno": "9",
     "msgtext": "Enter the Collections menu by pressing the button with a gramophone record icon to view the full list of Collections added to the database. This section of the app lets you browse through the albums and archival items, get their reference details and connect to the sources. If you're looking for links to the recordings, this is the section to go!",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "OK"
   },
   {
     "msgno": "10",
@@ -69,7 +69,7 @@
     "msgno": "11",
     "msgtext": "The complete list of Denis Murphy tunes referenced so far can be accessed in the Tunelist menu. Pick from the list of tune cards and click on one to see the key information for each Tune. Links with Track numbers will take you to the Tracklist, highlighting the tune there.",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "OK"
   },
   {
     "msgno": "12",
@@ -87,19 +87,19 @@
     "msgno": "14",
     "msgtext": "To quickly navigate between the sections, press the hover button in the bottom right corner of the screen. You can also quickly access the Collections, Tracklist and Tunelist via shortcuts in the app’s header. Don't forget to check out the alternative color themes and the Helper's new look in each of them!",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "OK"
   },
   {
     "msgno": "15",
     "msgtext": "Note that this is a beta version of the app and a work-in-progress project: the database is continuously being updated and more features may be added later. The Tune Data will periodically update when you launch the app by pressing the Start Exploring button. You can follow the fiddle playing developer Anton Zille’s spaces for the all latest additions to #ProjectDenis – links are at the bottom of the page.",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "OK"
   },
   {
     "msgno": "16",
     "msgtext": "A word from the editor: This is a passion open-source project which I hope to one day integrate into a larger resource celebrating Denis Murphy’s legacy. You can contribute to #ProjectDenis in several ways: by making detailed tracklists of recordings not found in the database or by submitting publicly accessible transcriptions of Denis Murphy’s tunes that will then be verified against the source recording and added to the Tune DB.",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "OK"
   },
   {
     "msgno": "17",
@@ -111,13 +111,13 @@
     "msgno": "18",
     "msgtext": "",
     "msgtype": "reserved",
-    "oktext": "OK"
+    "oktext": ""
   },
   {
     "msgno": "19",
     "msgtext": "",
     "msgtype": "reserved",
-    "oktext": "OK"
+    "oktext": ""
   },
   {
     "msgno": "20",
