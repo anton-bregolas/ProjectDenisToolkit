@@ -1,15 +1,15 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis App: Toolkit Edition
-///////////////////////////////////////////////////////////////////////
+// #ProjectDenis App :: Toolkit Edition :: 1.0.0-beta :: Toolkit v.3.1
+//////////////////////////////////////////////////////////////////////
 
 import { appHelperHandler, helpCardPopover, showHelpPopover, 
          quitHelpTour, showAppHelper, hideAppHelper } from '../components/dm-helper/dm-helper.js'
 import { initSearch, tracksCounter, colsCounter, tunesCounter } from '../components/dm-search/dm-search.js';
 import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
-import { addAriaHidden, removeAriaHidden, setAriaLabel, toggleTabIndex } from './aria-tools.js';
 import { initModals, generateHandler } from '../components/dm-modals/dm-modals.js';
 import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
 import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
+import { setAriaLabel } from './aria-tools.js';
 
 // Tune Database links
 

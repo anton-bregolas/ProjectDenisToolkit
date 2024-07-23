@@ -1,7 +1,6 @@
 /* #ProjectDenis: Search Scripts */
 
 import { showPopoverHandler } from '../dm-popovers/dm-popovers.js';
-import { toolkitMode, addMultiEventListeners } from '../../modules/dm-toolkit.js';
 import { searchSection, tracksJson, colsJson, tunesJson } from '../../modules/dm-app.js';
 import { toggleAriaExpanded, groupRemoveTabIndex, groupAddTabIndex, addAriaHidden, removeAriaHidden } from '../../modules/aria-tools.js';
 

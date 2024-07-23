@@ -1,7 +1,6 @@
 /* #ProjectDenis Popovers Scripts*/
 
-import { toolkitMode } from '../../modules/dm-toolkit.js';
-import { processString, searchInput } from '../dm-search/dm-search.js'
+import { processString } from '../dm-search/dm-search.js'
 import { tunelistDialog, colsListDialog, colsListDiv,
          generateTunelist, generateColsList, tunelistDiv, 
          showDialogsDiv, hideDialogsDiv } from '../dm-modals/dm-modals.js';
