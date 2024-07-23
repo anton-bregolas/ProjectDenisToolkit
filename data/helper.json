@@ -13,7 +13,7 @@
   },
   {
     "msgno": "2",
-    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through! Press the right arrow to continue or the left arrow to go one step back. You can use your keyboard during the tour.",
+    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through! Press the right arrow to continue or the left arrow to go one step back. You can use your keyboard arrows during the tour.",
     "msgtype": "tour",
     "oktext": "OK"
   },
@@ -73,7 +73,7 @@
   },
   {
     "msgno": "12",
-    "msgtext": "If you need to quickly identify the tune, click on a link below What Tune is This? to open the tune’s page in an external tune database with sheet music and ABC. To get the exact Denis Murphy version of the tune instead, pick the Transcription link whenever it’s available. Those are added slowly but surely – you can contribute by transcribing the tunes and submitting them to The Session or the Tune Archive!",
+    "msgtext": "If you need to quickly identify the tune, click on a link below “What Tune is This?” to open the tune’s page in an external tune database with sheet music and ABC. To get the exact Denis Murphy version of the tune instead, pick the Transcription link whenever it’s available. Those are added slowly but surely – you can contribute by transcribing the tunes and submitting them to The Session or the Tune Archive!",
     "msgtype": "tour",
     "oktext": "Try it!"
   },
@@ -85,32 +85,32 @@
   },
   {
     "msgno": "14",
-    "msgtext": "To quickly navigate between the sections, press the hover button in the bottom right corner of the screen. You can also quickly access the Collections, Tracklist and Tunelist via shortcuts in the app’s header. Don't forget to check out the alternative color themes and the Helper's new look in each of them!",
+    "msgtext": "To quickly navigate between the sections, press the hover button in the bottom right corner of the screen. You can also quickly access the Collections, Tracklist and Tunelist via shortcuts in the app’s header. Don't forget to check out the alternative colour themes and the Helper's new look in each of them!",
     "msgtype": "tour",
-    "oktext": "OK"
+    "oktext": "Try it!"
   },
   {
     "msgno": "15",
-    "msgtext": "Note that this is a beta version of the app and a work-in-progress project: the database is continuously being updated and more features may be added later. The Tune Data will periodically update when you launch the app by pressing the Start Exploring button. You can follow the fiddle playing developer Anton Zille’s spaces for the all latest additions to #ProjectDenis – links are at the bottom of the page.",
+    "msgtext": "Note that this is a beta version of the app and a work-in-progress project: the database is continuously being updated and more features may be added later. The Tune Data will periodically update when you launch the app by pressing the Start Exploring button. You can follow the fiddle playing developer Anton Zille’s spaces for all the latest additions to #ProjectDenis – links are at the bottom of the page.",
     "msgtype": "tour",
     "oktext": "OK"
   },
   {
     "msgno": "16",
-    "msgtext": "A word from the editor: This is a passion open-source project which I hope to one day integrate into a larger resource celebrating Denis Murphy’s legacy. You can contribute to #ProjectDenis in several ways: by making detailed tracklists of recordings not found in the database or by submitting publicly accessible transcriptions of Denis Murphy’s tunes that will then be verified against the source recording and added to the Tune DB.",
+    "msgtext": "A word from the editor: This is a passion open-source project which I hope to one day integrate into a larger resource celebrating Denis Murphy’s legacy. You can contribute to #ProjectDenis in several ways: by making detailed tracklists of recordings not found in the database or by submitting publicly accessible transcriptions of Denis Murphy’s tunes that will then be verified against the source recording and added to the DB.",
     "msgtype": "tour",
     "oktext": "OK"
   },
   {
     "msgno": "17",
-    "msgtext": "Of course, it’s not the notes and the lists that are important but the personal journey through the recordings that we take and the musical legacy of Denis that we pass on in the process. I hope that this project will help you connect to the source material of this wonderful musician – feel free to send me any feedback that you have! This project would not have been possible without all the people and sources that came before and the help of Billy Clifford, the Irish Traditional Music Archive and the Friends of Sliabh Luachra in particular. Up Sliabh Luachra!",
+    "msgtext": "Of course, it’s not the notes and the lists that are important but the personal journey through the recordings that we take and the musical legacy of Denis that we pass on in the process. I hope that this project will help you connect to the source material of this wonderful musician whose vast wealth of tunes, songs and wit is still uncharted territory to most Irish traditional music lovers – this at the 50th anniversary of his untimely passing!",
     "msgtype": "tour",
-    "oktext": ""
+    "oktext": "OK"
   },
   {
     "msgno": "18",
-    "msgtext": "",
-    "msgtype": "reserved",
+    "msgtext": "This project would not have been possible without all the people and sources that came before and the help of Billy Clifford, the Irish Traditional Music Archive and the Friends of Sliabh Luachra in particular. Feel free to send me any feedback that you have. Up Sliabh Luachra!",
+    "msgtype": "tour",
     "oktext": ""
   },
   {
