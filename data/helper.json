@@ -7,19 +7,19 @@
   },
   {
     "msgno": "1",
-    "msgtext": "Press the Start Exploring button to load fresh Tune Data and then click OK to continue. Click on the little Denis Helper or the OK / Try it! button whenever you need to close this menu and look around, click on the Helper again to reopen it. If you want to stop the tour at any time, press Quit.",
+    "msgtext": "Press the Start Exploring button to load fresh Tune Data and then click Start to continue. If you need to close this menu and look around, click on the little Denis Helper or the OK (Try it!) button and then click on the Helper again to reopen it. To stop the tour at any time, press Quit.",
+    "msgtype": "tour",
+    "oktext": "Start"
+  },
+  {
+    "msgno": "2",
+    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through! Press the right arrow to continue or the left arrow to go one step back.",
     "msgtype": "tour",
     "oktext": "OK"
   },
   {
-    "msgno": "2",
-    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through!",
-    "msgtype": "tour",
-    "oktext": "Continue"
-  },
-  {
     "msgno": "3",
-    "msgtext": "Whenever you need to quickly look up some details of an album, a track or a tune recorded by Denis Murphy, start by selecting the search category and typing a word or two in the Search input. Try searching for “Pádraig O’Keeffe” to get a large selection of results or ”Donal a' Clumper's” to view a very specific search set.",
+    "msgtext": "Whenever you need to quickly look up some details of an album, a track or a tune recorded by Denis Murphy, start by selecting the search category and typing a word or two in the Search input. Try searching for “Pádraig O’Keeffe” to get a large selection of results or “Donal a' Clumper's” to view a very specific search set. Click Next when you're ready to continue.",
     "msgtype": "tour",
     "oktext": "Try it!"
   },
@@ -127,8 +127,8 @@
   },
   {
     "msgno": "21",
-    "msgtext": "Click on the little Denis Helper or the Try it! button whenever you need to close this menu and look around, click on the Helper again to reopen it. If you want to stop the tour at any time, press Quit.",
+    "msgtext": "If you need to close this menu and look around, click on the little Denis Helper or the OK / Try it! button, click on the Helper again to reopen it. To stop the tour at any time, press Quit.",
     "msgtype": "tour",
-    "oktext": "Continue"
+    "oktext": "Start"
   }
 ]
