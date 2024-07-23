@@ -2,12 +2,14 @@
 // #ProjectDenis App: Toolkit Edition
 ///////////////////////////////////////////////////////////////////////
 
+import { appHelperHandler, helpCardPopover, showHelpPopover, 
+         quitHelpTour, showAppHelper, hideAppHelper } from '../components/dm-helper/dm-helper.js'
 import { initSearch, tracksCounter, colsCounter, tunesCounter } from '../components/dm-search/dm-search.js';
 import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
 import { addAriaHidden, removeAriaHidden, setAriaLabel, toggleTabIndex } from './aria-tools.js';
 import { initModals, generateHandler } from '../components/dm-modals/dm-modals.js';
-import { initPopovers, helpCardPopover } from '../components/dm-popovers/dm-popovers.js';
 import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
+import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
 
 // Tune Database links
 
@@ -142,8 +144,7 @@ export async function fetchDataJsons() {
       fetchData(colsJsonLink, "json"), 
       fetchData(tunesJsonLink, "json"), 
       fetchData(tracksJsonLink, "json"), 
-      fetchData(refsJsonLink, "json"),
-      fetchData(helperJsonLink, "json")
+      fetchData(refsJsonLink, "json")
     ]);
 
   } catch (error) {
@@ -160,20 +161,19 @@ export async function updateDataJsons() {
 
     console.log("PD App:\n\nFetching data from Tune DB...");
 
-    const [colsJsonData, tunesJsonData, tracksJsonData, refsJsonData, helperJsonData] =     
+    const [colsJsonData, tunesJsonData, tracksJsonData, refsJsonData] =     
     await fetchDataJsons();
 
     updateData(colsJson, colsJsonData);
     updateData(tunesJson, tunesJsonData);
     updateData(tracksJson, tracksJsonData);
     updateData(refsJson, refsJsonData);
-    updateData(helperJson, helperJsonData);
     
     tracksCounter.textContent = tracksJson.length;
     colsCounter.textContent = colsJson.length;
     tunesCounter.textContent = tunesJson.length;
 
-    return [colsJson.length, tunesJson.length, tracksJson.length, refsJson.length, helperJson.length];
+    return [colsJson.length, tunesJson.length, tracksJson.length, refsJson.length];
 
   } catch (error) {
 
@@ -226,6 +226,7 @@ export function getInfoFromDataType(jsonType) {
 
     case "help":
     case "helper":
+    case "helperJson":
       parentJson = "helperJson";
       dataName = "Helper";
       dataIndex = 4;
@@ -246,6 +247,26 @@ export async function doDataCheckup(parentJson, dataType) {
   if (parentJson.length > 0) {
 
     return parentJson.length;
+  }
+
+  if (parentJson === helperJson) {
+
+    try {
+      
+      let helperJsonData = await fetchData(helperJsonLink, "json");
+
+      console.log("PD App:\n\nFetching App Helper data...");
+      
+      updateData(helperJson, helperJsonData);
+  
+      return helperJson.length;
+
+    } catch (error) {
+
+      console.warn(error);
+
+      return 0;
+    }
   }
 
   const jsonInfo = dataType? getInfoFromDataType(dataType) : ["allJson", "Tune DB", 2];
@@ -282,11 +303,13 @@ export async function doDataCheckup(parentJson, dataType) {
 
 export async function updateData(dataJson, newData) {
 
+  let jsonType = dataJson === helperJson? "Helper data" : "Tune DB";
+
   dataJson.length = 0;
 
   dataJson.push(...newData);
 
-  console.log(`PD App:\n\n${getInfoFromDataType(dataJson)[1]} Data updated`);
+  console.log(`PD App:\n\n${jsonType} updated`);
 }
 
 ///////////////////////////////////
@@ -318,7 +341,14 @@ function initLaunchButtons() {
 
 // Launch app sequence: Check if help tour is needed, fetch all Data JSONs, update Custom JSONs, reveal app menu
 
-async function launchAppSequence() {
+export async function launchAppSequence() {
+
+  if (+helpCardPopover.dataset.welcome === 1 && +helpCardPopover.dataset.stage === 0 && !localStorage.getItem("user-skip-welcome-msg")) {
+
+    showHelpPopover();
+
+    return;
+  }
 
   if (toolkitMode === 0) {
 
@@ -332,14 +362,17 @@ async function launchAppSequence() {
     }
   }
 
-  if (+helpCardPopover.dataset.welcome === 1 && +helpCardPopover.dataset.stage === 0 && !localStorage.getItem("user-skip-welcome-msg")) {
+  if (+helpCardPopover.dataset.stage === 20) {
 
-    helpCardPopover.showPopover();
-
-    return;
+    quitHelpTour();
   }
 
   launchAppReveal();
+
+  if (+helpCardPopover.dataset.stage === 1 || +helpCardPopover.dataset.stage === 21) {
+
+    appHelperBtn.focus();
+  }
 }
 
 // Fetch Tune DB data and reveal main page sections
@@ -366,7 +399,7 @@ async function launchAppFetch() {
 
 // Reveal hidden Main Page sections, hide App Launcher section and Helper (if not on guided tour)
 
-async function launchAppReveal() {
+function launchAppReveal() {
 
   searchSection.removeAttribute("hidden");
   exploreSection.removeAttribute("hidden");
@@ -432,7 +465,7 @@ export function toggleColorTheme(newColorTheme) {
   
   document.body.classList.value = newColorTheme;
 
-  toggleAppHelpers(newColorTheme);
+  toggleAppHelpersLook(newColorTheme);
 
   localStorage.setItem("user-color-theme", newColorTheme);
 
@@ -457,7 +490,7 @@ export function toggleColorTheme(newColorTheme) {
 
 // Very serious and not at all whimsical Helper images toggle handler function
 
-function toggleAppHelpers(currentColorTheme) {
+function toggleAppHelpersLook(currentColorTheme) {
 
   const appropriatelyDressedAppHelper = document.querySelector(`#dm-helper-${currentColorTheme}`);
 
@@ -481,12 +514,12 @@ function toggleAppHelpers(currentColorTheme) {
 }
 
 //////////////////////////////////////
-// App Helper and Help Menu Functions
+// App Helper Images Load Functions
 /////////////////////////////////////
 
-// Initialize App Helpers
+// Initialize App Helper Images, handle slow loading
 
-function initAppHelpers() {
+function initAppHelperImages() {
 
   appHelperContainer.addEventListener('click', appHelperHandler);
 
@@ -496,7 +529,7 @@ function initAppHelpers() {
 
     if (helperImg.complete) {
 
-      helper.classList.add("active");
+      showAppHelper();
     
     } else {
 
@@ -504,8 +537,6 @@ function initAppHelpers() {
       helperImg.addEventListener('error', handleHelperSlowLoad);
     }
   });
-
-  showAppHelper();
 }
 
 // Make sure the Helper images don't appear before fully loading by making them visible on load
@@ -520,47 +551,10 @@ function handleHelperSlowLoad(event) {
     return;
   }
 
-  helperPicture.classList.add("active");
+  showAppHelper();
+
 	helperImg.removeEventListener('load', handleHelperSlowLoad);
   helperImg.removeEventListener('error', handleHelperSlowLoad);
-}
-
-// Show or hide popover when Helper is clicked
-
-export function appHelperHandler(event) {
-  
-  const helperBtn = event.target.closest('.dm-btn-helper');
-
-  if (helperBtn) {
-
-    if (helpCardPopover.matches(':popover-open')) {
-
-      helpCardPopover.hidePopover();
-  
-      return;
-    }
-  
-    helpCardPopover.showPopover();
-  }
-}
-
-// Show App Helper, slide in to full size
-
-export function showAppHelper() {
-
-  appHelperContainer.classList.add("expanded");
-  removeAriaHidden(mainAppHelper);
-  appHelperBtn.setAttribute("tabindex", "0");
-}
-
-// Hide App Helper, slide out to below the bottom of the page
-
-export function hideAppHelper() {
-
-  appHelperContainer.classList.remove("expanded");
-  addAriaHidden(mainAppHelper);
-  toggleTabIndex(mainAppHelper);
-  appHelperBtn.setAttribute("tabindex", "-1");
 }
 
 /////////////////////////////////////////////////
@@ -575,7 +569,7 @@ export function hideAppHelper() {
 
     toggleColorTheme(userColorTheme);
 
-    toggleAppHelpers(userColorTheme);
+    toggleAppHelpersLook(userColorTheme);
 
     console.log(`PD App:\n\nUser color theme retrieved`);
   }
@@ -587,7 +581,7 @@ export function hideAppHelper() {
 
 document.addEventListener("DOMContentLoaded", () => {
   
-  showAppHelper();
+  initAppHelperImages();
   initLaunchButtons();
   initHeaderButtons();
   initToolkitButtons();
@@ -595,7 +589,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initModals();
   initPopovers();
   initTracklist();
-  initAppHelpers();
 });
 
 //////////////////////////////////////////

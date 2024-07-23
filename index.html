@@ -9,11 +9,12 @@
         <link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
         <link rel="stylesheet" href="styles/tools-common-styles.css">
         <link rel="stylesheet" href="styles/dm-toolkit.css">
+        <link rel="stylesheet" href="components/dm-helper/dm-helper.css">
         <link rel="stylesheet" href="components/dm-popovers/dm-popovers.css">
         <link rel="stylesheet" href="components/dm-modals/dm-modals.css">
         <link rel="stylesheet" href="components/dm-tracklist/dm-tracklist.css">
         <link rel="stylesheet" href="components/dm-search/dm-search.css">
-        <link rel="stylesheet" href="styles/dm-themes-override.css">    
+        <link rel="stylesheet" href="styles/dm-themes-override.css">
         <script type="module" src="modules/dm-app.js"></script>
     </head>
 <body class="star">
@@ -24,12 +25,12 @@
                     <svg class="link-icon github-icon-dark" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-github"></use></svg>
                 </a>
             </button>
-            <button class="link-btn tunetable-btn" title="Tunetable App" tabindex="-1">
+            <button class="link-btn tunetable-btn" title="Tunetable: App for making tunelists" tabindex="-1">
                 <a href="https://anton-bregolas.github.io/Tunetable" target="_blank" class="link-icon-container" aria-label="Link to Tunetable app">
                     <svg class="link-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-tunelist"></use></svg>
                 </a>
             </button>
-            <button class="link-btn tso-btn" title="#ProjectDenis transcriptions on The Session" tabindex="-1">
+            <button class="link-btn tso-btn" title="Denis Murphy transcriptions on The Session" tabindex="-1">
                 <a href="https://thesession.org/members/26966/tags/ProjectDenis" target="_blank" class="link-icon-container" aria-label="Link to Project Denis transcriptions on The Session">
                     <svg class="link-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-abc"></use></svg>
                 </a>
@@ -183,7 +184,7 @@
                         </thead>
                         <tbody id="dm-tracklist" aria-live="polite" aria-label="Tracklist sorted by: refno; order: ascending"></tbody>
                     </table>
-                    <article id="dm-popover-card-track" popover class="dm-track-card dm-popover-card" aria-label="Track Card">
+                    <article id="dm-popover-card-track" popover class="dm-track-card dm-popover-card" aria-label="Track Card" tabindex="0">
                         <header class="dm-track-grid-header dm-popover-card-header">
                             <button id="dm-btn-track-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Track Card" title="Close Track Card"></button>
                             <h3 class="track-grid-hrefno" data-type="refno"></h3>
@@ -289,7 +290,7 @@
                         </div>
                     </header>
                     <section id="dm-tunelist" class="dm-tunelist-container" aria-label="Tunelist grid, select a tune"></section>
-                    <article id="dm-popover-card-tune" popover class="dm-tune-card dm-popover-card" aria-label="Tune Card">
+                    <article id="dm-popover-card-tune" popover class="dm-tune-card dm-popover-card" aria-label="Tune Card" tabindex="0">
                         <header class="dm-tune-grid-header dm-popover-card-header">
                             <button id="dm-btn-tune-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Card and View Tunelist" title="Close Card and View Tunelist"></button>
                             <h3 class="tune-grid-htuneref" data-type="tuneref"></h3>
@@ -350,7 +351,7 @@
                             <tbody id="dm-collist"></tbody>
                         </table>
                     </section>    
-                    <article id="dm-popover-card-col" popover class="dm-col-card dm-popover-card" aria-label="Collection Card">
+                    <article id="dm-popover-card-col" popover class="dm-col-card dm-popover-card" aria-label="Collection Card" tabindex="0">
                         <header class="dm-col-grid-header dm-popover-card-header">
                             <button id="dm-btn-col-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Card and View Collections" title="Close Card and View Collections"></button>
                             <h3><span class="col-grid-hrefno" data-type="colrefno"></span> | <span class="col-grid-hrefcode" data-type="refcode"></span></h3>
@@ -455,8 +456,8 @@
                 <dialog>
             </section>
         </div>
-        <article id="dm-helper-main" class="dm-helper-container" aria-hidden="true">
-            <button class="dm-btn-helper" aria-label="App Helper" tabindex="-1">
+        <article id="dm-helper-main" class="dm-helper-container" inert>
+            <button class="dm-btn-helper" aria-label="App Helper">
                 <picture id="dm-helper-star" class="dm-helper-image">
                     <source type="image/webp" 
                             srcset="
@@ -554,10 +555,10 @@
                 </picture>
             </button>
         </article>
-        <article id="dm-popover-help" popover="manual" class="dm-help-card dm-tune-card dm-popover-card" aria-label="Help Menu" data-stage="0">
+        <article id="dm-popover-help" popover="manual" class="dm-help-card dm-tune-card dm-popover-card" aria-label="Help Menu" data-stage="0" tabindex="0" inert>
             <div class="dm-help-card-container">
                 <div class="dm-help-body">
-                    <p class="dm-help-msg">Welcome to Project Denis, a prototype app that helps uncover the rich repertoire of the Sliabh Luachra fiddle legend Denis Murphy (1910–1974). Would you like to take a detailed guided tour of the app?</p>
+                    <p class="dm-help-msg" aria-live="polite">Welcome to Project Denis, a prototype app that helps uncover the rich repertoire of the Sliabh Luachra fiddle legend Denis Murphy (1910–1974). Would you like to take a detailed guided tour of the app?</p>
                     <div class="dm-help-options">
                         <label for="dm-help-tour-checkbox" class="dm-checkbox-label">Show this on startup
                             <input type="checkbox" id="dm-help-tour-checkbox" name="help-tour" class="dm-checkbox" value="1" title="Uncheck to skip welcome screen on app launch" aria-label="Uncheck to skip welcome screen on app launch" checked="checked">
@@ -565,9 +566,9 @@
                     </div>
                 </div>
                 <nav class="dm-help-nav-footer">
-                    <button class="dm-btn-help-card-nav dm-btn-help-prev" title="Show previous help message" aria-label="Show previous help message"></button>
+                    <button class="dm-btn-help-card-nav dm-btn-help-prev" title="Show previous help message" aria-label="Show previous help message" hidden></button>
                     <button class="dm-btn-help-card-nav dm-btn-help-ok" title="Confirm guided app tour action" autofocus></button>
-                    <button class="dm-btn-help-card-nav dm-btn-help-next" title="Show next help message" aria-label="Show next help message"></button>
+                    <button class="dm-btn-help-card-nav dm-btn-help-next" title="Show next help message" aria-label="Show next help message" hidden></button>
                     <button class="dm-btn-help-card-nav dm-btn-help-skip" title="Quit guided app tour" aria-label="Quit guided app tour"></button>
                 </nav>
             </div>
@@ -575,6 +576,7 @@
     </main>
     <footer class="dm-footer" hidden>
         <p class="dm-footer-text">Built by <a href="https://www.youtube.com/@AntonBregolas" target="_blank">Anton Zille</a> in 2024</p>
+        <p class="dm-footer-text"><a href="https://github.com/anton-bregolas" target="_blank">GitHub</a> :: <a href="https://www.facebook.com/anton.bregolas/" target="_blank">Facebook</a> :: <a href="mailto:sliabhluachrahub@gmail.com">Еmаil</a></p>
         <nav class="dm-footer-nav">
             <button id="main-nav-btn" class="section-nav-btn" title="" aria-label="" popovertarget="dm-popover-nav-main">
                 <svg class="action-icon action-icon-sections shadowed" aria-hidden="true">

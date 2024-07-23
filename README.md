@@ -1,6 +1,15 @@
 #ProjectDenis Toolkit
 ========================================================================================
-#ProjectDenis Toolkit is a set of simple tools for building and updating the database for the project in tribute to the Sliabh Luachra music legend, fiddle player Denis Murphy (1910–1974).
+#ProjectDenis Toolkit is a set of simple tools for building, updating and testing the database for the prototype project in tribute to the Sliabh Luachra music legend, fiddle player Denis Murphy (1910–1974).
+
+[v.3.1]
+
++ Guided Help Tour with Help Popover Menu and animated transitions.
++ Stable Helper animations on page load and theme change.
++ Helper JSON with detailed tour comments added. 
++ Helper scripts & styles separated into separate component.
++ Improved launcher handling cases of slow image load.
++ Arrow navigation now supported in all popovers.
 
 [v.3.0]
 
@@ -97,7 +106,17 @@
 
 + Development in basic Toolkit mode with Generator, Parser and Splitter sections (detailed breakdown below).
 
-## App Helper v.1.0
+## App Helper v.1.1
+
+[v.1.1]
+
++ Stable Helper animations on page load and theme change.
++ Helper JSON with detailed tour comments added. 
++ Helper JSON fetched separately from Tune DB.
++ Guided Help Tour algorithm created with data-stage checks on Help Popover. 
++ Help Popover Menu navigation designed with OK, Next/Back and Quit button types.
++ Added animated transitions and optional focusing on elements to Help Tour.
++ Helper scripts & styles separated into separate component.
 
 [v.1.0]
 
@@ -106,7 +125,13 @@
 + Helper costumes change colors on color theme toggle, load with remembered user theme setting.
 + Test slide-in and slide-out animations on page load and color theme change.
 
-## App Launcher v.1.4
+## App Launcher v.1.5
+
+[v.1.5]
+
++ App Helper load functions added, Launch App Sequence extended.
++ Guided Tour prompt with selectable show-on-startup checkbox added on Start Exploring button press.
++ Slow loading of images cases handled with transitionend event and starting opacity style settings.
 
 [v.1.4]
 

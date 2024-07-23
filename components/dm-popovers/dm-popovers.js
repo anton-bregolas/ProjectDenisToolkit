@@ -1,16 +1,15 @@
 /* #ProjectDenis Popovers Scripts*/
 
 import { toolkitMode } from '../../modules/dm-toolkit.js';
-import { processString } from '../dm-search/dm-search.js'
+import { processString, searchInput } from '../dm-search/dm-search.js'
 import { tunelistDialog, colsListDialog, colsListDiv,
          generateTunelist, generateColsList, tunelistDiv, 
          showDialogsDiv, hideDialogsDiv } from '../dm-modals/dm-modals.js';
 import { tracklistOutput, focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
 import { addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
-import { doDataCheckup, isObjectEmpty, toggleColorTheme, themeToggleBtn, statusBars, 
-         tracksJson, colsJson, tunesJson, refsJson, generateTracklistBtn, getInfoFromDataType, 
-         appHelperContainer, showAppHelper, hideAppHelper, helperJson, appLauncherSection, showWelcomeMessage, 
-         searchSection, exploreSection, discoverSection} from '../../modules/dm-app.js';
+import { doDataCheckup, isObjectEmpty, toggleColorTheme, themeToggleBtn, statusBars, getInfoFromDataType,
+         tracksJson, colsJson, tunesJson, refsJson, generateTracklistBtn, appHelperContainer } from '../../modules/dm-app.js';
+import { initHelpPopover, helpCardPopover, showAppHelper, hideAppHelper, doHelpAction, helpBackBtn, helpNextBtn } from '../dm-helper/dm-helper.js'
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
@@ -19,7 +18,6 @@ export const linksCardPopover = document.querySelector('#dm-popover-card-reflink
 export const allPopovers = document.querySelectorAll('[popover]');
 export const themePickerPopover = document.querySelector('#theme-picker-popover');
 export const navCardPopover = document.querySelector('#dm-popover-nav-main');
-export const helpCardPopover = document.querySelector('#dm-popover-help');
 
 const trackRefLinkDiv = document.querySelector('.track-grid-reflink');
 const trackSourceDiv = document.querySelector('.dm-track-grid-source');
@@ -27,13 +25,6 @@ const tuneTrackRefDiv = document.querySelector('.tune-grid-refno-cont');
 const colRefLinkDiv = document.querySelector('.col-grid-reflink');
 const cardNavBtn = document.querySelectorAll('.dm-btn-card-nav');
 const refCardGridDiv = document.querySelector('.dm-ref-grid-body');
-
-const helpCardMessage = helpCardPopover.querySelector('.dm-help-msg');
-const helpCardOptions = helpCardPopover.querySelector('.dm-help-options');
-const helpTourCheckbox = helpCardPopover.querySelector('#dm-help-tour-checkbox');
-const helpOKBtn = helpCardPopover.querySelector('.dm-btn-help-ok');
-const helpSkipTourBtn = helpCardPopover.querySelector('.dm-btn-help-skip');
-const allHelpBtns = helpCardPopover.querySelectorAll('.dm-btn-help-card-nav');
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tune Popover Functions
@@ -1102,6 +1093,7 @@ export function alertPopoverState() {
                     this === colCardPopover? "Collection Card" :
                     this === trackCardPopover? "Track Card" :
                     this === themePickerPopover? "Color Theme Selection Card" :
+                    this === helpCardPopover? "Help Menu" :
                     "Links Card";
 
   let popoverMessage = isPopoverOpen? " is open." : " was closed.";
@@ -1115,6 +1107,80 @@ export function alertPopoverState() {
     }, 3000);
   });
 }
+
+// Listen to right/left arrow keys pressed, capture strictly when popovers with arrow navigation are open
+
+function arrowNavHandler(event) {
+
+  let helpTourStageNo = +helpCardPopover.dataset.stage;
+
+  if (event.key == "ArrowLeft") {
+
+    if (tuneCardPopover.matches(':popover-open')) {
+
+      switchTuneCard("prev", tunesJson, "tunes");
+      return;
+    }
+
+    if (colCardPopover.matches(':popover-open')) {
+
+      switchTuneCard("prev", colsJson, "tunes");
+      return;
+    }
+
+    if (trackCardPopover.matches(':popover-open')) {
+
+      switchTuneCard("prev", tracksJson, "tunes");
+      return;
+    }
+    
+    if (helpCardPopover.matches(':popover-open') && !helpBackBtn.hasAttribute("hidden")) {
+
+      doHelpAction(helpTourStageNo, helpBackBtn);
+      return;
+    }
+  } 
+  
+  if (event.key == "ArrowRight") {
+
+    if (tuneCardPopover.matches(':popover-open')) {
+      
+      switchTuneCard("next", tunesJson, "tunes");
+      return;
+    }
+    
+    if (colCardPopover.matches(':popover-open')) {
+      
+      switchTuneCard("next", colsJson, "tunes");
+      return;
+    }
+    
+    if (trackCardPopover.matches(':popover-open')) {
+      
+      switchTuneCard("next", tracksJson, "tunes");
+      return;
+    }
+
+    if (helpCardPopover.matches(':popover-open') && !helpNextBtn.hasAttribute("hidden")) {
+    
+      doHelpAction(helpTourStageNo, helpNextBtn);
+      return;
+    }
+  }
+}
+
+// Initialize in-app arrow navigation for selected widgets
+
+function initPopoverArrowNav() {
+
+  [tuneCardPopover, colCardPopover, trackCardPopover, helpCardPopover].forEach(popover => {
+
+    popover.addEventListener('keydown', arrowNavHandler);
+  });
+
+  // window.addEventListener('keydown', arrowNavHandler);
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Popover Handler Functions
@@ -1237,282 +1303,20 @@ function toggleColorThemeHandler(event) {
     // Let App Helper show off their new look
 
     if (!appHelperContainer.classList.contains("expanded") && +helpCardPopover.dataset.stage === 0) {
-    
-      setTimeout(() => {
 
-        showAppHelper();
-      }, 150);
+      showAppHelper();
 
       setTimeout(() => {
         
-        if (+helpCardPopover.dataset.stage === 0) {
+        if (+helpCardPopover.dataset.stage === 0 &&
+          !helpCardPopover.matches(':popover-open')) {
 
-          hideAppHelper();
+          hideAppHelper()
         }
       }, 3750);
     }
   }
 }
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Helper Popover Functions
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Handle clicks on elements inside the Help Popover
-
-export function helpPopoverHandler(event) {
-
-  const helpBtn = event.target.closest('button');
-  const helpBox = event.target.closest('input[type="checkbox"]');
-  const helpTourStage = +helpCardPopover.getAttribute("data-stage");
-
-  if (helpBox) {
-
-    if (helpBox === helpTourCheckbox) {
-
-      toggleHelpTourCheckbox(helpBox);
-    }
-
-    return;
-  }
-
-  console.warn("BEFORE: " + helpTourStage);
-
-  if (helpBtn) {
-
-    doHelpAction(helpTourStage, helpBtn);
-
-    return;
-  }
-}
-
-// Initialize Help Popover elements
-
-function initHelpPopover() {
-
-  helpCardPopover.addEventListener('click', helpPopoverHandler);
-
-  if (showWelcomeMessage) {
-
-    helpCardPopover.dataset.welcome = 1;
-  }
-
-  if (localStorage.getItem("user-skip-welcome-msg")) {
-
-    console.log(`PD Helper: Welcome message is off`);
-
-    helpTourCheckbox.checked = false;
-
-  } else {
-
-    console.log(`PD Helper: Welcome message is on`);
-  }
-}
-
-// Handle the checking and unchecking of Show Help Tour checkbox
-
-function toggleHelpTourCheckbox(checkbox) {
-
-  if (checkbox.checked) {
-
-    localStorage.removeItem("user-skip-welcome-msg");
-
-    return;
-  } 
-
-  localStorage.setItem("user-skip-welcome-msg", 1);
-}
-
-// Update Help Tour stage number in Help Popover dataset
-
-function updateTourStage(stageNo) {
-
-  helpCardPopover.setAttribute("data-stage", stageNo);
-}
-
-// Start the Guided Help Tour after checking the state of the launcher
-
-function startHelpTour() {
-
-  showAppHelper();
-
-  helpCardOptions.setAttribute("hidden", "");
-
-  if (appLauncherSection.hasAttribute("hidden")) {
-
-    updateTourStage(21);
-    generateHelpCard(21);
-    return;
-  }
-
-  updateTourStage(1);
-  generateHelpCard(1);
-}
-
-// Check if the App has been launched awaiting confirmation
-
-function pauseHelpTourUntilLaunch() {
-
-  if (appLauncherSection.hasAttribute("hidden")) {
-
-    updateTourStage(2);
-    generateHelpCard(2);
-    return;
-  }
-
-  helpCardPopover.hidePopover();
-  return;
-}
-
-// Quit the Guided Help Tour and reset the Help Popover Card
-
-async function quitHelpTour() {
-
-  helpCardPopover.dataset.welcome = 0;
-
-  await helpCardPopover.hidePopover();
-
-  setTimeout(() => {
-    updateTourStage(0);
-    generateHelpCard(-1);    
-  }, 500);
-
-  hideAppHelper();
-}
-
-// Generate Help Tour card content from Helper JSON
-
-async function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
-
-  const newMessage = helperJson[helpItemNo]? helperJson[helpItemNo].msgtext : ""; 
-  const okBtnNewText = okBtnText? okBtnText : helperJson[helpItemNo]? helperJson[helpItemNo].oktext : "";
-  const skipBtnNewText = skipBtnText? skipBtnText : "Quit";
-
-  console.warn(`AFTER: ${+helpCardPopover.getAttribute("data-stage")}`);
-
-  if (helpItemNo === -1) {
-
-    helpCardOptions.removeAttribute("hidden");
-
-    helpCardMessage.textContent = helperJson[0].msgtext;
-    helpOKBtn.textContent = "";
-    helpSkipTourBtn.textContent = "";
-
-    return;
-  }
-
-  if (helpItemNo === 20) {
-    
-    helpCardOptions.setAttribute("hidden", "");
-  }
-
-  helpCardMessage.textContent = newMessage;
-  helpOKBtn.textContent = okBtnNewText;
-  helpSkipTourBtn.textContent = skipBtnNewText;
-}
-
-// Trigger a Help action depending on Guided Tour stage
-
-async function doHelpAction(stageNo, triggerBtn) {
-
-  // console.warn(triggerBtn);
-
-  if (stageNo === undefined || Number.isNaN(stageNo)) {
-
-    console.warn(`PD Helper: Stage number is undefined`);
-
-    return;
-  }
-
-  if (await doDataCheckup(helperJson, "help") === 0) {
-
-    helpCardMessage.textContent = "Oops! Helper's Gone For His Tea! Try pressing OK again or refresh the page.";
-
-    return;
-  }
-
-  if (triggerBtn === helpSkipTourBtn) {
-
-    switch (stageNo) {
-
-      case 0:
-        updateTourStage(20);
-        generateHelpCard(20);
-        return;
-    
-      default:
-        quitHelpTour();
-        return;
-    }
-  }
-  
-  if (stageNo === 2) {
-
-    searchSection.scrollIntoView();
-  }
-
-  if (stageNo === 5) {
-    
-    exploreSection.scrollIntoView();
-  }
-
-  if (stageNo === 12) {
-
-    discoverSection.scrollIntoView();
-  }
-
-  if (triggerBtn === helpOKBtn) {
-
-    switch (stageNo) {
-
-      case 0:
-        startHelpTour();
-        return;
-
-      case 1:
-      case 21:
-        pauseHelpTourUntilLaunch();
-        return;
-
-      case 3:
-      case 8:
-      case 10:
-      case 12:
-      case 13:
-
-        helpCardPopover.hidePopover();
-        return;
-      
-      case 17:
-      case 20:
-
-        quitHelpTour();
-        return;
-    
-      default:
-
-        updateTourStage(stageNo + 1);
-        generateHelpCard(stageNo + 1);
-        return;
-    }
-  }
-
-  if (triggerBtn.classList.contains("dm-btn-help-prev") && stageNo > 2) {
-
-    updateTourStage(stageNo - 1);
-    generateHelpCard(stageNo - 1);
-    return;
-  }
-
-  if (triggerBtn.classList.contains("dm-btn-help-next") && stageNo < 17) {
-
-    updateTourStage(stageNo + 1);
-    generateHelpCard(stageNo + 1);
-    return;
-  }
-}
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialize Popovers & Popover Elements
@@ -1524,6 +1328,8 @@ async function doHelpAction(stageNo, triggerBtn) {
 export function initPopovers() {
 
   initHelpPopover();
+
+  initPopoverArrowNav();
 
   themePickerPopover.addEventListener('click', toggleColorThemeHandler);
   

@@ -1,0 +1,182 @@
+/* #ProjectDenis: App Helper & Helper Popover Styles */
+
+/* Helper Styles */
+
+.dm-helper-container {
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  left: 0;
+  max-width: 55svw;
+  max-height: 55svh;
+  aspect-ratio: 1/1;
+  z-index: 3;
+  transition: 
+  transform 1.75s ease-in-out;
+  transform: translateY(105%);
+  color: var(--neutral-color);
+  opacity: 0;
+}
+
+.dm-helper-container.active {
+  opacity: 1;
+}
+
+.dm-helper-container.expanded {
+  transform: translateY(0);
+}
+
+.dm-helper-image > * {
+  width: 100%;
+  height: 100%;
+}
+
+.dm-btn-helper {
+  border-radius: 3.5rem;
+  display: flex;
+  align-content: end;
+  text-align: center;
+}
+
+.dm-btn-helper:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.dm-btn-helper:focus-visible {
+  outline: 0.25rem solid var(--focus-color);
+}
+
+/* Help Menu Styles */
+
+.dm-help-card {
+  inset: unset;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  font-size: var(--font-button);
+  z-index: 4;
+  opacity: 0;
+}
+
+.dm-help-card.active {
+  opacity: 1;
+}
+
+.dm-help-card-container {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+  padding: 1em 1em 0;
+}
+
+.dm-help-body {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
+.dm-help-options {
+  text-align: center;
+}
+
+.dm-checkbox-label {
+  user-select: none;
+}
+
+.dm-help-nav-footer {
+  padding: 0.5em 0 0;
+}
+
+.dm-help-card[data-stage]:not([data-stage="0"]):not([data-stage="20"]) {
+  transform: translate(-50%, -3%);
+  transition: transform 1.25s ease-out;
+}
+
+.dm-help-card[data-stage="19"]:not([data-stage="0"]):not([data-stage="20"]) {
+  transform: translate(-50%, 105%);
+  transition: transform 1.25s ease-out;
+}
+
+.dm-help-card[data-stage="20"] {
+  transform: translate(-50%, -220%);
+}
+
+.dm-help-card[data-stage="0"] .dm-btn-help-ok::before {
+  content: "Show me around!";
+}
+
+.dm-help-card[data-stage="18"] .dm-btn-help-ok::before,
+.dm-help-card[data-stage="19"] .dm-btn-help-ok::before {
+  content: "Finish Tour & Start Exploring";
+}
+
+.dm-help-card[data-stage="0"] .dm-btn-help-skip::before {
+  content: "Thanks I'm grand";
+}
+
+.dm-help-card:is(:focus, :focus-visible, :focus-within) {
+  outline: 0.25rem solid var(--secondary-color-c);
+}
+
+/* Media queries for Helper & Helper Popover */
+
+/* @media screen and (min-height: 960px) { */
+@media screen and (min-height: 60em) {
+
+  .dm-help-card[data-stage="0"],
+  .dm-help-card[data-stage="20"] {
+    top: 50%;
+    bottom: unset;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* @media screen and (max-width: 700px), (max-height: 700px) { */
+@media screen and (max-width: 43.75em) {
+
+  .dm-help-card[data-stage="0"] {
+    bottom: unset;
+    top: 0;
+    transform: translate(-50%, 50%);
+  }
+
+  .dm-help-card[data-stage="20"] {
+    bottom: unset;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* @media screen and (max-height: 668px) { */
+@media screen and (max-height: 41.75em) {
+
+  .dm-help-card[data-stage="0"],
+  .dm-help-card[data-stage="20"] {
+    top: 0;
+    bottom: unset;
+    transform: translate(-50%, 3.5rem);
+  }
+}
+
+/* @media screen and (max-width: 469px) { */
+@media screen and (max-width: 29.3125em) and (min-height: 41.74em) {
+  
+  .dm-help-card {
+    transform: translate(-50%, 39%);
+  }
+
+  .dm-help-card[data-stage="0"] .dm-btn-help-ok::before {
+    content: "Yes!";
+  }
+
+  .dm-help-card[data-stage="18"] .dm-btn-help-ok::before,
+  .dm-help-card[data-stage="19"] .dm-btn-help-ok::before {
+    content: "Finish Tour";
+  }
+  
+  .dm-help-card[data-stage="0"] .dm-btn-help-skip::before {
+    content: "Skip";
+  }
+}

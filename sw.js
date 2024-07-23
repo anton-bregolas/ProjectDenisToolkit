@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pd-cache-v.3.0.0';
+const CACHE_NAME = 'pd-cache-v.3.1.3';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -64,7 +64,8 @@ self.addEventListener('fetch', (event) => {
   if (event.request.url.endsWith('tunes.json') || 
       event.request.url.endsWith('tracks.json') || 
       event.request.url.endsWith('collections.json') ||
-      event.request.url.endsWith('references.json')) {
+      event.request.url.endsWith('references.json') ||
+      event.request.url.endsWith('helper.json')) {
       event.respondWith(
         // Check if the file is already cached
         caches.open(CACHE_NAME).then((cache) => {
