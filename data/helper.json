@@ -13,7 +13,7 @@
   },
   {
     "msgno": "2",
-    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through! Press the right arrow to continue or the left arrow to go one step back.",
+    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through! Press the right arrow to continue or the left arrow to go one step back. You can use your keyboard during the tour.",
     "msgtype": "tour",
     "oktext": "OK"
   },
@@ -31,7 +31,7 @@
   },
   {
     "msgno": "5",
-    "msgtext": "Let’s take a closer look at the categories. To help navigate through the rich tapestry of Denis Murphy’s recordings, the app refers to any set of recordings – commercial, archival or otherwise – as “Collections”. Each Collection is broken down into individual “Tracks”, one tune per Track, and each one of those is given a reference number that can be easily decoded. Track Ref. No. 1234 would for example refer to album 1[000] track 23, tune 4.",
+    "msgtext": "Let’s take a closer look at the categories. To help navigate through the rich tapestry of Denis Murphy’s recordings, the app refers to any set of recordings – commercial, archival or otherwise – as “Collections”. Each Collection is broken down into individual “Tracks”, one tune per Track, and each one of those is given a reference number that can be easily decoded. Track Ref. No. 1234 would for example refer to album 1 (Collection 1000), track 23, tune 4.",
     "msgtype": "tour",
     "oktext": "OK"
   },
@@ -39,13 +39,13 @@
     "msgno": "6",
     "msgtext": "After each Track is researched and identified, the Tunes played there are given short code names that also serve as a reference to printed collections of Irish music. The full set of all unique Tunes forms the Tunelist. Each of these three categories – Collections, Tracklist and Tunelist – can be accessed in the app’s Explore section.",
     "msgtype": "tour",
-    "oktext": "OK"
+    "oktext": "Let's go!"
   },
   {
     "msgno": "7",
     "msgtext": "Press the Show Tracklist button to see the full scope of the Denis Murphy items catalogued so far, including many rare archival materials waiting to be explored. The Tracklist view allows you to browse the entire list of recordings in one place and sort the tunes by name, ID, year of recording, other track performers joining Denis etc.",
     "msgtype": "tour",
-    "oktext": "OK"
+    "oktext": "Try it!"
   },
   {
     "msgno": "8",
