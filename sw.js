@@ -1,11 +1,17 @@
-const CACHE_NAME = 'pd-cache-v.3.1.3';
+const CACHE_NAME = 'pdt-cache-v.3.2.1';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll([
         'assets/icons/icons.svg',
-        
+        'modules/dm-app.js',
+        'modules/dm-toolkit.js',
+        'styles/dm-toolkit.css',
+        'styles/tools-common-styles.css',
+        'styles/dm-themes-override.css',
+        'components/dm-modals/dm-helper.css',
+        'components/dm-modals/dm-helper.js',
         'components/dm-modals/dm-modals.css',
         'components/dm-modals/dm-modals.js',
         'components/dm-popovers/dm-popovers.css',
@@ -15,11 +21,6 @@ self.addEventListener('install', (event) => {
         'components/dm-tracklist/dm-tracklist.css',
         'components/dm-tracklist/dm-tracklist.js',
         'modules/aria-tools.js',
-        'modules/dm-app.js',
-        'modules/dm-toolkit.js',
-        'styles/dm-themes-override.css',
-        'styles/dm-toolkit.css',
-        'styles/tools-common-styles.css',
         'index.html'
       ]);
     })
