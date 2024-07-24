@@ -4,7 +4,7 @@
 
 When toolkitMode is set to 1 in `dm-toolkit.js` it turns off fetch functions and reveals GUI for parsing .tsv files imported from Google Sheets
 
-Toolkit contents:
+## Toolkit contents:
 
 File Name | Module Name | Description |
 | --- | --- | --- |
@@ -17,7 +17,7 @@ File Name | Module Name | Description |
 | `dm-toolkit.js` | **TSV to JSON Parser** | Scripts converting .tsv imports from working Google Sheets into a single Tune DB format JSON |
 | `dm-toolkit.js` | **JSON Splitter** | Scripts creating Tunelist from mixed JSON of objects and splitting all the data into Tune DB JSONs |
 
-Tune DB contents:
+## Tune DB contents:
 
 File Name | DB Name | Description |
 | --- | --- | --- |
@@ -26,6 +26,8 @@ File Name | DB Name | Description |
 | `references.json` | **refsJson / References DB** | JSON array of Links & References objects: All the referenced printed collections of music and online resources (archives, ABC databases, Sliabh Luachra-related pages) used for generating the list of References |
 | `tracks.json` | **tracksJson / Tracks DB** | JSON array of Track objects: Every catalogued and numbered Track item with tune details and track comments for generating Tracklist |
 | `tunes.json` | **tunesJson / Tunes DB** | JSON array of Tune objects: List of identified Tunes with unique ref. codes for generating Tunelist |
+
+## Version History
 
 [v.3.2]
 
