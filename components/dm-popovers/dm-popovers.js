@@ -346,13 +346,6 @@ function generateLinkSourceName(tuneTranscriptUrl) {
 async function showColPopover(trigger, colRefNo, highlightObj) {
 
   const parentDiv = trigger.parentElement;
-
-  // Prevent click if text selection is being made
-
-  if (parentDiv === colsListDiv && window.getSelection().toString().length > 0) { 
-
-    return;
-  }
   
   if (await doDataCheckup(colsJson, "cols") === 0) {
 
@@ -1133,7 +1126,7 @@ function arrowNavHandler(event) {
       return;
     }
     
-    if (helpCardPopover.matches(':popover-open') && !helpBackBtn.hasAttribute("hidden")) {
+    if (helpCardPopover.matches(':popover-open') && helpBackBtn.getAttribute("style") === "display: flex") {
 
       doHelpAction(helpTourStageNo, helpBackBtn);
       return;
@@ -1160,7 +1153,7 @@ function arrowNavHandler(event) {
       return;
     }
 
-    if (helpCardPopover.matches(':popover-open') && !helpNextBtn.hasAttribute("hidden")) {
+    if (helpCardPopover.matches(':popover-open') && helpNextBtn.getAttribute("style") === "display: flex") {
     
       doHelpAction(helpTourStageNo, helpNextBtn);
       return;
@@ -1202,20 +1195,8 @@ export async function showPopoverHandler(event) {
 
       rowRefNo = closestClickableRow.dataset.refno;
       
-      if (closestClickableRow.classList.contains("dm-tracklist-col-header-row") || 
-          closestClickableRow.classList.contains("dm-collist-row")) {
-
-        if (closestClickableRow.parentElement.id === "dm-references" || 
-          closestClickableRow.parentElement.id === "dm-reflinks") {
-
-            if (triggerElement.classList.contains("dm-btn-ref-open")) {
-
-              showRefPopover(triggerElement, rowRefNo);
-              return;
-            }
-
-          return;
-        }
+      if (closestClickableRow.classList.contains("dm-tracklist-col-header-row") ||
+          triggerElement.classList.contains("dm-btn-col-open")) {
 
         showColPopover(closestClickableRow, rowRefNo);
         return;
@@ -1226,6 +1207,14 @@ export async function showPopoverHandler(event) {
         showTrackPopover(closestClickableRow, rowRefNo);
         return;
       }
+
+      if (triggerElement.classList.contains("dm-btn-ref-open")) {
+
+        showRefPopover(triggerElement, rowRefNo);
+        return;
+      }
+
+      return;
     }
 
     if (closestButton) {

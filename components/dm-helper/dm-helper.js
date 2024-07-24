@@ -462,8 +462,8 @@ export function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
     helpCardOptions.removeAttribute("hidden");
     helpOKBtn.removeAttribute("hidden");
     helpSkipTourBtn.removeAttribute("hidden");
-    helpBackBtn.setAttribute("hidden", "");
-    helpNextBtn.setAttribute("hidden", "");
+    helpBackBtn.removeAttribute("style", "display: flex");
+    helpNextBtn.removeAttribute("style", "display: flex");
 
     helpCardMessage.textContent = helperJson[0]?.msgtext;
     
@@ -480,24 +480,24 @@ export function generateHelpCard(helpItemNo, okBtnText, skipBtnText) {
 
   if (helpItemNo === 1) {
 
-    helpBackBtn.setAttribute("hidden", "");
-    helpNextBtn.setAttribute("hidden", "");
+    helpBackBtn.removeAttribute("style", "display: flex");
+    helpNextBtn.removeAttribute("style", "display: flex");
   }
 
   if (helpItemNo === 2) {
 
-    helpBackBtn.removeAttribute("hidden");
-    helpNextBtn.removeAttribute("hidden");
+    helpBackBtn.setAttribute("style", "display: flex");
+    helpNextBtn.setAttribute("style", "display: flex");
   }
 
   if (helpItemNo === 17) {
 
-    helpNextBtn.removeAttribute("hidden");
+    helpNextBtn.setAttribute("style", "display: flex");
   }
 
   if (helpItemNo === 18) {
 
-    helpNextBtn.setAttribute("hidden", "");
+    helpNextBtn.removeAttribute("style", "display: flex");
   }
   
   if (helpItemNo === 20) {

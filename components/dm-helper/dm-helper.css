@@ -88,6 +88,13 @@
   padding: 0.5em 0 0;
 }
 
+.dm-btn-help-prev,
+.dm-btn-help-next {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
 .dm-help-card[data-stage]:not([data-stage="0"]):not([data-stage="20"]) {
   transform: translate(-50%, -3%);
   transition: transform 1.25s ease-out;
@@ -161,11 +168,7 @@
 }
 
 /* @media screen and (max-width: 469px) { */
-@media screen and (max-width: 29.3125em) and (min-height: 41.74em) {
-  
-  .dm-help-card {
-    transform: translate(-50%, 39%);
-  }
+@media screen and (max-width: 29.3125em) {
 
   .dm-help-card[data-stage="0"] .dm-btn-help-ok::before {
     content: "Yes!";
@@ -175,8 +178,16 @@
   .dm-help-card[data-stage="19"] .dm-btn-help-ok::before {
     content: "Finish Tour";
   }
-  
+
   .dm-help-card[data-stage="0"] .dm-btn-help-skip::before {
     content: "Skip";
+  }
+}
+
+/* @media screen and (max-width: 469px) and (min-height: 668px) { */
+@media screen and (max-width: 29.3125em) and (min-height: 41.74em) {
+  
+  .dm-help-card {
+    transform: translate(-50%, 39%);
   }
 }

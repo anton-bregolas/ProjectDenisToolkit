@@ -2,6 +2,31 @@
 ========================================================================================
 #ProjectDenis Toolkit is a set of simple tools for building, updating and testing the database for the prototype project in tribute to the Sliabh Luachra music legend, fiddle player Denis Murphy (1910–1974).
 
+When toolkitMode is set to 1 in `dm-toolkit.js` it turns off fetch functions and reveals GUI for parsing .tsv files imported from Google Sheets
+
+Toolkit contents:
+
+File Name | Module Name | Description |
+| --- | --- | --- |
+| `dm-app.js` | **App Launcher** | Launch, Fetch and other general functions used in Start Menu |
+| `dm-helper.js` | **App Helper** | Scripts related to App Helper and Guided Help Tour |
+| `dm-modals.js` | **Modal Lists Generator** | Scripts related to creating modal dialog windows with lists of content |
+| `dm-popovers.js` | **Popovers Generator** | Scripts handling generation and display of Popovers for all sections except for the Helper |
+| `dm-search.js` | **Search Engine** | Search functions for filtering through Tune DB and generating search items |
+| `dm-tracklist.js` | **Tracklist Generator** | Tracklist-related scripts for Main Page sortable Tracklist table |
+| `dm-toolkit.js` | **TSV to JSON Parser** | Scripts converting .tsv imports from working Google Sheets into a single Tune DB format JSON |
+| `dm-toolkit.js` | **JSON Splitter** | Scripts creating Tunelist from mixed JSON of objects and splitting all the data into Tune DB JSONs |
+
+Tune DB contents:
+
+File Name | DB Name | Description |
+| --- | --- | --- |
+| `collections.json` | **colsJson / Collections DB** | JSON array of Collection objects: All the albums, archival items, 78RPM recordings of Denis Murphy catalogued so far used for generating Collections list |
+| `helper.json` | **helperJson / Helper DB** | JSON array of Help Card objects with lines used in App Helper UI |
+| `references.json` | **refsJson / References DB** | JSON array of Links & References objects: All the referenced printed collections of music and online resources (archives, ABC databases, Sliabh Luachra-related pages) used for generating the list of References |
+| `tracks.json` | **tracksJson / Tracks DB** | JSON array of Track objects: Every catalogued and numbered Track item with tune details and track comments for generating Tracklist |
+| `tunes.json` | **tunesJson / Tunes DB** | JSON array of Tune objects: List of identified Tunes with unique ref. codes for generating Tunelist |
+
 [v.3.1]
 
 + Guided Help Tour with Help Popover Menu and animated transitions.

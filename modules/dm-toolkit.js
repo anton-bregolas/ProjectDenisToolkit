@@ -9,7 +9,7 @@
 // JSON Splitter v.2.3
 ///////////////////////////////////////////////////////////////////////
 
-import { updateData, clearData, tracksJson, colsJson, tunesJson, refsJson, discoverSection } from './dm-app.js';
+import { updateData, clearData, tracksJson, colsJson, tunesJson, refsJson, discoverSection, exploreSection } from './dm-app.js';
 import { tracksCounter, colsCounter, tunesCounter } from '../components/dm-search/dm-search.js';
 import { tunelistDiv, colsListDiv, refsListDiv, refsListLinksDiv } from '../components/dm-modals/dm-modals.js';
 import { tracklistDiv, tracklistOutput } from '../components/dm-tracklist/dm-tracklist.js'
@@ -17,7 +17,7 @@ import { toggleAriaExpanded, toggleTabIndex, setAriaLabel, addAriaHidden } from 
 
 // Define global variable that if > 0 turns off initial fetching of Tune Data JSONs
 
-export let toolkitMode = 0;
+export let toolkitMode = 1;
 
 // Define keys in track and collection header objects
 
@@ -57,6 +57,7 @@ const splitMixedJsonBtn = document.getElementById("splitMixedJson");
 const getCollectionsBtn = document.getElementById("getCollections");
 const getTracksBtn = document.getElementById("getTracks");
 const getTunesBtn = document.getElementById("getTunes");
+const getRefsBtn = document.getElementById("getRefs"); 
 const splitterColsCounter = document.getElementById("splitter-cols-counter");
 const splitterTracksCounter = document.getElementById("splitter-tracks-counter");
 const splitterTunesCounter = document.getElementById("splitter-tunes-counter");
@@ -574,11 +575,14 @@ export async function initToolkitButtons() {
     getCollectionsBtn.addEventListener("click", () => saveOutputFile("splitter-cols-output", "collections"));
     getTracksBtn.addEventListener("click", () => saveOutputFile("splitter-tracks-output", "tracks"));
     getTunesBtn.addEventListener("click", () => saveOutputFile("splitter-tunes-output", "tunes"));
+    getRefsBtn.addEventListener("click", () => saveOutputFile("splitter-refs-output", "references"));
 
     [splitterColsCounter, splitterTracksCounter, splitterTunesCounter].forEach(counter => {
 
     counter.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // window.scrollTo({ top: 0, behavior: 'smooth' });
+        exploreSection.scrollIntoView();
         })
     });
 

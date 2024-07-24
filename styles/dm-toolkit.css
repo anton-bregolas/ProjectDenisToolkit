@@ -57,6 +57,10 @@ body, .header-main {
   padding-bottom: 2.5rem;
 }
 
+.dm-toolkit-header {
+  padding-top: 3.5rem;
+}
+
 .dm-section-anchor span {
   transition: opacity 0.35s ease-in-out;
 }
@@ -155,6 +159,10 @@ body, .header-main {
 }
 
 .section-nav-btn:focus-visible circle {
+  display: none;
+}
+
+.main-nav-btn-circle-s {
   display: none;
 }
 
@@ -293,8 +301,12 @@ body, .header-main {
     font-size: 90%;
   }
 
-  circle {
+  .main-nav-btn-circle-m {
     display: none;
+  }
+
+  .main-nav-btn-circle-s {
+    display: block;
   }
 }
 

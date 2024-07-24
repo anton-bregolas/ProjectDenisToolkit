@@ -16,6 +16,14 @@
         <link rel="stylesheet" href="components/dm-search/dm-search.css">
         <link rel="stylesheet" href="styles/dm-themes-override.css">
         <script type="module" src="modules/dm-app.js"></script>
+        <link rel="manifest" href="app.webmanifest?v=0">
+        <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=0">
+        <link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg?v=0" color="#000000">
+        <meta name="apple-mobile-web-app-title" content="#ProjectDenis">
+        <meta name="application-name" content="#ProjectDenis">
+        <meta name="msapplication-TileColor" content="#000000">
+        <meta name="msapplication-config" content="assets/icons/browserconfig.xml">
+        <meta name="theme-color" content="#000000">
     </head>
 <body class="star">
     <header class="header-main">
@@ -190,10 +198,10 @@
                             <h3 class="track-grid-hrefno" data-type="refno"></h3>
                             <h2 class="track-grid-htitle" aria-live="polite" data-type="tunename"></h2>
                             <nav class="dm-track-grid-nav">
-                                <button class="dm-track-grid-item dm-btn-prev-track dm-btn-card-nav" title="Show previous track" aria-label="Show previous track"></button>
+                                <button class="dm-track-grid-item dm-btn-prev-track dm-btn-card-nav" title="Show previous track" aria-label="Show previous track"><span class="arrow-left arrow-icon"></span></button>
                                 <div class="dm-track-grid-item track-grid-reflink"></div>
-                                <button class="dm-track-grid-item dm-btn-prev-track dm-btn-card-nav" hidden title="Show previous track" aria-label="Show previous track"></button>
-                                <button class="dm-track-grid-item dm-btn-next-track dm-btn-card-nav" title="Show next track" aria-label="Show next track"></button>
+                                <button class="dm-track-grid-item dm-btn-prev-track dm-btn-card-nav dm-btn-card-nav-mob" title="Show previous track" aria-label="Show previous track"><span class="arrow-left arrow-icon"></span></button>
+                                <button class="dm-track-grid-item dm-btn-next-track dm-btn-card-nav" title="Show next track" aria-label="Show next track"><span class="arrow-right arrow-icon"></span></button>
                             </nav>
                         </header>
                         <div class="dm-track-grid-body">
@@ -240,7 +248,7 @@
                 </section>
             </section>
             <section id="dm-parser" class="dm-parser" hidden>
-                <h2>TSV to JSON Parser</h2>
+                <h2 class="dm-toolkit-header">TSV to JSON Parser</h2>
                 <br>
                 <form id="inputForm" class="form-container" onsubmit="return false;">
                     <section class="input-container">
@@ -256,7 +264,7 @@
                 <div id="output" class="text-output" tabindex="0" aria-label="Mixed Data Output">Mixed output JSON will appear here.</div>
             </section>
             <section id="dm-splitter" class="dm-splitter" hidden>
-                <h2>JSON Splitter</h2>
+                <h2 class="dm-toolkit-header">JSON Splitter</h2>
                 <br>
                 <section class="button-container">
                     <button id="splitMixedJson" class="btn"><span class="btn-text">Split Mixed JSON</span></button>
@@ -278,6 +286,10 @@
                         <div id="splitter-tunes-output" class="text-output" tabindex="0" aria-label="Tunes Output">Tunes JSON will appear here.</div>
                     </div>
                 </section>
+                <br>
+                <section class ="button-container">
+                    <button id="getRefs" class="btn"><span class="btn-text">Save Refs JSON</span></button>
+                </section>
                 <div id="splitter-refs-counter" class="text-counter" tabindex="0" aria-label="References Counter">References: <span class="counter-value"></span></div>
                 <div id="splitter-refs-output" class="text-output" tabindex="0" aria-label="References Output">References JSON will appear here.</div>
             </section>
@@ -296,9 +308,9 @@
                             <h3 class="tune-grid-htuneref" data-type="tuneref"></h3>
                             <h2 class="tune-grid-htitle" aria-live="polite" data-type="tunename"></h2>
                             <nav class="dm-tune-nav-mobile dm-tune-grid-footer">
-                                <button class="dm-btn-tune-card-nav dm-btn-prev-tune dm-btn-card-nav" title="Show previous tune" aria-label="Show previous tune"></button>
+                                <button class="dm-btn-tune-card-nav dm-btn-prev-tune dm-btn-card-nav" title="Show previous tune" aria-label="Show previous tune"><span class="arrow-left arrow-icon"></span></button>
                                 <button class="dm-btn-popover-close dm-btn-card-dialog-close dm-btn-card-nav" aria-label="Quit to Main Page" title="Quit to Main Page"></button>
-                                <button class="dm-btn-tune-card-nav dm-btn-next-tune dm-btn-card-nav" title="Show next tune" aria-label="Show next tune"></button>
+                                <button class="dm-btn-tune-card-nav dm-btn-next-tune dm-btn-card-nav" title="Show next tune" aria-label="Show next tune"><span class="arrow-right arrow-icon"></span></button>
                             </nav>
                         </header>
                         <div class="dm-tune-grid-body">
@@ -314,9 +326,9 @@
                             <p class="dm-tune-grid-item tune-grid-refsetting-cont" data-type="refsettinglink"></p>
                         </div>
                         <nav class="dm-tune-grid-footer">
-                            <button class="dm-btn-tune-card-nav dm-btn-prev-tune dm-btn-card-nav" title="Show previous tune" aria-label="Show previous tune"></button>
+                            <button class="dm-btn-tune-card-nav dm-btn-prev-tune dm-btn-card-nav" title="Show previous tune" aria-label="Show previous tune"><span class="arrow-left arrow-icon"></span></button>
                             <button class="dm-btn-popover-close dm-btn-card-dialog-close dm-btn-card-nav" aria-label="Quit to Main Page" title="Quit to Main Page"></button>
-                            <button class="dm-btn-tune-card-nav dm-btn-next-tune dm-btn-card-nav" title="Show next tune" aria-label="Show next tune"></button>
+                            <button class="dm-btn-tune-card-nav dm-btn-next-tune dm-btn-card-nav" title="Show next tune" aria-label="Show next tune"><span class="arrow-right arrow-icon"></button>
                         </nav>
                     </article>
                     <div class="dm-status-bar" aria-live="assertive"></div>
@@ -357,10 +369,10 @@
                             <h3><span class="col-grid-hrefno" data-type="colrefno"></span> | <span class="col-grid-hrefcode" data-type="refcode"></span></h3>
                             <h2 class="col-grid-htitle" aria-live="polite" data-type="colname"></h2>
                             <nav class="dm-col-grid-nav">
-                                <button class="dm-col-grid-item dm-btn-prev-col dm-btn-card-nav" title="Show previous Collection" aria-label="Show previous Collection"></button>
+                                <button class="dm-col-grid-item dm-btn-prev-col dm-btn-card-nav" title="Show previous Collection" aria-label="Show previous Collection"><span class="arrow-left arrow-icon"></span></button>
                                 <div class="dm-col-grid-item col-grid-reflink"></div>
-                                <button class="dm-col-grid-item dm-btn-prev-col dm-btn-card-nav" hidden title="Show previous Collection" aria-label="Show previous Collection"></button>
-                                <button class="dm-col-grid-item dm-btn-next-col dm-btn-card-nav" title="Show next Collection" aria-label="Show next Collection"></button>
+                                <button class="dm-col-grid-item dm-btn-prev-col dm-btn-card-nav dm-btn-card-nav-mob" title="Show previous Collection" aria-label="Show previous Collection"><span class="arrow-left arrow-icon"></span></button>
+                                <button class="dm-col-grid-item dm-btn-next-col dm-btn-card-nav" title="Show next Collection" aria-label="Show next Collection"><span class="arrow-right arrow-icon"></span></button>
                             </nav>
                         </header>
                         <div class="dm-col-grid-body">
@@ -566,9 +578,9 @@
                     </div>
                 </div>
                 <nav class="dm-help-nav-footer">
-                    <button class="dm-btn-help-card-nav dm-btn-help-prev" title="Show previous help message" aria-label="Show previous help message" hidden></button>
+                    <button class="dm-btn-help-card-nav dm-btn-help-prev" title="Show previous help message" aria-label="Show previous help message"><span class="arrow-left arrow-icon"></span></button>
                     <button class="dm-btn-help-card-nav dm-btn-help-ok" title="Confirm guided app tour action" autofocus></button>
-                    <button class="dm-btn-help-card-nav dm-btn-help-next" title="Show next help message" aria-label="Show next help message" hidden></button>
+                    <button class="dm-btn-help-card-nav dm-btn-help-next" title="Show next help message" aria-label="Show next help message"><span class="arrow-right arrow-icon"></span></button>
                     <button class="dm-btn-help-card-nav dm-btn-help-skip" title="Quit guided app tour" aria-label="Quit guided app tour"></button>
                 </nav>
             </div>
@@ -580,7 +592,8 @@
         <nav class="dm-footer-nav">
             <button id="main-nav-btn" class="section-nav-btn" title="" aria-label="" popovertarget="dm-popover-nav-main">
                 <svg class="action-icon action-icon-sections shadowed" aria-hidden="true">
-                    <circle fill="none" cx="22.5" cy="22.5" r="21" stroke-width="2"></circle>
+                    <circle class="main-nav-btn-circle-m" fill="none" cx="22.5" cy="22.5" r="21" stroke-width="2"></circle>
+                    <circle class="main-nav-btn-circle-s" fill="none" cx="20.25" cy="20.25" r="18.9" stroke-width="2"></circle>
                     <use href="assets/icons/icons.svg#action-icon-list"></use>
                 </svg>
             </button>

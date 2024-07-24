@@ -1,0 +1,73 @@
+{
+  "name": "#ProjectDenis",
+  "short_name": "#ProjectDenis",
+  "start_url": "index.html",
+  "display": "standalone",
+  "description": "#ProjectDenis explores the repertoire of fiddle player Denis Murphy (1910–1974), the Irish music legend from Sliabh Luachra",
+  "lang": "en",
+  "dir": "auto",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "categories": ["music"],
+  "orientation": "any",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "assets/icons/android-chrome-192x192.png?v=0",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/android-chrome-512x512.png?v=0",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/android-chrome-512x512.png?v=0",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.svg?v=0",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/screenshots/screenshot_star_main.png",
+      "sizes": "2842x1796",
+      "type": "image/png",
+      "description": "A screenshot of the main page with The Star above the Garter color theme on"
+    },
+    {
+      "src": "assets/screenshots/screenshot_star_tracklist.png",
+      "sizes": "2844x1798",
+      "type": "image/png",
+      "description": "A screenshot of the Tracklist with The Star above the Garter color theme on"
+    },
+    {
+      "src": "assets/screenshots/screenshot_dark_main.png",
+      "sizes": "2846x1800",
+      "type": "image/png",
+      "description": "A screenshot of the main page with the Dark color theme on"
+    },
+    {
+      "src": "assets/screenshots/screenshot_dark_tracklist.png",
+      "sizes": "2844x1798",
+      "type": "image/png",
+      "description": "A screenshot of the Tracklist with the Dark color theme on"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform":"windows",
+      "url": "https://anton-bregolas.github.io/Tunetable/"
+    }
+  ],
+  "prefer_related_applications": false
+}

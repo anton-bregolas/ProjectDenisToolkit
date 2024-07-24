@@ -94,7 +94,7 @@ export async function generateHandler(thisGenBtn) {
     parentDialogDiv = refsListDiv;
   }
 
-  if (parentDialogDiv.children.length > 0 && genBtn !== generateTracklistBtn && genBtn !==openTracklistBtn) {
+  if (parentDialogDiv.children.length > 0 && genBtn !== generateTracklistBtn && genBtn !== openTracklistBtn) {
 
     console.log(`PD App:\n\n${listName} list found, opening dialog`);
   }
@@ -122,11 +122,6 @@ export async function generateHandler(thisGenBtn) {
         await generateTracklist(tracksJson);
         tracklistHeaders[0].setAttribute("aria-sort", "ascending");
         tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
-        
-        if (genBtn === openTracklistBtn) {
-
-          exploreSection.scrollIntoView();
-        }
       }
 
       if (genBtn === generateRefListBtn || genBtn === generateLinkListBtn) {
@@ -141,7 +136,18 @@ export async function generateHandler(thisGenBtn) {
     }
   } 
 
+  if (genBtn === openTracklistBtn) {
+
+    exploreSection.scrollIntoView();
+    generateTracklistBtn.focus();
+  }
+
   if (genBtn === generateTracklistBtn || genBtn === openTracklistBtn) {
+
+    if (genBtn === openTracklistBtn && !tracklistOutput.classList.contains("hidden")) {
+
+      return;
+    }
   
     console.log(`PD App:\n\nTracklist toggled`);
 

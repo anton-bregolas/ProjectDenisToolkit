@@ -338,7 +338,7 @@ body.papsofanu .dm-popover-card:not(#dm-popover-card-reflinks) h3 {
 }
 
 body.papsofanu .dm-track-grid-item button:is(:hover, :focus-visible){
-  color: var(--focus-color-inverted);
+  color: var(--accent-color-a);
 }
 
 body.papsofanu .dm-collist-item button {
@@ -403,10 +403,30 @@ body.star .dm-track-grid-source * {
   color: var(--accent-color-a);
 }
 
+body.star .dm-btn-prev-col .arrow-left,
+body.star .dm-btn-prev-track .arrow-left {
+  border-right-color: var(--accent-color-a);
+}
+
+body.star .dm-btn-next-col .arrow-right,
+body.star .dm-btn-next-track .arrow-right {
+  border-left-color: var(--accent-color-a);
+}
+
 body.star .dm-track-grid-nav *:is(:hover, :focus, :focus-visible),
 body.star .dm-track-grid-source button:is(:hover, :focus, :focus-visible),
 body.star .dm-track-grid-source a:is(:hover, :focus, :focus-visible) {
   color: var(--neutral-color);
+}
+
+body.star .dm-btn-prev-col:is(:hover, :focus, :focus-visible) .arrow-left,
+body.star .dm-btn-prev-track:is(:hover, :focus, :focus-visible) .arrow-left{
+  border-right-color: var(--neutral-color);
+}
+
+body.star .dm-btn-next-col:is(:hover, :focus, :focus-visible) .arrow-right,
+body.star .dm-btn-next-track:is(:hover, :focus, :focus-visible) .arrow-right{
+  border-left-color: var(--neutral-color);
 }
 
 /* Fallbacks */
