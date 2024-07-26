@@ -980,12 +980,12 @@ body {
     border-radius: 0;
   }
   
-  .dm-tune-card,
+  .dm-tune-card:not(.dm-help-card),
   .dm-nav-card {
     inset: unset;
   }
   
-  .dm-tune-card,
+  .dm-tune-card:not(.dm-help-card),
   .dm-ref-card {
     inset: unset;
     left: 0;
@@ -997,7 +997,7 @@ body {
     border-bottom-right-radius: 0;
   }
 
-  .dm-tune-card {
+  .dm-tune-card:not(.dm-help-card) {
     border: 2px dashed black;
   }
 
