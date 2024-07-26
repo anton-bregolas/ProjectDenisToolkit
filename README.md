@@ -38,6 +38,9 @@ File Name | DB Name | Description |
 + Fixed arrow icons and quick navigation icon
 + Tweaks to button styles and scripts
 + getRefs button added to Splitter
++ Popover card tweaks:
++ "—" is now shown in place of empty values
++ Popover width now expands to 100% in mobile view to avoid accidental soft closing.
 
 [v.3.1]
 

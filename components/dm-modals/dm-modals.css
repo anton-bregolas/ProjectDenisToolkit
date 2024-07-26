@@ -55,7 +55,7 @@ html:has(dialog[open]) {
 }
 
 .dm-modal-list-header-container > .btn {
-  width: calc(var(--tunelist-item-width));
+  width: min(calc(100% - 1rem), var(--tunelist-item-width));
   padding: 0.75rem;
   flex-grow: unset;
 }
@@ -362,6 +362,10 @@ html:has(dialog[open]) {
     display: block;
     border: none;
   }
+  
+  .dm-collist-item::before {
+    white-space: pre;
+  }
 
   .dm-list-table-header {
     display: none;
@@ -384,18 +388,15 @@ html:has(dialog[open]) {
   }
 
   #dm-collist-table .dm-collist-item:nth-child(1)::before {
-    content: "Collection Ref.: \A\A";
-    white-space: pre;
+    content: "Open Collection No.\A\A";
   }
 
   #dm-collist-table .dm-collist-item:nth-child(2)::before {
     content: "Collection Name:\A\A";
-    white-space: pre;
   }
 
   #dm-collist-table .dm-collist-item:nth-child(3)::before {
     content: "Collection Details:\A\A";
-    white-space: pre;
   }
 
   .dm-reflist-table .dm-collist-row .dm-collist-item {
@@ -411,17 +412,15 @@ html:has(dialog[open]) {
   }
 
   .dm-reflist-table .dm-collist-item:nth-child(1)::before {
-    content: "";
+    content: "Show Links For:\A\A";
   }
 
   .dm-reflist-table .dm-collist-item:nth-child(2)::before {
     content: "Ref. Name:\A\A";
-    white-space: pre;
   }
 
   .dm-reflist-table .dm-collist-item:nth-child(3)::before {
     content: "Ref. Details:\A\A";
-    white-space: pre;
   }
 }
 
