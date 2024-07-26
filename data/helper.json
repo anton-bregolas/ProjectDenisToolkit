@@ -61,7 +61,7 @@
   },
   {
     "msgno": "10",
-    "msgtext": "Clicking on each numbered button or a table row will bring up a Collection card which you can dismiss by pressing a Close button or the Escape key. Each card contains a set of external links available for the source recording which you can pick from depending on your needs. The menu can also serve as shortcut to various items in the Tracklist: click Show in Tracklist button in each card to see the full listing of tunes found there.",
+    "msgtext": "Clicking on each numbered button in a table row will bring up a Collection card which you can dismiss by pressing a Close button or the Escape key. Each card contains a set of external links available for the source recording which you can pick from depending on your needs. The menu can also serve as shortcut to various items in the Tracklist: click Show in Tracklist button in each card to see the full listing of tunes found there.",
     "msgtype": "tour",
     "oktext": "Try it!"
   },
