@@ -33,9 +33,6 @@
 
 .dm-btn-helper {
   border-radius: 3.5rem;
-  display: flex;
-  align-content: end;
-  text-align: center;
 }
 
 .dm-btn-helper:focus:not(:focus-visible) {
