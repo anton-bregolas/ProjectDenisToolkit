@@ -41,6 +41,7 @@ File Name | DB Name | Description |
 + Popover card tweaks:
 + "—" is now shown in place of empty values
 + Popover width now expands to 100% in mobile view to avoid accidental soft closing.
++ Tune DB updated to 2024-07-27
 
 [v.3.1]
 
