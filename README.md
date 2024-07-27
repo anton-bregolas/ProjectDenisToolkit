@@ -42,6 +42,7 @@ File Name | DB Name | Description |
 + "—" is now shown in place of empty values
 + Popover width now expands to 100% in mobile view to avoid accidental soft closing.
 + Tune DB updated to 2024-07-27
++ Tweaks to UI elements after tests in more browsers
 
 [v.3.1]
 
