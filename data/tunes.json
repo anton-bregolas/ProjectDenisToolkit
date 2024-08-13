@@ -128,7 +128,7 @@
   {
     "tuneref": "CICD # 4751",
     "tunename": "Ben Tom Murphy",
-    "tunetype": "Reel",
+    "tunetype": "Other",
     "altnames": "",
     "refno": "5111",
     "transcriptlink": "",
@@ -412,6 +412,15 @@
     "refno": "1092",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Dairymaid_(4)_(The)"
+  },
+  {
+    "tuneref": "MISC # 5",
+    "tunename": "Dan Dave Dan's",
+    "tunetype": "Slide",
+    "altnames": "Art O'Keeffe's No. 1",
+    "refno": "4011",
+    "transcriptlink": "https://thesession.org/tunes/24607#setting51394",
+    "refsettinglink": "https://thesession.org/tunes/24607"
   },
   {
     "tuneref": "CRE 3 # 45",
@@ -1017,6 +1026,15 @@
     "refsettinglink": "https://thesession.org/tunes/3859, https://tunearch.org/wiki/King%27s_Reel_(The)"
   },
   {
+    "tuneref": "CRE 2 # 114",
+    "tunename": "Kiskeam",
+    "tunetype": "Polka",
+    "altnames": "Billy Mahony's / Newmarket / Willie Reidy's No.2",
+    "refno": "4041",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/22993"
+  },
+  {
     "tuneref": "CRE 5 # 170",
     "tunename": "Kiss the Maid behind the Barrel",
     "tunetype": "Reel",
@@ -1147,7 +1165,7 @@
     "tunename": "Mike Sullivan's",
     "tunetype": "Hornpipe",
     "altnames": "Tom Billy's",
-    "refno": "17122",
+    "refno": "5551, 17122",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Mike_Sullivan%27s_Hornpipe_(1)"
   },
@@ -1405,7 +1423,7 @@
   },
   {
     "tuneref": "JOLSL # 100",
-    "tunename": "Orange Man's Wife in the Clover, The",
+    "tunename": "Orangeman's Wife in the Clover, The",
     "tunetype": "Jig",
     "altnames": "Trooper / Orange Rogue / An Calmfhear",
     "refno": "5011",
@@ -2061,15 +2079,6 @@
     "refsettinglink": "https://thesession.org/tunes/6302"
   },
   {
-    "tuneref": "MISC # 5",
-    "tunename": "Untitled Slide",
-    "tunetype": "Slide",
-    "altnames": "Art O'Keeffe's No. 1",
-    "refno": "4011",
-    "transcriptlink": "",
-    "refsettinglink": ""
-  },
-  {
     "tuneref": "CRE 1 # 70",
     "tunename": "Walsh's",
     "tunetype": "Reel",
@@ -2104,15 +2113,6 @@
     "refno": "21022",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/T%C3%A1_an_coileach_ag_f%C3%B3gairt_an_lae_(1)"
-  },
-  {
-    "tuneref": "CRE 2 # 114",
-    "tunename": "Willie Reidy's No.2",
-    "tunetype": "Polka",
-    "altnames": "Billy Mahony's / Newmarket",
-    "refno": "4041",
-    "transcriptlink": "",
-    "refsettinglink": "https://thesession.org/tunes/22993"
   },
   {
     "tuneref": "JOLSL # 210",
