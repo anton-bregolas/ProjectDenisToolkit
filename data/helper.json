@@ -97,7 +97,7 @@
   },
   {
     "msgno": "16",
-    "msgtext": "A word from the editor: This is a passion open-source project which I hope to one day integrate into a larger resource celebrating Denis Murphy’s legacy. You can contribute to #ProjectDenis in several ways: by making detailed tracklists of recordings not found in the database or by submitting publicly accessible transcriptions of Denis Murphy’s tunes that will then be verified against the source recording and added to the DB.",
+    "msgtext": "A word from the editor: This is a passion open-source project which I hope to one day integrate into a larger resource celebrating Denis Murphy’s legacy. You can contribute to #ProjectDenis in several ways: by making detailed tracklists of recordings not found in the database or by submitting publicly accessible transcriptions of Denis Murphy’s tunes that will then be verified against the source recording and added to the DB. A donation button has also been added at the very bottom of the page: you can now buy developer a beer!",
     "msgtype": "tour",
     "oktext": "OK"
   },
