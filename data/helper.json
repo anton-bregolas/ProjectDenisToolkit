@@ -7,25 +7,25 @@
   },
   {
     "msgno": "1",
-    "msgtext": "Press the Start Exploring button to load fresh Tune Data and then click Start to continue. If you need to close this menu and look around, click on the little Denis Helper or the OK (Try it!) button and then click on the Helper again to reopen it. To stop the tour at any time, press Quit.",
+    "msgtext": "Press the Start Exploring button to load fresh Tune Data and then click Start to continue. If you need to close this menu and look around, click on the little Denis Helper or the OK (Try it!) button and then click on the Helper again to reopen it. You can also use keyboard shortcut Alt + F1 to launch or minimise the help tour menu. To stop the tour at any time, press Quit.",
     "msgtype": "tour",
     "oktext": "Start"
   },
   {
     "msgno": "2",
-    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through! Press the right arrow to continue or the left arrow to go one step back. You can use your keyboard arrows during the tour.",
+    "msgtext": "Let’s begin with the Search section of the app. This is a work-in-progress database and you can see its current size below the search bar. That’s a lot of information to go through! Press the right arrow to continue or the left arrow to go one step back (keyboard arrows work too). If at any point you feel lost in the menus, call the quick navigation by pressing Alt + F2 or pushing the hover button at the bottom.",
     "msgtype": "tour",
     "oktext": "OK"
   },
   {
     "msgno": "3",
-    "msgtext": "Whenever you need to quickly look up some details of an album, a track or a tune recorded by Denis Murphy, start by selecting the search category and typing a word or two in the Search input. Try searching for “Pádraig O’Keeffe” to get a large selection of results or “Donal a' Clumper's” to view a very specific search set. Click Next when you're ready to continue.",
+    "msgtext": "Whenever you need to quickly look up some details of an album, a track or a tune recorded by Denis Murphy, start by selecting the Search category and typing a word or two in the input. You can use keyboard shortcut Alt + F3 to quickly focus on the Search input field. Try searching for “Pádraig O’Keeffe” to get a large selection of results or “Donal a' Clumper's” to view a very specific search set. Click Next when you're ready to continue.",
     "msgtype": "tour",
     "oktext": "Try it!"
   },
   {
     "msgno": "4",
-    "msgtext": "Clicking on a search result will open an individual card of a Track, a Collection or a Tune with the matching words highlighted. You can then go back to the main menu by pressing the Quit button or keep exploring the Denis Murphy materials using card navigation. Each item provides references and links to help you identify tunes and find their sources.",
+    "msgtext": "Clicking on a search result will open an individual card of a Track, a Collection or a Tune with the matching words highlighted. You can then go back to the main menu by pressing the Quit button or any of the special keyboard shortcuts. Alternatively, you can keep exploring the Denis Murphy materials using card navigation. Each item provides references and links to help you identify tunes and find their sources.",
     "msgtype": "tour",
     "oktext": "OK"
   },
@@ -85,7 +85,7 @@
   },
   {
     "msgno": "14",
-    "msgtext": "To quickly navigate between the sections, press the hover button in the bottom right corner of the screen. You can also quickly access the Collections, Tracklist and Tunelist via shortcuts in the app’s header. Don't forget to check out the alternative colour themes and the Helper's new look in each of them!",
+    "msgtext": "To quickly navigate between the sections, remember to use the keyboard shortcut Alt + F2 or the hover button in the bottom right corner of the screen. You can also quickly access the Collections, Tracklist and Tunelist via shortcuts in the app’s header. Don't forget to check out the alternative colour themes and the Helper's new look in each of them!",
     "msgtype": "tour",
     "oktext": "Try it!"
   },
