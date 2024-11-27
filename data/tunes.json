@@ -31,7 +31,7 @@
     "tunename": "Apples in Winter",
     "tunetype": "Jig",
     "altnames": "Mug of Brown Ale / Paddy in London",
-    "refno": "2101",
+    "refno": "2101, 74241",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/888"
   },
@@ -39,7 +39,7 @@
     "tuneref": "JOLSL # 345",
     "tunename": "Art O'Keeffe's",
     "tunetype": "Slide",
-    "altnames": "Echoes of Killarney / Well I Know What Kitty Wants / Denis McMahon's",
+    "altnames": "Echoes of Killarney / Denis McMahon's / Gooseberry Hill / Well I Know What Kitty Wants",
     "refno": "1171, 4021",
     "transcriptlink": "https://tunearch.org/wiki/Art_O%27Keeffe%27s_(3)",
     "refsettinglink": "https://thesession.org/tunes/5945, https://tunearch.org/wiki/Art_O%27Keeffe%27s_(3)"
@@ -48,10 +48,19 @@
     "tuneref": "CRE 2 # 122",
     "tunename": "As I Went out upon the Ice",
     "tunetype": "Polka",
-    "altnames": "Ag Dul amach ar an Leac Oighir dom",
+    "altnames": "Taglioni / Ag Dul amach ar an Leac Oighir dom",
     "refno": "4761, 4762, 6161",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/7528, https://tunepal.org/index.html#!/tune/1494-cre2.abc-5-As~I~Went~Out~Upon~the~Ice~(polka)~%2525~cre2%253Cbb"
+  },
+  {
+    "tuneref": "CRE 5 # 166",
+    "tunename": "Atlantic Wave",
+    "tunetype": "Reel",
+    "altnames": "Lad O'Beirne's Favourite / Larry Redican's",
+    "refno": "73141",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/962, https://tunearch.org/wiki/Atlantic_Wave_(The)"
   },
   {
     "tuneref": "CRE 1 # 111",
@@ -72,6 +81,15 @@
     "refsettinglink": "https://tunearch.org/wiki/Ballinamore_Reel_(2)"
   },
   {
+    "tuneref": "JOLSL # 147",
+    "tunename": "Ballintaurig, The",
+    "tunetype": "Slide",
+    "altnames": "Can Anyone Tell Me Where Nancy’s Gone? / Down the Back Lane",
+    "refno": "71431",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/19439"
+  },
+  {
     "tuneref": "JOLSL # 57",
     "tunename": "Ballydesmond No. 1, The",
     "tunetype": "Polka",
@@ -85,7 +103,7 @@
     "tunename": "Ballydesmond No. 2, The",
     "tunetype": "Polka",
     "altnames": "Maurice Manley's / Polca Mhuiris Uí Mhaonghaile",
-    "refno": "3092, 4961",
+    "refno": "3092, 4961, 71361, 75281",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Ballydesmond_Polka_(2), https://thesession.org/tunes/238"
   },
@@ -121,7 +139,7 @@
     "tunename": "Belles of Liscarroll, The",
     "tunetype": "Jig",
     "altnames": "Old Walls of Liscarroll",
-    "refno": "4441",
+    "refno": "4441, 70041",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/9601"
   },
@@ -148,7 +166,7 @@
     "tunename": "Bill the Weaver's Single Reel",
     "tunetype": "Other",
     "altnames": "John Egan's",
-    "refno": "4451",
+    "refno": "4451, 72031",
     "transcriptlink": "https://thesession.org/tunes/19310#setting50285",
     "refsettinglink": "https://thesession.org/tunes/19310"
   },
@@ -189,6 +207,15 @@
     "refsettinglink": "https://tunearch.org/wiki/Blue_Ribbon_Polka_(1)"
   },
   {
+    "tuneref": "JOLSL # 4",
+    "tunename": "Bonnie Scotland",
+    "tunetype": "Reel",
+    "altnames": "Loudon’s Bonnie Woods and Braes / Lord Moira’s Welcome to Scotland",
+    "refno": "70011",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/3262, https://tunearch.org/wiki/Lord_Moira"
+  },
+  {
     "tuneref": "DMI # 205",
     "tunename": "Breeches Mary",
     "tunetype": "Jig",
@@ -205,6 +232,15 @@
     "refno": "93011",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Bridge_of_Athlone_(1)_(The)"
+  },
+  {
+    "tuneref": "JOLSL # 254",
+    "tunename": "Broomstick, The",
+    "tunetype": "Reel",
+    "altnames": "Thrashing",
+    "refno": "72041",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/20634"
   },
   {
     "tuneref": "FRC 1 # 149",
@@ -229,7 +265,7 @@
     "tunename": "Callaghan's",
     "tunetype": "Reel",
     "altnames": "Cal Callaghan's / Doon / Ríl an Dúna",
-    "refno": "2122, 3112, 4241",
+    "refno": "2122, 3112, 4241, 75291",
     "transcriptlink": "http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182270.pdf",
     "refsettinglink": "https://tunearch.org/wiki/Callaghan%27s_Reel_(1)"
   },
@@ -310,7 +346,7 @@
     "tunename": "Charming Lovely Nancy",
     "tunetype": "Slide",
     "altnames": "Whole Chicken in the Soup / Maggie Pickens / An Chearc ar fad is an tAnraith",
-    "refno": "5471, 5481",
+    "refno": "5471, 5481, 71491",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/3441"
   },
@@ -319,7 +355,7 @@
     "tunename": "Chase Me Charlie",
     "tunetype": "Slide",
     "altnames": "Cock of the North / Auntie Mary Had a Canarie",
-    "refno": "1222, 2081, 6062",
+    "refno": "1222, 2081, 6062, 35032",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1218"
   },
@@ -342,13 +378,31 @@
     "refsettinglink": "https://thesession.org/tunes/3873"
   },
   {
+    "tuneref": "JOLSL # 148",
+    "tunename": "Cnoc Meanach",
+    "tunetype": "Polka",
+    "altnames": "Mikey Buckley's Fancy / Johnny Leary's",
+    "refno": "72111",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/13852, https://tunearch.org/wiki/Mike_Buckley%27s_(1)"
+  },
+  {
     "tuneref": "DMI # 520",
     "tunename": "Colonel Frazer",
     "tunetype": "Reel",
     "altnames": "Colonel Fraser / An Coirnéal Frazer",
-    "refno": "4421, 5241, 8201, 11092, 90022, 95022",
+    "refno": "4421, 5241, 8201, 11092, 75041, 90022, 95022",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1209, https://tunearch.org/wiki/Colonel_Fraser"
+  },
+  {
+    "tuneref": "JOLSL # 13",
+    "tunename": "Con Carthy's Favourite",
+    "tunetype": "Slide",
+    "altnames": "",
+    "refno": "75323",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/3112"
   },
   {
     "tuneref": "CRE 2 # 50",
@@ -358,6 +412,15 @@
     "refno": "4311, 86251",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/549-cre2.abc-5-Cordal~Jig~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182050.pdf",
     "refsettinglink": "https://thesession.org/tunes/864"
+  },
+  {
+    "tuneref": "JOLSL # 335",
+    "tunename": "Corner House, The",
+    "tunetype": "Reel",
+    "altnames": "",
+    "refno": "71441",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/479"
   },
   {
     "tuneref": "DMI # 903",
@@ -373,7 +436,7 @@
     "tunename": "Cronin's",
     "tunetype": "Hornpipe",
     "altnames": "",
-    "refno": "1021, 2041, 8081, 20021",
+    "refno": "1021, 2041, 8081, 20021, 35041",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/478, https://tunearch.org/wiki/Cronin%27s_Hornpipe"
   },
@@ -382,7 +445,7 @@
     "tunename": "Cuban, The",
     "tunetype": "Polka",
     "altnames": "",
-    "refno": "4071",
+    "refno": "4071, 75111",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/13850"
   },
@@ -405,13 +468,22 @@
     "refsettinglink": "https://thesession.org/tunes/573"
   },
   {
+    "tuneref": "JOLSL # 33",
+    "tunename": "Cuckoo's Nest",
+    "tunetype": "Hornpipe",
+    "altnames": "",
+    "refno": "75221, 75221",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2395"
+  },
+  {
     "tuneref": "JOLSL # 21",
     "tunename": "Dairymaid, The",
     "tunetype": "Reel",
     "altnames": "",
-    "refno": "1092",
+    "refno": "1092, 78062",
     "transcriptlink": "",
-    "refsettinglink": "https://tunearch.org/wiki/Dairymaid_(4)_(The)"
+    "refsettinglink": "https://tunearch.org/wiki/Dairymaid_(4)_(The), https://thesession.org/tunes/1946"
   },
   {
     "tuneref": "MISC # 5",
@@ -459,6 +531,15 @@
     "refsettinglink": "https://thesession.org/tunes/4024, https://tunearch.org/wiki/Scart_Slide"
   },
   {
+    "tuneref": "CRE 2 # 130",
+    "tunename": "Denis Doody's",
+    "tunetype": "Polka",
+    "altnames": "McAllister's Fling / Green Cottage No. 1",
+    "refno": "72131, 75181",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/1338"
+  },
+  {
     "tuneref": "JOLSL # 124",
     "tunename": "Denis Murphy's",
     "tunetype": "Slide",
@@ -472,18 +553,27 @@
     "tunename": "Denis Murphy's",
     "tunetype": "Polka",
     "altnames": "Casey's",
-    "refno": "1162",
+    "refno": "1162, 35082",
     "transcriptlink": "https://thesession.org/tunes/357#setting49477",
     "refsettinglink": "https://thesession.org/tunes/357"
   },
   {
     "tuneref": "CICD # 4273",
-    "tunename": "Denis Murphy's",
+    "tunename": "Denis Murphy's Monaghan Twig",
     "tunetype": "Reel",
-    "altnames": "Tinker's Apron / Aprún an Tincéara / Monaghan Twig",
-    "refno": "4491",
+    "altnames": "Tinker's Apron / Aprún an Tincéara",
+    "refno": "4491, 70091",
     "transcriptlink": "https://thesession.org/tunes/13013#setting50292",
     "refsettinglink": "https://thesession.org/tunes/13013#setting50293"
+  },
+  {
+    "tuneref": "CRE 5 # 87",
+    "tunename": "Dolly Varden, The",
+    "tunetype": "Other",
+    "altnames": "",
+    "refno": "70251, 71371",
+    "transcriptlink": "https://tunepal.org/index.html#!/tune/2541-cre5.abc-16-Dolly~Varden~~(The)~(polka)~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185087.pdf",
+    "refsettinglink": "https://tunearch.org/wiki/Dolly_Varden_(1)"
   },
   {
     "tuneref": "CRE 2 # 295",
@@ -504,6 +594,15 @@
     "refsettinglink": "https://thesession.org/tunes/2693"
   },
   {
+    "tuneref": "CRE 5 # 181",
+    "tunename": "Doonagore",
+    "tunetype": "Reel",
+    "altnames": "Cúil na nGabhar / Boys of 45",
+    "refno": "73131",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2816"
+  },
+  {
     "tuneref": "MISC #6",
     "tunename": "Down Our Street",
     "tunetype": "Song",
@@ -511,6 +610,24 @@
     "refno": "88251, 88381",
     "transcriptlink": "",
     "refsettinglink": ""
+  },
+  {
+    "tuneref": "JOLSL # 99",
+    "tunename": "Drunken Man's Wife",
+    "tunetype": "Jig",
+    "altnames": "Ellen O’Leary’s",
+    "refno": "73121",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/12233"
+  },
+  {
+    "tuneref": "CRE 1 # 193",
+    "tunename": "Dublin Lasses",
+    "tunetype": "Reel",
+    "altnames": "Tie the Ribbons / Lothian Lasses",
+    "refno": "71461",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2572"
   },
   {
     "tuneref": "CRE 5 # 58",
@@ -558,6 +675,15 @@
     "refsettinglink": "https://tunearch.org/wiki/%C3%89ireann_go_Br%C3%A1ch"
   },
   {
+    "tuneref": "CRE 5 # 158",
+    "tunename": "Evening Bells",
+    "tunetype": "Reel",
+    "altnames": "Game Cock / Along the River Banks",
+    "refno": "74271",
+    "transcriptlink": "http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185158.pdf",
+    "refsettinglink": "https://thesession.org/tunes/1960, https://tunearch.org/wiki/Game_Cock_Reel"
+  },
+  {
     "tuneref": "CRE 5 # 37",
     "tunename": "Fanning's",
     "tunetype": "Jig",
@@ -594,6 +720,15 @@
     "refsettinglink": "https://tunearch.org/wiki/Farrell_O%27Gara"
   },
   {
+    "tuneref": "CRE 3 # 31",
+    "tunename": "Father Hanley's",
+    "tunetype": "Jig",
+    "altnames": "Rambler / House in the Glen",
+    "refno": "75251",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/510"
+  },
+  {
     "tuneref": "JOLSL # 63",
     "tunename": "Fisherman's",
     "tunetype": "Hornpipe",
@@ -607,7 +742,7 @@
     "tunename": "Fitzgerald's",
     "tunetype": "Hornpipe",
     "altnames": "",
-    "refno": "1111",
+    "refno": "1111, 75011",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/5792"
   },
@@ -621,11 +756,11 @@
     "refsettinglink": "https://tunearch.org/wiki/Five_Servants_(The)"
   },
   {
-    "tuneref": "DMI # 633",
+    "tuneref": "JOLSL # 20",
     "tunename": "Flax in Bloom, The",
     "tunetype": "Reel",
     "altnames": "An Líon faoi Bhláth",
-    "refno": "20031",
+    "refno": "20031, 78061",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Flax_in_Bloom_(The)"
   },
@@ -649,10 +784,10 @@
   },
   {
     "tuneref": "JOLSL # 197",
-    "tunename": "Frisco",
+    "tunename": "Frisco, The",
     "tunetype": "Hornpipe",
     "altnames": "Gleanntán",
-    "refno": "86281",
+    "refno": "71291, 75051, 86281",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/11137"
   },
@@ -684,6 +819,15 @@
     "refsettinglink": "https://thesession.org/tunes/544, https://tunearch.org/wiki/Garrett_Barry%27s_Jig"
   },
   {
+    "tuneref": "ONMI # 299",
+    "tunename": "Girl I Left behind Me, The",
+    "tunetype": "Polka",
+    "altnames": "Rambling Laborer / An Spailpín Fánach",
+    "refno": "71381",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/5418, https://tunearch.org/wiki/Girl_I_Left_Behind_Me_(1)_(The)"
+  },
+  {
     "tuneref": "CRE 2 # 40",
     "tunename": "Girl of the Big House",
     "tunetype": "Jig",
@@ -702,6 +846,24 @@
     "refsettinglink": "https://thesession.org/tunes/4026"
   },
   {
+    "tuneref": "JOLSL # 308",
+    "tunename": "Gleanntán Frolics No. 2",
+    "tunetype": "Slide",
+    "altnames": "Ceanngulla",
+    "refno": "70181",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/5215"
+  },
+  {
+    "tuneref": "CRE 2 # 154",
+    "tunename": "Glen Owen",
+    "tunetype": "Reel",
+    "altnames": "Gleann Eoghain / Doon",
+    "refno": "70531",
+    "transcriptlink": "https://tunearch.org/wiki/Gleann_Eoghain",
+    "refsettinglink": "https://thesession.org/tunes/5440, https://tunearch.org/wiki/Gleann_Eoghain"
+  },
+  {
     "tuneref": "CRE 3 # 176",
     "tunename": "Glencolmcille",
     "tunetype": "Reel",
@@ -716,7 +878,7 @@
     "tunetype": "Reel",
     "altnames": "Bridie's Joy / Duke of Montrose / Ríl an Ghleanntáin",
     "refno": "4221, 7261, 34101",
-    "transcriptlink": "https://tunepal.org/index.html#!/tune/2578-cre5.abc-16-Glountane~~(reel)~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185122.pdf",
+    "transcriptlink": "https://tunepal.org/index.html#!/tune/2578-cre5.abc-16-Glountane~~(reel)~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185122.pdf, https://thesession.org/tunes/2175#setting43812",
     "refsettinglink": "https://tunearch.org/wiki/Gleannt%C3%A1n_Reel_(3)_(The)"
   },
   {
@@ -724,36 +886,36 @@
     "tunename": "Gneeveguilla, The",
     "tunetype": "Reel",
     "altnames": "Pride of Rathmore / Gneeveguillia",
-    "refno": "4391, 22092",
+    "refno": "4391, 22092, 75061",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/876#setting14056"
   },
   {
-    "tuneref": "CRE 2 # 130",
+    "tuneref": "CRE 3 # 72",
     "tunename": "Green Cottage No. 1, The",
     "tunetype": "Polka",
-    "altnames": "Glen Cottage No.1 / Glin Cottage No.1",
+    "altnames": "Glen Cottage No. 1 / Glin Cottage No. 1 / From Billy to Jack",
     "refno": "1131",
     "transcriptlink": "",
-    "refsettinglink": "https://tunearch.org/wiki/Glen_Cottage_Polka_(1)_(The)"
+    "refsettinglink": "https://tunearch.org/wiki/Green_Cottage_Polka_(1)_(The)"
   },
   {
     "tuneref": "CRE 3 # 78",
     "tunename": "Green Cottage No. 2, The",
     "tunetype": "Polka",
-    "altnames": "Glen Cottage No.2 / Glin Cottage No.2",
-    "refno": "1132",
+    "altnames": "Glen Cottage No. 2 / Glin Cottage No. 2",
+    "refno": "1132, 75261",
     "transcriptlink": "",
-    "refsettinglink": "https://tunearch.org/wiki/Glen_Cottage_Polka_(2)_(The)"
+    "refsettinglink": "https://tunearch.org/wiki/Green_Cottage_Polka_(2)_(The)"
   },
   {
     "tuneref": "JOLSL # 185",
     "tunename": "Green Cottage No. 3, The",
     "tunetype": "Polka",
-    "altnames": "Glen Cottage No.3 / Glin Cottage No.3 / Babes in the Woods / Girl with the Blue Dress On",
+    "altnames": "Glen Cottage No. 3 / Glin Cottage No. 3 / Babes in the Woods / Girl with the Blue Dress On",
     "refno": "1133",
     "transcriptlink": "https://thesession.org/tunes/19298#setting37967",
-    "refsettinglink": "https://thesession.org/tunes/19298"
+    "refsettinglink": "https://thesession.org/tunes/19298, https://tunearch.org/wiki/Green_Cottage_Polka_(3)_(The)"
   },
   {
     "tuneref": "JOLSL # 320",
@@ -765,11 +927,20 @@
     "refsettinglink": "https://tunearch.org/wiki/Barrack_Hill_(1)"
   },
   {
+    "tuneref": "JOLSL # 10",
+    "tunename": "Green Flag, The",
+    "tunetype": "March",
+    "altnames": "Con Cronin's / Green Flag is Flying",
+    "refno": "75211, 75212",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/19524, https://thesession.org/tunes/8833"
+  },
+  {
     "tuneref": "JOLSL # 229",
     "tunename": "Green Mountain, The",
     "tunetype": "Reel",
     "altnames": "",
-    "refno": "4791",
+    "refno": "4791, 70061",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/166"
   },
@@ -778,7 +949,7 @@
     "tunename": "Gypsy Princess",
     "tunetype": "Hornpipe",
     "altnames": "Dolly Varden",
-    "refno": "5121",
+    "refno": "5121, 71401",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/2656-cre5.abc-16-Dolly~%2526~the~Gypsy~~(barn~dance)~%2525~cre5%253Cbb",
     "refsettinglink": "https://thesession.org/tunes/4577"
   },
@@ -787,7 +958,7 @@
     "tunename": "Hare in the Corn, The",
     "tunetype": "Slide",
     "altnames": "Cat in the Corner / An Giorria San Arbhar",
-    "refno": "3012, 4151",
+    "refno": "3012, 4151, 70341",
     "transcriptlink": "http://www.capeirish.com/ittl/tunefolders/18/183/183-plus/183042.pdf",
     "refsettinglink": "https://tunearch.org/wiki/Hare_in_the_Corn_(4)_(The)"
   },
@@ -799,6 +970,24 @@
     "refno": "1141, 4841",
     "transcriptlink": "https://thesession.org/tunes/7650#setting42438",
     "refsettinglink": "https://tunearch.org/wiki/Harlequin_(1)_(The)"
+  },
+  {
+    "tuneref": "DMI # 20",
+    "tunename": "Have a Drink With Me",
+    "tunetype": "Jig",
+    "altnames": "Flaxdresser",
+    "refno": "70191",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/1922"
+  },
+  {
+    "tuneref": "JOLSL # 181",
+    "tunename": "Hennigan's",
+    "tunetype": "Jig",
+    "altnames": "Jim Hennigan's",
+    "refno": "70231",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/1773"
   },
   {
     "tuneref": "CICD # 1512",
@@ -814,7 +1003,7 @@
     "tunename": "Hickey's",
     "tunetype": "Reel",
     "altnames": "Old Pensioner",
-    "refno": "4411",
+    "refno": "4411, 75071",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/4460"
   },
@@ -886,9 +1075,18 @@
     "tunename": "Humours of Mountcollins, The",
     "tunetype": "Slide",
     "altnames": "If I Had a Wife / Nellie Mahony's / Mad Dancing",
-    "refno": "1221, 4881, 8092, 21012, 85131",
+    "refno": "1221, 4881, 8092, 21012, 35062, 85131",
     "transcriptlink": "http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182070.pdf",
     "refsettinglink": "https://thesession.org/tunes/7897, https://tunearch.org/wiki/Humors_of_Mountcollins_(The)"
+  },
+  {
+    "tuneref": "JOLSL # 360",
+    "tunename": "I Looked East and I Looked West",
+    "tunetype": "Polka",
+    "altnames": "",
+    "refno": "35022",
+    "transcriptlink": "",
+    "refsettinglink": ""
   },
   {
     "tuneref": "CRE 2 # 79",
@@ -900,20 +1098,11 @@
     "refsettinglink": "https://tunearch.org/wiki/I%27d_rather_be_married_than_left"
   },
   {
-    "tuneref": "JOLSL # 184",
-    "tunename": "I’d Rather Be Left Alone",
-    "tunetype": "Slide",
-    "altnames": "Kishkeam Lasses / Rural Felicity",
-    "refno": "88341",
-    "transcriptlink": "",
-    "refsettinglink": "https://thesession.org/tunes/4162, https://tunearch.org/wiki/Rural_Felicity_(2)"
-  },
-  {
     "tuneref": "JOLSL # 90",
     "tunename": "If I Had a Wife",
     "tunetype": "Slide",
     "altnames": "Mick Mahony's No. 1 / Johnny Leary's",
-    "refno": "4131, 94021",
+    "refno": "4131, 77241, 94021",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/3735"
   },
@@ -927,11 +1116,20 @@
     "refsettinglink": "https://thesession.org/tunes/1765"
   },
   {
+    "tuneref": "JOLSL # 37",
+    "tunename": "Jackson's Morning Brush",
+    "tunetype": "Jig",
+    "altnames": "",
+    "refno": "78011",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2699"
+  },
+  {
     "tuneref": "CRE 2 # 128",
     "tunename": "Jer the Rigger",
-    "tunetype": "Polka",
-    "altnames": "Jer an Rigéara",
-    "refno": "4751",
+    "tunetype": "Other",
+    "altnames": "Ger the Rigger / Jer an Rigéara",
+    "refno": "4751, 70241, 75301",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/1499-cre2.abc-5-Jer~the~Rigger~(polka)~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182128.pdf",
     "refsettinglink": "https://thesession.org/tunes/1367"
   },
@@ -949,7 +1147,7 @@
     "tunename": "Jimmy Doyle's",
     "tunetype": "Polka",
     "altnames": "Jimmy Doyle's No. 1",
-    "refno": "6164, 85141",
+    "refno": "6164, 72101, 85141",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Jimmy_Doyle%27s_Polka_(1)"
   },
@@ -976,9 +1174,18 @@
     "tunename": "Johnny Cope",
     "tunetype": "Hornpipe",
     "altnames": "",
-    "refno": "20091",
+    "refno": "20091, 72021",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Johnny_Cope_(2)"
+  },
+  {
+    "tuneref": "JOLSL # 361",
+    "tunename": "Johnny I Do Miss You",
+    "tunetype": "Polka",
+    "altnames": "Tureengarbh Glen / Gleann an Tuairín Ghairbh",
+    "refno": "73151",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2781"
   },
   {
     "tuneref": "JOLSL # 165",
@@ -1020,7 +1227,7 @@
     "tuneref": "CICD # 3000",
     "tunename": "King's",
     "tunetype": "Reel",
-    "altnames": "George the Fourth / King George the IV",
+    "altnames": "George the Fourth / King George IV",
     "refno": "5261",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/3859, https://tunearch.org/wiki/King%27s_Reel_(The)"
@@ -1029,10 +1236,19 @@
     "tuneref": "CRE 2 # 114",
     "tunename": "Kiskeam",
     "tunetype": "Polka",
-    "altnames": "Billy Mahony's / Newmarket / Willie Reidy's No.2",
-    "refno": "4041",
+    "altnames": "Billy Mahony's / Newmarket / Willie Reidy's No. 2",
+    "refno": "4041, 75131",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/22993"
+  },
+  {
+    "tuneref": "JOLSL # 184",
+    "tunename": "Kiskeam Lasses",
+    "tunetype": "Slide",
+    "altnames": "Rural Felicity",
+    "refno": "72551, 88341",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/4162, https://tunearch.org/wiki/Rural_Felicity_(2)"
   },
   {
     "tuneref": "CRE 5 # 170",
@@ -1042,6 +1258,15 @@
     "refno": "4431, 5251, 7321, 20071, 34061",
     "transcriptlink": "https://thesession.org/tunes/676#setting50098, https://tunepal.org/index.html#!/tune/2628-cre5.abc-16-Kiss~the~Maid~Behind~the~Barrel~~(6-part~reel)~%2525~cre5%253Cbb, https://thesession.org/tunes/676#setting50099",
     "refsettinglink": "https://thesession.org/tunes/676, https://tunearch.org/wiki/Kiss_the_Maid_Behind_the_Barrel"
+  },
+  {
+    "tuneref": "JOLSL # 193",
+    "tunename": "Kitty's Wedding",
+    "tunetype": "Jig",
+    "altnames": "Ship in Full Sail",
+    "refno": "75241",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/261"
   },
   {
     "tuneref": "CRE 3 # 65",
@@ -1075,9 +1300,18 @@
     "tunename": "Lark in the Bog, The",
     "tunetype": "Jig",
     "altnames": "Lark's March / Geese in the Bog",
-    "refno": "1012, 16131, 18042",
+    "refno": "1012, 16131, 18042, 78021",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/5867, https://tunearch.org/wiki/Lark_in_the_Bog"
+  },
+  {
+    "tuneref": "DMI # 200",
+    "tunename": "Leg of the Duck, The",
+    "tunetype": "Jig",
+    "altnames": "Daniel of the Sun / Dónal na Gréine",
+    "refno": "70201",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/1317"
   },
   {
     "tuneref": "JOLSL # 376",
@@ -1093,9 +1327,18 @@
     "tunename": "Lisheen, The",
     "tunetype": "Reel",
     "altnames": "Ríl an Lisín",
-    "refno": "4561",
+    "refno": "4561, 74261",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/1527-cre2.abc-5-Lisheen~Reel~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182192.pdf",
     "refsettinglink": "https://thesession.org/tunes/12802"
+  },
+  {
+    "tuneref": "MISC # 7",
+    "tunename": "Little Brown Jug",
+    "tunetype": "Polka",
+    "altnames": "",
+    "refno": "75161",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Little_Brown_Jug"
   },
   {
     "tuneref": "CRE 2 # 148",
@@ -1143,6 +1386,24 @@
     "refsettinglink": "https://tunearch.org/wiki/Martin_Wynne%27s_No._2"
   },
   {
+    "tuneref": "CRE 5 # 72",
+    "tunename": "Mary Darby's",
+    "tunetype": "Slide",
+    "altnames": "She Hasn’t the Thing She Thought She Had / Perfect Cure",
+    "refno": "71411, 71421, 75321, 75322",
+    "transcriptlink": "https://tunepal.org/index.html#!/tune/2527-cre5.abc-16-Mary~Darby~s*~~%28slide%29~%25~cre5%3Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185072.pdf",
+    "refsettinglink": "https://thesession.org/tunes/7467#setting51806"
+  },
+  {
+    "tuneref": "JOLSL # 291",
+    "tunename": "Matt Daly's",
+    "tunetype": "Slide",
+    "altnames": "Charming Lovely Nancy",
+    "refno": "72561",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/11169"
+  },
+  {
     "tuneref": "CRE 5 # 35",
     "tunename": "Maulykeavane, The",
     "tunetype": "Jig",
@@ -1156,9 +1417,27 @@
     "tunename": "Maurice Manley's",
     "tunetype": "Slide",
     "altnames": "Sleamhnán Mhuiris Uí Mhaonghaile",
-    "refno": "4971",
+    "refno": "4971, 71362, 75201, 75271, 75282",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/15185"
+  },
+  {
+    "tuneref": "CRE 4 # 119",
+    "tunename": "McDermott's",
+    "tunetype": "Reel",
+    "altnames": "Master McDermott’s",
+    "refno": "35051",
+    "transcriptlink": "",
+    "refsettinglink": ""
+  },
+  {
+    "tuneref": "JOLSL # 298",
+    "tunename": "Mick Mahony's",
+    "tunetype": "Polka",
+    "altnames": "Jerome Burke's",
+    "refno": "72151",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/12846"
   },
   {
     "tuneref": "JOLSL # 78",
@@ -1237,9 +1516,9 @@
     "tunename": "Mouse Behind the Dresser, The",
     "tunetype": "Reel",
     "altnames": "Mary O'Neill's Fancy",
-    "refno": "22062",
+    "refno": "22062, 71451",
     "transcriptlink": "",
-    "refsettinglink": "https://tunearch.org/wiki/Mouse_behind_the_Dresser_(The)"
+    "refsettinglink": "https://tunearch.org/wiki/Mouse_behind_the_Dresser_(The), https://thesession.org/tunes/5951"
   },
   {
     "tuneref": "JOLSL # 66",
@@ -1269,6 +1548,15 @@
     "refsettinglink": "https://thesession.org/tunes/901"
   },
   {
+    "tuneref": "JOLSL # 48",
+    "tunename": "Munster Bank, The",
+    "tunetype": "Polka",
+    "altnames": "Dan Sweeney's",
+    "refno": "74251",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/9873"
+  },
+  {
     "tuneref": "CRE 1 # 43",
     "tunename": "Munster Buttermilk",
     "tunetype": "Jig",
@@ -1282,7 +1570,7 @@
     "tunename": "Munster, The",
     "tunetype": "Jig",
     "altnames": "",
-    "refno": "3121, 4301, 5271, 7042, 86252, 91012",
+    "refno": "3121, 4301, 5271, 7042, 78051, 86252, 91012",
     "transcriptlink": "https://thesession.org/tunes/372#comment930220",
     "refsettinglink": "https://thesession.org/tunes/372"
   },
@@ -1305,6 +1593,15 @@
     "refsettinglink": "https://thesession.org/tunes/142"
   },
   {
+    "tuneref": "CRE 5 # 219",
+    "tunename": "New High Level",
+    "tunetype": "Hornpipe",
+    "altnames": "Pádraig O'Keeffe's",
+    "refno": "71341",
+    "transcriptlink": "https://tunepal.org/index.html#!/tune/2654-cre5.abc-16-Kerryman~s~Clog*~~(h~pipe)~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185219.pdf",
+    "refsettinglink": "https://thesession.org/tunes/4018"
+  },
+  {
     "tuneref": "JOLSL # 152",
     "tunename": "New Mown Meadows, The",
     "tunetype": "Reel",
@@ -1323,11 +1620,20 @@
     "refsettinglink": "https://thesession.org/tunes/900, https://tunearch.org/wiki/Tom_Billy%27s_Reel_(2)"
   },
   {
+    "tuneref": "JOLSL # 28",
+    "tunename": "Night at the Fair, A",
+    "tunetype": "Jig",
+    "altnames": "",
+    "refno": "77211",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/7294"
+  },
+  {
     "tuneref": "CRE 2 # 304",
     "tunename": "O'Callaghan's",
     "tunetype": "Hornpipe",
-    "altnames": "Tom Connor's",
-    "refno": "1231, 8161",
+    "altnames": "Tom Connor's / Farrankale / Farrancaol",
+    "refno": "1231, 8161, 70271, 71391",
     "transcriptlink": "https://thesession.org/tunes/3015#setting23005",
     "refsettinglink": "https://thesession.org/tunes/3015"
   },
@@ -1335,8 +1641,8 @@
     "tuneref": "CRE 3 # 209",
     "tunename": "O'Callaghan's Low",
     "tunetype": "Hornpipe",
-    "altnames": "Bank of Turf / Groves / Fiddler's Green",
-    "refno": "1112, 20022",
+    "altnames": "Stook of Turf / Bank of Turf / Groves / Fiddler's Green",
+    "refno": "1112, 20022, 71311",
     "transcriptlink": "https://thesession.org/tunes/1128#setting14389",
     "refsettinglink": "https://thesession.org/tunes/1128"
   },
@@ -1377,6 +1683,24 @@
     "refsettinglink": "https://thesession.org/tunes/21947"
   },
   {
+    "tuneref": "JOLSL # 8",
+    "tunename": "O'Sullivan's",
+    "tunetype": "Polka",
+    "altnames": "Moving Bog",
+    "refno": "75141",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2069"
+  },
+  {
+    "tuneref": "CRE 2 # 12",
+    "tunename": "O'Sullivan's March",
+    "tunetype": "March",
+    "altnames": "Basket of Eggs / Old Woman Tossed Up in a Blanket / Máirseáil Uí Shúilleabháin / Páinneach na nUbh / Gogaí ó Gog",
+    "refno": "78041",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2204"
+  },
+  {
     "tuneref": "MISC # 4",
     "tunename": "Old Dudeen, The",
     "tunetype": "Reel",
@@ -1389,10 +1713,10 @@
     "tuneref": "JOLSL # 172",
     "tunename": "Old Grey Goose, The",
     "tunetype": "Jig",
-    "altnames": "",
-    "refno": "20081",
-    "transcriptlink": "",
-    "refsettinglink": "https://tunearch.org/wiki/Old_Grey_Goose_(1)"
+    "altnames": "Geese in the Bog",
+    "refno": "20081, 72011",
+    "transcriptlink": "https://thesession.org/tunes/241#setting52474",
+    "refsettinglink": "https://tunearch.org/wiki/Old_Grey_Goose_(1), https://thesession.org/tunes/241"
   },
   {
     "tuneref": "CRE 1 # 162",
@@ -1433,7 +1757,7 @@
   {
     "tuneref": "JOLSL # 130",
     "tunename": "Pádraig O'Keeffe's",
-    "tunetype": "Slide",
+    "tunetype": "Jig",
     "altnames": "Bank of Turf / First Cousin of the Gallant Tipperary Boys",
     "refno": "3161, 4401",
     "transcriptlink": "",
@@ -1444,7 +1768,7 @@
     "tunename": "Pádraig O'Keeffe's No. 1",
     "tunetype": "Slide",
     "altnames": "Julia Clifford's / Bill the Weaver's No. 1",
-    "refno": "1042",
+    "refno": "1042, 73111",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1527"
   },
@@ -1456,6 +1780,15 @@
     "refno": "1043, 20041",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/159"
+  },
+  {
+    "tuneref": "JOLSL # 6",
+    "tunename": "Peg Warren's",
+    "tunetype": "Slide",
+    "altnames": "Johnny Micky's",
+    "refno": "75101",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/22988"
   },
   {
     "tuneref": "JOLSL # 123",
@@ -1474,6 +1807,15 @@
     "refno": "4651, 5291",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/2277#setting47981"
+  },
+  {
+    "tuneref": "CRE 1 # 170",
+    "tunename": "Philip O'Beirne's Delight",
+    "tunetype": "Reel",
+    "altnames": "Broken Bridge",
+    "refno": "70071",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/7325"
   },
   {
     "tuneref": "FRC 1 # 169",
@@ -1539,29 +1881,38 @@
     "refsettinglink": "https://tunearch.org/wiki/Lord_Gordon%27s_Reel"
   },
   {
+    "tuneref": "JOLSL # 127",
+    "tunename": "Quaker, The",
+    "tunetype": "Slide",
+    "altnames": "Merrily Kissed the Quaker",
+    "refno": "35061",
+    "transcriptlink": "",
+    "refsettinglink": ""
+  },
+  {
     "tuneref": "JOLSL # 32",
     "tunename": "Quarry Cross",
     "tunetype": "Slide",
-    "altnames": "Dingle Regatta / Tom Billy's Favourite / Denis Murphy's No.1 / “Life Everlasting”",
-    "refno": "1103, 1173, 2082, 4121, 5141, 20042",
+    "altnames": "Dingle Regatta / Tom Billy's Favourite / Denis Murphy's No. 1 / “Life Everlasting”",
+    "refno": "1103, 1173, 2082, 4121, 5141, 20042, 35031",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/15412, https://tunearch.org/wiki/Denis_Murphy%27s_Slide_(2)"
   },
   {
     "tuneref": "DMI # 330",
-    "tunename": "Queen of the Fair",
+    "tunename": "Queen of the Fair, The",
     "tunetype": "Jig",
     "altnames": "",
-    "refno": "91011",
+    "refno": "78031, 91011",
     "transcriptlink": "",
-    "refsettinglink": "https://tunearch.org/wiki/Queen_of_the_Fair"
+    "refsettinglink": "https://thesession.org/tunes/772, https://tunearch.org/wiki/Queen_of_the_Fair"
   },
   {
     "tuneref": "CRE 2 # 171",
     "tunename": "Quinn's",
     "tunetype": "Reel",
     "altnames": "Ríl Uí Chuinn",
-    "refno": "4201",
+    "refno": "4201, 75311",
     "transcriptlink": "http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182171.pdf",
     "refsettinglink": "https://thesession.org/tunes/154"
   },
@@ -1570,9 +1921,18 @@
     "tunename": "Quinn's",
     "tunetype": "Jig",
     "altnames": "Philip O'Neill's / Port Uí Chuinn",
-    "refno": "4251, 22112",
+    "refno": "4251, 22112, 71501",
     "transcriptlink": "https://thesession.org/tunes/11674#setting11674, https://tunepal.org/index.html#!/tune/1447-cre2.abc-5-Quinn~s~Jig~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182064.pdf",
     "refsettinglink": "https://thesession.org/tunes/11674"
+  },
+  {
+    "tuneref": "JOLSL # 47",
+    "tunename": "Rain a Sup",
+    "tunetype": "Slide",
+    "altnames": "Bowna",
+    "refno": "77231",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/3829"
   },
   {
     "tuneref": "CRE 1 # 145",
@@ -1611,6 +1971,15 @@
     "refsettinglink": "https://tunearch.org/wiki/Rathawaun"
   },
   {
+    "tuneref": "CICD # 1457",
+    "tunename": "Rathmore",
+    "tunetype": "Slide",
+    "altnames": "Denis O'Keeffe's",
+    "refno": "71011",
+    "transcriptlink": "https://thesession.org/tunes/24974#comment999986",
+    "refsettinglink": "https://thesession.org/tunes/24974"
+  },
+  {
     "tuneref": "CRE 5 # 53",
     "tunename": "Rattle the Quilt",
     "tunetype": "Jig",
@@ -1638,11 +2007,20 @@
     "refsettinglink": "https://tunearch.org/wiki/Reel_of_Bogie_(1)_(The)"
   },
   {
+    "tuneref": "CICD # 2990",
+    "tunename": "Return from India, The",
+    "tunetype": "Reel",
+    "altnames": "",
+    "refno": "72571",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2900"
+  },
+  {
     "tuneref": "JOLSL # 30",
     "tunename": "Rights of Man",
     "tunetype": "Hornpipe",
     "altnames": "",
-    "refno": "7201, 10212, 34151",
+    "refno": "7201, 10212, 34151, 73101, 75021",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Rights_of_Man"
   },
@@ -1669,7 +2047,7 @@
     "tunename": "Rose in the Heather, The",
     "tunetype": "Jig",
     "altnames": "",
-    "refno": "1202",
+    "refno": "1202, 75231",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/447"
   },
@@ -1678,7 +2056,7 @@
     "tunename": "Rose of Drishane, The",
     "tunetype": "Hornpipe",
     "altnames": "",
-    "refno": "17121",
+    "refno": "17121, 71331",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Rose_of_Drishane_(The)"
   },
@@ -1687,7 +2065,7 @@
     "tunename": "Sailor's Bonnet",
     "tunetype": "Reel",
     "altnames": "Bairéad an Mháirnéalaigh",
-    "refno": "7153",
+    "refno": "7153, 35052",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Sailor%27s_Bonnet_(The)"
   },
@@ -1696,7 +2074,7 @@
     "tunename": "Saint Anne's",
     "tunetype": "Reel",
     "altnames": "Anna Naofa",
-    "refno": "7301, 11111, 34081, 96021",
+    "refno": "7301, 11111, 34081, 35071, 96021",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/St._Anne%27s_Reel"
   },
@@ -1705,18 +2083,18 @@
     "tunename": "Scartaglen, The",
     "tunetype": "Polka",
     "altnames": "Darby Cross / John Clifford's",
-    "refno": "1161",
+    "refno": "1161, 35081",
     "transcriptlink": "https://thesession.org/tunes/916#setting50066",
     "refsettinglink": "https://thesession.org/tunes/916"
   },
   {
     "tuneref": "JOLSL # 131",
     "tunename": "Scartaglen, The",
-    "tunetype": "Slide",
+    "tunetype": "Jig",
     "altnames": "",
-    "refno": "3162",
+    "refno": "3162, 70301",
     "transcriptlink": "https://thesession.org/tunes/4805#setting41057",
-    "refsettinglink": "https://tunearch.org/wiki/Scartaglen_Jig"
+    "refsettinglink": "https://thesession.org/tunes/4805, https://tunearch.org/wiki/Scartaglen_Jig"
   },
   {
     "tuneref": "CRE 2 # 263",
@@ -1732,9 +2110,18 @@
     "tunename": "Scotch Glasgow, The",
     "tunetype": "Other",
     "altnames": "Weaver’s Quirky Fling / Tom Billy's / Maggie Pickens",
-    "refno": "4771",
+    "refno": "4771, 71481",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/2653-cre5.abc-16-Time~Well~Spent*~~(h~pipe)~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185218.pdf",
     "refsettinglink": "https://thesession.org/tunes/13359"
+  },
+  {
+    "tuneref": "DBW p#118",
+    "tunename": "Scotsman over the Border, The",
+    "tunetype": "Jig",
+    "altnames": "",
+    "refno": "70101",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/548"
   },
   {
     "tuneref": "DMI # 837",
@@ -1773,12 +2160,39 @@
     "refsettinglink": "https://tunearch.org/wiki/Monsignor%27s_Blessing"
   },
   {
+    "tuneref": "CRE 1 # 103",
+    "tunename": "Ship has Sailed, The",
+    "tunetype": "Reel",
+    "altnames": "Curragh Races / Maid in the Cherry Tree",
+    "refno": "70211",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/1760"
+  },
+  {
+    "tuneref": "SLOP # 131",
+    "tunename": "Shoe the Donkey",
+    "tunetype": "Other",
+    "altnames": "Varsovienne / Father Walsh's Top Coat / Father Harpin's Topcoat",
+    "refno": "70261",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/2320, https://tunearch.org/wiki/Varsovienne_(1)_(The)"
+  },
+  {
+    "tuneref": "JOLSL # 117",
+    "tunename": "Shrone, The",
+    "tunetype": "Jig",
+    "altnames": "Páití O’Leary’s",
+    "refno": "77251",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/20519"
+  },
+  {
     "tuneref": "CRE 5 # 159",
     "tunename": "Silver Slipper",
     "tunetype": "Reel",
-    "altnames": "Ríl an tSlipéir Airgid / Streams of Poolaphuca No. 1 / Streams of Poulaphouca No. 1 / Streams of Pol-A-Phooka No. 1",
-    "refno": "7131",
-    "transcriptlink": "https://thesession.org/tunes/16370#setting51001, https://tunearch.org/wiki/Silver_Slipper_Reel_(The)",
+    "altnames": "Streams of Poolaphuca No. 1 / Streams of Poulaphouca No. 1 / Streams of Pol-A-Phooka No. 1 / Ríl an tSlipéir Airgid",
+    "refno": "7131, 73171, 73181",
+    "transcriptlink": "https://thesession.org/tunes/16370#setting51001, https://tunearch.org/wiki/Silver_Slipper_Reel_(The), https://tunepal.org/index.html#!/tune/2603-cre5.abc-16-Silver~Slipper~Reel~~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185159.pdf",
     "refsettinglink": "https://thesession.org/tunes/16370"
   },
   {
@@ -1845,11 +2259,20 @@
     "refsettinglink": "https://tunearch.org/wiki/Star_above_the_Garter_(The)"
   },
   {
+    "tuneref": "DMI # 495",
+    "tunename": "Star of Munster, The",
+    "tunetype": "Reel",
+    "altnames": "",
+    "refno": "70081",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/197"
+  },
+  {
     "tuneref": "DMI # 517",
     "tunename": "Steampacket, The",
     "tunetype": "Reel",
     "altnames": "An Bád Gaile / Mountain Lark / Fuiseog an tSléibhe",
-    "refno": "11093, 95023",
+    "refno": "11093, 75042, 95023",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Steampacket_(1)_(The)"
   },
@@ -1858,18 +2281,18 @@
     "tunename": "Steeplechase, The",
     "tunetype": "Reel",
     "altnames": "",
-    "refno": "7111",
+    "refno": "7111, 73161",
     "transcriptlink": "",
-    "refsettinglink": "https://tunearch.org/wiki/Steeplechase_(2)"
+    "refsettinglink": "https://tunearch.org/wiki/Steeplechase_(2), https://thesession.org/tunes/2281"
   },
   {
     "tuneref": "JOLSL # 198",
     "tunename": "Stick Across the Hob",
     "tunetype": "Jig",
-    "altnames": "Maurice Carmody's Favourite / Lyon's Favourite / O'Keeffe's Morrison's / Tom Billy's Whelan's",
-    "refno": "5221, 7351",
-    "transcriptlink": "https://thesession.org/tunes/71#setting50045",
-    "refsettinglink": "https://thesession.org/tunes/1447, https://thesession.org/tunes/71"
+    "altnames": "Lyon's Favourite / Tom Billy's Whelan's / O'Keeffe's Morrison's",
+    "refno": "5221, 7351, 71351",
+    "transcriptlink": "https://thesession.org/tunes/25000#setting52442, https://thesession.org/tunes/71#setting50045",
+    "refsettinglink": "https://thesession.org/tunes/25000"
   },
   {
     "tuneref": "JOLSL # 77",
@@ -1899,6 +2322,15 @@
     "refsettinglink": "https://tunearch.org/wiki/Taidhg%C3%ADn_an_Asail"
   },
   {
+    "tuneref": "CRE 1 # 177",
+    "tunename": "Tap Room, The",
+    "tunetype": "Reel",
+    "altnames": "In the Taproom",
+    "refno": "71471",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/711"
+  },
+  {
     "tuneref": "JOLSL # 277",
     "tunename": "Tarbolton",
     "tunetype": "Reel",
@@ -1912,7 +2344,7 @@
     "tunename": "Tarrant's No. 1",
     "tunetype": "Polka",
     "altnames": "Bill the Weaver's No. 2",
-    "refno": "1071, 4081, 86242",
+    "refno": "1071, 4081, 75151, 77221, 86242",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1825"
   },
@@ -1947,10 +2379,19 @@
     "tuneref": "CRE 2 # 32",
     "tunename": "Tenpenny Bit, The",
     "tunetype": "Jig",
-    "altnames": "",
+    "altnames": "Joe Conway's",
     "refno": "1082",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/4180"
+  },
+  {
+    "tuneref": "JOLSL # 138",
+    "tunename": "Three Little Drummers",
+    "tunetype": "Jig",
+    "altnames": "Tenpenny Bit",
+    "refno": "75341",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/109"
   },
   {
     "tuneref": "JOLSL # 234",
@@ -1960,6 +2401,24 @@
     "refno": "2103",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/1205"
+  },
+  {
+    "tuneref": "CRE 5 # 211",
+    "tunename": "Tiger, The",
+    "tunetype": "Hornpipe",
+    "altnames": "Lady Ann Hope",
+    "refno": "71511, 72141",
+    "transcriptlink": "https://tunepal.org/index.html#!/tune/2659-cre5.abc-16-Tiger~Hornpipe~~%2525~cre5%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/185/185-plus/185211.pdf#",
+    "refsettinglink": "https://thesession.org/tunes/12556"
+  },
+  {
+    "tuneref": "DMI # 774",
+    "tunename": "Tinker's, The",
+    "tunetype": "Reel",
+    "altnames": "Johnny Allen's / Bean Tincéara",
+    "refno": "70281",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/278"
   },
   {
     "tuneref": "CRE 2 # 48",
@@ -1983,10 +2442,19 @@
     "tuneref": "CRE 2 # 57",
     "tunename": "Tom Connor's",
     "tunetype": "Jig",
-    "altnames": "Port Taim Uí Chonchúir",
+    "altnames": "Put on the Chain on the Pony / Port Taim Uí Chonchúir",
     "refno": "4901",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/1440-cre2.abc-5-Tom~Connors~~Jig~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182057.pdf",
     "refsettinglink": "https://thesession.org/tunes/7947, https://tunearch.org/wiki/Tom_Connor%27s"
+  },
+  {
+    "tuneref": "SLOP # 103",
+    "tunename": "Tom Sullivan's",
+    "tunetype": "Polka",
+    "altnames": "Box about the Fireplace / Did You Wash Your Father’s Shirt? / Molly Jones",
+    "refno": "35021",
+    "transcriptlink": "",
+    "refsettinglink": ""
   },
   {
     "tuneref": "JOLSL # 239",
@@ -2054,7 +2522,7 @@
   {
     "tuneref": "JOLSL # 95",
     "tunename": "Tuirin Cathail",
-    "tunetype": "Jig",
+    "tunetype": "Slide",
     "altnames": "Johnny Mick Dinny's / Anthony Crimmin's / This Is My Love Do You like Her? / Toureencahill",
     "refno": "5131",
     "transcriptlink": "",
@@ -2074,7 +2542,7 @@
     "tunename": "Two Birds in the Tree",
     "tunetype": "Hornpipe",
     "altnames": "Two Birds on a Tree / Two Birds on the Tree / Dhá Éan ar an gCrann",
-    "refno": "4501, 88271",
+    "refno": "4501, 71301, 88271",
     "transcriptlink": "https://tunepal.org/index.html#!/tune/1544-cre2.abc-5-Two~Birds~in~the~Tree~(reel)~%2525~cre2%253Cbb, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182232.pdf",
     "refsettinglink": "https://thesession.org/tunes/6302"
   },
@@ -2086,6 +2554,15 @@
     "refno": "4801, 7161, 14102",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/Walsh%27s_Reel"
+  },
+  {
+    "tuneref": "CRE 2 # 312",
+    "tunename": "Walsh's",
+    "tunetype": "Hornpipe",
+    "altnames": "",
+    "refno": "71321",
+    "transcriptlink": "https://tunearch.org/wiki/Walsh%27s_Hornpipe, http://www.capeirish.com/ittl/tunefolders/18/182/182-plus/182312.pdf",
+    "refsettinglink": "https://thesession.org/tunes/2332"
   },
   {
     "tuneref": "ONMI # 467",
@@ -2113,6 +2590,15 @@
     "refno": "21022",
     "transcriptlink": "",
     "refsettinglink": "https://tunearch.org/wiki/T%C3%A1_an_coileach_ag_f%C3%B3gairt_an_lae_(1)"
+  },
+  {
+    "tuneref": "JOLSL # 145",
+    "tunename": "Williams'",
+    "tunetype": "Polka",
+    "altnames": "Connie Fleming's / Jack Reedy’s / Mick Williams' / Now She's Purring",
+    "refno": "75081",
+    "transcriptlink": "",
+    "refsettinglink": "https://thesession.org/tunes/9014"
   },
   {
     "tuneref": "JOLSL # 210",
