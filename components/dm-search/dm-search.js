@@ -21,7 +21,7 @@ const searchResultsCounter = document.querySelector('#dm-search-results-found');
 
 // Define variable affecting search input behavior
 
-const minSearchLength = 2;
+const minSearchLength = 3;
 const searchTimeoutValue = 150;
 let searchTimeout;
 

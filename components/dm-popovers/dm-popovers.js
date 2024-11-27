@@ -1,6 +1,6 @@
 /* #ProjectDenis Popovers Scripts*/
 
-import { processString } from '../dm-search/dm-search.js'
+import { processString, searchInput } from '../dm-search/dm-search.js'
 import { tunelistDialog, colsListDialog, colsListDiv,
          generateTunelist, generateColsList, tunelistDiv, 
          showDialogsDiv, hideDialogsDiv } from '../dm-modals/dm-modals.js';
@@ -8,7 +8,8 @@ import { tracklistOutput, focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
 import { addAriaHidden, removeAriaHidden, setAriaLabel } from '../../modules/aria-tools.js';
 import { doDataCheckup, isObjectEmpty, toggleColorTheme, themeToggleBtn, statusBars, getInfoFromDataType,
          tracksJson, colsJson, tunesJson, refsJson, generateTracklistBtn, appHelperContainer } from '../../modules/dm-app.js';
-import { initHelpPopover, helpCardPopover, showAppHelper, hideAppHelper, doHelpAction, helpBackBtn, helpNextBtn } from '../dm-helper/dm-helper.js'
+import { initHelpPopover, helpCardPopover, showAppHelper, hideAppHelper, doHelpAction, callAppHelper,
+         helpBackBtn, helpNextBtn, helpOKBtn } from '../dm-helper/dm-helper.js';
 
 export const tuneCardPopover = document.querySelector('#dm-popover-card-tune');
 export const colCardPopover = document.querySelector('#dm-popover-card-col');
@@ -17,6 +18,7 @@ export const linksCardPopover = document.querySelector('#dm-popover-card-reflink
 export const allPopovers = document.querySelectorAll('[popover]');
 export const themePickerPopover = document.querySelector('#theme-picker-popover');
 export const navCardPopover = document.querySelector('#dm-popover-nav-main');
+export const updateBannerPopover = document.querySelector('.update-banner-popover');
 
 const trackRefLinkDiv = document.querySelector('.track-grid-reflink');
 const trackSourceDiv = document.querySelector('.dm-track-grid-source');
@@ -104,7 +106,7 @@ async function createTuneCard(tuneObject) {
 
     tuneRefDiv.textContent = tuneRef;
     tuneTitleDiv.textContent = `${generateTuneName(tuneName)} (${tuneType})`;
-    tuneAltTitleDiv.textContent = tuneAltNames;
+    tuneAltTitleDiv.textContent = tuneAltNames? tuneAltNames : "—";
     tuneTrackRefDiv.textContent = "";
     tuneTranscrDiv.textContent = "";
     tuneQuickRefDiv.textContent = "";
@@ -157,6 +159,10 @@ async function createTuneCard(tuneObject) {
           tuneTranscrDiv.append(tuneTranscriptHyperlink);
         }
       });
+
+    } else {
+
+      tuneTranscrDiv.textContent = "—";
     }
     
     const tuneQuickRefUrlArr = tuneQuickRefUrls === "" ? [] : tuneQuickRefUrls.split(", ");
@@ -184,7 +190,12 @@ async function createTuneCard(tuneObject) {
           tuneQuickRefDiv.append(tuneQuickRefHyperlink);
         }
       });
+      
+    } else {
+
+      tuneQuickRefDiv.textContent = "—";
     }
+
   } catch (error) {
 
     throw new Error(error.message);
@@ -430,8 +441,8 @@ async function createColCard(colObject) {
     colSourceDiv.textContent = colPubCode? `${colSource}, ${colPubCode}` : colSource;
     colRefLinkDiv.textContent = "";
     colYearRecDiv.textContent = colYearRec? colYearRec : colYearRecEarliest? `~${colYearRecEarliest}–${colYearRecLatest}` : "Undated";
-    colYearPubDiv.textContent = colYearPub;
-    colTypeDiv.textContent = colType;
+    colYearPubDiv.textContent = colYearPub? colYearPub : "—";
+    colTypeDiv.textContent = colType? colType : "—";
     colCommentsDiv.textContent = "";
 
     const colNameArr = colName.split(/[:,]/);
@@ -623,10 +634,10 @@ async function createTrackCard(trackObject) {
     trackSourceColNoDiv.textContent = "";
     trackSourceTrackNoDiv.textContent = "";
     trackTranscrDiv.textContent = "";
-    trackCategoryDiv.textContent = trackCategory;
+    trackCategoryDiv.textContent = trackCategory? trackCategory : "—";
     trackYearRecDiv.textContent = trackYearRec? trackYearRec : trackYearRecEarliest? `~${trackYearRecEarliest}–${trackYearRecLatest}` : "Undated";
-    trackYearPubDiv.textContent = trackYearPub;
-    trackAltTitleDiv.textContent = trackTuneAltNames;
+    trackYearPubDiv.textContent = trackYearPub? trackYearPub : "—";
+    trackAltTitleDiv.textContent = trackTuneAltNames? trackTuneAltNames : "—";
     trackNotesDiv.textContent = "";
 
     trackCardPopover.setAttribute("data-refno", trackRefNo);
@@ -871,10 +882,7 @@ async function navigateTuneCard() {
       
       navBtnParent.contains("dm-ref-grid-header") ?
         linksCardPopover.hidePopover() :
-      
-      navBtnParent.contains("dm-nav-card-header") ?
-        navCardPopover.hidePopover() :
-      
+
         tuneCardPopover.hidePopover();
 
       if (navBtnClass.contains("dm-btn-card-dialog-close")) {
@@ -906,6 +914,8 @@ async function navigateTuneCard() {
     console.warn(`PD App:\n\nError generating card. Details\n\n:${error}`);
   }
 }
+
+// Load the next or the previous item's content into the card depending on the button pressed
 
 async function switchTuneCard(switchDirection, parentJson, dataType) {
 
@@ -1004,7 +1014,9 @@ function highlightCardText(hightlightObj, targetPopover) {
 
   const targetText = hightlightObj.keyword;
   const targetSection = hightlightObj.section;
-  let targetSectionPar = targetPopover.querySelector(`[data-type="${targetSection}"]`);
+  let targetSectionPar = 
+  targetSection === "pubcode"? targetPopover.querySelector(`[data-type="source"]`) :
+  targetPopover.querySelector(`[data-type="${targetSection}"]`);
 
   if (targetSectionPar) {
     
@@ -1169,8 +1181,6 @@ function initPopoverArrowNav() {
 
     popover.addEventListener('keydown', arrowNavHandler);
   });
-
-  // window.addEventListener('keydown', arrowNavHandler);
 }
 
 
@@ -1306,6 +1316,67 @@ function toggleColorThemeHandler(event) {
   }
 }
 
+// Handle click on Navigation Menu Popover or Update Banner Popover
+
+function navMenuHandler(event) {
+
+  const navBtn = event.target.closest(".dm-btn-nav-menu");
+
+  try {
+
+    if (navBtn.classList.contains("dm-btn-popover-close")) {
+
+      navCardPopover.hidePopover();
+    }
+
+    if (navBtn.classList.contains("dm-btn-nav-jump") && event.pointerType !== "mouse") {
+
+      event.preventDefault();
+
+      navCardPopover.hidePopover();
+
+      document.location.href = navBtn.getAttribute("href");
+    }
+
+    if (navBtn.classList.contains("dm-btn-call-helper")) {
+
+      event.preventDefault();
+
+      navCardPopover.hidePopover();
+            
+      if (helpCardPopover.matches(':popover-open')) {
+    
+        helpOKBtn.focus();
+        return;
+      }
+    
+      callAppHelper();
+    }
+        
+    if (navBtn.classList.contains("dm-btn-banner-close")) {
+
+      updateBannerPopover.hidePopover();
+      localStorage.setItem("user-notification-seen", 1);
+    }
+
+    if (navBtn.classList.contains("dm-btn-banner-featured")) {
+
+      event.preventDefault();
+
+      updateBannerPopover.hidePopover();
+
+      document.getElementById("data-search-cols").click();
+      searchInput.focus();
+      searchInput.value = "ITMA-REEL";
+      searchInput.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
+    }
+
+  } catch (error) {
+
+    console.warn(`PD App:\n\nNavigation Menu Error. Details:\n\n${error}`);
+  }
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialize Popovers & Popover Elements
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1320,6 +1391,10 @@ export function initPopovers() {
   initPopoverArrowNav();
 
   themePickerPopover.addEventListener('click', toggleColorThemeHandler);
+
+  [navCardPopover, updateBannerPopover].forEach(navPopover => {
+    navPopover.addEventListener('click', navMenuHandler);
+  });
   
   [trackRefLinkDiv, 
     trackSourceDiv, 

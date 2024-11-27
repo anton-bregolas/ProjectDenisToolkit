@@ -152,17 +152,26 @@ body.rainy .dm-btn-search-wrap .action-icon-container > * {
 
 @supports (color: color-mix(in srgb, #ff9933, #2a4a69)) {
   
-  body.rainy #theme-picker-popover {
+  body.rainy #theme-picker-popover,
+  body.rainy .update-banner-popover {
     background-color: color-mix(in srgb, var(--accent-color-b) 80%, white);
   }
 
   body.rainy .dm-search-counter,
-  body.rainy #theme-picker-popover .theme-icon {
+  body.rainy #theme-picker-popover .theme-icon,
+  body.rainy .update-banner-popover .theme-icon,
+  body.rainy .dm-btn-banner-featured {
     color: var(--primary-color);
   }
 
-  body.rainy #theme-picker-popover .theme-btn:is(:hover, :focus) > * {
+  body.rainy #theme-picker-popover .theme-btn:is(:hover, :focus) > *,
+  body.rainy .update-banner-popover .theme-btn:is(:hover, :focus) > *,
+  body.rainy .dm-btn-banner-featured:is(:hover, :focus) {
     color: color-mix(in srgb, var(--accent-color-a) 55%, white);
+  }
+
+  body.rainy .dm-btn-banner-featured:is(:focus-visible) {
+    outline-color: var(--focus-color);
   }
     
   body.rainy #dm-collist-wrapper h2,
@@ -232,11 +241,13 @@ body.rainy .dm-btn-search-wrap .action-icon-container > * {
     outline: 0.2rem solid var(--focus-color);
   }
 
-  body.rainy #theme-picker-popover .theme-icon {
+  body.rainy #theme-picker-popover .theme-icon,
+  body.rainy .update-banner-popover .theme-icon {
     color: var(--primary-color);
   }
 
-  body.rainy #theme-picker-popover .theme-btn:is(:hover, :focus) > * {
+  body.rainy #theme-picker-popover .theme-btn:is(:hover, :focus) > *,
+  body.rainy .update-banner-popover .theme-btn:is(:hover, :focus) > * {
     color: color-mix(in srgb, var(--accent-color-a) 55%, white);
   }
 
@@ -309,7 +320,8 @@ body.papsofanu h3 {
 }
 
 body.papsofanu .header-main,
-body.papsofanu #theme-picker-popover {
+body.papsofanu #theme-picker-popover,
+body.papsofanu .update-banner-popover {
   background-color: #485337;
 }
 
@@ -473,6 +485,7 @@ body.star .dm-modal-list,
 body.star .dm-btn-search-wrap,
 body.star .dm-search-results-group,
 body.star #theme-picker-popover,
+body.star .update-banner-popover,
 body.star .header-main,
 body.star .input-field {
   background: var(--primary-color);
@@ -492,7 +505,8 @@ body.star .input-field {
   }
   
   body.star .header-main,
-  body.star #theme-picker-popover {
+  body.star #theme-picker-popover,
+  body.star .update-banner-popover {
     background: linear-gradient(25deg, var(--primary-color) 25%, var(--secondary-color-c) 100%);
   }
 

@@ -797,17 +797,22 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(var(--ref-card-btn-width), 1fr));
 }
 
-/* Color Theme Popover Card */
+/* Color Theme Popover Card & Update Banner Popover */
 
-#theme-picker-popover:popover-open {
+#theme-picker-popover:popover-open,
+.update-banner-popover:popover-open {
   display: flex;
 }
 
 #theme-picker-popover {
+  flex-flow: row-reverse;
+}
+
+#theme-picker-popover,
+.update-banner-popover {
   position: fixed;
   top: 0;
   left: 0.9rem;
-  flex-flow: row-reverse;
   justify-content: space-between;
   width: calc(100% - 1.8rem);
   gap: 1rem;
@@ -816,6 +821,17 @@ body {
   background-color: var(--primary-color);
   border: 2px solid var(--focus-color-inverted);
   border-radius: 0.75rem;
+}
+
+.dm-btn-banner-featured:after {
+  content: "Show Featured Items";
+}
+
+.dm-btn-banner-featured:focus-visible {
+  color: var(--accent-color-a);
+  outline-offset: 0.15rem;
+  outline: 0.2rem solid var(--focus-color-inverted);
+  border-radius: 0.25rem;
 }
 
 /* Navigation Popover Card */
@@ -940,7 +956,8 @@ body {
   display 0.2s cubic-bezier(0.075, 0.82, 0.165, 1) allow-discrete;
 }
 
-#theme-picker-popover {
+#theme-picker-popover,
+.update-banner-popover {
   &:popover-open {
 
     @starting-style {
@@ -1024,9 +1041,14 @@ body {
     padding-bottom: 1em;
   }
 
-  #theme-picker-popover {
+  #theme-picker-popover,
+  .update-banner-popover {
     left: 0;
     width: 100%;
+  }
+  
+  .dm-btn-banner-featured:after {
+    content: "Featured Items";
   }
 
   .dm-nav-card {

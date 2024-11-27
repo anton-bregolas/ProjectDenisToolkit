@@ -168,11 +168,7 @@ export async function focusOnTrack(trigger, refNo) {
     if (tracklistDiv.children.length === 0 || !trackIdItem) {
 
       console.log(`PD App:\n\nGenerating Tracklist...`);
-      tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
-      tracklistDiv.setAttribute("data-sortedby", "refno-ascending");
-      tracklistDiv.setAttribute("aria-label", "Tracklist sorted by: refno; order: ascending");
-      await generateTracklist(tracksJson);
-      tracklistHeaders[0].setAttribute("aria-sort", "ascending");
+      await sortTracklistByDefault();
     }
 
     if (searchResultsSection.classList.contains("unwrapped")) {
@@ -214,6 +210,21 @@ export async function focusOnTrack(trigger, refNo) {
 
     console.warn(`PD App:\n\nFocusing on Track failed. Details:\n\n${error}`);
   }
+}
+
+// Sort Tracklist by Tracklist Reference Number in ascending order (default value)
+
+async function sortTracklistByDefault() {
+
+  const sortedArray = tracksJson.sort((a, b) => a["refno"] - b["refno"]);
+
+  tracklistHeaders.forEach(header => header.removeAttribute("aria-sort"));
+  tracklistDiv.setAttribute("data-sortedby", `refno-ascending`);
+  tracklistDiv.setAttribute("aria-label", `Tracklist sorted by: Tracklist Reference Number; order: ascending`);
+
+  await generateTracklist(sortedArray);
+
+  tracklistHeaders[0].setAttribute("aria-sort", "ascending");
 }
 
 // Sort Tracklist by the value of the Tracklist column clicked

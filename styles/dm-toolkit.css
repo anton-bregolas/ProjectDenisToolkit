@@ -69,6 +69,18 @@ body, .header-main {
   opacity: 1;
 }
 
+.dm-highlight-link {
+  text-decoration: underline;
+  text-decoration-thickness: 0.16rem;
+}
+
+.dm-highlight-link:is(:focus-visible) {
+  outline: 0.2rem solid var(--focus-color-inverted);
+  outline-offset: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.dm-highlight-link,
 #top {
   color: var(--secondary-color-a);
 }
@@ -90,7 +102,7 @@ body, .header-main {
 
 .dm-footer {
   padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 }
 
 .dm-footer,
@@ -113,6 +125,12 @@ body, .header-main {
 
 .dm-footer-text a:is(:focus-visible) {
   outline: 2px solid var(--focus-color-inverted);
+}
+
+.dm-footer .link-btn {
+  display: inline;
+  width: 2rem;
+  height: 2rem;
 }
 
 /* Button styles */

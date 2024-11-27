@@ -1,12 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.3.1
-//
-// App Helper v.1.1
-// App Launcher v.1.5
-// Search Engine v.1.5
-// List Generator v.2.3
-// TSV to JSON Parser v.2.3
-// JSON Splitter v.2.3
+// #ProjectDenis Toolkit v.3.3
 ///////////////////////////////////////////////////////////////////////
 
 import { updateData, clearData, tracksJson, colsJson, tunesJson, refsJson, discoverSection, exploreSection } from './dm-app.js';
@@ -494,6 +487,11 @@ async function createTuneList(tracks) {
 
                 tunename = `Untitled ${tunetype}`;
             }
+
+            if (tunename.includes("[")) {
+
+                tunename = tunename.split("[")[1].split("]")[0];
+            }            
 
             if (tunename.includes("(")) {
 

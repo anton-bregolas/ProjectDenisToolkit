@@ -3,18 +3,17 @@
 import { searchInput } from '../dm-search/dm-search.js'
 import { focusOnTrack } from '../dm-tracklist/dm-tracklist.js';
 import { helperJson, appHelperContainer, doDataCheckup, launchAppSequence, startExploringBtn, 
-  appLauncherSection, generateTracklistBtn, generateColsListBtn, generateTunelistBtn, 
-  showWelcomeMessage } from '../../modules/dm-app.js';
+  appLauncherSection, generateTracklistBtn, generateColsListBtn, generateTunelistBtn,
+  appHelperBtn, showWelcomeMessage } from '../../modules/dm-app.js';
 
 export const helpCardPopover = document.querySelector('#dm-popover-help');
 const helpCardMessage = helpCardPopover.querySelector('.dm-help-msg');
 const helpCardOptions = helpCardPopover.querySelector('.dm-help-options');
 const helpTourCheckbox = helpCardPopover.querySelector('#dm-help-tour-checkbox');
-const helpOKBtn = helpCardPopover.querySelector('.dm-btn-help-ok');
+export const helpOKBtn = helpCardPopover.querySelector('.dm-btn-help-ok');
 const helpSkipTourBtn = helpCardPopover.querySelector('.dm-btn-help-skip');
 export const helpBackBtn = helpCardPopover.querySelector('.dm-btn-help-prev');
 export const helpNextBtn = helpCardPopover.querySelector('.dm-btn-help-next');
-const allHelpBtns = helpCardPopover.querySelectorAll('.dm-btn-help-card-nav');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // General App Helper Functions
@@ -42,6 +41,13 @@ export function appHelperHandler(event) {
   
     showHelpPopover();
   }
+}
+
+// Call App Helper menu by clicking on it
+
+export function callAppHelper() {
+
+  appHelperBtn.click();
 }
 
 // Show App Helper, slide in to full size
@@ -100,6 +106,7 @@ export function handleHelperTransitionEnd(event) {
     generateHelpCard(-1);
     hideHelpPopover();
     hideAppHelper();
+    document.getElementById('main-nav-btn').focus();
     document.location.href = "#top";
   }
 
@@ -278,7 +285,7 @@ export async function doHelpAction(stageNo, triggerBtn) {
       case 18:
         quitHelpTour();
         return;
-          
+
       case 3:
         searchInput.focus();
         break;
@@ -288,7 +295,6 @@ export async function doHelpAction(stageNo, triggerBtn) {
         break;
 
       case 7:
-
         generateTracklistBtn.focus();
 
         if (generateTracklistBtn.getAttribute("aria-expanded") === "false") {
@@ -298,29 +304,23 @@ export async function doHelpAction(stageNo, triggerBtn) {
         break;
 
       case 8:
-          
         focusOnTrack(helpOKBtn, "1000");
         break;
 
       case 10:
-
         generateColsListBtn.focus();
         break;
 
       case 12:
-
         generateTunelistBtn.focus();
         break;
 
       case 13:
         document.location.href = "#discover";
         break;
-      
-      case 14: 
-        document.getElementById('main-nav-btn').focus();
-        break;
 
       default:
+        document.getElementById('main-nav-btn').focus();
         break;
     }
 

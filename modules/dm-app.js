@@ -1,14 +1,14 @@
-///////////////////////////////////////////////////////////////////////
-// #ProjectDenis App :: Toolkit Edition :: 1.0.0-beta :: Toolkit v.3.1
-//////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+// #ProjectDenis App :: Toolkit Edition :: PD App v.1.1.0 :: Toolkit v.3.3
+//////////////////////////////////////////////////////////////////////////
 
+import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
 import { appHelperHandler, helpCardPopover, showHelpPopover, 
          quitHelpTour, showAppHelper, hideAppHelper } from '../components/dm-helper/dm-helper.js'
-import { initSearch, tracksCounter, colsCounter, tunesCounter } from '../components/dm-search/dm-search.js';
-import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
-import { initModals, generateHandler } from '../components/dm-modals/dm-modals.js';
+import { initSearch, tracksCounter, colsCounter, tunesCounter, searchInput } from '../components/dm-search/dm-search.js';
+import { initModals, generateHandler, closeDialogHandler } from '../components/dm-modals/dm-modals.js';
+import { initPopovers, updateBannerPopover } from '../components/dm-popovers/dm-popovers.js';
 import { initTracklist } from '../components/dm-tracklist/dm-tracklist.js';
-import { initPopovers } from '../components/dm-popovers/dm-popovers.js';
 import { setAriaLabel } from './aria-tools.js';
 
 // Tune Database links
@@ -27,6 +27,7 @@ export const searchSection = document.querySelector('#dm-search');
 export const exploreSection = document.querySelector('#dm-explore');
 export const discoverSection = document.querySelector('#dm-discover');
 export const footerSection = document.querySelector('.dm-footer');
+export const appNavMenu = document.querySelector('.dm-nav-menu');
 export const navMenuToggleBtn = document.querySelector('#main-nav-btn');
 
 // Define Header App buttons
@@ -337,6 +338,7 @@ export function isObjectEmpty(obj) {
 function initLaunchButtons() {
 
   startExploringBtn.addEventListener("click", launchAppSequence);
+  startExploringBtn.focus();
 }
 
 // Launch app sequence: Check if help tour is needed, fetch all Data JSONs, update Custom JSONs, reveal app menu
@@ -405,11 +407,15 @@ function launchAppReveal() {
   exploreSection.removeAttribute("hidden");
   discoverSection.removeAttribute("hidden");
   footerSection.removeAttribute("hidden");
+  appNavMenu.removeAttribute("hidden");
   appLauncherSection.setAttribute("hidden", "");
 
   allLinkBtn.forEach(linkBtn => {
 
-    linkBtn.classList.add("hidden");
+    if (linkBtn.classList.contains("dm-btn-start-menu")) {
+
+      linkBtn.classList.add("hidden");
+    }
   });
 
   allAppBtn.forEach(appBtn => {
@@ -427,6 +433,11 @@ function launchAppReveal() {
   if (+helpCardPopover.dataset.stage === 0) {
 
     hideAppHelper();
+  }
+
+  if (!localStorage.getItem("user-notification-seen")) {
+    
+    updateBannerPopover.showPopover();
   }
 }
 
@@ -451,6 +462,50 @@ function mainHeaderHandler(event) {
 
     generateHandler(appGenBtn);
   }
+}
+
+///////////////////////////////////
+// App Keyboard Shortcuts Handling
+//////////////////////////////////
+
+// Add global event listener to allow keyboard shortcuts
+
+function initShortcuts() {
+
+  window.addEventListener('keydown', handleNavShortcuts);
+}
+
+// Handle shortcuts depending on section currently open
+
+function handleNavShortcuts(event) {
+
+  const shortcutBaseKeys = ["F1", "F2", "F3"];
+
+  shortcutBaseKeys.forEach(key => {
+
+    if (event.altKey && event.key === key) {
+
+      closeDialogHandler();
+
+      switch (key) {
+
+        case "F1":
+          appHelperBtn.click();
+          break;
+
+        case "F2":
+          navMenuToggleBtn.click();
+          break;
+
+        case "F3":
+          searchInput.focus();
+          break;
+      
+        default:
+          break;
+      }
+    }
+  });
 }
 
 ////////////////////////////////////
@@ -557,21 +612,35 @@ function handleHelperSlowLoad(event) {
   helperImg.removeEventListener('error', handleHelperSlowLoad);
 }
 
-/////////////////////////////////////////////////
-// Apply user color theme right before page load
-////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+// Apply user color theme before page load, set app edition version if none found
+/////////////////////////////////////////////////////////////////////////////////
 
 (() => {
 
   const userColorTheme = localStorage.getItem("user-color-theme");
+  const userEditionVer = localStorage.getItem("user-app-edition");
 
-  if (userColorTheme) {
+  if (userColorTheme && +userEditionVer >= 1.1) {
 
     toggleColorTheme(userColorTheme);
 
     toggleAppHelpersLook(userColorTheme);
 
     console.log(`PD App:\n\nUser color theme retrieved`);
+  }
+
+  if (+userEditionVer < 1.1) {
+
+    toggleColorTheme("papsofanu");
+
+    toggleAppHelpersLook("papsofanu");
+
+    localStorage.setItem("user-app-edition", 1.1);
+
+    localStorage.removeItemItem("user-notification-seen");
+
+    console.log(`PD App:\n\nApp edition and color theme updated`);
   }
 })();
 
@@ -589,6 +658,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initModals();
   initPopovers();
   initTracklist();
+  initShortcuts();
 });
 
 //////////////////////////////////////////

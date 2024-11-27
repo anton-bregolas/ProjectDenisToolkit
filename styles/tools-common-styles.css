@@ -337,7 +337,8 @@ dialog:focus-visible {
 }
 
 .btn-text,
-.link-wrapper {
+.link-wrapper,
+.donate-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -417,6 +418,10 @@ dialog:focus-visible {
   height: 100%;
 }
 
+.donate-icon {
+  font-size: var(--font-subhead);
+}
+
 .app-icon,
 .link-icon,
 .theme-icon {
@@ -426,6 +431,7 @@ dialog:focus-visible {
 .app-icon,
 .link-icon,
 .theme-icon,
+.donate-icon,
 .section-nav-btn {
   opacity: 0.75;
   transition: 

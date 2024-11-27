@@ -423,21 +423,25 @@ export async function generateRefsList(refsJson) {
 
 // Close dialog window depending on the button pressed
 
-function closeDialogHandler() {
+export function closeDialogHandler() {
 
-  let parentDialog = this === closeTunelistBtn? tunelistDialog : this === closeColsListBtn? colsListDialog : refsListDialog;
+  allDialogLists.forEach(modalDialog => {
 
-  parentDialog.close();
-  addAriaHidden(parentDialog);
-  hideDialogsDiv();
+    if (modalDialog.open) {
 
-  statusBars.forEach(bar => {
+      modalDialog.close();
+      addAriaHidden(modalDialog);
+      hideDialogsDiv();
+    
+      statusBars.forEach(bar => {
 
-    bar.textContent = "Dialog window was closed";
-
-    setTimeout(() => {
-      bar.textContent = "";
-    }, 3000);
+        bar.textContent = "Dialog window was closed";
+    
+        setTimeout(() => {
+          bar.textContent = "";
+        }, 3000);
+      });
+    }
   });
 }
 

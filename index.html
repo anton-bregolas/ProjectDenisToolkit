@@ -25,20 +25,20 @@
         <meta name="msapplication-config" content="assets/icons/browserconfig.xml">
         <meta name="theme-color" content="#000000">
     </head>
-<body class="star">
+<body class="papsofanu">
     <header class="header-main">
         <nav class="header-container"> 
-            <button class="link-btn github-btn" title="#ProjectDenis Toolkit on GitHub" tabindex="-1">
+            <button class="link-btn github-btn dm-btn-start-menu" title="#ProjectDenis Toolkit on GitHub" tabindex="-1">
                 <a href="https://github.com/anton-bregolas/ProjectDenisToolkit/" target="_blank" class="link-icon-container" ria-label="Link to Project Denis Toolkit on GitHub">
                     <svg class="link-icon github-icon-dark" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-github"></use></svg>
                 </a>
             </button>
-            <button class="link-btn tunetable-btn" title="Tunetable: App for making tunelists" tabindex="-1">
+            <button class="link-btn tunetable-btn dm-btn-start-menu" title="Tunetable: App for making tunelists" tabindex="-1">
                 <a href="https://anton-bregolas.github.io/Tunetable" target="_blank" class="link-icon-container" aria-label="Link to Tunetable app">
                     <svg class="link-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-tunelist"></use></svg>
                 </a>
             </button>
-            <button class="link-btn tso-btn" title="Denis Murphy transcriptions on The Session" tabindex="-1">
+            <button class="link-btn tso-btn dm-btn-start-menu" title="Denis Murphy transcriptions on The Session" tabindex="-1">
                 <a href="https://thesession.org/members/26966/tags/ProjectDenis" target="_blank" class="link-icon-container" aria-label="Link to Project Denis transcriptions on The Session">
                     <svg class="link-icon" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-abc"></use></svg>
                 </a>
@@ -52,31 +52,47 @@
             <button id="tunelist-header-btn" class="app-btn hidden" title="Open Tunelist" data-generates="tunes">
                 <svg class="app-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-music"></use></svg>
             </button>
-            <button id="theme-toggle-btn" class="theme-btn" title="Change Color Theme" aria-label="Select color theme. The Star Above The Garter theme is on" popovertarget="theme-picker-popover">
+            <button id="theme-toggle-btn" class="theme-btn" title="Change Color Theme" aria-label="Select color theme. The Paps of Anu theme is on" popovertarget="theme-picker-popover">
                 <svg class="theme-icon nav-icon-theme" aria-hidden="true"><use href="assets/icons/icons.svg#nav-icon-theme"></use></svg>
             </button>
             <section id="theme-picker-popover" popover>
                 <button id="dm-btn-theme-dark" class="theme-btn" data-theme="dark" title="Dark theme">
                     <svg class="theme-icon theme-icon-moon" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-moon"></use></svg>
                 </button>
-                <button id="dm-btn-theme-star" class="theme-btn hidden" data-theme="star" title="The Star Above The Garter theme">
+                <button id="dm-btn-theme-star" class="theme-btn" data-theme="star" title="The Star Above The Garter theme">
                     <svg class="theme-icon theme-icon-star" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-star"></use></svg>
                 </button>
                 <button id="dm-btn-theme-rain" class="theme-btn" data-theme="rainy" title="Rainy theme">
                     <svg class="theme-icon theme-icon-rainy" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-rain"></use></svg>
                 </button>
-                <button id="dm-btn-theme-papsofanu" class="theme-btn" data-theme="papsofanu" title="The Paps of Anu theme">
+                <button id="dm-btn-theme-papsofanu" class="theme-btn hidden" data-theme="papsofanu" title="The Paps of Anu theme">
                     <svg class="theme-icon theme-icon-rainbow" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-tree"></use></svg>
                 </button>
                 <button id="dm-btn-theme-light" class="theme-btn" data-theme="light" title="Light theme">
                     <svg class="theme-icon theme-icon-sun" aria-hidden="true"><use href="assets/icons/icons.svg#theme-icon-sun"></use></svg>
                 </button>
             </section>
+            <section class="update-banner-popover" popover="manual">
+                <button class="link-btn" title="Support Project Denis: Buy Me a Beer!" tabindex="-1">
+                    <a href="https://buymeacoffee.com/bregolas" target="_blank" class="link-icon-container donate-btn" aria-label="Support Project Denis: Buy Me a Beer!">
+                        <span class="donate-icon">🍺</span>
+                    </a>
+                </button>
+                <h2>
+                    <a href="#search" class="nav-link dm-btn-nav-menu dm-btn-banner-featured" title="Show materials featured in this edition" aria-label="Show materials featured in this edition"></a>
+                </h2>
+                <button class="theme-btn dm-btn-nav-menu dm-btn-banner-close" aria-label="Close project update banner" title="Close project update banner" autofocus>
+                    <svg class="app-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-close"></use></svg>
+                </button>
+            </section>
         </nav>
     </header>
     <main>
         <div class="main-container">
-            <h1><a id="top" href="#top" class="dm-section-anchor" aria-label="Project Denis Prototype: Main section top">#ProjectDenis</a> Prototype</h1>
+            <h1>
+                <a id="top" href="#top" class="dm-section-anchor" aria-label="Project Denis: Main section top">#ProjectDenis</a>: 
+                <a href="https://www.itma.ie/collections/denis-murphy" target="_blank" class="dm-highlight-link" title="Explore Denis Murphy Blog on ITMA website" aria-label="Explore Denis Murphy Blog on ITMA Website">ITMA Blog</a> Edition
+            </h1>
             <section class="dm-launch">
                 <div class="dm-launch-container">
                     <button id="dm-btn-start-exploring" class="btn" autofocus>
@@ -470,7 +486,7 @@
         </div>
         <article id="dm-helper-main" class="dm-helper-container" inert>
             <button class="dm-btn-helper" aria-label="App Helper">
-                <picture id="dm-helper-star" class="dm-helper-image">
+                <picture id="dm-helper-star" class="dm-helper-image" hidden>
                     <source type="image/webp" 
                             srcset="
                             assets/images/dm-helper-purple-mini.webp?width=200 200w,
@@ -508,7 +524,7 @@
                             draggable="false">
                     <img src="assets/images/dm-helper-green.png" draggable="false" alt="Image of Denis the Little App Helper playing the fiddle">
                 </picture>
-                <picture id="dm-helper-papsofanu" class="dm-helper-image" hidden>
+                <picture id="dm-helper-papsofanu" class="dm-helper-image">
                     <source type="image/webp" 
                             srcset="
                             assets/images/dm-helper-mango-mini.webp?width=200 200w,
@@ -585,11 +601,7 @@
                 </nav>
             </div>
         </article>
-    </main>
-    <footer class="dm-footer" hidden>
-        <p class="dm-footer-text">Built by <a href="https://www.youtube.com/@AntonBregolas" target="_blank">Anton Zille</a> in 2024</p>
-        <p class="dm-footer-text"><a href="https://github.com/anton-bregolas" target="_blank">GitHub</a> :: <a href="https://www.facebook.com/anton.bregolas/" target="_blank">Facebook</a> :: <a href="mailto:sliabhluachrahub@gmail.com">Еmаil</a></p>
-        <nav class="dm-footer-nav">
+        <nav class="dm-nav-menu" hidden>
             <button id="main-nav-btn" class="section-nav-btn" title="" aria-label="" popovertarget="dm-popover-nav-main">
                 <svg class="action-icon action-icon-sections shadowed" aria-hidden="true">
                     <circle class="main-nav-btn-circle-m" fill="none" cx="22.5" cy="22.5" r="21" stroke-width="2"></circle>
@@ -599,12 +611,12 @@
             </button>
             <article id="dm-popover-nav-main" popover class="dm-nav-card" aria-label="Reference Item Details">
                 <header class="dm-nav-card-header">
-                    <button id="dm-btn-nav-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-card-nav" aria-label="Close Navigation Card" title="Close Navigation Card" autofocus></button>
+                    <button id="dm-btn-nav-card-close" class="dm-btn-popover-close dm-btn-popover-close-x dm-btn-nav-menu" aria-label="Close Navigation Card" title="Close Navigation Card" autofocus></button>
                     <span class="action-icon-container action-icon-top">
                         <svg class="action-icon" aria-hidden="true"><use href="assets/icons/icons.svg#action-icon-wrap-up"></use></svg>
                     </span>
                     <div class="dm-nav-link-top">
-                        <a href="#top" class="nav-link" title="Go to top of page" aria-label="Go to top of page">
+                        <a href="#top" class="nav-link dm-btn-nav-menu dm-btn-nav-jump" title="Go to top of page" aria-label="Go to top of page">
                             Top
                         </a>
                     </div>
@@ -613,7 +625,7 @@
                     <ul>
                         <li>
                             <div class="link-wrapper">
-                                <a href="#search" class="nav-link" title="Go to section Search" aria-label="Go to section Search">
+                                <a href="#search" class="nav-link dm-btn-nav-menu dm-btn-nav-jump" title="Go to section Search" aria-label="Go to section Search">
                                     <span class="action-icon-container action-icon-search" aria-hidden="true">
                                         <svg class="action-icon"><use href="assets/icons/icons.svg#action-icon-search"></use></svg>
                                     </span>
@@ -623,7 +635,7 @@
                         </li>
                         <li>
                             <div class="link-wrapper">
-                                <a href="#explore" class="nav-link" title="Go to section Explore" aria-label="Go to section Explore">
+                                <a href="#explore" class="nav-link dm-btn-nav-menu dm-btn-nav-jump" title="Go to section Explore" aria-label="Go to section Explore">
                                     <span class="action-icon-container action-icon-tunelist" aria-hidden="true">
                                         <svg class="action-icon"><use href="assets/icons/icons.svg#action-icon-music"></use></svg>
                                     </span>
@@ -633,7 +645,7 @@
                         </li>
                         <li>
                             <div class="link-wrapper">
-                                <a href="#discover" class="nav-link" title="Go to section Discover" aria-label="Go to section Discover">
+                                <a href="#discover" class="nav-link dm-btn-nav-menu dm-btn-nav-jump" title="Go to section Discover" aria-label="Go to section Discover">
                                     <span class="action-icon-container action-icon-refbooks" aria-hidden="true">
                                         <svg class="action-icon"><use href="assets/icons/icons.svg#action-icon-books"></use></svg>
                                     </span>
@@ -641,10 +653,33 @@
                                 </a>
                             </div>
                         </li>
+                        <li>
+                            <div class="link-wrapper">
+                                <a href="#helper" class="nav-link dm-btn-nav-menu dm-btn-call-helper" title="Activate Helper" aria-label="Activate Helper">
+                                    <span class="action-icon-container action-icon-helper" aria-hidden="true">
+                                        <svg class="action-icon"><use href="assets/icons/icons.svg#nav-icon-help"></use></svg>
+                                    </span>
+                                    Help
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </article>
         </nav>
+    </main>
+    <footer class="dm-footer" hidden>
+        <p class="dm-footer-text">Built by <a href="https://www.youtube.com/@AntonBregolas" target="_blank" title="Visit Anton Zille's YouTube channel" aria-label="Visit Anton Zille's YouTube channel">Anton Zille</a> in 2024</p>
+        <p class="dm-footer-text">
+            <a href="https://github.com/anton-bregolas" target="_blank" title="Visit Anton Zille's GitHub page" aria-label="Visit Anton Zille's GitHub page">GitHub</a> ::
+            <a href="https://www.facebook.com/anton.bregolas/" target="_blank" title="Visit Anton Zille's Facebook page" aria-label="Visit Anton Zille's Facebook page">Facebook</a> :: 
+            <a href="mailto:sliabhluachrahub@gmail.com" title="Send Anton Zille an email" aria-label="Send Anton Zille an email">Еmаil</a>
+        </p>
+        <button class="link-btn" title="Support Project Denis: Buy Me a Beer!" tabindex="-1">
+            <a href="https://buymeacoffee.com/bregolas" target="_blank" class="link-icon-container donate-btn" aria-label="Support Project Denis: Buy Me a Beer!">
+                <span class="donate-icon">🍺</span>
+            </a>
+        </button>
         <div class="dm-status-bar" aria-live="assertive"></div>
     </footer>
 </body>
