@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pdt-cache-v.3.3.0.3';
+const CACHE_NAME = 'pdt-cache-v.3.3.1.0';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

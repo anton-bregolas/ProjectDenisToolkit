@@ -39,7 +39,7 @@ File Name | DB Name | Description |
 + Search Engine update: minSearchLength raised to 3, pubcode highlighting fixed, Alt + F3 shortcut added.
 + JSON Splitter updated to account for [Tune Title] format (stripped for Tunebook, shown in Tracklist).
 + Main page update: Notification banner added, donation links added, Navigation Menu now in main section.
-+ Tune DB updated to 2024-11-27.
++ Tune DB updated to 2024-12-02.
 
 [v.3.2]
 
