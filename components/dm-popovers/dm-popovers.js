@@ -726,7 +726,11 @@ async function createTrackCard(trackObject) {
         const trackNotesPar = document.createElement("p");
         trackNotesPar.classList.add("dm-track-grid-notes");
 
-        if ((trackNoteLines.indexOf(line) < trackNoteLines.length - 1) && !line.endsWith("]")) {
+        if (line.endsWith("//")) {
+
+          trackNotesPar.textContent = line.split("//")[0];
+        
+        } else if ((trackNoteLines.indexOf(line) < trackNoteLines.length - 1) && !line.endsWith("]")) {
 
           trackNotesPar.textContent = `${line}.`;
 
