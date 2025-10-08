@@ -356,6 +356,16 @@ body {
   outline-offset: 0.25rem;
 }
 
+.dm-col-grid-item a,
+.dm-track-grid-item a,
+.dm-tune-grid-item a,
+.dm-tune-grid-item button,
+.dm-track-grid-item:not(.track-grid-reflink) button {
+  text-decoration: underline;
+  text-underline-offset: 0.24rem;
+  text-decoration-style: dotted;
+}
+
 .dm-tune-grid-item a:is(:active, :hover, :focus, :focus-visible),
 .dm-track-grid-item a:is(:active, :hover, :focus, :focus-visible),
 .dm-col-grid-item a:is(:active, :hover, :focus, :focus-visible),

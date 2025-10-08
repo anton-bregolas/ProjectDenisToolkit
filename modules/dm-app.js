@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// #ProjectDenis App :: Toolkit Edition :: PD App v.1.1.0 :: Toolkit v.3.3
+// #ProjectDenis App :: Toolkit Edition :: PD App v.1.1.2 :: Toolkit v.3.4
 //////////////////////////////////////////////////////////////////////////
 
 import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
@@ -427,7 +427,7 @@ function launchAppReveal() {
 
     parserSection.removeAttribute("hidden");
     splitterSection.removeAttribute("hidden");
-    parserSection.scrollIntoView();
+    parserSection.scrollIntoView({ behavior: 'instant' });
   }
   
   if (+helpCardPopover.dataset.stage === 0) {
@@ -498,7 +498,8 @@ function handleNavShortcuts(event) {
           break;
 
         case "F3":
-          searchInput.focus();
+          searchSection.scrollIntoView({ behavior: 'instant' });
+          setTimeout(() => { searchInput.focus(); }, 50);
           break;
       
         default:

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pdt-cache-v.3.3.1.0';
+const CACHE_NAME = 'pdt-cache-v.3.4.0';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -21,6 +21,7 @@ self.addEventListener('install', (event) => {
         'components/dm-tracklist/dm-tracklist.css',
         'components/dm-tracklist/dm-tracklist.js',
         'modules/aria-tools.js',
+        
         'index.html'
       ]);
     })
@@ -36,8 +37,8 @@ self.addEventListener('activate', (event) => {
             .map((cacheName) => { 
                 console.log(`PD Service Worker:\n` +
                 `Clearing outdated cached files\n` +
-                `Cached version: ${cacheName.slice(16)}\n` +
-                `Current version: ${CACHE_NAME.slice(16)}`);
+                `Cached version: ${cacheName.slice(12)}\n` +
+                `Current version: ${CACHE_NAME.slice(12)}`);
                 caches.delete(cacheName);
             })
         );
@@ -50,7 +51,7 @@ self.addEventListener('activate', (event) => {
         // Activate new service worker on page reload
         self.clients.claim().then(() => {
             // Stop the old service worker, notify about version change in console 
-            console.log(`PD Service Worker: Cache version updated to ${CACHE_NAME.slice(9)}`);
+            console.log(`PD Service Worker: Cache version updated to ${CACHE_NAME.slice(10)}`);
             self.registration.unregister().then(() => {
                 self.skipWaiting();
             });

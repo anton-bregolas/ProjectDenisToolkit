@@ -325,6 +325,7 @@ function generateLinkSourceName(tuneTranscriptUrl) {
 
     const sourceLink = new URL(tuneTranscriptUrl);
     let sourceLinkHost = sourceLink.hostname;
+    let sourceLinkNameParam = sourceLink.searchParams.get("name");
 
     switch (sourceLinkHost) {
       case "thesession.org":
@@ -335,6 +336,11 @@ function generateLinkSourceName(tuneTranscriptUrl) {
         return "Tunepal";
       case "www.capeirish.com":
         return "Bill Black";
+      case "michaeleskin.com":
+        if (sourceLinkNameParam.startsWith("BB_ABC_"))
+          return "Bill Black";
+        else
+          return "ABC";
       case "www.itma.ie" :
         return "ITMA";
       default:
