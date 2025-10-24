@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pdt-cache-v.3.4.0';
+const CACHE_NAME = 'pdt-cache-v.3.4.1';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -21,7 +21,6 @@ self.addEventListener('install', (event) => {
         'components/dm-tracklist/dm-tracklist.css',
         'components/dm-tracklist/dm-tracklist.js',
         'modules/aria-tools.js',
-        
         'index.html'
       ]);
     })

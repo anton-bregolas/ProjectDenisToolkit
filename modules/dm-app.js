@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// #ProjectDenis App :: Toolkit Edition :: PD App v.1.1.2 :: Toolkit v.3.4
+// #ProjectDenis App :: Toolkit Edition :: PD App v.1.* :: Toolkit v.3
 //////////////////////////////////////////////////////////////////////////
 
 import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
