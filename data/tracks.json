@@ -4927,7 +4927,7 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/19635",
-    "tracknotes": "Recorded by Samuel B. Charters in 1960. [Original track numbering: 203 / B3]. MFSL notes suggest that the name of the air refers to Hugh Roe O'Donnell, Lord of Tyrconnell (1572–1602). O'Donnell was one of the leaders of the resistance to the Tudor conquest of Ireland who was forced to flee to continental Europe alongside Hugh O'Neill, in what became known as the Flight of the Earls, after their defeat at the Battle of Kinsale in 1602. Denis Murphy has been recorded telling a story possibly inspired by a corrupted Irish title of the air – The Queen of O'Donnell – which describes a dying man, who fell sick after dancing in poisoned shoes at a party, being visited by an angelic woman that proceeds to sing this lament. In Pádraig O'Keeffe's version of the same story it is \"the banshee of the O'Donnells\" who \"cried after the Queen of the O'Donnells\". Denis's version of the air apparently comes from Pádraig O'Keeffe [AZ]"
+    "tracknotes": "Recorded by Samuel B. Charters in 1960. [Original track numbering: 203 / B3]. MFSL notes suggest that the name of the air refers to Hugh Roe O'Donnell, Lord of Tyrconnell (1572–1602). O'Donnell was one of the leaders of the resistance to the Tudor conquest of Ireland who was forced to flee to continental Europe alongside Hugh O'Neill, in what became known as the Flight of the Earls, after their defeat at the Battle of Kinsale in 1602. Denis Murphy has been recorded telling a story possibly inspired by a corrupted Irish title of the air – The Queen of O'Donnell – which describes a dying man, who fell sick after dancing in poisoned shoes at a party, being visited by an angelic woman that proceeds to sing this lament. In Pádraig O'Keeffe's version of the same story it is \"the banshee of the O'Donnells\" who \"cried after the Queen of the O'Donnells\". Denis's version of the air apparently comes from Pádraig O'Keeffe [AZ]"
   },
   {
     "refno": "12221",
@@ -4944,7 +4944,24 @@
     "performers": "",
     "transcriptlink": "",
     "refsettinglink": "https://thesession.org/tunes/21947",
-    "tracknotes": "Recorded by Samuel B. Charters in 1960. [Original track numbering: 204 / B4]."
+    "tracknotes": "Recorded by Samuel B. Charters in 1960. [Original track numbering: 204 / B4]."
+  },
+  {
+    "refno": "12226",
+    "trackno": "26",
+    "tunename": "Mountain Road",
+    "tunetype": "Reel",
+    "altnames": "",
+    "tuneref": "B&S 1 # 14",
+    "category": "Solo",
+    "recyear": "1960",
+    "pubyear": "1963",
+    "recyearfrom": "",
+    "recyearto": "",
+    "performers": "",
+    "transcriptlink": "",
+    "refsettinglink": "https://tunearch.org/wiki/Mountain_Road_(1)_(The)",
+    "tracknotes": "Recorded by Samuel B. Charters in 1960. [Original track numbering: 208 / B8]. Composed by Michael Gorman. NB: Denis plays a 2-part version."
   },
   {
     "refno": "13141",

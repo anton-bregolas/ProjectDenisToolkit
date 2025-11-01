@@ -31,6 +31,10 @@ File Name | DB Name | Description |
 
 ### Toolkit Updates
 
+[v.3.4.2]
+
++ Update Tune DB to 2025-11-01 (Fix tracks, add link for 12000)
+
 [v.3.4.1]
 
 + Update Tune DB to 2025-10-25 (Add ITI link for 1000)
