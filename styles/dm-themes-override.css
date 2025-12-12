@@ -518,6 +518,10 @@ body.star .input-field {
     background: linear-gradient(25deg, var(--primary-color) 25%, var(--secondary-color-c) 100%);
   }
 
+  body.star {
+    background-color: var(--primary-color);
+  }
+
   /* body.star input[type="radio"]:not(:checked) {
     background-color: color-mix(in srgb, var(--secondary-color-c) 60%, black);
   } */

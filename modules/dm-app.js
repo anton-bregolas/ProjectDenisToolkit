@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// #ProjectDenis App :: Toolkit Edition :: PD App v.1.* :: Toolkit v.3
+// #ProjectDenis App :: Toolkit Edition :: PD App v.1.2 :: Toolkit v.3.5
 //////////////////////////////////////////////////////////////////////////
 
 import { toolkitMode, initToolkitButtons, parserSection, splitterSection } from './dm-toolkit.js';
@@ -13,11 +13,11 @@ import { setAriaLabel } from './aria-tools.js';
 
 // Tune Database links
 
-export const tunesJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tunes.json";
-export const tracksJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/tracks.json";
-export const colsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/collections.json";
-export const refsJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/references.json";
-export const helperJsonLink = "https://raw.githubusercontent.com/anton-bregolas/ProjectDenisToolkit/main/data/helper.json";
+export const tunesJsonLink = "https://anton-bregolas.github.io/ProjectDenis/data/tunes.json";
+export const tracksJsonLink = "https://anton-bregolas.github.io/ProjectDenis/data/tracks.json";
+export const colsJsonLink = "https://anton-bregolas.github.io/ProjectDenis/data/collections.json";
+export const refsJsonLink = "https://anton-bregolas.github.io/ProjectDenis/data/references.json";
+export const helperJsonLink = "https://anton-bregolas.github.io/ProjectDenis/data/helper.json";
 
 // Define App sections
 
@@ -71,7 +71,7 @@ export const statusBars = document.querySelectorAll('.dm-status-bar');
 
 // Set starting Guided Help Tour variable value
 
-export let showWelcomeMessage = 1;
+export let showWelcomeMessage = 0;
 
 ////////////////////////////////
 // Fetch Tune DB data functions

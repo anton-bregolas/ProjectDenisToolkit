@@ -2,6 +2,7 @@
   "name": "#ProjectDenis",
   "short_name": "#ProjectDenis",
   "start_url": "index.html",
+  "id": "/index.html",
   "display": "standalone",
   "description": "#ProjectDenis explores the repertoire of fiddle player Denis Murphy (1910–1974), the Irish music legend from Sliabh Luachra",
   "lang": "en",
@@ -13,7 +14,7 @@
   "scope": "/",
   "icons": [
     {
-      "src": "assets/icons/android-chrome-192x192.png?v=1",
+      "src": "assets/icons/android-chrome-192x192-maskable.png?v=1",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
@@ -25,7 +26,7 @@
       "purpose": "any"
     },
     {
-      "src": "assets/icons/android-chrome-512x512.png?v=1",
+      "src": "assets/icons/android-chrome-512x512-maskable.png?v=1",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -45,35 +46,88 @@
   ],
   "screenshots": [
     {
-      "src": "assets/screenshots/screenshot_star_main.png",
-      "sizes": "2842x1796",
-      "type": "image/png",
-      "description": "A screenshot of the main page with The Star above the Garter color theme on"
+      "src": "assets/screens/screenshot-paps-toolkit-parser-tablet-1280.webp",
+      "sizes": "847x1280",
+      "type": "image/webp",
+      "description": "A screenshot of the PD Toolkit Parser with The Paps of Anu color theme on",
+      "form_factor": "narrow"
     },
     {
-      "src": "assets/screenshots/screenshot_star_tracklist.png",
-      "sizes": "2844x1798",
-      "type": "image/png",
-      "description": "A screenshot of the Tracklist with The Star above the Garter color theme on"
+      "src": "assets/screens/screenshot-paps-toolkit-splitter-tablet-1280.webp",
+      "sizes": "847x1280",
+      "type": "image/webp",
+      "description": "A screenshot of the PD Toolkit Splitter with The Paps of Anu color theme on",
+      "form_factor": "narrow"
     },
     {
-      "src": "assets/screenshots/screenshot_dark_main.png",
-      "sizes": "2846x1800",
-      "type": "image/png",
-      "description": "A screenshot of the main page with the Dark color theme on"
+      "src": "assets/screens/screenshot-paps-tracklist-tablet-1280.webp",
+      "sizes": "847x1280",
+      "type": "image/webp",
+      "description": "A screenshot of the tablet Tracklist view with The Paps of Anu color theme on",
+      "form_factor": "narrow"
     },
     {
-      "src": "assets/screenshots/screenshot_dark_tracklist.png",
-      "sizes": "2844x1798",
-      "type": "image/png",
-      "description": "A screenshot of the Tracklist with the Dark color theme on"
+      "src": "assets/screens/screenshot-paps-search-tablet-1280.webp",
+      "sizes": "847x1280",
+      "type": "image/webp",
+      "description": "A screenshot of the tablet Search view with The Paps of Anu color theme on",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/screens/screenshot-paps-tunelist-tablet-1280.webp",
+      "sizes": "847x1280",
+      "type": "image/webp",
+      "description": "A screenshot of the mobile Tunelist view with The Paps of Anu color theme on",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/screens/screenshot-star-collections-tablet-1280.webp",
+      "sizes": "847x1280",
+      "type": "image/webp",
+      "description": "A screenshot of the tablet Collections view with The Star above the Garter color theme on",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/screens/screenshot-star-search-tablet-1280.webp",
+      "sizes": "847x1280",
+      "type": "image/webp",
+      "description": "A screenshot of the tablet Search view with The Star above the Garter color theme on",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/screens/screenshot-star-tunelist-tablet-1280.webp",
+      "sizes": "847x1280",
+      "type": "image/webp",
+      "description": "A screenshot of the mobile Tunelist view with The Star above the Garter color theme on",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/screens/screenshot-paps-toolkit-splitter-desktop.webp",
+      "sizes": "2850x1800",
+      "type": "image/webp",
+      "description": "A screenshot of the PD Toolkit Splitter with the Paps of Anu color theme on",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/screens/screenshot-paps-tracklist-desktop.webp",
+      "sizes": "2850x1800",
+      "type": "image/webp",
+      "description": "A screenshot of the Tracklist with the Paps of Anu color theme on",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/screens/screenshot-star-tracklist-desktop.webp",
+      "sizes": "2850x1800",
+      "type": "image/webp",
+      "description": "A screenshot of the Tracklist with The Star above the Garter color theme on",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/screens/screenshot-dark-tracklist-desktop.webp",
+      "sizes": "2850x1800",
+      "type": "image/webp",
+      "description": "A screenshot of the Tracklist with the Dark color theme on",
+      "form_factor": "wide"
     }
-  ],
-  "related_applications": [
-    {
-      "platform":"windows",
-      "url": "https://anton-bregolas.github.io/Tunetable/"
-    }
-  ],
-  "prefer_related_applications": false
+  ]
 }

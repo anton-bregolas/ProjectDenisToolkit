@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Lato';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../assets/fonts/Lato-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-weight: 500;
+  font-style: normal;
+  src: url('../assets/fonts/Lato-Bold.ttf') format('truetype');
+}
+
 /* Common element styles */
 
 *, *::before, *::after { 
@@ -129,7 +143,7 @@ body.rainbow {
 }
 
 body * {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: Lato, "Trebuchet MS", Helvetica, "Droid Sans", sans-serif;
 }
 
 a {

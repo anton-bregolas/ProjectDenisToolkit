@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-// #ProjectDenis Toolkit v.3.*
+// #ProjectDenis Toolkit v.3.5
 ///////////////////////////////////////////////////////////////////////
 
 import { updateData, clearData, tracksJson, colsJson, tunesJson, refsJson, discoverSection, exploreSection } from './dm-app.js';
@@ -447,11 +447,11 @@ function filterMergeLinks(existingLinks, newLinks) {
 
     if (newLinks) {
 
-        const newLinksArray = newLinks.split(/[\s,]+/).map(link => link.trim()).filter(link => link);
+        const newLinksArray = newLinks.split(/,*\s+/).map(link => link.trim()).filter(link => link);
 
         if (existingLinks) {
 
-            const linksSet = new Set(existingLinks.split(/[\s,]+/).map(link => link.trim()).filter(link => link));
+            const linksSet = new Set(existingLinks.split(/,*\s+/).map(link => link.trim()).filter(link => link));
             newLinksArray.forEach(link => linksSet.add(link));
             return Array.from(linksSet).join(", ");
 
