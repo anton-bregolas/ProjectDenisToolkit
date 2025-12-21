@@ -1,4 +1,4 @@
-const APP_VERSION = '3.5.1.0';
+const APP_VERSION = '3.5.2.0';
 const CACHE_VERSION = APP_VERSION.replaceAll(".", '');
 const CACHE_PREFIX = "pdt-cache-";
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
@@ -52,20 +52,33 @@ const APP_ASSETS_LAZY = [
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(APP_ASSETS);
-      })
-      .then(() => {
-        return self.skipWaiting();
-      })
-      .then(() => {
-        caches.open(CACHE_NAME).then(cache => {
-          cache.addAll(APP_ASSETS_LAZY).catch(error => {
-            console.warn(`PD Service Worker: Lazy-loading of assets interrupted`, error);
-          });
-        });
-      })
+    (async () => {
+
+      const cache = await caches.open(CACHE_NAME);
+
+      try {
+
+        await cache.addAll(APP_ASSETS);
+
+      } catch (error) {
+
+        console.error('PD Service Worker: Caching of primary assets failed. Interrupting SW installation...', error);
+        throw error;
+      }
+
+      await self.skipWaiting();
+
+      // Lazy-load non-critical assets in the background
+
+      try {
+
+        await cache.addAll(APP_ASSETS_LAZY);
+        
+      } catch (error) {
+
+        console.warn('PD Service Worker: Lazy-loading of assets interrupted', error);
+      }
+    })()
   );
 });
 
@@ -73,36 +86,56 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys()
-    .then(cacheKeys => Promise.all(
-      cacheKeys
-        .filter(cacheKey => cacheKey.startsWith(CACHE_PREFIX) && cacheKey !== CACHE_NAME)
-        .map(cacheKey => {
-          console.log(`PD Service Worker:\n\n` +
-          `Cached version: v.${cacheKey.slice(CACHE_PREFIX.length).split('').join('.')}\n\n` +
-          `Current version: v.${APP_VERSION}\n\n` +
-          `Clearing outdated cached files...`);
-          return caches.delete(cacheKey);
-        }))
-    ).then(() => self.clients.claim())
+    (async () => {
+
+      const cacheKeys = await caches.keys();
+
+      await Promise.all(
+        cacheKeys
+          .filter(cacheKey => cacheKey.startsWith(CACHE_PREFIX) && cacheKey !== CACHE_NAME)
+          .map(async cacheKey => {
+            console.log(`PD Service Worker:\n\n` +
+              `Cached version: v.${cacheKey.slice(CACHE_PREFIX.length).split('').join('.')}\n\n` +
+              `Current version: v.${APP_VERSION}\n\n` +
+              `Clearing outdated cached files...`);
+            await caches.delete(cacheKey);
+          })
+      );
+
+      await self.clients.claim();
+    })()
   );
 });
 
 // Handle service worker fetch requests
 
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', event => {
 
   const { request } = event;
   const url = new URL(request.url);
 
   // Handle offline behavior of analytics
 
-  if (request.method === 'POST' && url.pathname.includes('goatcounter.com')) {
+  if (url.hostname.includes('gc.zgo.at') || url.hostname.includes('goatcounter.com')) {
+    
+    if (self.location.hostname === 'localhost' ||
+        self.location.hostname.match(/127\.\d{1,3}\.\d{1,3}\.\d{1,3}/)) {
+      
+      event.respondWith(new Response(null, { status: 204, statusText: 'No Content' }));
+      return;
+    }
+
     event.respondWith(
-      navigator.onLine
-        ? fetch(request).catch(() => new Response(''))
-        : new Response('', { status: 200 })
+      fetch(event.request).catch(() => {
+        return new Response(null, { status: 204, statusText: 'No Content' });
+      })
     );
+    return;
+  }
+
+  // Filter out unrelated requests
+
+  if (request.method !== 'GET') {
     return;
   }
 
@@ -110,8 +143,10 @@ self.addEventListener('fetch', (event) => {
 
   if (request.mode === 'navigate') {
     event.respondWith(
-      caches.match('index.html')
-        .then(navResponse => navResponse || caches.match('index.html'))
+      (async () => {
+        const navResponse = await caches.match('index.html');
+        return navResponse || await fetch('index.html');
+      })()
     );
     return;
   }
@@ -147,26 +182,30 @@ async function handleDBCaching(request) {
   }
 
   // Fetch up-to-date DB from network, fall back to cached DB
-  
+
   try {
     console.log(
       `PD Service Worker:\n\n` +
       `Tune DB missing or outdated\n\n` +
       `Fetching a fresh version...`
     );
+
     const networkResponse = await fetch(request);
+
     if (networkResponse?.ok) {
-      appCache.put(request, networkResponse.clone());
+      await appCache.put(request, networkResponse.clone());
       console.log(
         `PD Service Worker:\n\n` +
-        `Tune DB successfully updated`
+        `Tune DB successfully updated\n\n` +
+        `Date: ${networkResponse.headers.get('Date')}`
       );
       return networkResponse;
     }
   } catch (error) {
     console.log(
       `PD Service Worker:\n\n` +
-      `Fetch unsuccessful. Falling back to cached version of Tune DB`);
+      `Fetch unsuccessful. Falling back to cached version of Tune DB`
+    );
   }
 
   if (cachedDB) {
@@ -184,36 +223,32 @@ async function handleDBCaching(request) {
 async function handleAssetCaching(request) {
 
   // Get assets from cache, ignoring search parameters
-
-  const cachedAsset =
-    await caches.match(request, { ignoreSearch: true });
+  const cachedAsset = await caches.match(request, { ignoreSearch: true });
 
   if (cachedAsset) {
     return cachedAsset;
   }
 
   // Get assets from network, fix headers if needed
-
   try {
-
+  
     // Try fetching assets from network
-
     const networkResponse = await fetch(request);
     return networkResponse;
-
-  } catch(error) {
-
+  
+  } catch (error) {
+  
     // Use fallbacks for specific cases
 
-    if (request.destination === 'script' || request.destination === 'font') {
+    if (request.destination === 'script' ||
+        request.destination === 'json' ||
+        request.destination === 'font') {
 
       const cacheKey = new Request(request.url, {
-        method: request.method,
-        headers: request.headers,
+        method: 'GET',
         mode: 'same-origin',
-        credentials: request.credentials,
         cache: 'only-if-cached',
-        redirect: request.redirect
+        credentials: 'omit'
       });
 
       const fallbackResponse =
@@ -225,10 +260,14 @@ async function handleAssetCaching(request) {
     }
 
     if (request.destination === 'image') {
-      return caches.match('assets/screens/placeholder-offline-pd.webp');
+      return await caches.match('assets/screens/placeholder-offline-pd.webp');
     }
 
-    console.warn(`PD Service Worker\n\nOffline: No cached assets available for this <${request.destination}>`, error);
+    // Return a generic failed response if no fallback is available
+
+    console.warn(`PD Service Worker\n\nOffline: No cached assets available for this ${request.destination? request.destination : 'item'}`, error);
+
+    return new Response('', { status: 504, statusText: 'Gateway Timeout' });
   }
 }
 

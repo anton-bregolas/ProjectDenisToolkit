@@ -33,6 +33,11 @@ File Name | DB Name | Description |
 
 ### Toolkit Updates
 
+[v.3.5.2]
+
++ Service worker refactored to async-await syntax for clarity
++ Additional fixes to service worker to correctly handle navigation & analytics
+
 [v.3.5.1]
 
 + Update Tune DB to 2025-12-12 (Fix tunes with reflinks containing commas)
