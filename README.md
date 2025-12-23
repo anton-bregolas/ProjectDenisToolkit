@@ -37,6 +37,7 @@ File Name | DB Name | Description |
 
 + Service worker refactored to async-await syntax for clarity
 + Additional fixes to service worker to correctly handle navigation & analytics
++ Navigate uses cache first, then fetch from network & fall back to cache to handle PWA hard reload
 
 [v.3.5.1]
 
