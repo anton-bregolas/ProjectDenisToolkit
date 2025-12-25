@@ -1,4 +1,4 @@
-const APP_VERSION = '3.5.2.0';
+const APP_VERSION = '3.5.2.2';
 const CACHE_VERSION = APP_VERSION.replaceAll(".", '');
 const CACHE_PREFIX = "pdt-cache-";
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;

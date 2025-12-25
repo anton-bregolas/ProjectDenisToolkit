@@ -4,7 +4,7 @@
 
 With toolkitMode set to 1 in `dm-toolkit.js` it turns off fetch functions on main interface launch and reveals GUI for parsing .tsv files exported from Google Sheets. Use *Parse From File* to automatically convert and split the data into Tune DB JSON files.
 
-https://anton-bregolas.github.io/ProjectDenisToolkit/
+https://pdt.tunebook.app/ or https://anton-bregolas.github.io/ProjectDenisToolkit/
 
 ## Toolkit contents:
 
