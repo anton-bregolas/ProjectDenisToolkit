@@ -1,4 +1,4 @@
-const APP_VERSION = '3.5.2.2';
+const APP_VERSION = '3.5.3.0';
 const CACHE_VERSION = APP_VERSION.replaceAll(".", '');
 const CACHE_PREFIX = "pdt-cache-";
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
@@ -145,24 +145,42 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       (async () => {
 
-        const navCachedResponse =
+        const pageCached =
           await caches.match('index.html');
 
-        if (navCachedResponse) {
-          return navCachedResponse;
+        if (pageCached) {
+          return pageCached;
         }
 
         try {
-          await fetch('index.html');
+          
+          const pageFetched =
+            await fetch('index.html');
+
+          if (pageFetched?.ok) {
+            const cache = await caches.open(CACHE_NAME);
+            cache.put('index.html', pageFetched.clone());
+          }
+
+          return pageFetched;
 
         } catch (error) {
 
+          const indexCached =
+            await caches.match('index.html');
+
+          if (indexCached) return indexCached;
+
+        // Return response with error if no pages available
           console.warn(
             `PD Service Worker:\n\n` +
-            `Failed to fetch page from network, falling back to cached response`
+            `Offline: No cached pages available`
           );
 
-          return navCachedResponse;
+          return new Response(
+            JSON.stringify({ error: 'Offline: No cached pages available' }),
+            { status: 503, headers: { 'Content-Type': 'application/json' } }
+          );
         }
       })()
     );

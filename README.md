@@ -35,6 +35,11 @@ File Name | DB Name | Description |
 
 [v.3.5.2]
 
++ Add fallback service worker logic to handle hard reload while offline
++ Revert Tune DB links to raw GitHub links after testing
+
+[v.3.5.2]
+
 + Service worker refactored to async-await syntax for clarity
 + Additional fixes to service worker to correctly handle navigation & analytics
 + Navigate uses cache first, then fetch from network & fall back to cache to handle PWA hard reload
